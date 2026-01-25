@@ -19,3 +19,9 @@ boot_splash/show_image=false
 [dotnet]
 
 project/assembly_name="Beast Card Clash"
+
+[file_customization]
+
+folder_colors={
+"res://addons/": "teal"
+}
