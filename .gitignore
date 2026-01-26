@@ -23,3 +23,6 @@ mono_crash.*.json
 
 # Exports and builds
 .builds/
+
+# Temp files
+__pycache__/
