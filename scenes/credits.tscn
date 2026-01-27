@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://suub121nq2cd"]
+
+[ext_resource type="Texture2D" uid="uid://bauw0iitfyy0t" path="res://resources/sprites/back_button.png" id="1_0bpdh"]
+[ext_resource type="Script" uid="uid://cpt2kruang5jk" path="res://scripts/credits_back_button.gd" id="2_2ckv8"]
+
+[node name="Credits" type="Control" unique_id=1529966082]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="." unique_id=685567109]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.6, 0.6627451, 0.41568628, 1)
+
+[node name="UpperBar" type="ColorRect" parent="." unique_id=1792725200]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 56.0
+grow_horizontal = 2
+color = Color(0.20279999, 0.26, 0.031200001, 1)
+
+[node name="BackButton" type="TextureButton" parent="UpperBar" unique_id=308908940]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 8.0
+offset_right = 49.0
+offset_bottom = 48.0
+texture_normal = ExtResource("1_0bpdh")
+stretch_mode = 5
+script = ExtResource("2_2ckv8")

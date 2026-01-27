@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://c1gyjxesm65cg"]
+
+[ext_resource type="Texture2D" uid="uid://b5f3rhm0gflu5" path="res://resources/sprites/tutorial_bg.png" id="1_c13y7"]
+[ext_resource type="Texture2D" uid="uid://c3m8p4h1kjph3" path="res://resources/sprites/tutorial_panel_1.png" id="2_4kmhl"]
+[ext_resource type="Script" uid="uid://d2udhlmd4ii60" path="res://scripts/tutorial_panels.gd" id="3_cq4me"]
+[ext_resource type="Texture2D" uid="uid://b7lw8u1ydnd2u" path="res://resources/sprites/next_page_button.png" id="4_6yjpi"]
+[ext_resource type="Texture2D" uid="uid://bmo8uausdhlfy" path="res://resources/sprites/tutorial_panel_2.png" id="4_gbqnl"]
+[ext_resource type="Texture2D" uid="uid://cghyea1c1bxqx" path="res://resources/sprites/tutorial_panel_3.png" id="5_ckvwl"]
+
+[node name="Control" type="Control" unique_id=959098823]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="." unique_id=1330699218]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_c13y7")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="TutorialPanels" type="TextureRect" parent="." unique_id=369405058]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 148.0
+offset_right = -148.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_4kmhl")
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("3_cq4me")
+panels_list = Array[Resource]([ExtResource("2_4kmhl"), ExtResource("4_gbqnl"), ExtResource("5_ckvwl")])
+
+[node name="NextButton" type="TextureButton" parent="." unique_id=1798838304]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -148.0
+offset_top = 94.0
+offset_right = -49.0
+offset_bottom = 171.0
+grow_horizontal = 0
+texture_normal = ExtResource("4_6yjpi")
+
+[connection signal="pressed" from="NextButton" to="TutorialPanels" method="_on_next_button_pressed"]
