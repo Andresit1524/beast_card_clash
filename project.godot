@@ -23,5 +23,10 @@ project/assembly_name="Beast Card Clash"
 [file_customization]
 
 folder_colors={
-"res://addons/": "teal"
+"res://addons/": "teal",
+"res://ai_docs/": "green",
+"res://docs/": "green",
+"res://resources/": "yellow",
+"res://scenes/": "purple",
+"res://scripts/": "blue"
 }

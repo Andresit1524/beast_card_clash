@@ -8,7 +8,8 @@ Para contribuir al desarrollo de BCC, asegúrate de tener lo siguiente:
 ### Requisitos
 - Un sistema operativo compatible (Windows, Linux o macOS).
 - Git y una cuenta de GitHub.
-- [Godot 4.6](https://downloads.godotengine.org/?version=4.6&flavor=stable&slug=win64.exe.zip&platform=windows.64). Opcionalmente, la versión .NET si quieres usar C#.
+- [Godot 4.6](https://downloads.godotengine.org/?version=4.6&flavor=stable&slug=mono_win64.zip&platform=windows.64). Opcionalmente, la versión .NET si quieres usar C#.
+- [Plantillas de exportación de Godot](https://downloads.godotengine.org/?version=4.6&flavor=stable&slug=mono_export_templates.tpz&platform=templates) para poder exportar el juego. Los ajustes de exportación ya vienen en el proyecto
 - Godot será actualizado en la medida de los posible, al menos hasta la versión 4.6.
 - [.NET SDK 8 o superior](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) (opcional, solo si usas C#).
 - Un editor de código como Visual Studio Code o JetBrains Rider (recomendado).
