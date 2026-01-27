@@ -8,10 +8,6 @@
 
 config_version=5
 
-[animation]
-
-compatibility/default_parent_skeleton_in_mesh_instance_3d=true
-
 [application]
 
 config/name="Beast Card Clash"
@@ -22,6 +18,7 @@ config/features=PackedStringArray("4.6")
 [autoload]
 
 DialogueManager="*uid://c3rodes2l3gxb"
+SceneManager="*uid://c7qpxa5bjkyo6"
 
 [dotnet]
 
@@ -29,15 +26,13 @@ project/assembly_name="Beast Card Clash"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg")
+enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg", "res://addons/markdownlabel/plugin.cfg")
 
 [file_customization]
 
 folder_colors={
 "res://addons/": "teal",
-"res://ai_docs/": "green",
-"res://docs/": "green",
-"res://resources/": "yellow",
-"res://scenes/": "purple",
-"res://scripts/": "blue"
+"res://autoload/": "blue",
+"res://fonts/": "gray",
+"res://ui/": "yellow"
 }

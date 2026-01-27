@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://c1gyjxesm65cg"]
+
+[ext_resource type="Texture2D" uid="uid://b5f3rhm0gflu5" path="res://ui/tutorial/resources/tutorial_bg.png" id="1_sqcm7"]
+[ext_resource type="Texture2D" uid="uid://c3m8p4h1kjph3" path="res://ui/tutorial/panels/tutorial_panel_1.png" id="2_3nh40"]
+[ext_resource type="Script" uid="uid://d2udhlmd4ii60" path="res://ui/tutorial/tutorial_buttons.gd" id="3_xpy58"]
+[ext_resource type="Texture2D" uid="uid://b7lw8u1ydnd2u" path="res://ui/tutorial/resources/next_page_button.png" id="4_aw2cu"]
+[ext_resource type="Texture2D" uid="uid://bmo8uausdhlfy" path="res://ui/tutorial/panels/tutorial_panel_2.png" id="4_xpy58"]
+[ext_resource type="Texture2D" uid="uid://cghyea1c1bxqx" path="res://ui/tutorial/panels/tutorial_panel_3.png" id="5_aw2cu"]
+[ext_resource type="Texture2D" uid="uid://b0m34aaou5stc" path="res://ui/tutorial/resources/skip_button.png" id="5_leiwb"]
+
+[node name="Tutorial" type="Control" unique_id=959098823]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="." unique_id=1330699218]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_sqcm7")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="TutorialPanels" type="TextureRect" parent="." unique_id=369405058]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 148.0
+offset_right = -148.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_3nh40")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Buttons" type="VBoxContainer" parent="." unique_id=296258002 node_paths=PackedStringArray("panel_node")]
+layout_mode = 0
+offset_left = 1004.0
+offset_top = 96.0
+offset_right = 1103.0
+offset_bottom = 307.0
+script = ExtResource("3_xpy58")
+panels_list = Array[Resource]([ExtResource("2_3nh40"), ExtResource("4_xpy58"), ExtResource("5_aw2cu")])
+panel_node = NodePath("../TutorialPanels")
+
+[node name="NextButton" type="TextureButton" parent="Buttons" unique_id=1798838304]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+texture_normal = ExtResource("4_aw2cu")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="SkipButton" type="TextureButton" parent="Buttons" unique_id=959959469]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+texture_normal = ExtResource("5_leiwb")
+ignore_texture_size = true
+stretch_mode = 5
+
+[connection signal="pressed" from="Buttons/NextButton" to="Buttons" method="next_panel"]
+[connection signal="pressed" from="Buttons/SkipButton" to="Buttons" method="skip_tutorial"]

@@ -1,7 +1,0 @@
-[gd_resource type="Theme" format=3 uid="uid://bbvjofuk7qjdm"]
-
-[ext_resource type="FontFile" uid="uid://c2a2hhmgvg27a" path="res://resources/fonts/poppin_regular.ttf" id="1_1qydv"]
-
-[resource]
-default_font = ExtResource("1_1qydv")
-default_font_size = 32

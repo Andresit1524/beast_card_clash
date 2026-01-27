@@ -25,20 +25,20 @@ PROJECT_ROOT = SCRIPT_DIR.parent
 
 # Directorios a escanear, de salida y del prompt
 SCAN_ROOT_DIR = PROJECT_ROOT
-OUTPUT_DOCS_DIR = PROJECT_ROOT / "ai_docs"
+OUTPUT_DOCS_DIR = PROJECT_ROOT / ".ai_docs"
 PROMPT_FILE_PATH = SCRIPT_DIR / "prompt.md"
 
 # Directorios a excluir del escaneo
 EXCLUDED_DIRS = {
+    ".ai_docs",
     ".builds",
     ".doc_maker",
+    ".docs",
     ".git",
     ".godot",
     ".idea",
     ".vscode",
     "addons",
-    "ai_docs",
-    "docs",
 }
 
 # Configuración de la API de Gemini
