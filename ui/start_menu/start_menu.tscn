@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://dr0fenfnqsha3"]
+
+[ext_resource type="Texture2D" uid="uid://d327mbcq5lakc" path="res://ui/start_menu/resources/start_menu_bg.png" id="1_dkj6a"]
+[ext_resource type="FontFile" uid="uid://c2a2hhmgvg27a" path="res://fonts/poppin_regular.ttf" id="2_0uyxu"]
+[ext_resource type="Script" uid="uid://drfmf0bbfulxo" path="res://ui/start_menu/start_menu_buttons.gd" id="3_0h8rd"]
+[ext_resource type="PackedScene" uid="uid://suub121nq2cd" path="res://ui/credits/credits.tscn" id="4_4g1kg"]
+[ext_resource type="PackedScene" uid="uid://c1gyjxesm65cg" path="res://ui/tutorial/tutorial.tscn" id="5_wnxcw"]
+[ext_resource type="Theme" uid="uid://bbvjofuk7qjdm" path="res://ui/start_menu/button_themes/buttons_font_theme.tres" id="6_1w3tn"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_m7x51"]
+font = ExtResource("2_0uyxu")
+font_size = 80
+font_color = Color(0.18687999, 0.24, 0.0408, 1)
+
+[node name="StartMenu" type="Control" unique_id=1303556367]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="." unique_id=2020571347]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_dkj6a")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Title" type="Label" parent="." unique_id=546501617]
+layout_mode = 1
+offset_left = 101.0
+offset_top = 96.0
+offset_right = 586.0
+offset_bottom = 260.0
+text = "Beast Card Clash"
+label_settings = SubResource("LabelSettings_m7x51")
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Buttons" type="VBoxContainer" parent="." unique_id=1085545832]
+layout_mode = 0
+offset_left = 101.0
+offset_top = 356.0
+offset_right = 348.0
+offset_bottom = 535.0
+alignment = 1
+script = ExtResource("3_0h8rd")
+credits_scene = ExtResource("4_4g1kg")
+tutorial_scene = ExtResource("5_wnxcw")
+
+[node name="PlayButton" type="Button" parent="Buttons" unique_id=882021670]
+layout_mode = 2
+theme = ExtResource("6_1w3tn")
+text = "Jugar"
+
+[node name="CreditsButton" type="Button" parent="Buttons" unique_id=1698792371]
+layout_mode = 2
+theme = ExtResource("6_1w3tn")
+text = "Créditos"
+
+[node name="QuitButton" type="Button" parent="Buttons" unique_id=1708660283]
+layout_mode = 2
+theme = ExtResource("6_1w3tn")
+text = "Salir"
+
+[connection signal="pressed" from="Buttons/PlayButton" to="Buttons" method="_on_play_button_pressed"]
+[connection signal="pressed" from="Buttons/CreditsButton" to="Buttons" method="_on_credits_button_pressed"]
+[connection signal="pressed" from="Buttons/QuitButton" to="Buttons" method="_on_quit_button_pressed"]

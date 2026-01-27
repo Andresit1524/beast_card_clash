@@ -12,21 +12,27 @@ config_version=5
 
 config/name="Beast Card Clash"
 config/version="0.1"
-config/features=PackedStringArray("4.5")
-boot_splash/bg_color=Color(0.5, 0.5, 0.5, 1)
-boot_splash/show_image=false
+run/main_scene="uid://dr0fenfnqsha3"
+config/features=PackedStringArray("4.6")
+
+[autoload]
+
+DialogueManager="*uid://c3rodes2l3gxb"
+SceneManager="*uid://c7qpxa5bjkyo6"
 
 [dotnet]
 
 project/assembly_name="Beast Card Clash"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg", "res://addons/markdownlabel/plugin.cfg")
+
 [file_customization]
 
 folder_colors={
 "res://addons/": "teal",
-"res://ai_docs/": "green",
-"res://docs/": "green",
-"res://resources/": "yellow",
-"res://scenes/": "purple",
-"res://scripts/": "blue"
+"res://autoload/": "blue",
+"res://fonts/": "gray",
+"res://ui/": "yellow"
 }

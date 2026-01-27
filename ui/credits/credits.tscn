@@ -1,0 +1,77 @@
+[gd_scene format=3 uid="uid://suub121nq2cd"]
+
+[ext_resource type="Texture2D" uid="uid://bauw0iitfyy0t" path="res://ui/credits/resources/back_button.png" id="1_0bpdh"]
+[ext_resource type="Texture2D" uid="uid://b5f3rhm0gflu5" path="res://ui/tutorial/resources/tutorial_bg.png" id="1_ff1l7"]
+[ext_resource type="Script" uid="uid://cpt2kruang5jk" path="res://ui/credits/credits_back_button.gd" id="2_2ckv8"]
+[ext_resource type="Texture2D" uid="uid://qy7gv8l4lgj1" path="res://ui/credits/resources/godot_logo.png" id="4_umgus"]
+
+[node name="Credits" type="Control" unique_id=1529966082]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="." unique_id=121481608]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_ff1l7")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="UpperBar" type="ColorRect" parent="." unique_id=1792725200]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 56.0
+grow_horizontal = 2
+color = Color(0.20279999, 0.26, 0.031200001, 1)
+
+[node name="BackButton" type="TextureButton" parent="UpperBar" unique_id=308908940]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 8.0
+offset_right = 49.0
+offset_bottom = 48.0
+texture_normal = ExtResource("1_0bpdh")
+stretch_mode = 5
+script = ExtResource("2_2ckv8")
+
+[node name="Content" type="HBoxContainer" parent="." unique_id=677869106]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 160.0
+offset_top = 56.0
+offset_right = -160.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="LeftColumn" type="VBoxContainer" parent="Content" unique_id=1986401723]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Content/LeftColumn" unique_id=2119059289]
+layout_mode = 2
+text = "Hecho con"
+
+[node name="TextureRect" type="TextureRect" parent="Content/LeftColumn" unique_id=1809208040]
+custom_minimum_size = Vector2(300, 200)
+layout_mode = 2
+texture = ExtResource("4_umgus")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="RightColumn" type="VBoxContainer" parent="Content" unique_id=1478334255]
+layout_mode = 2
+alignment = 1
+
+[connection signal="pressed" from="UpperBar/BackButton" to="UpperBar/BackButton" method="_on_pressed"]
