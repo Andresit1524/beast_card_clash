@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bka0d50qmnb8y"]
+[gd_scene format=3 uid="uid://bka0d50qmnb8y"]
 
 [ext_resource type="Script" uid="uid://bm7huuxd3k4yu" path="res://addons/markdownlabel/example.gd" id="1_7b8dd"]
 [ext_resource type="Script" uid="uid://dbap0gqox0ty1" path="res://addons/markdownlabel/markdownlabel.gd" id="2_opcio"]

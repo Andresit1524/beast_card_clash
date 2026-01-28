@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b5f3rhm0gflu5" path="res://ui/tutorial/resources/tutorial_bg.png" id="1_ff1l7"]
 [ext_resource type="Script" uid="uid://cpt2kruang5jk" path="res://ui/credits/credits_back_button.gd" id="2_2ckv8"]
 [ext_resource type="Texture2D" uid="uid://qy7gv8l4lgj1" path="res://ui/credits/resources/godot_logo.png" id="4_umgus"]
+[ext_resource type="AudioStream" uid="uid://cw6yfwstm10it" path="res://music/start_menu_tobyfox.mp3" id="5_sunqn"]
 
 [node name="Credits" type="Control" unique_id=1529966082]
 layout_mode = 3
@@ -73,5 +74,10 @@ stretch_mode = 5
 [node name="RightColumn" type="VBoxContainer" parent="Content" unique_id=1478334255]
 layout_mode = 2
 alignment = 1
+
+[node name="Music" type="AudioStreamPlayer" parent="." unique_id=109113734]
+stream = ExtResource("5_sunqn")
+autoplay = true
+parameters/looping = true
 
 [connection signal="pressed" from="UpperBar/BackButton" to="UpperBar/BackButton" method="_on_pressed"]
