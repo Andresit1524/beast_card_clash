@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cnm67htuohhlo"
-path.s3tc="res://.godot/imported/banner.png-7e9e6a304eef850602c8d5afb80df9c3.s3tc.ctex"
+uid="uid://dofdrsv4407nq"
+path.s3tc="res://.godot/imported/panda_bear.png-6c04ad234cf7803efb5e683c566bff8c.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://addons/dialogue_manager/assets/banner.png"
-dest_files=["res://.godot/imported/banner.png-7e9e6a304eef850602c8d5afb80df9c3.s3tc.ctex"]
+source_file="res://characters/bear/skins/panda_bear.png"
+dest_files=["res://.godot/imported/panda_bear.png-6c04ad234cf7803efb5e683c566bff8c.s3tc.ctex"]
 
 [params]
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cnm67htuohhlo"
-path.s3tc="res://.godot/imported/banner.png-7e9e6a304eef850602c8d5afb80df9c3.s3tc.ctex"
+uid="uid://cl11asc8kr66a"
+path.s3tc="res://.godot/imported/perez_frog.png-9bcc2d4de17ee30f56767c9f42af65f0.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://addons/dialogue_manager/assets/banner.png"
-dest_files=["res://.godot/imported/banner.png-7e9e6a304eef850602c8d5afb80df9c3.s3tc.ctex"]
+source_file="res://characters/frog/skins/perez_frog.png"
+dest_files=["res://.godot/imported/perez_frog.png-9bcc2d4de17ee30f56767c9f42af65f0.s3tc.ctex"]
 
 [params]
 

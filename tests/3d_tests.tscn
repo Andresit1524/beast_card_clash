@@ -1,8 +1,3 @@
 [gd_scene format=3 uid="uid://e60v4jir721y"]
 
-[ext_resource type="PackedScene" uid="uid://bj2s4w52lriog" path="res://models/bear/bear.fbx" id="1_0cvnh"]
-
-[node name="3dTests" type="Node3D" unique_id=1581092721]
-
-[node name="Bear" parent="." unique_id=814949659 instance=ExtResource("1_0cvnh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22290587, 0, 0.74053836)
+[node name="3DTests" type="Node3D" unique_id=1581092721]

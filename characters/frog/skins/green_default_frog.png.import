@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cnm67htuohhlo"
-path.s3tc="res://.godot/imported/banner.png-7e9e6a304eef850602c8d5afb80df9c3.s3tc.ctex"
+uid="uid://cbu3e5ecjpvq2"
+path.s3tc="res://.godot/imported/green_default_frog.png-18c1827d066d73091889070e4b717f74.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://addons/dialogue_manager/assets/banner.png"
-dest_files=["res://.godot/imported/banner.png-7e9e6a304eef850602c8d5afb80df9c3.s3tc.ctex"]
+source_file="res://characters/frog/skins/green_default_frog.png"
+dest_files=["res://.godot/imported/green_default_frog.png-18c1827d066d73091889070e4b717f74.s3tc.ctex"]
 
 [params]
 

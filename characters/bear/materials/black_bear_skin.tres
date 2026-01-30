@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://ctv1i7cwryr6l"]
+
+[ext_resource type="Texture2D" uid="uid://1ifecbsdesy3" path="res://characters/bear/skins/black_bear.png" id="1_k8t02"]
+
+[resource]
+albedo_texture = ExtResource("1_k8t02")
