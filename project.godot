@@ -23,6 +23,7 @@ config/features=PackedStringArray("4.6")
 
 DialogueManager="*uid://c3rodes2l3gxb"
 SceneManager="*uid://c7qpxa5bjkyo6"
+MusicManager="*uid://dv2bd61v3fdf0"
 
 [dotnet]
 

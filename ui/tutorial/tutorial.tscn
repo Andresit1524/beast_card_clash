@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://bmo8uausdhlfy" path="res://ui/tutorial/panels/tutorial_panel_2.png" id="4_xpy58"]
 [ext_resource type="Texture2D" uid="uid://cghyea1c1bxqx" path="res://ui/tutorial/panels/tutorial_panel_3.png" id="5_aw2cu"]
 [ext_resource type="Texture2D" uid="uid://b0m34aaou5stc" path="res://ui/tutorial/resources/skip_button.png" id="5_leiwb"]
-[ext_resource type="AudioStream" uid="uid://cw6yfwstm10it" path="res://music/start_menu_tobyfox.mp3" id="8_aw2cu"]
 
 [node name="Tutorial" type="Control" unique_id=959098823]
 layout_mode = 3
@@ -64,11 +63,6 @@ layout_mode = 2
 texture_normal = ExtResource("5_leiwb")
 ignore_texture_size = true
 stretch_mode = 5
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=777998667]
-stream = ExtResource("8_aw2cu")
-autoplay = true
-parameters/looping = true
 
 [connection signal="pressed" from="Buttons/NextButton" to="Buttons" method="next_panel"]
 [connection signal="pressed" from="Buttons/SkipButton" to="Buttons" method="skip_tutorial"]

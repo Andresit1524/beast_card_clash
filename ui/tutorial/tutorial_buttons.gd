@@ -5,8 +5,8 @@ extends VBoxContainer
 
 var current_panel: int = 0
 
-func _ready():
-    # Fuerza a mostrar el primer panel al inicio
+# Fuerza a mostrar el primer panel al inicio
+func _ready() -> void:
     panel_node.texture = panels_list[0]
 
 # Cambia de panel_node cuando se presiona el botón de siguiente panel
@@ -21,6 +21,6 @@ func next_panel() -> void:
 
 # Se salta el tutorial
 # ! Por ahora no está la lógica para esto
-func skip_tutorial():
+func skip_tutorial() -> void:
     print("[Info] Salta el tutorial!")
     return

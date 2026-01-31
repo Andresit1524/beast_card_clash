@@ -1,12 +1,9 @@
 [gd_scene format=3 uid="uid://dr0fenfnqsha3"]
 
 [ext_resource type="Texture2D" uid="uid://d327mbcq5lakc" path="res://ui/start_menu/resources/start_menu_bg.png" id="1_dkj6a"]
+[ext_resource type="Script" uid="uid://beoirwmdxe68h" path="res://ui/start_menu/start_menu.gd" id="1_nhkli"]
 [ext_resource type="FontFile" uid="uid://c2a2hhmgvg27a" path="res://fonts/poppin_regular.ttf" id="2_0uyxu"]
-[ext_resource type="Script" uid="uid://drfmf0bbfulxo" path="res://ui/start_menu/start_menu_buttons.gd" id="3_0h8rd"]
-[ext_resource type="PackedScene" uid="uid://suub121nq2cd" path="res://ui/credits/credits.tscn" id="4_4g1kg"]
-[ext_resource type="PackedScene" uid="uid://c1gyjxesm65cg" path="res://ui/tutorial/tutorial.tscn" id="5_wnxcw"]
 [ext_resource type="Theme" uid="uid://bbvjofuk7qjdm" path="res://ui/start_menu/button_themes/buttons_font_theme.tres" id="6_1w3tn"]
-[ext_resource type="AudioStream" uid="uid://cw6yfwstm10it" path="res://music/start_menu_tobyfox.mp3" id="7_7vb20"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_m7x51"]
 font = ExtResource("2_0uyxu")
@@ -20,6 +17,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_nhkli")
 
 [node name="Background" type="TextureRect" parent="." unique_id=2020571347]
 layout_mode = 1
@@ -50,9 +48,6 @@ offset_top = 356.0
 offset_right = 348.0
 offset_bottom = 535.0
 alignment = 1
-script = ExtResource("3_0h8rd")
-credits_scene = ExtResource("4_4g1kg")
-tutorial_scene = ExtResource("5_wnxcw")
 
 [node name="PlayButton" type="Button" parent="Buttons" unique_id=882021670]
 layout_mode = 2
@@ -69,11 +64,6 @@ layout_mode = 2
 theme = ExtResource("6_1w3tn")
 text = "Salir"
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1196711616]
-stream = ExtResource("7_7vb20")
-autoplay = true
-parameters/looping = true
-
-[connection signal="pressed" from="Buttons/PlayButton" to="Buttons" method="_on_play_button_pressed"]
-[connection signal="pressed" from="Buttons/CreditsButton" to="Buttons" method="_on_credits_button_pressed"]
-[connection signal="pressed" from="Buttons/QuitButton" to="Buttons" method="_on_quit_button_pressed"]
+[connection signal="pressed" from="Buttons/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="Buttons/CreditsButton" to="." method="_on_credits_button_pressed"]
+[connection signal="pressed" from="Buttons/QuitButton" to="." method="_on_quit_button_pressed"]
