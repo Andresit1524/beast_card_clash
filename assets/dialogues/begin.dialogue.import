@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://b4gks2moyuand"
+path="res://.godot/imported/begin.dialogue-696ec2d2e76263fbac3327506d198b76.tres"
+
+[deps]
+
+source_file="res://assets/dialogues/begin.dialogue"
+dest_files=["res://.godot/imported/begin.dialogue-696ec2d2e76263fbac3327506d198b76.tres"]
+
+[params]
+
+defaults=true

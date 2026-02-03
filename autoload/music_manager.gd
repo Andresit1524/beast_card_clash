@@ -1,14 +1,14 @@
 extends AudioStreamPlayer
 
 ## Lista de canciones disponibles (en la carpeta [code]music[/code])
-var playlist: Dictionary[String, AudioStream] = {
+var _playlist: Dictionary[String, AudioStream] = {
     "start_menu": preload("uid://cw6yfwstm10it")
 }
 
 ## Reproduce la canción indicada por su nombre exacto.
 ## Consulta en el singleton por los nombres dispoibles
 func play_music(music_name: String) -> void:
-    stream = playlist[music_name]
+    stream = _playlist[music_name]
     play()
 
 ## Alterna o cambia la reproducción la canción actual

@@ -21,9 +21,10 @@ config/features=PackedStringArray("4.6")
 
 [autoload]
 
-DialogueManager="*uid://c3rodes2l3gxb"
+Flags="*uid://b3f4siwyi6khy"
 SceneManager="*uid://c7qpxa5bjkyo6"
 MusicManager="*uid://dv2bd61v3fdf0"
+DialogueManager="*uid://c3rodes2l3gxb"
 
 [dotnet]
 
@@ -41,3 +42,7 @@ folder_colors={
 "res://assets/tests/": "red",
 "res://autoload/": "blue"
 }
+
+[internationalization]
+
+locale/translations_pot_files=PackedStringArray("res://assets/dialogues/lose.dialogue", "res://assets/dialogues/begin.dialogue", "res://assets/dialogues/pregame.dialogue", "res://assets/dialogues/win.dialogue", "res://assets/dialogues/begin_placeholder.dialogue")
