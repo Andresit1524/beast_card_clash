@@ -9,18 +9,18 @@ var current_panel: int = 0
 func _ready() -> void:
     panel_node.texture = panels_list[0]
 
-# Cambia de panel_node cuando se presiona el botón de siguiente panel
-func next_panel() -> void:
+## Cambia de panel_node cuando se presiona el botón de siguiente panel
+func _on_next_button_pressed() -> void:
     current_panel += 1
 
     if current_panel >= panels_list.size():
-        skip_tutorial()
+        _on_skip_button_pressed()
         return
 
     panel_node.texture = panels_list[current_panel]
 
-# Se salta el tutorial
-# ! Por ahora no está la lógica para esto
-func skip_tutorial() -> void:
+## Se salta el tutorial.
+## ! Por ahora no está la lógica para esto
+func _on_skip_button_pressed() -> void:
     print("[Info] Salta el tutorial!")
     return

@@ -64,5 +64,5 @@ texture_normal = ExtResource("5_leiwb")
 ignore_texture_size = true
 stretch_mode = 5
 
-[connection signal="pressed" from="Buttons/NextButton" to="Buttons" method="next_panel"]
-[connection signal="pressed" from="Buttons/SkipButton" to="Buttons" method="skip_tutorial"]
+[connection signal="pressed" from="Buttons/NextButton" to="Buttons" method="_on_next_button_pressed"]
+[connection signal="pressed" from="Buttons/SkipButton" to="Buttons" method="_on_skip_button_pressed"]
