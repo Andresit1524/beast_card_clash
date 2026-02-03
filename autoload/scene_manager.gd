@@ -1,10 +1,10 @@
 extends Node
 
-## Lista de escenas disponibles
+## Lista de escenas disponibles (referenciadas por UID)
 var scenes: Dictionary[String, PackedScene] = {
-    "start": preload("res://ui/start_menu/start_menu.tscn"),
-    "credits": preload("res://ui/credits/credits.tscn"),
-    "tutorial": preload("res://ui/tutorial/tutorial.tscn")
+    "start_menu": preload("uid://dr0fenfnqsha3"),
+    "credits": preload("uid://suub121nq2cd"),
+    "tutorial": preload("uid://c1gyjxesm65cg")
 }
 
 ## Pasa a la escena indicada por su nombre exacto.

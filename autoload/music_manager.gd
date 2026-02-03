@@ -2,7 +2,7 @@ extends AudioStreamPlayer
 
 ## Lista de canciones disponibles (en la carpeta [code]music[/code])
 var playlist: Dictionary[String, AudioStream] = {
-    "start_menu": preload("res://music/start_menu_tobyfox.mp3")
+    "start_menu": preload("uid://cw6yfwstm10it")
 }
 
 ## Reproduce la canción indicada por su nombre exacto.

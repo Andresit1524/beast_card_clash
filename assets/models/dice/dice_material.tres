@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://nsf2tmjonhwi"]
+
+[ext_resource type="Texture2D" uid="uid://clhvloawjqqk" path="res://assets/models/dice/dice_texture.png" id="1_vi6rv"]
+[ext_resource type="Texture2D" uid="uid://dgpjik5pmuwya" path="res://assets/models/dice/dice_normal.png" id="2_eqe33"]
+
+[resource]
+albedo_texture = ExtResource("1_vi6rv")
+normal_enabled = true
+normal_texture = ExtResource("2_eqe33")

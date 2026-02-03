@@ -1,6 +1,0 @@
-[gd_resource type="StandardMaterial3D" format=3 uid="uid://c6xr8tv2oqwy8"]
-
-[ext_resource type="Texture2D" uid="uid://cbu3e5ecjpvq2" path="res://characters/frog/skins/green_default_frog.png" id="1_87jjb"]
-
-[resource]
-albedo_texture = ExtResource("1_87jjb")
