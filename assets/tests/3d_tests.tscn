@@ -1,7 +1,12 @@
 [gd_scene format=3 uid="uid://e60v4jir721y"]
 
+[ext_resource type="PackedScene" uid="uid://c2bre6cen67xc" path="res://assets/models/characters.blend" id="1_7yiwo"]
+
 [node name="3DTests" type="Node3D" unique_id=1581092721]
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=256613391]
-transform = Transform3D(0.9999709, 0.00665536, -0.0037240565, -0.0045547527, 0.91282964, 0.4083153, 0.0061169146, -0.40828648, 0.91283333, -0.11321187, 9.179368, 14.875393)
-fov = 53.437496
+[node name="Camera3D" type="Camera3D" parent="." unique_id=179300957]
+transform = Transform3D(1, 0, 0, 0, 0.9652267, 0.26141423, 0, -0.26141423, 0.9652267, 2.3841858e-07, 1.5204132, 1.7310495)
+fov = 86.45696
+
+[node name="characters" parent="." unique_id=681502369 instance=ExtResource("1_7yiwo")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)

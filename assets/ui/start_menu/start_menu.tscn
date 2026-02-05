@@ -54,6 +54,11 @@ layout_mode = 2
 theme = ExtResource("6_1w3tn")
 text = "Jugar"
 
+[node name="TutorialButton" type="Button" parent="Buttons" unique_id=370726803]
+layout_mode = 2
+theme = ExtResource("6_1w3tn")
+text = "Tutorial"
+
 [node name="CreditsButton" type="Button" parent="Buttons" unique_id=1698792371]
 layout_mode = 2
 theme = ExtResource("6_1w3tn")
@@ -65,5 +70,6 @@ theme = ExtResource("6_1w3tn")
 text = "Salir"
 
 [connection signal="pressed" from="Buttons/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="Buttons/TutorialButton" to="." method="_on_tutorial_button_pressed"]
 [connection signal="pressed" from="Buttons/CreditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="pressed" from="Buttons/QuitButton" to="." method="_on_quit_button_pressed"]

@@ -16,15 +16,14 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="Beast Card Clash"
 config/version="0.1"
-run/main_scene="uid://dr0fenfnqsha3"
 config/features=PackedStringArray("4.6")
 
 [autoload]
 
-Flags="*uid://b3f4siwyi6khy"
-SceneManager="*uid://c7qpxa5bjkyo6"
-MusicManager="*uid://dv2bd61v3fdf0"
 DialogueManager="*uid://c3rodes2l3gxb"
+SceneManager="*uid://c7qpxa5bjkyo6"
+Flags="*uid://b3f4siwyi6khy"
+MusicManager="*uid://dv2bd61v3fdf0"
 
 [dotnet]
 
@@ -46,7 +45,3 @@ folder_colors={
 [internationalization]
 
 locale/translations_pot_files=PackedStringArray("res://assets/dialogues/lose.dialogue", "res://assets/dialogues/begin.dialogue", "res://assets/dialogues/pregame.dialogue", "res://assets/dialogues/win.dialogue")
-
-[plugins]
-
-git_bash_here/shortcut=Resource("uid://df2ve8i42uprp", "res://addons/git_bash_here/git_bash_here_shortcut.tres")
