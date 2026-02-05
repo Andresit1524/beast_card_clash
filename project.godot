@@ -32,7 +32,7 @@ project/assembly_name="Beast Card Clash"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg", "res://addons/markdownlabel/plugin.cfg")
+enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg", "res://addons/git_bash_here/plugin.cfg", "res://addons/markdownlabel/plugin.cfg")
 
 [file_customization]
 
@@ -45,4 +45,8 @@ folder_colors={
 
 [internationalization]
 
-locale/translations_pot_files=PackedStringArray("res://assets/dialogues/lose.dialogue", "res://assets/dialogues/begin.dialogue", "res://assets/dialogues/pregame.dialogue", "res://assets/dialogues/win.dialogue", "res://assets/dialogues/begin_placeholder.dialogue")
+locale/translations_pot_files=PackedStringArray("res://assets/dialogues/lose.dialogue", "res://assets/dialogues/begin.dialogue", "res://assets/dialogues/pregame.dialogue", "res://assets/dialogues/win.dialogue")
+
+[plugins]
+
+git_bash_here/shortcut=Resource("uid://df2ve8i42uprp", "res://addons/git_bash_here/git_bash_here_shortcut.tres")
