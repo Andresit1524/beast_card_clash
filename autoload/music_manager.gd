@@ -19,7 +19,7 @@ func switch_music_playing(on = null) -> void:
 
     # Error: no es un valor booleano
     if not (on is bool):
-        print("[Error] Tipo de dato incorrecto en MusicManager.switch_music_playing(). Se espera un valor booleano")
+        push_error("Tipo de dato incorrecto en MusicManager. Se espera un valor booleano")
 
     stream_paused = on
     return

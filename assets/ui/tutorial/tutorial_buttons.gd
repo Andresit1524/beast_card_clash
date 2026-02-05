@@ -22,5 +22,5 @@ func _on_next_button_pressed() -> void:
 ## Se salta el tutorial.
 ## ! Por ahora no está la lógica para esto
 func _on_skip_button_pressed() -> void:
-    print("[Info] Salta el tutorial!")
+    print_debug("¡Salta el tutorial!")
     return
