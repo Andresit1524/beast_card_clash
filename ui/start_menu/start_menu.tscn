@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://suub121nq2cd" path="res://ui/credits/credits.tscn" id="4_4g1kg"]
 [ext_resource type="PackedScene" uid="uid://c1gyjxesm65cg" path="res://ui/tutorial/tutorial.tscn" id="5_wnxcw"]
 [ext_resource type="Theme" uid="uid://bbvjofuk7qjdm" path="res://ui/start_menu/button_themes/buttons_font_theme.tres" id="6_1w3tn"]
+[ext_resource type="Texture2D" uid="uid://dtf4cixa2h8y3" path="res://ui/start_menu/resources/Posible logo simple.png" id="7_7vb20"]
+[ext_resource type="FontFile" uid="uid://doh588hhbgr7d" path="res://fonts/TiltWarp-Regular-VariableFont_XROT,YROT.ttf" id="7_ea51b"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_m7x51"]
 font = ExtResource("2_0uyxu")
@@ -33,41 +35,69 @@ stretch_mode = 6
 
 [node name="Title" type="Label" parent="." unique_id=546501617]
 layout_mode = 1
-offset_left = 101.0
-offset_top = 96.0
-offset_right = 586.0
-offset_bottom = 260.0
-text = "Beast Card Clash"
+offset_left = 652.0
+offset_top = 44.0
+offset_right = 1137.0
+offset_bottom = 208.0
 label_settings = SubResource("LabelSettings_m7x51")
 vertical_alignment = 1
 autowrap_mode = 2
 
+[node name="QuitButton" type="Button" parent="." unique_id=1708660283]
+layout_mode = 0
+offset_left = 1093.0
+offset_top = 1.0
+offset_right = 1147.0
+offset_bottom = 48.0
+theme = ExtResource("6_1w3tn")
+text = "x"
+
 [node name="Buttons" type="VBoxContainer" parent="." unique_id=1085545832]
 layout_mode = 0
-offset_left = 101.0
-offset_top = 356.0
-offset_right = 348.0
-offset_bottom = 535.0
+offset_left = 81.0
+offset_top = 304.0
+offset_right = 515.0
+offset_bottom = 564.0
 alignment = 1
 script = ExtResource("3_0h8rd")
 credits_scene = ExtResource("4_4g1kg")
 tutorial_scene = ExtResource("5_wnxcw")
 
-[node name="PlayButton" type="Button" parent="Buttons" unique_id=882021670]
+[node name="Jugar" type="Button" parent="Buttons" unique_id=882021670]
 layout_mode = 2
 theme = ExtResource("6_1w3tn")
+theme_override_fonts/font = ExtResource("7_ea51b")
 text = "Jugar"
 
-[node name="CreditsButton" type="Button" parent="Buttons" unique_id=1698792371]
+[node name="Multijugador" type="Button" parent="Buttons" unique_id=205565828]
 layout_mode = 2
 theme = ExtResource("6_1w3tn")
+theme_override_fonts/font = ExtResource("7_ea51b")
+text = "Modo Multijugador"
+
+[node name="Info_ ¿Cómo se juega?" type="Button" parent="Buttons" unique_id=154259622]
+layout_mode = 2
+theme = ExtResource("6_1w3tn")
+theme_override_fonts/font = ExtResource("7_ea51b")
+text = "¿Cómo se juega?"
+
+[node name="Creditos" type="Button" parent="Buttons" unique_id=1698792371]
+layout_mode = 2
+theme = ExtResource("6_1w3tn")
+theme_override_fonts/font = ExtResource("7_ea51b")
 text = "Créditos"
 
-[node name="QuitButton" type="Button" parent="Buttons" unique_id=1708660283]
-layout_mode = 2
-theme = ExtResource("6_1w3tn")
-text = "Salir"
+[node name="PosibleLogoSimple" type="TextureRect" parent="." unique_id=1347747739]
+layout_mode = 0
+offset_left = 157.0
+offset_top = 71.0
+offset_right = 608.0
+offset_bottom = 426.0
+scale = Vector2(0.595898, 0.60915494)
+texture = ExtResource("7_7vb20")
 
-[connection signal="pressed" from="Buttons/PlayButton" to="Buttons" method="_on_play_button_pressed"]
-[connection signal="pressed" from="Buttons/CreditsButton" to="Buttons" method="_on_credits_button_pressed"]
-[connection signal="pressed" from="Buttons/QuitButton" to="Buttons" method="_on_quit_button_pressed"]
+[connection signal="pressed" from="QuitButton" to="Buttons" method="_on_quit_button_pressed"]
+[connection signal="pressed" from="Buttons/Jugar" to="Buttons" method="_on_play_button_pressed"]
+[connection signal="pressed" from="Buttons/Multijugador" to="Buttons" method="_on_play_button_pressed"]
+[connection signal="pressed" from="Buttons/Info_ ¿Cómo se juega?" to="Buttons" method="_on_play_button_pressed"]
+[connection signal="pressed" from="Buttons/Creditos" to="Buttons" method="_on_credits_button_pressed"]
