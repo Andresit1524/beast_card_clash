@@ -16,6 +16,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="Beast Card Clash"
 config/version="0.1"
+run/main_scene="uid://dr0fenfnqsha3"
 config/features=PackedStringArray("4.6")
 
 [autoload]
@@ -31,7 +32,7 @@ project/assembly_name="Beast Card Clash"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg", "res://addons/git_bash_here/plugin.cfg", "res://addons/markdownlabel/plugin.cfg")
+enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg", "res://addons/markdownlabel/plugin.cfg")
 
 [file_customization]
 
