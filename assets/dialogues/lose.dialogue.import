@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://cdv32aw7yge54"
+path="res://.godot/imported/lose.dialogue-9064f9ede0bb4a49ae6c33db485ce93e.tres"
+
+[deps]
+
+source_file="res://assets/dialogues/lose.dialogue"
+dest_files=["res://.godot/imported/lose.dialogue-9064f9ede0bb4a49ae6c33db485ce93e.tres"]
+
+[params]
+
+defaults=true

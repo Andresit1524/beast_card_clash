@@ -1,0 +1,56 @@
+~ start
+## Si ya jugamos, nos manda a jugar otra vez
+if Flags.get_flag("played")
+	Mr. Bear: Parece que estas listo para jugar otra vez.
+	=> END
+
+Mr. Bear: Hola, ¿Cómo vas?
+Mr. Bear: ¿Tienes interés en participar en Beast Card Clash?
+- Sí
+	Osorio: ¡Sí! De qué trata
+	=> instructions
+- No
+	Mr. Bear: Ok
+	=> END
+
+~ instructions
+Mr. Bear: BCC un juego de cartas en el que los jugadores se enfrentan con un maso de cartas para ver quién gana
+Mr. Bear: Pueden pelear solos o enfrentar equipos
+Mr. Bear: Es como jugar piedra papel o tijera, pero con 4 elementos
+Mr. Bear: Los 4 elementos son: agua, fuego, tierra y aire
+Mr. Bear: Estas cartas vienen con números de 1 a 10, siendo 10 la mas fuerte
+Mr. Bear: ¿Hasta aquí está claro?, ¿Tienes alguna pregunta adicional?
+- ¿Puedes repetirme?
+	Mr. Bear: Bueno
+	=> instructions
+- ¿Tienes más detalles?
+	Mr. Bear: ¡Por supuesto!
+	=> details
+- Ninguna pregunta
+	Mr. Bear: ¡Genial!
+	=> final
+
+~ details
+Osorio: Si es como un piedra papel o tijeras, ¿Qué elementos le ganan a qué elementos?
+Mr. Bear: Qué buena pregunta, ten en cuenta lo siguiente:
+Mr. Bear: El fuego le gana al agua y el viento
+Mr. Bear: La tierra le gana al fuego y al viento
+Mr. Bear: El agua le gana a la tierra y al fuego
+Mr. Bear: El viento le gana al agua y a la tierra
+Mr. Bear: Dos elementos iguales compiten por su número, el más alto gana
+Osorio: Ah ya veo, o sea que si empatan con respecto al elemento, le gana la carta que tenga el número mayor
+Osorio: ¿Y si todos sacan el mismo número?
+Mr. Bear: ¡De plano empatan y vuelves a comenzar!
+Osorio: ¿Y cómo sé cuando gano?
+Mr. Bear: Sabía que ibas a preguntar eso
+Mr. Bear: Gana el ultimo equipo en pie
+Mr. Bear: Todos empiezan con 5 puntos de energía
+Mr. Bear: Y vas quitándole puntos a tus rivales en la medida en la que les vayas ganando!
+Osorio: Oh vale, ya entiendo
+
+~ final
+Mr. Bear: ¿Entonces vamos a jugar?
+Chandler: ¡Sí, juguemos!
+Karl: Sí, estoy emocionado, ¡no puedo esperar!
+
+=> END

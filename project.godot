@@ -8,6 +8,10 @@
 
 config_version=5
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
 config/name="Beast Card Clash"
@@ -19,6 +23,8 @@ config/features=PackedStringArray("4.6")
 
 DialogueManager="*uid://c3rodes2l3gxb"
 SceneManager="*uid://c7qpxa5bjkyo6"
+Flags="*uid://b3f4siwyi6khy"
+MusicManager="*uid://dv2bd61v3fdf0"
 
 [dotnet]
 
@@ -32,7 +38,11 @@ enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg", "res://add
 
 folder_colors={
 "res://addons/": "teal",
-"res://autoload/": "blue",
-"res://fonts/": "gray",
-"res://ui/": "yellow"
+"res://assets/": "yellow",
+"res://assets/tests/": "red",
+"res://autoload/": "blue"
 }
+
+[internationalization]
+
+locale/translations_pot_files=PackedStringArray("res://assets/dialogues/lose.dialogue", "res://assets/dialogues/begin.dialogue", "res://assets/dialogues/pregame.dialogue", "res://assets/dialogues/win.dialogue")

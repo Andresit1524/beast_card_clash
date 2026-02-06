@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://l5aihpeof6w7"]
+
+[ext_resource type="Texture2D" uid="uid://v7lexu14ew8k" path="res://assets/characters/bear/skins/grizzly_bear.png" id="1_1qqxo"]
+
+[resource]
+albedo_texture = ExtResource("1_1qqxo")

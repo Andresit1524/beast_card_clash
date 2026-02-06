@@ -1,0 +1,9 @@
+{
+    // Exclusiones de archivo
+    "files.exclude": {
+        "**/.godot/": true,
+        "**/.builds/": true,
+        "**/.doc_maker/": true,
+        "**/.vscode/": true
+    }
+}
