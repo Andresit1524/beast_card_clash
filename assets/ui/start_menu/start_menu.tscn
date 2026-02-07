@@ -2,13 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://d327mbcq5lakc" path="res://assets/ui/start_menu/resources/start_menu_bg.png" id="1_dkj6a"]
 [ext_resource type="Script" uid="uid://beoirwmdxe68h" path="res://assets/ui/start_menu/start_menu.gd" id="1_nhkli"]
-[ext_resource type="FontFile" uid="uid://c2a2hhmgvg27a" path="res://assets/fonts/poppin_regular.ttf" id="2_0uyxu"]
-[ext_resource type="Theme" uid="uid://bbvjofuk7qjdm" path="res://assets/ui/start_menu/button_themes/buttons_font_theme.tres" id="6_1w3tn"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_m7x51"]
-font = ExtResource("2_0uyxu")
-font_size = 80
-font_color = Color(0.18687999, 0.24, 0.0408, 1)
+[ext_resource type="Theme" uid="uid://djsw6wrf4tns" path="res://assets/ui/themes/main_theme.tres" id="3_qpjrb"]
+[ext_resource type="LabelSettings" uid="uid://d0tvafk7ryytb" path="res://assets/ui/themes/main_title_theme.tres" id="4_qpjrb"]
 
 [node name="StartMenu" type="Control" unique_id=1303556367]
 layout_mode = 3
@@ -17,6 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("3_qpjrb")
 script = ExtResource("1_nhkli")
 
 [node name="Background" type="TextureRect" parent="." unique_id=2020571347]
@@ -30,46 +26,57 @@ texture = ExtResource("1_dkj6a")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="Title" type="Label" parent="." unique_id=546501617]
+[node name="Content" type="VBoxContainer" parent="." unique_id=1827584633]
+custom_minimum_size = Vector2(300, 500)
 layout_mode = 1
-offset_left = 101.0
-offset_top = 96.0
-offset_right = 586.0
-offset_bottom = 260.0
-text = "Beast Card Clash"
-label_settings = SubResource("LabelSettings_m7x51")
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 89.0
+offset_top = -250.0
+offset_right = 389.0
+offset_bottom = 250.0
+grow_vertical = 2
+alignment = 1
+
+[node name="Title" type="Label" parent="Content" unique_id=546501617]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+text = "BEAST CARD CLASH"
+label_settings = ExtResource("4_qpjrb")
+horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="Buttons" type="VBoxContainer" parent="." unique_id=1085545832]
-layout_mode = 0
-offset_left = 101.0
-offset_top = 356.0
-offset_right = 348.0
-offset_bottom = 535.0
+[node name="Space" type="Control" parent="Content" unique_id=487404265]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Buttons" type="VBoxContainer" parent="Content" unique_id=1085545832]
+layout_mode = 2
 alignment = 1
 
-[node name="PlayButton" type="Button" parent="Buttons" unique_id=882021670]
+[node name="PlayButton" type="Button" parent="Content/Buttons" unique_id=882021670]
 layout_mode = 2
-theme = ExtResource("6_1w3tn")
+theme_override_font_sizes/font_size = 32
 text = "Jugar"
 
-[node name="TutorialButton" type="Button" parent="Buttons" unique_id=370726803]
+[node name="TutorialButton" type="Button" parent="Content/Buttons" unique_id=370726803]
 layout_mode = 2
-theme = ExtResource("6_1w3tn")
+theme_override_font_sizes/font_size = 32
 text = "Tutorial"
 
-[node name="CreditsButton" type="Button" parent="Buttons" unique_id=1698792371]
+[node name="CreditsButton" type="Button" parent="Content/Buttons" unique_id=1698792371]
 layout_mode = 2
-theme = ExtResource("6_1w3tn")
+theme_override_font_sizes/font_size = 32
 text = "Créditos"
 
-[node name="QuitButton" type="Button" parent="Buttons" unique_id=1708660283]
+[node name="QuitButton" type="Button" parent="Content/Buttons" unique_id=1708660283]
 layout_mode = 2
-theme = ExtResource("6_1w3tn")
+theme_override_font_sizes/font_size = 32
 text = "Salir"
 
-[connection signal="pressed" from="Buttons/PlayButton" to="." method="_on_play_button_pressed"]
-[connection signal="pressed" from="Buttons/TutorialButton" to="." method="_on_tutorial_button_pressed"]
-[connection signal="pressed" from="Buttons/CreditsButton" to="." method="_on_credits_button_pressed"]
-[connection signal="pressed" from="Buttons/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="Content/Buttons/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="Content/Buttons/TutorialButton" to="." method="_on_tutorial_button_pressed"]
+[connection signal="pressed" from="Content/Buttons/CreditsButton" to="." method="_on_credits_button_pressed"]
+[connection signal="pressed" from="Content/Buttons/QuitButton" to="." method="_on_quit_button_pressed"]

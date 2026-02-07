@@ -16,7 +16,7 @@ Este método funciona como un *getter* público para acceder a los valores almac
 
 ```gdscript
 # Ejemplo de uso desde otro componente:
-if Flags.get_flag("played"):
+if FlagsManager.get_flag("played"):
     _iniciar_interfaz_combate()
 ```
 

@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://dkgssjlak3f2h"
-path="res://.godot/imported/Cute Notes.ttf-a5fe7ce87bd913a9a935a2c45d44c524.fontdata"
+uid="uid://7afj2g1cbx0x"
+path="res://.godot/imported/delius.ttf-73198b1e39aa993495e87202759e052d.fontdata"
 
 [deps]
 
-source_file="res://assets/fonts/Cute Notes.ttf"
-dest_files=["res://.godot/imported/Cute Notes.ttf-a5fe7ce87bd913a9a935a2c45d44c524.fontdata"]
+source_file="res://assets/fonts/delius.ttf"
+dest_files=["res://.godot/imported/delius.ttf-73198b1e39aa993495e87202759e052d.fontdata"]
 
 [params]
 

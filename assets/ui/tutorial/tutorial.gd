@@ -1,4 +1,4 @@
-extends VBoxContainer
+extends Node
 
 @export var panels_list: Array[Resource]
 @export var panel_node: TextureRect
@@ -9,7 +9,7 @@ var current_panel: int = 0
 func _ready() -> void:
     panel_node.texture = panels_list[0]
 
-## Cambia de panel_node cuando se presiona el botón de siguiente panel
+## Cambia de panel cuando se presiona el botón de siguiente
 func _on_next_button_pressed() -> void:
     current_panel += 1
 
@@ -19,8 +19,11 @@ func _on_next_button_pressed() -> void:
 
     panel_node.texture = panels_list[current_panel]
 
-## Se salta el tutorial.
-## ! Por ahora no está la lógica para esto
+## Botón de saltar:
+## ! Por ahora no está la acción para esto
 func _on_skip_button_pressed() -> void:
     print_debug("¡Salta el tutorial!")
-    return
+
+## Botón atrás: vuelve al menú principal
+func _on_back_button_pressed() -> void:
+    SceneManager.change_to_scene("start_menu")

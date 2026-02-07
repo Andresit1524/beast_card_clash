@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Scenes" format=3 uid="uid://bn7v8txng2pda"]
+
+[ext_resource type="PackedScene" uid="uid://dr0fenfnqsha3" path="res://assets/ui/start_menu/start_menu.tscn" id="1_ydkrs"]
+[ext_resource type="PackedScene" uid="uid://c1gyjxesm65cg" path="res://assets/ui/tutorial/tutorial.tscn" id="2_gf5of"]
+[ext_resource type="PackedScene" uid="uid://suub121nq2cd" path="res://assets/ui/credits/credits.tscn" id="3_m3lnl"]
+[ext_resource type="Script" uid="uid://cxg35c42opm5k" path="res://autoload/resources/scripts/scenes.gd" id="4_ydkrs"]
+
+[resource]
+script = ExtResource("4_ydkrs")
+items = Dictionary[String, Variant]({
+"credits": ExtResource("3_m3lnl"),
+"start_menu": ExtResource("1_ydkrs"),
+"tutorial": ExtResource("2_gf5of")
+})
+metadata/_custom_type_script = "uid://cxg35c42opm5k"

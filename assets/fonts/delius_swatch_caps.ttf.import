@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://0ryuqyb7rbyl"
-path="res://.godot/imported/Modum.ttf-622ca16987251abea7d69e6529ad2490.fontdata"
+uid="uid://bbnxkcxsvww5m"
+path="res://.godot/imported/delius_swatch_caps.ttf-1a8a2268f58f7e7f775d5cbb06f135b1.fontdata"
 
 [deps]
 
-source_file="res://assets/fonts/Modum.ttf"
-dest_files=["res://.godot/imported/Modum.ttf-622ca16987251abea7d69e6529ad2490.fontdata"]
+source_file="res://assets/fonts/delius_swatch_caps.ttf"
+dest_files=["res://.godot/imported/delius_swatch_caps.ttf-1a8a2268f58f7e7f775d5cbb06f135b1.fontdata"]
 
 [params]
 

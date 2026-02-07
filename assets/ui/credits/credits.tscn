@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bauw0iitfyy0t" path="res://assets/ui/credits/resources/back_button.png" id="1_0bpdh"]
 [ext_resource type="Texture2D" uid="uid://b5f3rhm0gflu5" path="res://assets/ui/tutorial/resources/tutorial_bg.png" id="1_ff1l7"]
+[ext_resource type="Theme" uid="uid://djsw6wrf4tns" path="res://assets/ui/themes/main_theme.tres" id="1_l0gy7"]
 [ext_resource type="Script" uid="uid://cpt2kruang5jk" path="res://assets/ui/credits/credits_back_button.gd" id="2_2ckv8"]
 [ext_resource type="Texture2D" uid="uid://qy7gv8l4lgj1" path="res://assets/ui/credits/resources/godot_logo.png" id="4_umgus"]
 
@@ -12,6 +13,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_l0gy7")
 
 [node name="Background" type="TextureRect" parent="." unique_id=121481608]
 layout_mode = 1
@@ -30,7 +32,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 56.0
 grow_horizontal = 2
-color = Color(0.20279999, 0.26, 0.031200001, 1)
+color = Color(0.19215687, 0.34117648, 0.17254902, 1)
 
 [node name="BackButton" type="TextureButton" parent="UpperBar" unique_id=308908940]
 layout_mode = 0

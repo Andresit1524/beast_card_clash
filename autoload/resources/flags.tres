@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Flags" format=3 uid="uid://calw1rmsghoh8"]
+
+[ext_resource type="Script" uid="uid://c6nyrgo657byk" path="res://autoload/resources/scripts/flags.gd" id="1_gjtew"]
+
+[resource]
+script = ExtResource("1_gjtew")
+items = Dictionary[String, Variant]({
+"played": true
+})
+metadata/_custom_type_script = "uid://c6nyrgo657byk"

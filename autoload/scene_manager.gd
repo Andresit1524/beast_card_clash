@@ -1,13 +1,9 @@
 extends Node
 
-## Lista de escenas disponibles (referenciadas por UID)
-var _scenes: Dictionary[String, PackedScene] = {
-    "start_menu": preload("uid://dr0fenfnqsha3"),
-    "credits": preload("uid://suub121nq2cd"),
-    "tutorial": preload("uid://c1gyjxesm65cg")
-}
+## Lista de escenas disponibles
+var _scenes: Scenes = preload("uid://bn7v8txng2pda")
 
 ## Pasa a la escena indicada por su nombre exacto.
-## Consulta en el singleton por los nombres disponibles
+## Revisa scenes.tres en el inspector para ver la lista de escenas disponibles
 func change_to_scene(scene_name: String) -> void:
-    get_tree().change_scene_to_packed(_scenes[scene_name])
+    get_tree().change_scene_to_packed(_scenes.get_item(scene_name))

@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://x2ill2gec2vx"
-path="res://.godot/imported/Baloo-Regular.ttf-45da69a2a34822df94b3969e30d9c705.fontdata"
+uid="uid://cx0dmyddc8f5"
+path="res://.godot/imported/tilt_wrap.ttf-43cca17a27abab070b2c7f9592287a6d.fontdata"
 
 [deps]
 
-source_file="res://assets/fonts/Baloo-Regular.ttf"
-dest_files=["res://.godot/imported/Baloo-Regular.ttf-45da69a2a34822df94b3969e30d9c705.fontdata"]
+source_file="res://assets/fonts/tilt_wrap.ttf"
+dest_files=["res://.godot/imported/tilt_wrap.ttf-43cca17a27abab070b2c7f9592287a6d.fontdata"]
 
 [params]
 
