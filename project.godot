@@ -23,6 +23,8 @@ config/features=PackedStringArray("4.6")
 
 DialogueManager="*uid://c3rodes2l3gxb"
 SceneManager="*uid://c7qpxa5bjkyo6"
+GameConstants="*uid://bafho2r335kbv"
+PlayerStats="*uid://b1ei5cqblmk3s"
 FlagsManager="*uid://b3f4siwyi6khy"
 MusicManager="*uid://dv2bd61v3fdf0"
 
