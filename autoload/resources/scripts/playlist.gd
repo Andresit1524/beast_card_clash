@@ -3,6 +3,3 @@
 ##
 ## Será recomendable almacenar diferentes tipos de sonidos en diferentes archivos de recursos.
 class_name Playlist extends AutoloadResource
-
-func _ready() -> void:
-    expected_type = TYPE_OBJECT

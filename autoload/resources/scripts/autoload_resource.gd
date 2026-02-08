@@ -8,13 +8,8 @@
 ## Elementos a almacenar en el recurso. Usa el inspector para asignarlos
 @export var items: Dictionary[String, Variant]
 
-## Tipo a esperar para los recursos
+## Tipo a esperar para los recursos. Cada gestor de recursos lo establece
 var expected_type: int
-
-# Chequea que los elementos iniciales sean tipo correcto
-func _ready() -> void:
-    for item in items.keys():
-        _check_type(items[item])
 
 ## Obtiene el elemento por su nombre
 func get_item(name: String):
@@ -26,7 +21,7 @@ func get_item(name: String):
 
 ## Establece el valor del elemento. Si no existe, lo crea, pero no es el comportamiento ideal
 func set_item(name: String, value) -> void:
-    if not _check_type(value):
+    if not _check_item(value):
         return
 
     if not name in items.keys():
@@ -34,10 +29,20 @@ func set_item(name: String, value) -> void:
 
     items[name] = value
 
+## Checa todos los valores del recurso
+func check_item_types() -> bool:
+    for item in items.values():
+        if not _check_item(item): return false
+
+    return true
+
 ## Función auxiliar que checa el tipo de un dato
-func _check_type(item) -> bool:
+func _check_item(item):
     if typeof(item) != expected_type:
-        push_error("Valor de AutoloadResource de tipo incorrecto. Esperado: %s, Obtenido: %s" % [expected_type, typeof(item)])
+        push_error(
+            "Valor de AutoloadResource de tipo incorrecto. Esperado: %s, Obtenido: %s."
+            % [expected_type, typeof(item)]
+        )
         return false
 
     return true
