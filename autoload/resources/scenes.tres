@@ -3,11 +3,13 @@
 [ext_resource type="PackedScene" uid="uid://dr0fenfnqsha3" path="res://assets/ui/start_menu/start_menu.tscn" id="1_ydkrs"]
 [ext_resource type="PackedScene" uid="uid://c1gyjxesm65cg" path="res://assets/ui/tutorial/tutorial.tscn" id="2_gf5of"]
 [ext_resource type="PackedScene" uid="uid://suub121nq2cd" path="res://assets/ui/credits/credits.tscn" id="3_m3lnl"]
+[ext_resource type="PackedScene" uid="uid://b0qnssgxl136b" path="res://assets/character_selector/character_selector.tscn" id="4_gf5of"]
 [ext_resource type="Script" uid="uid://cxg35c42opm5k" path="res://autoload/resources/scripts/scenes.gd" id="4_ydkrs"]
 
 [resource]
 script = ExtResource("4_ydkrs")
 items = Dictionary[String, Variant]({
+"character_selector": ExtResource("4_gf5of"),
 "credits": ExtResource("3_m3lnl"),
 "start_menu": ExtResource("1_ydkrs"),
 "tutorial": ExtResource("2_gf5of")

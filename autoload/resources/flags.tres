@@ -5,6 +5,7 @@
 [resource]
 script = ExtResource("1_gjtew")
 items = Dictionary[String, Variant]({
-"played": true
+"character_selected": false,
+"played": false
 })
 metadata/_custom_type_script = "uid://c6nyrgo657byk"
