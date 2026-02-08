@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bmo8uausdhlfy" path="res://assets/ui/tutorial/panels/tutorial_panel_2.png" id="4_xpy58"]
 [ext_resource type="Texture2D" uid="uid://cghyea1c1bxqx" path="res://assets/ui/tutorial/panels/tutorial_panel_3.png" id="5_aw2cu"]
 [ext_resource type="Texture2D" uid="uid://b0m34aaou5stc" path="res://assets/ui/tutorial/resources/skip_button.png" id="5_leiwb"]
-[ext_resource type="Texture2D" uid="uid://bauw0iitfyy0t" path="res://assets/ui/credits/resources/back_button.png" id="8_l1h4v"]
+[ext_resource type="PackedScene" uid="uid://jooi3svq5ikl" path="res://assets/ui/upper_bar.tscn" id="6_y4c3n"]
 
 [node name="Tutorial" type="Control" unique_id=959098823 node_paths=PackedStringArray("panel_node")]
 layout_mode = 3
@@ -44,6 +44,9 @@ texture = ExtResource("2_3nh40")
 expand_mode = 1
 stretch_mode = 5
 
+[node name="UpperBar" parent="." unique_id=989018212 instance=ExtResource("6_y4c3n")]
+layout_mode = 1
+
 [node name="Buttons" type="VBoxContainer" parent="." unique_id=296258002]
 layout_mode = 0
 offset_left = 1004.0
@@ -65,23 +68,5 @@ texture_normal = ExtResource("5_leiwb")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="UpperBar" type="ColorRect" parent="." unique_id=760997306]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 56.0
-grow_horizontal = 2
-color = Color(0.19215687, 0.34117648, 0.17254902, 1)
-
-[node name="BackButton" type="TextureButton" parent="UpperBar" unique_id=337135241]
-layout_mode = 0
-offset_left = 9.0
-offset_top = 8.0
-offset_right = 49.0
-offset_bottom = 48.0
-texture_normal = ExtResource("8_l1h4v")
-stretch_mode = 5
-
 [connection signal="pressed" from="Buttons/NextButton" to="." method="_on_next_button_pressed"]
 [connection signal="pressed" from="Buttons/SkipButton" to="." method="_on_skip_button_pressed"]
-[connection signal="pressed" from="UpperBar/BackButton" to="." method="_on_back_button_pressed"]
