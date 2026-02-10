@@ -5,7 +5,13 @@
         "**/.builds/": true,
         "**/.doc_maker/": true,
     },
-
     // Regla para no pasar de los 100 caracteres en el código
-    "editor.rulers": [100]
+    "editor.rulers": [
+        100
+    ],
+    // Usar tabuladores por defecto en GDScript
+    "[gdscript]": {
+        "editor.insertSpaces": false,
+        "editor.detectIndentation": false
+    }
 }

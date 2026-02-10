@@ -13,36 +13,36 @@ var expected_type: int
 
 ## Obtiene el elemento por su nombre
 func get_item(name: String):
-    if not name in items.keys():
-        push_error("Elemento de AutoloadResource no encontrado: %s" % name)
-        return null
+	if not name in items.keys():
+		push_error("Elemento de AutoloadResource no encontrado: %s" % name)
+		return null
 
-    return items[name]
+	return items[name]
 
 ## Establece el valor del elemento. Si no existe, lo crea, pero no es el comportamiento ideal
 func set_item(name: String, value) -> void:
-    if not _check_item(value):
-        return
+	if not _check_item(value):
+		return
 
-    if not name in items.keys():
-        push_error("Elemento de AutoloadResource no encontrado: %s. El elemento será creado" % name)
+	if not name in items.keys():
+		push_error("Elemento de AutoloadResource no encontrado: %s. El elemento será creado" % name)
 
-    items[name] = value
+	items[name] = value
 
 ## Checa todos los valores del recurso
 func check_item_types() -> bool:
-    for item in items.values():
-        if not _check_item(item): return false
+	for item in items.values():
+		if not _check_item(item): return false
 
-    return true
+	return true
 
 ## Función auxiliar que checa el tipo de un dato
 func _check_item(item):
-    if typeof(item) != expected_type:
-        push_error(
-            "Valor de AutoloadResource de tipo incorrecto. Esperado: %s, Obtenido: %s."
-            % [expected_type, typeof(item)]
-        )
-        return false
+	if typeof(item) != expected_type:
+		push_error(
+			"Valor de AutoloadResource de tipo incorrecto. Esperado: %s, Obtenido: %s."
+			% [expected_type, typeof(item)]
+		)
+		return false
 
-    return true
+	return true
