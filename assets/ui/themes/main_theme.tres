@@ -1,6 +1,6 @@
 [gd_resource type="Theme" format=3 uid="uid://djsw6wrf4tns"]
 
-[ext_resource type="FontFile" uid="uid://bbnxkcxsvww5m" path="res://assets/fonts/delius_swatch_caps.ttf" id="1_ey3j3"]
+[ext_resource type="FontFile" uid="uid://7afj2g1cbx0x" path="res://assets/fonts/delius.ttf" id="1_ey3j3"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_iml4p"]
 
@@ -80,4 +80,10 @@ LineEdit/colors/font_color = Color(0.9254902, 0.9529412, 0.61960787, 1)
 LineEdit/font_sizes/font_size = 20
 LineEdit/styles/normal = SubResource("StyleBoxFlat_jocap")
 LineEdit/styles/read_only = SubResource("StyleBoxFlat_ryn8q")
+RichTextLabel/colors/default_color = Color(0.19215687, 0.34117648, 0.17254902, 1)
+RichTextLabel/font_sizes/bold_font_size = 20
+RichTextLabel/font_sizes/bold_italics_font_size = 20
+RichTextLabel/font_sizes/italics_font_size = 20
+RichTextLabel/font_sizes/mono_font_size = 20
+RichTextLabel/font_sizes/normal_font_size = 20
 TextEdit/font_sizes/font_size = 20

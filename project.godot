@@ -18,6 +18,8 @@ config/name="Beast Card Clash"
 config/version="0.1"
 run/main_scene="uid://dr0fenfnqsha3"
 config/features=PackedStringArray("4.6")
+boot_splash/bg_color=Color(0.19215687, 0.34117648, 0.17254902, 1)
+config/icon="uid://ch3yv4m0jfjqi"
 
 [autoload]
 

@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://b5f3rhm0gflu5" path="res://assets/ui/tutorial/resources/tutorial_bg.png" id="1_ff1l7"]
 [ext_resource type="Theme" uid="uid://djsw6wrf4tns" path="res://assets/ui/themes/main_theme.tres" id="1_l0gy7"]
 [ext_resource type="PackedScene" uid="uid://jooi3svq5ikl" path="res://assets/ui/upper_bar.tscn" id="3_uvj8u"]
+[ext_resource type="LabelSettings" uid="uid://ctvu5dp4p0kjm" path="res://assets/ui/themes/title_theme.tres" id="4_l0gy7"]
 [ext_resource type="Texture2D" uid="uid://qy7gv8l4lgj1" path="res://assets/ui/credits/resources/godot_logo.png" id="4_umgus"]
 
 [node name="Credits" type="Control" unique_id=1529966082]
@@ -28,34 +29,117 @@ stretch_mode = 6
 [node name="UpperBar" parent="." unique_id=989018212 instance=ExtResource("3_uvj8u")]
 layout_mode = 1
 
-[node name="Content" type="HBoxContainer" parent="." unique_id=677869106]
+[node name="Title" type="Label" parent="UpperBar" unique_id=1174586324]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 160.0
-offset_top = 56.0
-offset_right = -160.0
-offset_bottom = 2.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -416.0
+offset_top = -20.5
+offset_right = 416.0
+offset_bottom = 20.5
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "Créditos"
+label_settings = ExtResource("4_l0gy7")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Contents" type="HBoxContainer" parent="." unique_id=677869106]
+layout_mode = 0
+offset_left = 160.0
+offset_top = 56.0
+offset_right = 992.0
+offset_bottom = 648.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 10.0
 alignment = 1
 
-[node name="LeftColumn" type="VBoxContainer" parent="Content" unique_id=1986401723]
+[node name="LeftColumn" type="VBoxContainer" parent="Contents" unique_id=1986401723]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 alignment = 1
 
-[node name="Label" type="Label" parent="Content/LeftColumn" unique_id=2119059289]
+[node name="Content" type="RichTextLabel" parent="Contents/LeftColumn" unique_id=1920013000]
 layout_mode = 2
-text = "Hecho con"
+bbcode_enabled = true
+text = "[font_size=24]Idea original[/font_size]
+Valeria Díaz [i](Osito)[/i]
 
-[node name="TextureRect" type="TextureRect" parent="Content/LeftColumn" unique_id=1809208040]
-custom_minimum_size = Vector2(300, 200)
+[font_size=24]Arte y diseño creativo[/font_size]
+Richi Calderón
+
+[font_size=24]Diseños, arte y animación en 3D[/font_size]
+Fabián Montes [i](Movido51)[/i]
+
+[font_size=24]Programación[/font_size]
+Hayran Andrés López (Godot)
+Fabián Montés [i](Movido51)[/i] (Unity)
+
+[font_size=24]Música y SFX[/font_size]
+Juan Felipe Naranjo
+"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Space" type="Control" parent="Contents" unique_id=19564033]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="RightColumn" type="VBoxContainer" parent="Contents" unique_id=1478334255]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Content" type="RichTextLabel" parent="Contents/RightColumn" unique_id=375199011]
+layout_mode = 2
+bbcode_enabled = true
+text = "[font_size=24]Diseño de UI[/font_size]
+Hayran Andrés López (Godot)
+David García (Unity)"
+fit_content = true
+autowrap_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Space" type="Control" parent="Contents/RightColumn" unique_id=664790395]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="MadeWith" type="RichTextLabel" parent="Contents/RightColumn" unique_id=1012572005]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+bbcode_enabled = true
+text = "[font_size=24]Hecho con[/font_size]"
+fit_content = true
+autowrap_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GodotLogo" type="TextureRect" parent="Contents/RightColumn" unique_id=1809208040]
+custom_minimum_size = Vector2(300, 100)
 layout_mode = 2
 texture = ExtResource("4_umgus")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="RightColumn" type="VBoxContainer" parent="Content" unique_id=1478334255]
+[node name="GDD" type="RichTextLabel" parent="Contents/RightColumn" unique_id=1389597443]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-alignment = 1
+bbcode_enabled = true
+text = "Por BCC DevTeam
+un equipo de GDD (antes UN-GAMES)
+
+[i]© 2025 - 2026[/i]"
+fit_content = true
+autowrap_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1

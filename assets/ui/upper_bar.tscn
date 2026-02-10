@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://jooi3svq5ikl"]
 
-[ext_resource type="Texture2D" uid="uid://bauw0iitfyy0t" path="res://assets/ui/credits/resources/back_button.png" id="1_hmefr"]
-[ext_resource type="Script" uid="uid://cpt2kruang5jk" path="res://assets/ui/credits/credits_back_button.gd" id="2_g7g4j"]
+[ext_resource type="PackedScene" uid="uid://k0ve14ptvtnb" path="res://assets/ui/back_button.tscn" id="1_n4i0q"]
 
 [node name="UpperBar" type="ColorRect" unique_id=989018212]
 anchors_preset = 10
@@ -10,12 +9,9 @@ offset_bottom = 56.0
 grow_horizontal = 2
 color = Color(0.19215687, 0.34117648, 0.17254902, 1)
 
-[node name="BackButton" type="TextureButton" parent="." unique_id=1034921327]
+[node name="BackButton" parent="." unique_id=533340432 instance=ExtResource("1_n4i0q")]
 layout_mode = 0
-offset_left = 9.0
+offset_left = 8.0
 offset_top = 8.0
-offset_right = 49.0
+offset_right = 48.0
 offset_bottom = 48.0
-texture_normal = ExtResource("1_hmefr")
-stretch_mode = 5
-script = ExtResource("2_g7g4j")

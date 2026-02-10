@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://k0ve14ptvtnb"]
+
+[ext_resource type="Texture2D" uid="uid://bauw0iitfyy0t" path="res://assets/ui/credits/resources/back_button.png" id="1_v32hr"]
+[ext_resource type="Script" uid="uid://cpt2kruang5jk" path="res://assets/ui/back_button.gd" id="2_mahx1"]
+
+[node name="BackButton" type="TextureButton" unique_id=533340432]
+offset_right = 40.0
+offset_bottom = 40.0
+texture_normal = ExtResource("1_v32hr")
+stretch_mode = 5
+script = ExtResource("2_mahx1")

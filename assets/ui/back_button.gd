@@ -1,4 +1,4 @@
-extends BaseButton
+extends Control
 
 # Se conecta a su propia señal para detectar clics
 func _ready() -> void:
