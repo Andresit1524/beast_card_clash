@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ck83qwbrce022"
-path="res://.godot/imported/no_team.png-38abf84989436d74bbec4610354a3e48.ctex"
+path="res://.godot/imported/character.png-81ad6be930f67b088a30cae48d7deaac.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/character_selector/team_icons/no_team.png"
-dest_files=["res://.godot/imported/no_team.png-38abf84989436d74bbec4610354a3e48.ctex"]
+source_file="res://assets/character_selector/resources/character.png"
+dest_files=["res://.godot/imported/character.png-81ad6be930f67b088a30cae48d7deaac.ctex"]
 
 [params]
 

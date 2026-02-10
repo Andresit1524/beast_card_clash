@@ -1,0 +1,365 @@
+[gd_scene format=3 uid="uid://7gwxjy7p2l04"]
+
+[ext_resource type="Theme" uid="uid://djsw6wrf4tns" path="res://assets/ui/themes/main_theme.tres" id="1_sxn6k"]
+[ext_resource type="Script" uid="uid://dh0xc58qusk8q" path="res://assets/character_selector/team_selector.gd" id="2_2c77f"]
+[ext_resource type="ButtonGroup" uid="uid://dj2wtx2pk26j1" path="res://assets/character_selector/resources/teams_buttons_group.tres" id="3_lcpbu"]
+[ext_resource type="PackedScene" uid="uid://jooi3svq5ikl" path="res://assets/ui/upper_bar.tscn" id="4_sp5k0"]
+[ext_resource type="Texture2D" uid="uid://c2d15cfelhaxm" path="res://assets/character_selector/resources/bear.png" id="5_xysd1"]
+[ext_resource type="LabelSettings" uid="uid://ctvu5dp4p0kjm" path="res://assets/ui/themes/title_theme.tres" id="6_sesa0"]
+[ext_resource type="Texture2D" uid="uid://ck83qwbrce022" path="res://assets/character_selector/resources/character.png" id="7_vchsu"]
+[ext_resource type="Texture2D" uid="uid://dd6mwgq24mgin" path="res://assets/character_selector/team_icons/acetiles.png" id="8_1vm8b"]
+[ext_resource type="Texture2D" uid="uid://coe7d0up1udb7" path="res://assets/character_selector/team_icons/adn.png" id="9_5w2yb"]
+[ext_resource type="Texture2D" uid="uid://b0jhwpsnrf3hq" path="res://assets/character_selector/team_icons/ingeniosos_elementales.png" id="10_h5kec"]
+[ext_resource type="Texture2D" uid="uid://c1274652qs8kx" path="res://assets/character_selector/team_icons/photo_agros.png" id="11_gj0y0"]
+[ext_resource type="Texture2D" uid="uid://dxjfwq5s4ku8b" path="res://assets/character_selector/team_icons/rcp_team.png" id="12_pcjs0"]
+[ext_resource type="Texture2D" uid="uid://bqg8nme86squs" path="res://assets/character_selector/team_icons/pluma_dorada.png" id="13_ckhug"]
+[ext_resource type="Texture2D" uid="uid://df1jydvq6kuhy" path="res://assets/character_selector/team_icons/real_pincel.png" id="14_y3p1b"]
+[ext_resource type="Texture2D" uid="uid://dvfti85fufh7x" path="res://assets/character_selector/team_icons/zootecnicos.png" id="15_mhvx6"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ex3ic"]
+font_color = Color(0, 0.2509804, 0.1882353, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pfi7o"]
+bg_color = Color(0.47058824, 0.7254902, 0.70980394, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="InputEventKey" id="InputEventKey_1ocy6"]
+device = -1
+keycode = 4194309
+
+[sub_resource type="Shortcut" id="Shortcut_6wp27"]
+events = [SubResource("InputEventKey_1ocy6")]
+
+[node name="TeamSelector" type="Control" unique_id=71131889 node_paths=PackedStringArray("line_edit_node")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+theme = ExtResource("1_sxn6k")
+script = ExtResource("2_2c77f")
+teams_button_group = ExtResource("3_lcpbu")
+line_edit_node = NodePath("Contents/Footer/NameEdit/LineEdit")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1156223875]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.30980393, 0.46666667, 0.1764706, 1)
+
+[node name="UpperBar" parent="." unique_id=989018212 instance=ExtResource("4_sp5k0")]
+layout_mode = 1
+
+[node name="SkinSelectorButton" type="VBoxContainer" parent="." unique_id=1283453137]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 0
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 214.0
+offset_bottom = 273.0
+alignment = 1
+
+[node name="BackButton" type="TextureButton" parent="SkinSelectorButton" unique_id=520661658]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+texture_normal = ExtResource("5_xysd1")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Text" type="Label" parent="SkinSelectorButton" unique_id=1366672838]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Volver a selector de aspectos"
+label_settings = ExtResource("6_sesa0")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Contents" type="VBoxContainer" parent="." unique_id=1380023105]
+layout_mode = 0
+offset_left = 288.0
+offset_top = 56.0
+offset_right = 1054.0
+offset_bottom = 576.0
+
+[node name="TeamSelector" type="VBoxContainer" parent="Contents" unique_id=1227085585]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 5.0
+
+[node name="Title" type="Label" parent="Contents/TeamSelector" unique_id=19991719]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+size_flags_vertical = 3
+text = "Selecciona tu equipo"
+label_settings = ExtResource("6_sesa0")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="TeamButtonsGrid" type="GridContainer" parent="Contents/TeamSelector" unique_id=1607751789]
+layout_mode = 2
+columns = 5
+
+[node name="NoTeam" type="VBoxContainer" parent="Contents/TeamSelector/TeamButtonsGrid" unique_id=1886299935]
+layout_mode = 2
+
+[node name="Button" type="TextureButton" parent="Contents/TeamSelector/TeamButtonsGrid/NoTeam" unique_id=1787561081]
+custom_minimum_size = Vector2(150, 100)
+layout_mode = 2
+toggle_mode = true
+button_mask = 5
+button_group = ExtResource("3_lcpbu")
+texture_normal = ExtResource("7_vchsu")
+texture_pressed = ExtResource("5_xysd1")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Name" type="Label" parent="Contents/TeamSelector/TeamButtonsGrid/NoTeam" unique_id=1846732237]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Sin equipo"
+label_settings = SubResource("LabelSettings_ex3ic")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Acetiles" type="VBoxContainer" parent="Contents/TeamSelector/TeamButtonsGrid" unique_id=1060370436]
+layout_mode = 2
+
+[node name="Button" type="TextureButton" parent="Contents/TeamSelector/TeamButtonsGrid/Acetiles" unique_id=508636803]
+custom_minimum_size = Vector2(150, 100)
+layout_mode = 2
+toggle_mode = true
+button_mask = 5
+button_group = ExtResource("3_lcpbu")
+texture_normal = ExtResource("8_1vm8b")
+texture_pressed = ExtResource("5_xysd1")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Name" type="Label" parent="Contents/TeamSelector/TeamButtonsGrid/Acetiles" unique_id=1471618893]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Acetiles"
+label_settings = SubResource("LabelSettings_ex3ic")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="ADN" type="VBoxContainer" parent="Contents/TeamSelector/TeamButtonsGrid" unique_id=195151862]
+layout_mode = 2
+
+[node name="Button" type="TextureButton" parent="Contents/TeamSelector/TeamButtonsGrid/ADN" unique_id=750253463]
+custom_minimum_size = Vector2(150, 100)
+layout_mode = 2
+toggle_mode = true
+button_mask = 5
+button_group = ExtResource("3_lcpbu")
+texture_normal = ExtResource("9_5w2yb")
+texture_pressed = ExtResource("5_xysd1")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Name" type="Label" parent="Contents/TeamSelector/TeamButtonsGrid/ADN" unique_id=717918887]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "ADN"
+label_settings = SubResource("LabelSettings_ex3ic")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="IngeniososElementales" type="VBoxContainer" parent="Contents/TeamSelector/TeamButtonsGrid" unique_id=600138494]
+layout_mode = 2
+
+[node name="Button" type="TextureButton" parent="Contents/TeamSelector/TeamButtonsGrid/IngeniososElementales" unique_id=1124074075]
+custom_minimum_size = Vector2(150, 100)
+layout_mode = 2
+toggle_mode = true
+button_mask = 5
+button_group = ExtResource("3_lcpbu")
+texture_normal = ExtResource("10_h5kec")
+texture_pressed = ExtResource("5_xysd1")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Name" type="Label" parent="Contents/TeamSelector/TeamButtonsGrid/IngeniososElementales" unique_id=1703784713]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Ingeniosos Elementales"
+label_settings = SubResource("LabelSettings_ex3ic")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="PhotoAgros" type="VBoxContainer" parent="Contents/TeamSelector/TeamButtonsGrid" unique_id=2000832334]
+layout_mode = 2
+
+[node name="Button" type="TextureButton" parent="Contents/TeamSelector/TeamButtonsGrid/PhotoAgros" unique_id=1912018343]
+custom_minimum_size = Vector2(150, 100)
+layout_mode = 2
+toggle_mode = true
+button_mask = 5
+button_group = ExtResource("3_lcpbu")
+texture_normal = ExtResource("11_gj0y0")
+texture_pressed = ExtResource("5_xysd1")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Name" type="Label" parent="Contents/TeamSelector/TeamButtonsGrid/PhotoAgros" unique_id=798398518]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Photo-Agros"
+label_settings = SubResource("LabelSettings_ex3ic")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Space" type="Control" parent="Contents/TeamSelector/TeamButtonsGrid" unique_id=1372311289]
+layout_mode = 2
+
+[node name="RCPTeam" type="VBoxContainer" parent="Contents/TeamSelector/TeamButtonsGrid" unique_id=1964846199]
+layout_mode = 2
+
+[node name="Button" type="TextureButton" parent="Contents/TeamSelector/TeamButtonsGrid/RCPTeam" unique_id=430369553]
+custom_minimum_size = Vector2(150, 100)
+layout_mode = 2
+toggle_mode = true
+button_mask = 5
+button_group = ExtResource("3_lcpbu")
+texture_normal = ExtResource("12_pcjs0")
+texture_pressed = ExtResource("5_xysd1")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Name" type="Label" parent="Contents/TeamSelector/TeamButtonsGrid/RCPTeam" unique_id=949850468]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "RCP Team"
+label_settings = SubResource("LabelSettings_ex3ic")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="PlumaDorada" type="VBoxContainer" parent="Contents/TeamSelector/TeamButtonsGrid" unique_id=1423493383]
+layout_mode = 2
+
+[node name="Button" type="TextureButton" parent="Contents/TeamSelector/TeamButtonsGrid/PlumaDorada" unique_id=1772139426]
+custom_minimum_size = Vector2(150, 100)
+layout_mode = 2
+toggle_mode = true
+button_mask = 5
+button_group = ExtResource("3_lcpbu")
+texture_normal = ExtResource("13_ckhug")
+texture_pressed = ExtResource("5_xysd1")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Name" type="Label" parent="Contents/TeamSelector/TeamButtonsGrid/PlumaDorada" unique_id=1083814232]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Pluma dorada"
+label_settings = SubResource("LabelSettings_ex3ic")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="RealPincel" type="VBoxContainer" parent="Contents/TeamSelector/TeamButtonsGrid" unique_id=2103898918]
+layout_mode = 2
+
+[node name="Button" type="TextureButton" parent="Contents/TeamSelector/TeamButtonsGrid/RealPincel" unique_id=1667541283]
+custom_minimum_size = Vector2(150, 100)
+layout_mode = 2
+toggle_mode = true
+button_mask = 5
+button_group = ExtResource("3_lcpbu")
+texture_normal = ExtResource("14_y3p1b")
+texture_pressed = ExtResource("5_xysd1")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Name" type="Label" parent="Contents/TeamSelector/TeamButtonsGrid/RealPincel" unique_id=639708394]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Real Pincel"
+label_settings = SubResource("LabelSettings_ex3ic")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Zootecnicos" type="VBoxContainer" parent="Contents/TeamSelector/TeamButtonsGrid" unique_id=128539938]
+layout_mode = 2
+
+[node name="Button" type="TextureButton" parent="Contents/TeamSelector/TeamButtonsGrid/Zootecnicos" unique_id=1244328667]
+custom_minimum_size = Vector2(150, 100)
+layout_mode = 2
+toggle_mode = true
+button_mask = 5
+button_group = ExtResource("3_lcpbu")
+texture_normal = ExtResource("15_mhvx6")
+texture_pressed = ExtResource("5_xysd1")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Name" type="Label" parent="Contents/TeamSelector/TeamButtonsGrid/Zootecnicos" unique_id=1273918265]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Zootécnicos"
+label_settings = SubResource("LabelSettings_ex3ic")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Space" type="Control" parent="Contents" unique_id=1579270219]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Footer" type="HBoxContainer" parent="Contents" unique_id=286657520]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="NameEdit" type="VBoxContainer" parent="Contents/Footer" unique_id=55318114]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="Text" type="Label" parent="Contents/Footer/NameEdit" unique_id=1310499964]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+size_flags_vertical = 3
+text = "Escribe tu nombre"
+label_settings = ExtResource("6_sesa0")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="Contents/Footer/NameEdit" unique_id=1909608743]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("1_sxn6k")
+placeholder_text = "Tu nombre"
+caret_blink = true
+
+[node name="Space" type="Control" parent="Contents/Footer" unique_id=1901640080]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="PlayButton" type="Button" parent="Contents/Footer" unique_id=246091984]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_sxn6k")
+theme_override_colors/font_color = Color(0, 0.2509804, 0.1882353, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_pfi7o")
+shortcut = SubResource("Shortcut_6wp27")
+text = "Jugar"
+autowrap_mode = 2
+
+[connection signal="pressed" from="SkinSelectorButton/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="Contents/Footer/PlayButton" to="." method="submit_and_play"]

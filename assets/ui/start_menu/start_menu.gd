@@ -9,7 +9,7 @@ func _on_play_button_pressed() -> void:
     if FlagsManager.get_flag("character_selected"):
         push_warning("No hay escena de juego")
     else:
-        SceneManager.change_to_scene("character_selector")
+        SceneManager.change_to_scene("skin_selector")
 
 ## Botón de créditos: carga la escena de créditos
 func _on_credits_button_pressed() -> void:
