@@ -10,12 +10,12 @@ Para contribuir al desarrollo de BCC, asegúrate de tener lo siguiente:
 - Git y una cuenta de GitHub.
 - [Godot 4.6](https://downloads.godotengine.org/?version=4.6&flavor=stable&slug=mono_win64.zip&platform=windows.64). Opcionalmente, la versión .NET si quieres usar C#.
 - [Plantillas de exportación de Godot](https://downloads.godotengine.org/?version=4.6&flavor=stable&slug=mono_export_templates.tpz&platform=templates) para poder exportar el juego. Los ajustes de exportación ya vienen en el proyecto
-- Godot será actualizado en la medida de los posible, al menos hasta la versión 4.6.
+- Godot será actualizado en la medida de los posible, al menos dentro de las versiones 4.x
 - [.NET SDK 8 o superior](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) (opcional, solo si usas C#).
-- Un editor de código como Visual Studio Code o JetBrains Rider (recomendado).
+- Un editor de código como Visual Studio Code (recomendado) o JetBrains Rider.
 
 ## Flujo de Trabajo: Colaboración Directa
-Este proyecto utiliza un modelo de colaboración directa. Para poder enviar cambios, necesitas ser añadido como colaborador en el repositorio. Avísale a Andrés para solicitar acceso.
+Este proyecto utiliza un modelo de colaboración directa. Para poder enviar cambios, necesitas ser añadido como colaborador en el repositorio. Avísale a @Andresit1524 para solicitar acceso.
 
 Una vez que seas colaborador, podrás crear ramas directamente en el repositorio.
 
@@ -33,30 +33,16 @@ Una vez que seas colaborador, podrás crear ramas directamente en el repositorio
 
 ### Si usas Visual Studio Code
 1. Instala la extensión [godot-tools](https://marketplace.visualstudio.com/items?itemName=geequlim.godot-tools) para obtener la mejor integración con Godot.
-2. En la carpeta `.vscode/`, crea un archivo `settings.json` (si no existe) y añade la siguiente configuración. No olvides reemplazar el valor de `godotTools.editorPath.godot4` con la ruta real a tu ejecutable de Godot.
-
-    ```json
-    {
-        "godotTools.editorPath.godot4": "[ruta/absoluta/a/tu/ejecutable/de/Godot]",
-
-        // Exclusiones de archivos para mantener el explorador limpio
-        "files.exclude": {
-            "**/.builds/": true,
-            "**/.doc_maker/": true,
-            "**/.godot/": true
-        }
-    }
-    ```
-
+2. En la carpeta `.vscode/` habrán archivos de configuracción que te ayudarán a tener una experiencia coherente con el del resto de personas. No lo cambies 
 3. Abre el proyecto en Godot para que genere los archivos de configuración necesarios.
 
 ## Guía de Estilo de Código
 Para mantener la consistencia en el proyecto, te pedimos que sigas estas guías:
 
 - El código debe estar en inglés. Solo los comentarios y la documentación pueden estar en español.
-- **GDScript**: Usa `snake_case` para nombres de variables, funciones, archivos y carpetas.
-- **C#**: Usa `PascalCase` para nombres de clases, métodos, archivos y carpetas.
-- Los nodos en la escena deben usar `PascalCase`.
+- Usa `snake_case` en todo, excepto en tipos, clases, constantes y enumeradores.
+- C# usa sus propias reglas de estilo, las cuales puedes consultar
+- Los nodos en la escena deben usar `PascalCase`. Mientras que las escenas y los archivos en `snake_case`
 - Mantén siempre una buena ortografía y sé consistente con el estilo del código existente.
 
 ## Cómo Enviar Cambios
