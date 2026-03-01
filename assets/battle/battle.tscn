@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://bhftk28laqsy8"]
+
+[ext_resource type="Script" uid="uid://bi4tiwacyr4dh" path="res://assets/battle/deck.gd" id="1_oyv2c"]
+[ext_resource type="PackedScene" uid="uid://dogb8dy8s5bsc" path="res://assets/cards/card.tscn" id="2_6cxqy"]
+
+[sub_resource type="Curve2D" id="Curve2D_307i3"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 320, 512, -160.10532, 0, 160.10532, 0, 576, 486, 0, 0, 0, 0, 832, 512)
+}
+point_count = 3
+
+[node name="Battle" type="Node2D" unique_id=290666228]
+metadata/_edit_horizontal_guides_ = [512.0]
+metadata/_edit_vertical_guides_ = [320.0, 832.0]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=651321992]
+layer = -1
+
+[node name="Background" type="ColorRect" parent="CanvasLayer" unique_id=1159561503]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.1408, 0.44, 0.17071998, 1)
+metadata/_edit_lock_ = true
+
+[node name="Deck" type="Path2D" parent="." unique_id=563384670]
+curve = SubResource("Curve2D_307i3")
+script = ExtResource("1_oyv2c")
+card_scene = ExtResource("2_6cxqy")
+card_count = 19
