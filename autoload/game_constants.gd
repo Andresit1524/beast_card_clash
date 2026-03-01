@@ -1,5 +1,15 @@
 extends Node
 
+## Lista de elementos
+enum Elements {
+	NONE,
+	AIR,
+	EARTH,
+	ENERGY,
+	FIRE,
+	WATER
+}
+
 ## Lista de equipos
 enum Teams {
 	NO_TEAM,
