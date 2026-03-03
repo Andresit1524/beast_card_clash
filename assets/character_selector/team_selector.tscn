@@ -33,7 +33,7 @@ keycode = 4194309
 [sub_resource type="Shortcut" id="Shortcut_6wp27"]
 events = [SubResource("InputEventKey_1ocy6")]
 
-[node name="TeamSelector" type="Control" unique_id=71131889 node_paths=PackedStringArray("line_edit_node")]
+[node name="TeamSelector" type="Control" unique_id=71131889 node_paths=PackedStringArray("line_edit_node", "submit_button")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1152.0
@@ -42,6 +42,7 @@ theme = ExtResource("1_sxn6k")
 script = ExtResource("2_2c77f")
 teams_button_group = ExtResource("3_lcpbu")
 line_edit_node = NodePath("Contents/Footer/NameEdit/LineEdit")
+submit_button = NodePath("Contents/Footer/PlayButton")
 
 [node name="Background" type="ColorRect" parent="." unique_id=1156223875]
 layout_mode = 1
@@ -116,7 +117,6 @@ toggle_mode = true
 button_mask = 5
 button_group = ExtResource("3_lcpbu")
 texture_normal = ExtResource("7_vchsu")
-texture_pressed = ExtResource("5_xysd1")
 ignore_texture_size = true
 stretch_mode = 5
 
@@ -139,7 +139,6 @@ toggle_mode = true
 button_mask = 5
 button_group = ExtResource("3_lcpbu")
 texture_normal = ExtResource("8_1vm8b")
-texture_pressed = ExtResource("5_xysd1")
 ignore_texture_size = true
 stretch_mode = 5
 
@@ -162,7 +161,6 @@ toggle_mode = true
 button_mask = 5
 button_group = ExtResource("3_lcpbu")
 texture_normal = ExtResource("9_5w2yb")
-texture_pressed = ExtResource("5_xysd1")
 ignore_texture_size = true
 stretch_mode = 5
 
@@ -185,7 +183,6 @@ toggle_mode = true
 button_mask = 5
 button_group = ExtResource("3_lcpbu")
 texture_normal = ExtResource("10_h5kec")
-texture_pressed = ExtResource("5_xysd1")
 ignore_texture_size = true
 stretch_mode = 5
 
@@ -208,7 +205,6 @@ toggle_mode = true
 button_mask = 5
 button_group = ExtResource("3_lcpbu")
 texture_normal = ExtResource("11_gj0y0")
-texture_pressed = ExtResource("5_xysd1")
 ignore_texture_size = true
 stretch_mode = 5
 
@@ -234,7 +230,6 @@ toggle_mode = true
 button_mask = 5
 button_group = ExtResource("3_lcpbu")
 texture_normal = ExtResource("12_pcjs0")
-texture_pressed = ExtResource("5_xysd1")
 ignore_texture_size = true
 stretch_mode = 5
 
@@ -257,7 +252,6 @@ toggle_mode = true
 button_mask = 5
 button_group = ExtResource("3_lcpbu")
 texture_normal = ExtResource("13_ckhug")
-texture_pressed = ExtResource("5_xysd1")
 ignore_texture_size = true
 stretch_mode = 5
 
@@ -280,7 +274,6 @@ toggle_mode = true
 button_mask = 5
 button_group = ExtResource("3_lcpbu")
 texture_normal = ExtResource("14_y3p1b")
-texture_pressed = ExtResource("5_xysd1")
 ignore_texture_size = true
 stretch_mode = 5
 
@@ -303,7 +296,6 @@ toggle_mode = true
 button_mask = 5
 button_group = ExtResource("3_lcpbu")
 texture_normal = ExtResource("15_mhvx6")
-texture_pressed = ExtResource("5_xysd1")
 ignore_texture_size = true
 stretch_mode = 5
 
