@@ -2,13 +2,16 @@
 ## usando [code]get_card()[/code]
 class_name CardsList extends Resource
 
-@export var placeholder: CompressedTexture2D
-@export var air_cards: Array[CompressedTexture2D]
-@export var earth_cards: Array[CompressedTexture2D]
-@export var energy_cards: Array[CompressedTexture2D]
-@export var fire_cards: Array[CompressedTexture2D]
-@export var water_cards: Array[CompressedTexture2D]
 
+@export var placeholder: Texture2D
+@export var air_cards: Array[Texture2D]
+@export var earth_cards: Array[Texture2D]
+@export var energy_cards: Array[Texture2D]
+@export var fire_cards: Array[Texture2D]
+@export var water_cards: Array[Texture2D]
+
+
+## Obtiene la carta por su elemento y valor
 func get_card(element: int, value: int) -> Texture2D:
 	match element:
 		GameConstants.Elements.NONE:

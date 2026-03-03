@@ -4,21 +4,23 @@
 [ext_resource type="Resource" uid="uid://cieynustmj1yv" path="res://assets/cards/cards_list.tres" id="2_bciui"]
 [ext_resource type="Texture2D" uid="uid://buuyr83mnr7sq" path="res://assets/cards/card_sprites/placeholder.png" id="3_fv56m"]
 
-[node name="Card" type="Node2D" unique_id=1463976079]
+[node name="Card" type="TextureButton" unique_id=1039962767]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -240.0
+offset_top = -321.0
+offset_right = 240.0
+offset_bottom = 321.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("3_fv56m")
 script = ExtResource("1_is76p")
+disable_card = true
 cards_list = ExtResource("2_bciui")
 
-[node name="Sprite" type="Sprite2D" parent="." unique_id=1909063795]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("3_fv56m")
-
-[node name="Area2D" type="Area2D" parent="." unique_id=437195287]
-priority = 1
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" unique_id=609355068]
-scale = Vector2(1.0129219, 0.9769737)
-polygon = PackedVector2Array(-120.44364, -166.84175, 120.44364, -166.84175, 120.44364, 166.84175, -120.44364, 166.84175)
-
-[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
-[connection signal="mouse_entered" from="Area2D" to="." method="_hover_card" binds= [true]]
-[connection signal="mouse_exited" from="Area2D" to="." method="_hover_card" binds= [false]]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="pressed" from="." to="." method="_on_pressed"]

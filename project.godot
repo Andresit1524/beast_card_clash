@@ -16,6 +16,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="Beast Card Clash"
 config/version="0.1"
+config/tags=PackedStringArray("gdd")
 run/main_scene="uid://dr0fenfnqsha3"
 config/features=PackedStringArray("4.6")
 boot_splash/bg_color=Color(0.19215687, 0.34117648, 0.17254902, 1)

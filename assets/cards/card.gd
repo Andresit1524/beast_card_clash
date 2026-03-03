@@ -1,56 +1,101 @@
-extends Node2D
+extends TextureButton
+
 
 const MAX_VAlUE := 10
 
-@export var element := GameConstants.Elements.NONE
-@export_range(1, MAX_VAlUE) var value := 1
-@export var hide_card: bool = false
+
+## Elemento de la carta
+@export var element := GameConstants.Elements.NONE:
+	set(value):
+		element = value
+		update_sprite()
+## Valor de la carta
+@export_range(1, MAX_VAlUE) var value := 1:
+	set(v):
+		value = v
+		update_sprite()
+## Oculta la carta
+@export var hide_card: bool = false:
+	set(value):
+		hide_card = value
+		update_sprite()
+## Invalida la carta
+@export var disable_card: bool = false:
+	set(value):
+		disable_card = value
+		update_sprite()
+## Lista de sprites para las cartas
 @export var cards_list: CardsList
 
-@onready var sprite := $Sprite
-@onready var area := $Area2D
 
-func _process(_delta) -> void:
-	set_sprite()
-	# change_color()
+# Variables para guardar el estado inicial
+var _start_pos: Vector2
+var _start_size: Vector2
 
-## Establece el sprite de la carta según el elemento y valor
-func set_sprite() -> void:
-	if element == GameConstants.Elements.NONE:
-		sprite.texture = cards_list.placeholder
+
+func _ready() -> void:
+	_start_pos = position
+	_start_size = size
+
+	# Centra el pivote
+	pivot_offset = size / 2
+
+	update_sprite()
+
+
+## Establece una lista de valores para la carta. Úsalo solo para asignaciones múltiples
+func set_properties(values: Dictionary) -> void:
+	for property in values:
+		var new_value = values[property]
+
+		if not property in self:
+			push_error("Propiedad no encontrada: %s" % property)
+			continue
+
+		set(property, new_value)
+
+	update_sprite()
+
+
+## Cambia la imagen de la carta
+func update_sprite() -> void:
+	if not cards_list: return
+
+	if hide_card:
+		texture_normal = cards_list.placeholder
 		return
 
-	sprite.texture = cards_list.get_card(element, value) if not hide_card else cards_list.placeholder
+	texture_normal = cards_list.get_card(element, value)
 
-# ## Pone un color sobre las cartas según su elemento
-# func change_color() -> void:
-# 	var modulate_color: Color
-# 	match element:
-# 		GameConstants.Elements.NONE:
-# 			modulate_color = Color.BLACK
-# 		GameConstants.Elements.AIR:
-# 			modulate_color = Color.LIGHT_CYAN
-# 		GameConstants.Elements.EARTH:
-# 			modulate_color = Color.GREEN
-# 		GameConstants.Elements.FIRE:
-# 			modulate_color = Color.RED
-# 		GameConstants.Elements.WATER:
-# 			modulate_color = Color.CYAN
+	# Oscurece la carta cuando está desactivada
+	modulate = Color.DIM_GRAY if disable_card else Color.WHITE
 
-# 	modulate_color = modulate_color.lerp(Color.WHITE, 0.5)
-# 	sprite.modulate = modulate_color
 
-## Gestiona el clic sobre una carta
-func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	if not (
-		event is InputEventMouseButton
-		and event.is_pressed()
-		and event.button_index == MOUSE_BUTTON_LEFT
-	): return
+func _on_pressed() -> void:
+	if disable_card: return
 
-	print_debug("Card (%s) clicked!" % name)
-	get_viewport().set_input_as_handled()
+	print_debug("Carta %s-%s presionada" % [element, value])
 
-## Selecciona una carta
-func _hover_card(hover: bool) -> void:
-	sprite.modulate = Color.DIM_GRAY if hover else Color.WHITE
+
+func _on_mouse_entered() -> void:
+	hover_card(true)
+
+
+func _on_mouse_exited() -> void:
+	hover_card(false)
+
+
+## Cambia los parámetros de la carta
+func hover_card(hover: bool) -> void:
+	if disable_card: return
+
+	var tween := create_tween().set_parallel().set_trans(Tween.TRANS_SINE)
+
+	if hover:
+		tween.tween_property(self , "modulate", Color.GRAY, 0.2)
+		tween.tween_property(self , "position", _start_pos + Vector2(0, -160) * scale, 0.2)
+		tween.tween_property(self , "size", Vector2(_start_size.x, _start_size.y * 1.7), 0.2)
+	else:
+		tween.tween_property(self , "modulate", Color.WHITE, 0.2)
+		tween.tween_property(self , "position", _start_pos, 0.2)
+		tween.tween_property(self , "size", _start_size, 0.2)
