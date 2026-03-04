@@ -1,39 +1,64 @@
-# `MainMenu`
-
-Este script actúa como el controlador principal de la interfaz de usuario del menú de inicio. Su propósito fundamental es gestionar la transición inicial del flujo de ejecución del juego, coordinando la ambientación sonora y las interacciones del usuario para navegar hacia las diferentes secciones del proyecto (Tutorial, Créditos o Salida).
-
-El script se apoya en dos sistemas globales (Autoloads/Singletons) denominados `MusicManager` y `SceneManager`, lo que permite una gestión centralizada y desacoplada de la lógica de recursos.
+# `main_menu`
+Este script extiende `Node` y es el encargado de gestionar la lógica principal del menú inicial del juego. Su función principal es inicializar la música al cargar el menú y responder a las interacciones del usuario con los botones de la interfaz, delegando la gestión de escenas y la salida de la aplicación a sistemas de gestión centralizados.
 
 # Métodos
 
 ## Métodos de Godot
 
-### `_ready() -> void`
-Es el punto de entrada al inicializar la escena del menú. Su función principal es establecer el estado auditivo inicial del juego.
-
-* **Funcionamiento**: Invoca al método `play_music` del singleton `MusicManager`, pasando como argumento el identificador `"start_menu"`. Esto asegura que la banda sonora correspondiente al menú principal comience a reproducirse apenas el nodo entra al árbol de escenas.
+### `_ready()`
+Este método de ciclo de vida de Godot es invocado una vez cuando el nodo `main_menu` entra en el árbol de escenas y está listo. Su responsabilidad es iniciar la reproducción de la música designada para el menú principal.
 
 ```gdscript
 func _ready() -> void:
-    MusicManager.play_music("start_menu")
+	MusicManager.play_music("start_menu")
 ```
+
+Utiliza el singleton `MusicManager` (presumiblemente un AutoLoad) para reproducir la pista de audio identificada como `"start_menu"`. Esto asegura que el ambiente sonoro del menú se establezca correctamente al inicio.
 
 ## Funciones asociadas a señales
 
-#### `_on_play_button_pressed() -> void`
-Este método está vinculado a la señal `pressed` del botón destinado a iniciar la experiencia de juego.
+#### `_on_play_button_pressed()`
+Este método se ejecuta en respuesta a la señal `pressed()` emitida por un botón de interfaz de usuario (UI) que actúa como el botón "Jugar". Su lógica determina si el juego debe pasar al selector de personaje o si el jugador ya tiene un personaje seleccionado y, por lo tanto, debería ir directamente a la escena de juego.
 
-* **Funcionamiento**: Utiliza el `SceneManager` para realizar una transición hacia la escena `"tutorial"`. Se asume que el tutorial es la puerta de entrada obligatoria o recomendada para los nuevos jugadores antes de acceder a las mecánicas principales de *Beast Card Clash*.
+```gdscript
+func _on_play_button_pressed() -> void:
+	if FlagsManager.get_flag("character_selected"):
+		push_warning("No hay escena de juego")
+	else:
+		SceneManager.change_to_scene("skin_selector")
+```
 
-#### `_on_credits_button_pressed() -> void`
-Este método responde a la interacción con el botón de créditos del menú.
+1.  **Verificación de Bandera:** Consulta el singleton `FlagsManager` (un AutoLoad para gestionar estados globales) para verificar el valor de la bandera `"character_selected"`.
+2.  **Lógica Condicional:**
+    *   Si `character_selected` es `true`, indica que un personaje ya ha sido elegido. Actualmente, esta rama produce una advertencia en la consola de Godot (`push_warning`) señalando que la escena de juego aún no está implementada.
+    *   Si `character_selected` es `false`, significa que el jugador necesita seleccionar un personaje. En este caso, el método utiliza el singleton `SceneManager` (otro AutoLoad para la gestión de escenas) para cargar la escena `"skin_selector"`.
 
-* **Funcionamiento**: Solicita al `SceneManager` el cambio hacia la escena `"credits"`. Este flujo permite a los usuarios visualizar la información sobre **Osito y Co.** y los detalles de la licencia MIT mencionados en la documentación general.
+#### `_on_credits_button_pressed()`
+Este método se invoca cuando el botón de "Créditos" de la UI es presionado. Su única función es transicionar a la escena que muestra los créditos del juego.
 
-#### `_on_quit_button_pressed() -> void`
-Gestiona la terminación de la instancia del juego desde la interfaz de usuario.
+```gdscript
+func _on_credits_button_pressed() -> void:
+	SceneManager.change_to_scene("credits")
+```
 
-* **Funcionamiento**: Accede al `SceneTree` mediante `get_tree()` y ejecuta el método `quit()`. Esto cierra la aplicación de forma inmediata y segura en plataformas de escritorio.
+Para realizar la transición, utiliza el singleton `SceneManager` para cargar la escena `"credits"`.
 
-> [!NOTE]
-> Este script depende enteramente de la existencia de los singletons `MusicManager` y `SceneManager`. Cualquier cambio en la firma de los métodos de estos managers (como `play_music` o `change_to_scene`) requerirá una actualización directa en este controlador.
+#### `_on_quit_button_pressed()`
+Este método se activa al presionar el botón de "Salir" en la UI. Su propósito es finalizar la aplicación del juego de manera inmediata.
+
+```gdscript
+func _on_quit_button_pressed() -> void:
+	get_tree().quit()
+```
+
+Accede al objeto `SceneTree` global a través de `get_tree()` y llama a su método `quit()` para cerrar la aplicación.
+
+#### `_on_tutorial_button_pressed()`
+Este método se ejecuta al presionar el botón de "Tutorial" en la UI. Su objetivo es cambiar a la escena que contiene la información o la secuencia del tutorial del juego.
+
+```gdscript
+func _on_tutorial_button_pressed() -> void:
+	SceneManager.change_to_scene("tutorial")
+```
+
+Similar a otros métodos de navegación, utiliza el singleton `SceneManager` para cargar la escena `"tutorial"`.
