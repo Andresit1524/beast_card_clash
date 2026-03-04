@@ -11,14 +11,15 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -240.0
-offset_top = -321.0
+offset_top = -336.0
 offset_right = 240.0
-offset_bottom = 321.0
+offset_bottom = 336.0
 grow_horizontal = 2
 grow_vertical = 2
 texture_normal = ExtResource("3_fv56m")
 script = ExtResource("1_is76p")
-disable_card = true
+element = 1
+hide_card = true
 cards_list = ExtResource("2_bciui")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

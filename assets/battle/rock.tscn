@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://bmk14l2nvouje"]
+
+[ext_resource type="Texture2D" uid="uid://b0jhwpsnrf3hq" path="res://assets/teams/sprites/ingeniosos_elementales.png" id="1_8skxw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lfvml"]
+resource_local_to_scene = true
+albedo_color = Color(0.15802127, 0.15802127, 0.15802127, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_lfvml"]
+material = SubResource("StandardMaterial3D_lfvml")
+top_radius = 1.2
+bottom_radius = 1.5
+height = 0.2
+
+[node name="Rock" type="MeshInstance3D" unique_id=1614443290]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+mesh = SubResource("CylinderMesh_lfvml")
+
+[node name="Element" type="Sprite3D" parent="." unique_id=906482920]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.11, 0)
+axis = 1
+texture = ExtResource("1_8skxw")

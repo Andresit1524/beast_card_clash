@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://b00c0clxl6uol"]
+
+[ext_resource type="Theme" uid="uid://djsw6wrf4tns" path="res://assets/ui/themes/main_theme.tres" id="1_sqvfj"]
+[ext_resource type="Script" uid="uid://boql1vcq5r5bm" path="res://assets/battle/player_panel.gd" id="2_co1kv"]
+[ext_resource type="Texture2D" uid="uid://buuyr83mnr7sq" path="res://assets/cards/card_sprites/placeholder.png" id="3_co1kv"]
+[ext_resource type="Resource" uid="uid://cieynustmj1yv" path="res://assets/cards/cards_list.tres" id="3_xvvdh"]
+[ext_resource type="Resource" uid="uid://c4gqyhuufijo" path="res://assets/teams/teams_list.tres" id="4_fwwar"]
+[ext_resource type="Texture2D" uid="uid://ck83qwbrce022" path="res://assets/teams/sprites/character.png" id="5_xvvdh"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_qgjx3"]
+
+[node name="PlayerPanel" type="PanelContainer" unique_id=1053233556]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -72.0
+offset_top = -83.0
+offset_right = 72.0
+offset_bottom = 83.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_sqvfj")
+script = ExtResource("2_co1kv")
+cards_list = ExtResource("3_xvvdh")
+teams_list = ExtResource("4_fwwar")
+
+[node name="Margin" type="MarginContainer" parent="." unique_id=1077753499]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Contents" type="VBoxContainer" parent="Margin" unique_id=1590881465]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="PlayerData" type="HBoxContainer" parent="Margin/Contents" unique_id=826619740]
+layout_mode = 2
+
+[node name="Team" type="TextureRect" parent="Margin/Contents/PlayerData" unique_id=1143592865]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+texture = ExtResource("5_xvvdh")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Name" type="Label" parent="Margin/Contents/PlayerData" unique_id=749635532]
+layout_mode = 2
+text = "Sin nombre"
+label_settings = SubResource("LabelSettings_qgjx3")
+horizontal_alignment = 1
+
+[node name="Card" type="TextureRect" parent="Margin/Contents" unique_id=2137869174]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+texture = ExtResource("3_co1kv")
+expand_mode = 1
+stretch_mode = 5

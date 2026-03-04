@@ -57,6 +57,13 @@ corner_radius_bottom_left = 20
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ryn8q"]
 bg_color = Color(0, 0, 0, 0)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gqphy"]
+bg_color = Color(0.1408, 0.44, 0.17071998, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
 [resource]
 default_font = ExtResource("1_ey3j3")
 default_font_size = 20
@@ -80,6 +87,11 @@ LineEdit/colors/font_color = Color(0.9254902, 0.9529412, 0.61960787, 1)
 LineEdit/font_sizes/font_size = 20
 LineEdit/styles/normal = SubResource("StyleBoxFlat_jocap")
 LineEdit/styles/read_only = SubResource("StyleBoxFlat_ryn8q")
+MarginContainer/constants/margin_bottom = 16
+MarginContainer/constants/margin_left = 16
+MarginContainer/constants/margin_right = 16
+MarginContainer/constants/margin_top = 16
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_gqphy")
 RichTextLabel/colors/default_color = Color(0.19215687, 0.34117648, 0.17254902, 1)
 RichTextLabel/font_sizes/bold_font_size = 20
 RichTextLabel/font_sizes/bold_italics_font_size = 20

@@ -9,11 +9,11 @@ extends Path2D
 		card_scale = value
 		refresh_cards()
 ## Cantidad de cartas en la mano
-@export var card_count: int = 7:
+@export var card_count: int = 12:
 	set(value):
 		card_count = value
 		refresh_cards()
-## Roca del jugador actual. Luego será variable interna
+## Roca del jugador actual. Luego será variable interna o movida de sitio
 @export var current_rock: GameConstants.Elements = GameConstants.Elements.NONE:
 	set(value):
 		current_rock = value
@@ -29,7 +29,7 @@ func _ready() -> void:
 	# Crea las cartas
 	for i in range(card_count):
 		var new_card_pos := PathFollow2D.new()
-		var new_card = card_scene.instantiate()
+		var new_card := card_scene.instantiate()
 
 		# Establece los elementos y valores de las cartas
 		var new_element: GameConstants.Elements
@@ -71,4 +71,7 @@ func refresh_cards() -> void:
 		card.scale = Vector2(card_scale, card_scale)
 
 		# Desactiva las cartas que no son del elemento actual
-		card.disable_card = card.element != current_rock
+		if current_rock != GameConstants.Elements.NONE:
+			card.disable_card = card.element != current_rock
+		else:
+			card.disable_card = false

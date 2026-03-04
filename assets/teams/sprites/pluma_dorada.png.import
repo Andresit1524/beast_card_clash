@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dd6mwgq24mgin"
-path="res://.godot/imported/acetiles.png-8cbb8863f72e7810a7c954934bb64a07.ctex"
+uid="uid://bqg8nme86squs"
+path="res://.godot/imported/pluma_dorada.png-57a709d5c81252b3cf5d35854c16848c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/character_selector/team_icons/acetiles.png"
-dest_files=["res://.godot/imported/acetiles.png-8cbb8863f72e7810a7c954934bb64a07.ctex"]
+source_file="res://assets/teams/sprites/pluma_dorada.png"
+dest_files=["res://.godot/imported/pluma_dorada.png-57a709d5c81252b3cf5d35854c16848c.ctex"]
 
 [params]
 

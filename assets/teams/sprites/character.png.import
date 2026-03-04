@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b0jhwpsnrf3hq"
-path="res://.godot/imported/ingeniosos_elementales.png-49c4a664db36effce0e40f6d1b40bcaf.ctex"
+uid="uid://ck83qwbrce022"
+path="res://.godot/imported/character.png-c27dfaa6d657b2bab790a146da7ac8d8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/character_selector/team_icons/ingeniosos_elementales.png"
-dest_files=["res://.godot/imported/ingeniosos_elementales.png-49c4a664db36effce0e40f6d1b40bcaf.ctex"]
+source_file="res://assets/teams/sprites/character.png"
+dest_files=["res://.godot/imported/character.png-c27dfaa6d657b2bab790a146da7ac8d8.ctex"]
 
 [params]
 

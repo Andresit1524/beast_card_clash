@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dvfti85fufh7x"
-path="res://.godot/imported/zootecnicos.png-8a5a1799cfa8b5447d9fd7b86d009012.ctex"
+uid="uid://coe7d0up1udb7"
+path="res://.godot/imported/adn.png-8d2ddab4cba4b3eaa2899320822eeb4e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/character_selector/team_icons/zootecnicos.png"
-dest_files=["res://.godot/imported/zootecnicos.png-8a5a1799cfa8b5447d9fd7b86d009012.ctex"]
+source_file="res://assets/teams/sprites/adn.png"
+dest_files=["res://.godot/imported/adn.png-8d2ddab4cba4b3eaa2899320822eeb4e.ctex"]
 
 [params]
 

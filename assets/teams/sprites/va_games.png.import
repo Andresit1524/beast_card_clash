@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://df1jydvq6kuhy"
-path="res://.godot/imported/real_pincel.png-923eb7db8e7c1e813b2c8485545e13bd.ctex"
+uid="uid://dprn2iyg81061"
+path="res://.godot/imported/va_games.png-697a6977be5e705ac652d85e6e12d07c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/character_selector/team_icons/real_pincel.png"
-dest_files=["res://.godot/imported/real_pincel.png-923eb7db8e7c1e813b2c8485545e13bd.ctex"]
+source_file="res://assets/teams/sprites/va_games.png"
+dest_files=["res://.godot/imported/va_games.png-697a6977be5e705ac652d85e6e12d07c.ctex"]
 
 [params]
 

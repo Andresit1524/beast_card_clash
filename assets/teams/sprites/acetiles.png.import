@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://coe7d0up1udb7"
-path="res://.godot/imported/adn.png-3ce2532490cb0ff599b7c92b11c3cb79.ctex"
+uid="uid://dd6mwgq24mgin"
+path="res://.godot/imported/acetiles.png-a7eae54dcdc76268a38a21c5767e9d38.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/character_selector/team_icons/adn.png"
-dest_files=["res://.godot/imported/adn.png-3ce2532490cb0ff599b7c92b11c3cb79.ctex"]
+source_file="res://assets/teams/sprites/acetiles.png"
+dest_files=["res://.godot/imported/acetiles.png-a7eae54dcdc76268a38a21c5767e9d38.ctex"]
 
 [params]
 

@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="TeamsList" format=3 uid="uid://c4gqyhuufijo"]
+
+[ext_resource type="Script" uid="uid://g1ykek2jk0es" path="res://assets/teams/teams_list.gd" id="1_rsclq"]
+[ext_resource type="Texture2D" uid="uid://ck83qwbrce022" path="res://assets/teams/sprites/character.png" id="2_5yi5k"]
+[ext_resource type="Texture2D" uid="uid://dd6mwgq24mgin" path="res://assets/teams/sprites/acetiles.png" id="3_sqdd4"]
+[ext_resource type="Texture2D" uid="uid://coe7d0up1udb7" path="res://assets/teams/sprites/adn.png" id="4_qqwd1"]
+[ext_resource type="Texture2D" uid="uid://b0jhwpsnrf3hq" path="res://assets/teams/sprites/ingeniosos_elementales.png" id="5_l2iuu"]
+[ext_resource type="Texture2D" uid="uid://c1274652qs8kx" path="res://assets/teams/sprites/photo_agros.png" id="6_x2chm"]
+[ext_resource type="Texture2D" uid="uid://bqg8nme86squs" path="res://assets/teams/sprites/pluma_dorada.png" id="7_ldh28"]
+[ext_resource type="Texture2D" uid="uid://dxjfwq5s4ku8b" path="res://assets/teams/sprites/rcp_team.png" id="8_t7lt4"]
+[ext_resource type="Texture2D" uid="uid://df1jydvq6kuhy" path="res://assets/teams/sprites/real_pincel.png" id="9_v7jhh"]
+[ext_resource type="Texture2D" uid="uid://dprn2iyg81061" path="res://assets/teams/sprites/va_games.png" id="10_sgpio"]
+[ext_resource type="Texture2D" uid="uid://dvfti85fufh7x" path="res://assets/teams/sprites/zootecnicos.png" id="11_puhiv"]
+
+[resource]
+script = ExtResource("1_rsclq")
+teams_icons = {
+0: ExtResource("2_5yi5k"),
+1: ExtResource("3_sqdd4"),
+2: ExtResource("4_qqwd1"),
+3: ExtResource("5_l2iuu"),
+4: ExtResource("6_x2chm"),
+5: ExtResource("7_ldh28"),
+6: ExtResource("8_t7lt4"),
+7: ExtResource("9_v7jhh"),
+8: ExtResource("10_sgpio"),
+9: ExtResource("11_puhiv")
+}
+metadata/_custom_type_script = "uid://g1ykek2jk0es"

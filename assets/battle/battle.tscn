@@ -1,8 +1,18 @@
 [gd_scene format=3 uid="uid://bhftk28laqsy8"]
 
+[ext_resource type="PackedScene" uid="uid://b00c0clxl6uol" path="res://assets/battle/player_panel.tscn" id="1_1054f"]
 [ext_resource type="Script" uid="uid://bi4tiwacyr4dh" path="res://assets/battle/hand.gd" id="1_oyv2c"]
 [ext_resource type="PackedScene" uid="uid://dogb8dy8s5bsc" path="res://assets/cards/card.tscn" id="2_6cxqy"]
 [ext_resource type="Script" uid="uid://drdwdoxs6lwwi" path="res://assets/battle/battle_manager.gd" id="3_6cxqy"]
+[ext_resource type="PackedScene" uid="uid://mpvkdtkj0ajj" path="res://assets/dice/dice.tscn" id="5_hsiu5"]
+[ext_resource type="Script" uid="uid://cjn0h33vnse38" path="res://assets/battle/rocks.gd" id="6_1e0e5"]
+[ext_resource type="PackedScene" uid="uid://bmk14l2nvouje" path="res://assets/battle/rock.tscn" id="6_d31xq"]
+
+[sub_resource type="Environment" id="Environment_hsiu5"]
+background_mode = 3
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 1.6
 
 [sub_resource type="Curve2D" id="Curve2D_307i3"]
 _data = {
@@ -10,29 +20,115 @@ _data = {
 }
 point_count = 3
 
-[node name="Battle" type="Node2D" unique_id=290666228]
-metadata/_edit_horizontal_guides_ = [512.0, -80.0]
-metadata/_edit_vertical_guides_ = [320.0, 832.0]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1e0e5"]
+albedo_color = Color(0.24, 0.110400006, 0.045599997, 1)
 
-[node name="UILayer" type="CanvasLayer" parent="." unique_id=651321992]
+[sub_resource type="CylinderMesh" id="CylinderMesh_tlmnd"]
+material = SubResource("StandardMaterial3D_1e0e5")
+top_radius = 10.0
+bottom_radius = 10.0
+height = 0.1
+
+[node name="Battle" type="Node" unique_id=669774022]
+metadata/_edit_horizontal_guides_ = [512.0, 32.0, 616.0]
+metadata/_edit_vertical_guides_ = [320.0, 832.0, 32.0, 1120.0]
+
+[node name="World" type="Node3D" parent="." unique_id=728525797]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="World" unique_id=13638297]
+environment = SubResource("Environment_hsiu5")
+
+[node name="Camera3D" type="Camera3D" parent="World" unique_id=824639004]
+transform = Transform3D(1, 0, 0, 0, 0.73889065, 0.6738253, 0, -0.6738253, 0.73889065, 0, 15.365939, 20.733116)
+current = true
+fov = 39.740986
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="World" unique_id=1631799841]
+transform = Transform3D(-0.23401584, -0.6283599, 0.7418897, -0.17849198, 0.7778754, 0.60253656, -0.9557076, 0.008581743, -0.29419237, -1.8196497, 21.941957, 22.545345)
+
+[node name="Background" type="CanvasLayer" parent="." unique_id=1962356091]
 layer = -1
 
-[node name="Background" type="ColorRect" parent="UILayer" unique_id=1159561503]
+[node name="Background" type="ColorRect" parent="Background" unique_id=199459485]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0.1408, 0.44, 0.17071998, 1)
-metadata/_edit_lock_ = true
-
-[node name="Hand" type="Path2D" parent="UILayer" unique_id=563384670]
-curve = SubResource("Curve2D_307i3")
-script = ExtResource("1_oyv2c")
-card_scene = ExtResource("2_6cxqy")
-card_count = 182
-current_rock = 5
+color = Color(0.49929276, 0.70387197, 0.44451645, 1)
 
 [node name="BattleManager" type="Node" parent="." unique_id=420469907]
 script = ExtResource("3_6cxqy")
+
+[node name="UILayer" type="CanvasLayer" parent="." unique_id=651321992]
+
+[node name="HandPos" type="Control" parent="UILayer" unique_id=534952336]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 1
+
+[node name="Hand" type="Path2D" parent="UILayer/HandPos" unique_id=563384670]
+position = Vector2(-576, -648)
+curve = SubResource("Curve2D_307i3")
+script = ExtResource("1_oyv2c")
+card_scene = ExtResource("2_6cxqy")
+
+[node name="PlayerPanels" type="VBoxContainer" parent="UILayer" unique_id=1280223489]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -168.0
+offset_top = 32.0
+offset_right = -36.0
+offset_bottom = 526.0
+grow_horizontal = 0
+theme_override_constants/separation = 8
+
+[node name="PlayerPanel" parent="UILayer/PlayerPanels" unique_id=1053233556 instance=ExtResource("1_1054f")]
+layout_mode = 2
+
+[node name="PlayerPanel2" parent="UILayer/PlayerPanels" unique_id=1994888533 instance=ExtResource("1_1054f")]
+layout_mode = 2
+
+[node name="PlayerPanel3" parent="UILayer/PlayerPanels" unique_id=954710962 instance=ExtResource("1_1054f")]
+layout_mode = 2
+
+[node name="Arena" type="Node3D" parent="." unique_id=2016797397]
+
+[node name="Platform" type="MeshInstance3D" parent="Arena" unique_id=1408877626]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+mesh = SubResource("CylinderMesh_tlmnd")
+
+[node name="Dice" parent="Arena/Platform" unique_id=1602974280 instance=ExtResource("5_hsiu5")]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 1.1, 0)
+number = 5
+
+[node name="Rocks" type="Node3D" parent="Arena/Platform" unique_id=1152453067]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+script = ExtResource("6_1e0e5")
+rock_scene = ExtResource("6_d31xq")
+rocks_count = 18
+radius = 8.0
+
+[node name="ReferenceRock" parent="Arena/Platform/Rocks" unique_id=1614443290 instance=ExtResource("6_d31xq")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -8, 0, 0)
+skeleton = NodePath("../../..")
+
+[node name="ReferenceRock2" parent="Arena/Platform/Rocks" unique_id=138480051 instance=ExtResource("6_d31xq")]
+transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 8, 0, 0)
+skeleton = NodePath("../../..")
+
+[node name="ReferenceRock3" parent="Arena/Platform/Rocks" unique_id=1301111891 instance=ExtResource("6_d31xq")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 8)
+skeleton = NodePath("../../..")
+
+[node name="ReferenceRock4" parent="Arena/Platform/Rocks" unique_id=1601587957 instance=ExtResource("6_d31xq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8)
+skeleton = NodePath("../../..")

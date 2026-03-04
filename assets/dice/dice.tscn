@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://mpvkdtkj0ajj"]
+
+[ext_resource type="PackedScene" uid="uid://6qvq4woher3a" path="res://assets/dice/dice.glb" id="1_w4w7p"]
+[ext_resource type="Script" uid="uid://crup472mvwn8o" path="res://assets/dice/dice.gd" id="2_kqj45"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kqj45"]
+size = Vector3(2.1, 2.1, 2.1)
+
+[node name="Dice" unique_id=1602974280 instance=ExtResource("1_w4w7p")]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 0, 0)
+script = ExtResource("2_kqj45")
+
+[node name="StaticBody" type="StaticBody3D" parent="." index="1" unique_id=1360262556]
+
+[node name="CollisionShape" type="CollisionShape3D" parent="StaticBody" index="0" unique_id=749642592]
+shape = SubResource("BoxShape3D_kqj45")
+
+[connection signal="input_event" from="StaticBody" to="." method="_on_static_body_input_event"]

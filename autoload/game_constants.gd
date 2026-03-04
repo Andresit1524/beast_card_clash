@@ -1,5 +1,9 @@
 extends Node
 
+## Constantes del juego
+const MAX_CARD_VAlUE := 10
+
+
 ## Lista de elementos
 enum Elements {
 	NONE,
@@ -9,6 +13,7 @@ enum Elements {
 	FIRE,
 	WATER
 }
+
 
 ## Lista de equipos
 enum Teams {
@@ -24,6 +29,7 @@ enum Teams {
 	ZOOTECNICOS
 }
 
+
 ## Miembros de los equipos
 const TEAMS_MEMBERS: Dictionary[Teams, Array] = {
 	Teams.NO_TEAM: [],
@@ -38,6 +44,7 @@ const TEAMS_MEMBERS: Dictionary[Teams, Array] = {
 	Teams.ZOOTECNICOS: []
 }
 
+
 ## Especies disponibles y las skins disponibles para cada uno
 enum Species {
 	BEAR,
@@ -45,6 +52,7 @@ enum Species {
 	CHAMALEON,
 	FROG
 }
+
 
 ## Skins disponibles para cada especie. Base (la skin por defecto) va de primero
 const SKINS: Dictionary[Species, PackedStringArray] = {
