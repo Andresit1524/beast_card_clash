@@ -13,7 +13,6 @@ bottom_radius = 1.5
 height = 0.2
 
 [node name="Rock" type="MeshInstance3D" unique_id=1614443290]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 mesh = SubResource("CylinderMesh_lfvml")
 
 [node name="Element" type="Sprite3D" parent="." unique_id=906482920]

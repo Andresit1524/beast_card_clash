@@ -1,6 +1,9 @@
 extends Node3D
 
 
+const ROCK_Y_OFFSET := 0.1
+
+
 ## Rock scene
 @export var rock_scene: PackedScene
 ## Cantidad de rocas
@@ -32,5 +35,6 @@ func update_rocks() -> void:
 		var new_rock_rotation := (TAU * i) / rocks_count
 
 		new_rock.position = director.rotated(Vector3.UP, new_rock_rotation)
+		new_rock.position.y = ROCK_Y_OFFSET
 		new_rock.rotate(Vector3.UP, new_rock_rotation)
 		add_child(new_rock, true)

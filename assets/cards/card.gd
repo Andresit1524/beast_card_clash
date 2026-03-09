@@ -18,6 +18,7 @@ const HOVER_TIME := 0.2
 ## Oculta la carta
 @export var hide_card: bool = false:
 	set(value):
+		if value == hide_card: return
 		hide_card = value
 		rotate_card()
 ## Invalida la carta

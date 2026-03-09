@@ -40,6 +40,7 @@ alignment = 1
 
 [node name="PlayerData" type="HBoxContainer" parent="Margin/Contents" unique_id=826619740]
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="Team" type="TextureRect" parent="Margin/Contents/PlayerData" unique_id=1143592865]
 custom_minimum_size = Vector2(30, 30)
@@ -57,6 +58,30 @@ horizontal_alignment = 1
 [node name="Card" type="TextureRect" parent="Margin/Contents" unique_id=2137869174]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
+size_flags_vertical = 3
 texture = ExtResource("3_co1kv")
 expand_mode = 1
 stretch_mode = 5
+
+[node name="LifeBar" type="ProgressBar" parent="Margin/Contents" unique_id=2071737873]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+size_flags_vertical = 3
+max_value = 5.0
+step = 1.0
+value = 4.0
+rounded = true
+show_percentage = false
+
+[node name="LifeValue" type="RichTextLabel" parent="Margin/Contents/LifeBar" unique_id=54199959]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "0"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
