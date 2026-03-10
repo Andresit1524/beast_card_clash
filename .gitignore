@@ -22,3 +22,10 @@ mono_crash.*.json
 
 # Python compiled cache
 __pycache__/
+
+# System ignores
+**.tmp
+*.log
+*.user
+.DS_Store
+thumbs.db
