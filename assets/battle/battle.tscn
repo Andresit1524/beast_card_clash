@@ -57,6 +57,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0.49929276, 0.70387197, 0.44451645, 1)
+metadata/_edit_lock_ = true
 
 [node name="BattleManager" type="Node" parent="." unique_id=420469907]
 script = ExtResource("3_6cxqy")
@@ -80,7 +81,20 @@ curve = SubResource("Curve2D_307i3")
 script = ExtResource("1_oyv2c")
 card_scene = ExtResource("2_6cxqy")
 
-[node name="PlayerPanels" type="VBoxContainer" parent="UILayer" unique_id=1280223489]
+[node name="PlayerPanel" parent="UILayer" unique_id=1239815553 instance=ExtResource("1_1054f")]
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 32.0
+offset_top = 32.0
+offset_right = 176.0
+offset_bottom = 214.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="RivalPanels" type="VBoxContainer" parent="UILayer" unique_id=1280223489]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -91,13 +105,13 @@ offset_bottom = 526.0
 grow_horizontal = 0
 theme_override_constants/separation = 8
 
-[node name="PlayerPanel" parent="UILayer/PlayerPanels" unique_id=1053233556 instance=ExtResource("1_1054f")]
+[node name="RivalPanel3" parent="UILayer/RivalPanels" unique_id=1053233556 instance=ExtResource("1_1054f")]
 layout_mode = 2
 
-[node name="PlayerPanel2" parent="UILayer/PlayerPanels" unique_id=1994888533 instance=ExtResource("1_1054f")]
+[node name="RivalPanel4" parent="UILayer/RivalPanels" unique_id=1994888533 instance=ExtResource("1_1054f")]
 layout_mode = 2
 
-[node name="PlayerPanel3" parent="UILayer/PlayerPanels" unique_id=954710962 instance=ExtResource("1_1054f")]
+[node name="RivalPanel5" parent="UILayer/RivalPanels" unique_id=954710962 instance=ExtResource("1_1054f")]
 layout_mode = 2
 
 [node name="Arena" type="Node3D" parent="." unique_id=2016797397]
@@ -108,7 +122,6 @@ mesh = SubResource("CylinderMesh_tlmnd")
 
 [node name="Dice" parent="Arena/Platform" unique_id=1602974280 instance=ExtResource("5_hsiu5")]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 1.1, 0)
-number = 5
 
 [node name="Rocks" type="Node3D" parent="Arena/Platform" unique_id=1152453067]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)

@@ -64,6 +64,20 @@ corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6devt"]
+bg_color = Color(0.5544, 0.77, 0.57596, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rqeb3"]
+bg_color = Color(0.17250001, 0.75, 0.2398751, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
 [resource]
 default_font = ExtResource("1_ey3j3")
 default_font_size = 20
@@ -92,6 +106,8 @@ MarginContainer/constants/margin_left = 16
 MarginContainer/constants/margin_right = 16
 MarginContainer/constants/margin_top = 16
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_gqphy")
+ProgressBar/styles/background = SubResource("StyleBoxFlat_6devt")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_rqeb3")
 RichTextLabel/colors/default_color = Color(0.19215687, 0.34117648, 0.17254902, 1)
 RichTextLabel/font_sizes/bold_font_size = 20
 RichTextLabel/font_sizes/bold_italics_font_size = 20
