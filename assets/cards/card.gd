@@ -1,39 +1,41 @@
-extends TextureButton
+class_name CardScene extends TextureButton
 
 
-const ROTATION_TIME := 0.15
+signal card_selected(card: Player.Card)
+
+
+const ROTATION_TIME := 015
 const HOVER_TIME := 0.2
-const ONDULAION_STRENGHT := 5
-const ONDULAION_SPEED := 1.5
+const ONDULAION_STRENGHT := 2
+const ONDULAION_SPEED := 3.5
 
 
 ## Elemento de la carta
 @export var element := GameConstants.Elements.NONE:
 	set(value):
 		element = value
-		update_sprite()
+		_update_sprite()
 ## Valor de la carta
 @export_range(1, GameConstants.MAX_CARD_VAlUE) var value := 1:
 	set(val):
 		value = val
-		update_sprite()
+		_update_sprite()
 ## Oculta la carta
 @export var hide_card: bool = false:
 	set(value):
 		if value == hide_card: return
 		hide_card = value
-		rotate_card()
+		_flip_card()
 ## Invalida la carta
 @export var disable_card: bool = false:
 	set(value):
 		disable_card = value
-		update_sprite()
+		_update_sprite()
 ## Lista de sprites para las cartas
 @export var cards_list: CardsList
 
 
-# Estado inicial
-@onready var _start_pos := position
+# Estados iniciales
 @onready var _start_size := size
 @onready var _start_scale := scale
 @onready var _start_position := position
@@ -46,7 +48,7 @@ func _ready() -> void:
 	# Centra el pivote
 	pivot_offset = size / 2
 
-	update_sprite()
+	_update_sprite()
 
 
 func _physics_process(delta: float) -> void:
@@ -66,11 +68,11 @@ func set_properties(values: Dictionary) -> void:
 
 		set(property, new_value)
 
-	update_sprite()
+	_update_sprite()
 
 
 ## Cambia la imagen de la carta
-func update_sprite() -> void:
+func _update_sprite() -> void:
 	if not cards_list: return
 
 	# Oscurece la carta cuando está desactivada
@@ -83,8 +85,8 @@ func update_sprite() -> void:
 	texture_normal = cards_list.get_card(element, value)
 
 
-## Cambia los parámetros de la carta
-func hover_card(hover: bool) -> void:
+## Resalta y restablece la carta cuando se le pasa el mouse
+func _hover_card(hover: bool) -> void:
 	if disable_card: return
 
 	var tween := create_tween().set_parallel().set_trans(Tween.TRANS_SINE)
@@ -98,18 +100,18 @@ func hover_card(hover: bool) -> void:
 		if hide_card: return
 		set_physics_process(false)
 		var hover_offset := Vector2(0, -size.y / 2) * scale
-		tween.tween_property(self , "position", _start_pos + hover_offset, HOVER_TIME)
+		tween.tween_property(self , "position", _start_position + hover_offset, HOVER_TIME)
 	else:
 		tween.tween_property(self , "modulate", Color.WHITE, HOVER_TIME)
 		tween.tween_property(self , "size", _start_size, HOVER_TIME)
 
 		if hide_card: return
-		set_physics_process(true)
-		tween.tween_property(self , "position", _start_pos, HOVER_TIME)
+		tween.tween_property(self , "position", _start_position, HOVER_TIME)
+		tween.tween_callback(func(): set_physics_process(true))
 
 
-## Rota la carta para ocultarla o mostrarla
-func rotate_card() -> void:
+## Voltea la carta para ocultarla o mostrarla
+func _flip_card() -> void:
 	if not _start_scale: return
 
 	# Este tween no debe ser paralelo
@@ -117,7 +119,7 @@ func rotate_card() -> void:
 	var current_scale = scale
 
 	tween.tween_property(self , "scale", Vector2(0, scale.y), ROTATION_TIME)
-	tween.tween_callback(update_sprite)
+	tween.tween_callback(_update_sprite)
 	tween.tween_property(self , "scale", current_scale, ROTATION_TIME)
 
 
@@ -126,15 +128,26 @@ func _get_ondulation_offset() -> Vector2:
 	return Vector2(0, sin(elapsed_time * ONDULAION_SPEED)) * ONDULAION_STRENGHT
 
 
+## Avisa cuando la carta es presionada
 func _on_pressed() -> void:
 	if disable_card or hide_card: return
 
 	print_debug("Carta %s-%s presionada" % [element, value])
+	card_selected.emit(get_abstract_card())
+
+
+## Crea una versión abstracta de la carta
+func get_abstract_card() -> Player.Card:
+	var abstract_card = Player.Card.new()
+	abstract_card.element = element
+	abstract_card.value = value
+
+	return abstract_card
 
 
 func _on_mouse_entered() -> void:
-	hover_card(true)
+	_hover_card(true)
 
 
 func _on_mouse_exited() -> void:
-	hover_card(false)
+	_hover_card(false)

@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bmo8uausdhlfy" path="res://assets/ui/tutorial/panels/tutorial_panel_2.png" id="4_xpy58"]
 [ext_resource type="Texture2D" uid="uid://cghyea1c1bxqx" path="res://assets/ui/tutorial/panels/tutorial_panel_3.png" id="5_aw2cu"]
 [ext_resource type="Texture2D" uid="uid://b0m34aaou5stc" path="res://assets/ui/tutorial/resources/skip_button.png" id="5_leiwb"]
-[ext_resource type="PackedScene" uid="uid://jooi3svq5ikl" path="res://assets/ui/upper_bar.tscn" id="6_y4c3n"]
+[ext_resource type="PackedScene" uid="uid://jooi3svq5ikl" path="res://assets/ui/components/upper_bar.tscn" id="6_y4c3n"]
 
 [node name="Tutorial" type="Control" unique_id=959098823 node_paths=PackedStringArray("panel_node")]
 layout_mode = 3

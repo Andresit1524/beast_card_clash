@@ -59,9 +59,6 @@ mouse_filter = 2
 color = Color(0.49929276, 0.70387197, 0.44451645, 1)
 metadata/_edit_lock_ = true
 
-[node name="BattleManager" type="Node" parent="." unique_id=420469907]
-script = ExtResource("3_6cxqy")
-
 [node name="UILayer" type="CanvasLayer" parent="." unique_id=651321992]
 
 [node name="HandPos" type="Control" parent="UILayer" unique_id=534952336]
@@ -94,7 +91,7 @@ offset_bottom = 214.0
 grow_horizontal = 1
 grow_vertical = 1
 
-[node name="RivalPanels" type="VBoxContainer" parent="UILayer" unique_id=1280223489]
+[node name="BotsPanels" type="VBoxContainer" parent="UILayer" unique_id=1280223489]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -105,14 +102,20 @@ offset_bottom = 526.0
 grow_horizontal = 0
 theme_override_constants/separation = 8
 
-[node name="RivalPanel3" parent="UILayer/RivalPanels" unique_id=1053233556 instance=ExtResource("1_1054f")]
+[node name="BotPanel" parent="UILayer/BotsPanels" unique_id=1053233556 instance=ExtResource("1_1054f")]
 layout_mode = 2
 
-[node name="RivalPanel4" parent="UILayer/RivalPanels" unique_id=1994888533 instance=ExtResource("1_1054f")]
+[node name="BotPanel2" parent="UILayer/BotsPanels" unique_id=1994888533 instance=ExtResource("1_1054f")]
 layout_mode = 2
 
-[node name="RivalPanel5" parent="UILayer/RivalPanels" unique_id=954710962 instance=ExtResource("1_1054f")]
+[node name="BotPanel3" parent="UILayer/BotsPanels" unique_id=954710962 instance=ExtResource("1_1054f")]
 layout_mode = 2
+
+[node name="BattleManager" type="Node" parent="." unique_id=420469907 node_paths=PackedStringArray("hand", "player_panel", "bots_panels")]
+script = ExtResource("3_6cxqy")
+hand = NodePath("../UILayer/HandPos/Hand")
+player_panel = NodePath("../UILayer/PlayerPanel")
+bots_panels = NodePath("../UILayer/BotsPanels")
 
 [node name="Arena" type="Node3D" parent="." unique_id=2016797397]
 
@@ -127,21 +130,19 @@ transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 1.1, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 script = ExtResource("6_1e0e5")
 rock_scene = ExtResource("6_d31xq")
-rocks_count = 18
-radius = 8.0
 
 [node name="ReferenceRock" parent="Arena/Platform/Rocks" unique_id=1614443290 instance=ExtResource("6_d31xq")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -8, 0, 0)
-skeleton = NodePath("../../..")
+hightlight_color = Color(1, 0, 1, 0.5)
 
 [node name="ReferenceRock2" parent="Arena/Platform/Rocks" unique_id=138480051 instance=ExtResource("6_d31xq")]
 transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 8, 0, 0)
-skeleton = NodePath("../../..")
+hightlight_color = Color(1, 0, 1, 0.5)
 
 [node name="ReferenceRock3" parent="Arena/Platform/Rocks" unique_id=1301111891 instance=ExtResource("6_d31xq")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 8)
-skeleton = NodePath("../../..")
+hightlight_color = Color(1, 0, 1, 0.5)
 
 [node name="ReferenceRock4" parent="Arena/Platform/Rocks" unique_id=1601587957 instance=ExtResource("6_d31xq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8)
-skeleton = NodePath("../../..")
+hightlight_color = Color(1, 0, 1, 0.5)

@@ -3,7 +3,7 @@
 [ext_resource type="Theme" uid="uid://djsw6wrf4tns" path="res://assets/ui/themes/main_theme.tres" id="1_sxn6k"]
 [ext_resource type="Script" uid="uid://dh0xc58qusk8q" path="res://assets/character_selector/team_selector.gd" id="2_2c77f"]
 [ext_resource type="ButtonGroup" uid="uid://dj2wtx2pk26j1" path="res://assets/character_selector/resources/teams_buttons_group.tres" id="3_lcpbu"]
-[ext_resource type="PackedScene" uid="uid://jooi3svq5ikl" path="res://assets/ui/upper_bar.tscn" id="4_sp5k0"]
+[ext_resource type="PackedScene" uid="uid://jooi3svq5ikl" path="res://assets/ui/components/upper_bar.tscn" id="4_sp5k0"]
 [ext_resource type="Texture2D" uid="uid://c2d15cfelhaxm" path="res://assets/character_selector/resources/bear.png" id="5_xysd1"]
 [ext_resource type="LabelSettings" uid="uid://ctvu5dp4p0kjm" path="res://assets/ui/themes/title_theme.tres" id="6_sesa0"]
 [ext_resource type="Texture2D" uid="uid://ck83qwbrce022" path="res://assets/teams/sprites/character.png" id="7_vchsu"]

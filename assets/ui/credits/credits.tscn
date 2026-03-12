@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://b5f3rhm0gflu5" path="res://assets/ui/tutorial/resources/tutorial_bg.png" id="1_ff1l7"]
 [ext_resource type="Theme" uid="uid://djsw6wrf4tns" path="res://assets/ui/themes/main_theme.tres" id="1_l0gy7"]
-[ext_resource type="PackedScene" uid="uid://jooi3svq5ikl" path="res://assets/ui/upper_bar.tscn" id="3_uvj8u"]
+[ext_resource type="PackedScene" uid="uid://jooi3svq5ikl" path="res://assets/ui/components/upper_bar.tscn" id="3_uvj8u"]
 [ext_resource type="LabelSettings" uid="uid://ctvu5dp4p0kjm" path="res://assets/ui/themes/title_theme.tres" id="4_l0gy7"]
 [ext_resource type="Texture2D" uid="uid://qy7gv8l4lgj1" path="res://assets/ui/credits/resources/godot_logo.png" id="4_umgus"]
 

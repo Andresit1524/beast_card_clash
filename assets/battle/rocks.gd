@@ -7,19 +7,23 @@ const ROCK_Y_OFFSET := 0.1
 ## Rock scene
 @export var rock_scene: PackedScene
 ## Cantidad de rocas
-@export_range(1, 20, 1, "or_greater") var rocks_count: int = 10:
+@export_range(1, 20, 1, "or_greater") var rocks_count: int = 18:
 	set(value):
 		rocks_count = value
 		update_rocks()
 ## Distancia desde el centro hasta cada roca
-@export var radius: float = 10.0:
+@export var radius: float = 8.0:
 	set(value):
 		radius = value
 		update_rocks()
 
 
+var rocks_list := []
+
+
 func _ready():
 	update_rocks()
+
 
 ## Actualiza las rocas
 func update_rocks() -> void:
@@ -34,7 +38,12 @@ func update_rocks() -> void:
 		var new_rock: Node3D = rock_scene.instantiate()
 		var new_rock_rotation := (TAU * i) / rocks_count
 
+		# Posición y rotación de la roca
 		new_rock.position = director.rotated(Vector3.UP, new_rock_rotation)
 		new_rock.position.y = ROCK_Y_OFFSET
 		new_rock.rotate(Vector3.UP, new_rock_rotation)
-		add_child(new_rock, true)
+		add_child(new_rock)
+
+		# Elemento
+		new_rock.element = i % GameConstants.Elements.size()
+		rocks_list.append(new_rock)
