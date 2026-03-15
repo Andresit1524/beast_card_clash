@@ -1,6 +1,6 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://crm7kmddx8cyp"]
 
-[ext_resource type="Texture2D" uid="uid://jecskpbotk5p" path="res://assets/characters/bear/skins/andean_bear.png" id="1_gegyb"]
+[ext_resource type="Texture2D" uid="uid://dofdrsv4407nq" path="res://assets/characters/bear/skins/panda_bear.png" id="1_3widt"]
 
 [resource]
-albedo_texture = ExtResource("1_gegyb")
+albedo_texture = ExtResource("1_3widt")

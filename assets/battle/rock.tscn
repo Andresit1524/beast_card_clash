@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://bmk14l2nvouje"]
+
+[ext_resource type="Script" uid="uid://cwcpdcjo7y3br" path="res://assets/battle/rock.gd" id="1_6ebsn"]
+[ext_resource type="Resource" uid="uid://c40w4a5rdhins" path="res://assets/elements/elements_list.tres" id="2_t8pnm"]
+[ext_resource type="Material" uid="uid://g1t38pxhcj2" path="res://assets/ui/components/resources/outline_shader.tres" id="3_gmren"]
+[ext_resource type="Texture2D" uid="uid://b6sejbuoadth2" path="res://assets/elements/sprites/all_elements.png" id="3_t8pnm"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lfvml"]
+resource_local_to_scene = true
+albedo_color = Color(0.15802127, 0.15802127, 0.15802127, 1)
+roughness = 0.82
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_lfvml"]
+material = SubResource("StandardMaterial3D_lfvml")
+top_radius = 1.2
+bottom_radius = 1.5
+height = 0.2
+radial_segments = 32
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_gmren"]
+height = 0.5
+radius = 1.5
+
+[node name="Rock" type="StaticBody3D" unique_id=1628812836]
+script = ExtResource("1_6ebsn")
+elements_list = ExtResource("2_t8pnm")
+hightlight_color = Color(0, 1, 0.5666666, 0.33333334)
+hightlight_shader = ExtResource("3_gmren")
+
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=1614443290]
+mesh = SubResource("CylinderMesh_lfvml")
+
+[node name="Element" type="Sprite3D" parent="." unique_id=906482920]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.11, 0)
+pixel_size = 0.0012
+axis = 1
+shaded = true
+double_sided = false
+texture = ExtResource("3_t8pnm")
+
+[node name="CollisionShape" type="CollisionShape3D" parent="." unique_id=1213305046]
+shape = SubResource("CylinderShape3D_gmren")

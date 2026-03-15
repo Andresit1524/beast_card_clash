@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ElementsList" format=3 uid="uid://c40w4a5rdhins"]
+
+[ext_resource type="Script" uid="uid://s0dhfjqcfi3t" path="res://assets/elements/elements_list.gd" id="1_simwt"]
+[ext_resource type="Texture2D" uid="uid://b6sejbuoadth2" path="res://assets/elements/sprites/all_elements.png" id="2_bjn2k"]
+[ext_resource type="Texture2D" uid="uid://bockt4xfiid73" path="res://assets/elements/sprites/air.png" id="2_gattl"]
+[ext_resource type="Texture2D" uid="uid://bpkp2th8oq00y" path="res://assets/elements/sprites/earth.png" id="3_bjn2k"]
+[ext_resource type="Texture2D" uid="uid://bhrp3mhp1bo7v" path="res://assets/elements/sprites/energy.png" id="4_gpk8h"]
+[ext_resource type="Texture2D" uid="uid://cigs2gwr2wtdm" path="res://assets/elements/sprites/fire.png" id="5_i0g28"]
+[ext_resource type="Texture2D" uid="uid://qik4xyjj788" path="res://assets/elements/sprites/water.png" id="6_yxa1b"]
+
+[resource]
+script = ExtResource("1_simwt")
+sprites_list = Array[Texture2D]([ExtResource("2_bjn2k"), ExtResource("2_gattl"), ExtResource("3_bjn2k"), ExtResource("4_gpk8h"), ExtResource("5_i0g28"), ExtResource("6_yxa1b")])
+metadata/_custom_type_script = "uid://s0dhfjqcfi3t"

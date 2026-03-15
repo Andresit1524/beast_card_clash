@@ -1,0 +1,9 @@
+[gd_resource type="LabelSettings" format=3 uid="uid://d0tvafk7ryytb"]
+
+[ext_resource type="FontFile" uid="uid://cx0dmyddc8f5" path="res://assets/fonts/tilt_wrap.ttf" id="1_kki7q"]
+
+[resource]
+font = ExtResource("1_kki7q")
+font_size = 72
+outline_size = 28
+outline_color = Color(0, 0, 0, 1)

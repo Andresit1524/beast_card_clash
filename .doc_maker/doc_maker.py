@@ -42,7 +42,7 @@ EXCLUDED_DIRS = {
 }
 
 # Configuración de la API de Gemini
-GEMINI_MODEL = "gemini-3-flash-preview"
+GEMINI_MODEL = "gemini-2.5-flash"
 ENV_VAR_NAME = "GEMINI_API_KEY"
 genai_model = None
 

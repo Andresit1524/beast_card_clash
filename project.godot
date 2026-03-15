@@ -16,14 +16,19 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="Beast Card Clash"
 config/version="0.1"
+config/tags=PackedStringArray("gdd")
 run/main_scene="uid://dr0fenfnqsha3"
 config/features=PackedStringArray("4.6")
+boot_splash/bg_color=Color(0.19215687, 0.34117648, 0.17254902, 1)
+config/icon="uid://ch3yv4m0jfjqi"
 
 [autoload]
 
 DialogueManager="*uid://c3rodes2l3gxb"
 SceneManager="*uid://c7qpxa5bjkyo6"
-Flags="*uid://b3f4siwyi6khy"
+GameConstants="*uid://bafho2r335kbv"
+PlayerStats="*uid://b1ei5cqblmk3s"
+FlagsManager="*uid://b3f4siwyi6khy"
 MusicManager="*uid://dv2bd61v3fdf0"
 
 [dotnet]
@@ -32,7 +37,7 @@ project/assembly_name="Beast Card Clash"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg", "res://addons/markdownlabel/plugin.cfg")
+enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg", "res://addons/vector_display_2d/plugin.cfg")
 
 [file_customization]
 
@@ -41,6 +46,14 @@ folder_colors={
 "res://assets/": "yellow",
 "res://assets/tests/": "red",
 "res://autoload/": "blue"
+}
+
+[input]
+
+left_click={
+"deadzone": 0.2,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":1,"position":Vector2(337, 18),"global_position":Vector2(344, 61),"factor":1.0,"button_index":1,"canceled":false,"pressed":true,"double_click":false,"script":null)
+]
 }
 
 [internationalization]
