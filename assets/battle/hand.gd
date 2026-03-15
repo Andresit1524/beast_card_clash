@@ -27,9 +27,9 @@ const MOVE_TIME := 0.2
 @onready var _start_position := position
 
 
-## Configura la lista de cartas en pantalla usando como base las de una baraja real.[br]
+## Configura la lista de cartas en pantalla usando como base las de una baraja real. [br]
 ## Usado en BattleManager
-func set_from_deck(deck: Array[Player.Card]) -> void:
+func set_from_deck(deck: Array[CardScene.Card]) -> void:
 	# Elimina a todas las cartas actuales
 	for card in get_children():
 		card.queue_free()
@@ -49,7 +49,7 @@ func set_from_deck(deck: Array[Player.Card]) -> void:
 			"value": new_value,
 			"hide_card": false,
 		})
-		print_debug("Carta creada: %s_%s" % [new_card.element, new_card.value])
+		# print_debug("[Hand] Carta creada: %s_%s" % [new_card.element, new_card.value])
 
 		new_card_pos.add_child(new_card)
 		add_child(new_card_pos)
@@ -67,11 +67,11 @@ func _refresh_cards() -> void:
 
 	# Oculta la baraja
 	if hide_cards:
-		tween.tween_property(self , "position", position + HIDE_OFFSET, MOVE_TIME)
+		tween.tween_property(self, "position", position + HIDE_OFFSET, MOVE_TIME)
 		return
 
 	# Posiciona las cartas y las ajusta
-	tween.tween_property(self , "position", _start_position, MOVE_TIME)
+	tween.tween_property(self, "position", _start_position, MOVE_TIME)
 	var card_count := cards_pos.size()
 
 	for i in cards_pos.size():
@@ -94,11 +94,11 @@ func _refresh_cards() -> void:
 func get_cards() -> Array:
 	var cards := []
 
-	# * La estructura de la escena es:
-	# * - Hand (nodo actual)
-	# *     - PathFollow2D (Posición)
-	# *         - Card (Carta)
-	# *     - ...
+	# ? La estructura de la baraja de cartas en el árbol de escenas es:
+	# ? - Hand (nodo actual)
+	# ?     - PathFollow2D (Posición)
+	# ?         - Card (Carta)
+	# ?     - ...
 	for card_pos in get_children():
 		cards.append(card_pos.get_child(0))
 

@@ -1,4 +1,4 @@
-class_name Rock extends StaticBody3D
+class_name RockScene extends StaticBody3D
 
 
 signal rock_selected(rock: Rock)
@@ -56,7 +56,7 @@ func _on_input_event(_camera: Node, event: InputEvent, _event_position: Vector3,
 	if event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed(): return
 
 	print_debug("Roca seleccionada: %s" % element)
-	rock_selected.emit(self )
+	rock_selected.emit(self)
 
 
 func _on_mouse_entered() -> void:
@@ -65,3 +65,15 @@ func _on_mouse_entered() -> void:
 
 func _on_mouse_exited() -> void:
 	selected = false
+
+
+## Crea una roca abstracta
+func get_abstract_rock() -> Rock:
+	var new_rock = Rock.new()
+	new_rock.element = element
+	return new_rock
+
+
+## Clase para representar los datos de una roca
+class Rock:
+	var element: GameConstants.Elements = GameConstants.Elements.NONE

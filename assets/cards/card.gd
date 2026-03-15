@@ -1,7 +1,7 @@
 class_name CardScene extends TextureButton
 
 
-signal card_selected(card: Player.Card)
+signal card_selected(card: Card)
 
 
 const ROTATION_TIME := 015
@@ -94,19 +94,19 @@ func _hover_card(hover: bool) -> void:
 	# Cambia coloración, posición y tamaño de la carta
 	# Se desactiva o activa physics_process para evitar que la carta salte a su sitio original
 	if hover:
-		tween.tween_property(self , "modulate", Color.GRAY, HOVER_TIME)
-		tween.tween_property(self , "size", Vector2(_start_size.x, _start_size.y * 1.5), HOVER_TIME)
+		tween.tween_property(self, "modulate", Color.GRAY, HOVER_TIME)
+		tween.tween_property(self, "size", Vector2(_start_size.x, _start_size.y * 1.5), HOVER_TIME)
 
 		if hide_card: return
 		set_physics_process(false)
 		var hover_offset := Vector2(0, -size.y / 2) * scale
-		tween.tween_property(self , "position", _start_position + hover_offset, HOVER_TIME)
+		tween.tween_property(self, "position", _start_position + hover_offset, HOVER_TIME)
 	else:
-		tween.tween_property(self , "modulate", Color.WHITE, HOVER_TIME)
-		tween.tween_property(self , "size", _start_size, HOVER_TIME)
+		tween.tween_property(self, "modulate", Color.WHITE, HOVER_TIME)
+		tween.tween_property(self, "size", _start_size, HOVER_TIME)
 
 		if hide_card: return
-		tween.tween_property(self , "position", _start_position, HOVER_TIME)
+		tween.tween_property(self, "position", _start_position, HOVER_TIME)
 		tween.tween_callback(func(): set_physics_process(true))
 
 
@@ -118,9 +118,9 @@ func _flip_card() -> void:
 	var tween := create_tween().set_trans(Tween.TRANS_SINE)
 	var current_scale = scale
 
-	tween.tween_property(self , "scale", Vector2(0, scale.y), ROTATION_TIME)
+	tween.tween_property(self, "scale", Vector2(0, scale.y), ROTATION_TIME)
 	tween.tween_callback(_update_sprite)
-	tween.tween_property(self , "scale", current_scale, ROTATION_TIME)
+	tween.tween_property(self, "scale", current_scale, ROTATION_TIME)
 
 
 ## Obtiene el desplazamiento de la carta en una forma ondularoria
@@ -137,8 +137,8 @@ func _on_pressed() -> void:
 
 
 ## Crea una versión abstracta de la carta
-func get_abstract_card() -> Player.Card:
-	var abstract_card = Player.Card.new()
+func get_abstract_card() -> Card:
+	var abstract_card = Card.new()
 	abstract_card.element = element
 	abstract_card.value = value
 
@@ -151,3 +151,15 @@ func _on_mouse_entered() -> void:
 
 func _on_mouse_exited() -> void:
 	_hover_card(false)
+
+
+## Clase que representa los datos de una carta
+class Card:
+	var element: GameConstants.Elements = GameConstants.Elements.NONE
+	var value: int:
+		set(v):
+			if v < 0 or v > 10:
+				value = 0
+				return
+
+			value = v

@@ -1,4 +1,5 @@
-extends PanelContainer
+## Gestiona los datos de un panel de jugador en la interfaz de batalla
+class_name PlayerPanel extends PanelContainer
 
 ## Nombre del jugador
 @export var player_name: String:
@@ -11,9 +12,9 @@ extends PanelContainer
 		team = value
 		refresh_panel()
 ## Vida del jugador
-@export_range(0, 5) var life: int:
+@export_range(0, 5) var health: int:
 	set(value):
-		life = value
+		health = value
 		refresh_panel()
 
 ## Elemento de la carta
@@ -44,7 +45,6 @@ extends PanelContainer
 @onready var card_texture: TextureRect = $Margin/Contents/Card
 @onready var life_bar: ProgressBar = $Margin/Contents/LifeBar
 @onready var life_label: RichTextLabel = $Margin/Contents/LifeBar/LifeValue
-
 @onready var base_card_scale := card_texture.scale
 
 
@@ -62,9 +62,9 @@ func refresh_panel() -> void:
 	team_texture.texture = teams_list.get_team(team)
 
 	# Actualiza la barra de vida
-	var color := "white" if life > 0 else "red"
-	life_bar.value = life
-	life_label.text = "[color=%s]%s[/color]" % [color, life]
+	var color := "white" if health > 0 else "red"
+	life_bar.value = health
+	life_label.text = "[color=%s]%s[/color]" % [color, health]
 
 
 ## Establece la carta

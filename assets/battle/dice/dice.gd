@@ -1,8 +1,12 @@
-extends Node3D
+## Representa el dado de la partida
+class_name Dice extends Node3D
 
 
-const ROTATION_TIME := 0.02
-const ROTATION_TOTAL_TIME := 1
+signal thrown_dice(number: int)
+
+
+const TWIST_TIME := 0.02
+const ROTATION_TIME := 1
 const THROW_HEIGHT := 8
 
 
@@ -10,7 +14,7 @@ const THROW_HEIGHT := 8
 @export_range(1, 6) var number: int = 1:
 	set(value):
 		number = value
-		if is_node_ready(): set_dice_rotation(ROTATIONS[number])
+		if is_node_ready(): rotate_dice(ROTATIONS[number])
 
 
 ## Lista de cuaterniones para rotar el dado a cada número
@@ -37,29 +41,31 @@ func _ready() -> void:
 ## Mezcla el dado y lo lanza al aire
 func shuffle_dice() -> void:
 	var tween := create_tween().set_trans(Tween.TRANS_QUAD)
-	set_dice_rotation(ROTATIONS[randi() % 6 + 1])
+	var new_number := randi_range(1, 6)
+	rotate_dice(ROTATIONS[new_number - 1])
 
 	# Lanza el dado y desactiva el clic
 	tween.set_ease(Tween.EASE_OUT)
-	tween.tween_property(self , "position", Vector3.UP * THROW_HEIGHT, ROTATION_TOTAL_TIME / 2.0)
+	tween.tween_property(self, "position", Vector3.UP * THROW_HEIGHT, ROTATION_TIME / 2.0)
 	hitbox.input_ray_pickable = false
 
 	# Regresa el dado y reactiva el clic al acabar
 	tween.set_ease(Tween.EASE_IN)
-	tween.tween_property(self , "position", _start_position, ROTATION_TOTAL_TIME / 2.0)
+	tween.tween_property(self, "position", _start_position, ROTATION_TIME / 2.0)
 	tween.tween_callback(func():
+		thrown_dice.emit(new_number)
 		hitbox.input_ray_pickable = true
 	)
 
 
 ## Rota el dado según la base dada
-func set_dice_rotation(target_rotation: Quaternion):
+func rotate_dice(target_rotation: Quaternion):
 	var tween := create_tween()
 
-	for i in range(ROTATION_TOTAL_TIME / ROTATION_TIME):
-		tween.tween_property(self , "quaternion", ROTATIONS[randi() % 6 + 1], ROTATION_TIME)
+	for i in range(ROTATION_TIME / TWIST_TIME):
+		tween.tween_property(self, "quaternion", ROTATIONS[randi() % 6 + 1], TWIST_TIME)
 
-	tween.tween_property(self , "quaternion", target_rotation, ROTATION_TIME)
+	tween.tween_property(self, "quaternion", target_rotation, TWIST_TIME)
 
 
 # Detecta el clic para lanzar el dado

@@ -2,9 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://b00c0clxl6uol" path="res://assets/battle/player_panel.tscn" id="1_1054f"]
 [ext_resource type="Script" uid="uid://bi4tiwacyr4dh" path="res://assets/battle/hand.gd" id="1_oyv2c"]
+[ext_resource type="Script" uid="uid://0qb4hgslax58" path="res://assets/battle/battle_ui.gd" id="1_tlmnd"]
 [ext_resource type="PackedScene" uid="uid://dogb8dy8s5bsc" path="res://assets/cards/card.tscn" id="2_6cxqy"]
 [ext_resource type="Script" uid="uid://drdwdoxs6lwwi" path="res://assets/battle/battle_manager.gd" id="3_6cxqy"]
-[ext_resource type="PackedScene" uid="uid://mpvkdtkj0ajj" path="res://assets/dice/dice.tscn" id="5_hsiu5"]
+[ext_resource type="PackedScene" uid="uid://mpvkdtkj0ajj" path="res://assets/battle/dice/dice.tscn" id="5_hsiu5"]
 [ext_resource type="Script" uid="uid://cjn0h33vnse38" path="res://assets/battle/rocks.gd" id="6_1e0e5"]
 [ext_resource type="PackedScene" uid="uid://bmk14l2nvouje" path="res://assets/battle/rock.tscn" id="6_d31xq"]
 
@@ -61,6 +62,14 @@ metadata/_edit_lock_ = true
 
 [node name="UILayer" type="CanvasLayer" parent="." unique_id=651321992]
 
+[node name="BattleUI" type="Node" parent="UILayer" unique_id=791419313 node_paths=PackedStringArray("hand", "player_panel", "bots_panels", "rocks_list", "dice")]
+script = ExtResource("1_tlmnd")
+hand = NodePath("../HandPos/Hand")
+player_panel = NodePath("../PlayerPanel")
+bots_panels = [NodePath("../BotsPanels/BotPanel"), NodePath("../BotsPanels/BotPanel2"), NodePath("../BotsPanels/BotPanel3")]
+rocks_list = NodePath("../../Arena/Platform/Rocks")
+dice = NodePath("../../Arena/Platform/Dice")
+
 [node name="HandPos" type="Control" parent="UILayer" unique_id=534952336]
 layout_mode = 3
 anchors_preset = 7
@@ -111,11 +120,9 @@ layout_mode = 2
 [node name="BotPanel3" parent="UILayer/BotsPanels" unique_id=954710962 instance=ExtResource("1_1054f")]
 layout_mode = 2
 
-[node name="BattleManager" type="Node" parent="." unique_id=420469907 node_paths=PackedStringArray("hand", "player_panel", "bots_panels")]
+[node name="BattleManager" type="Node" parent="." unique_id=420469907 node_paths=PackedStringArray("battle_ui")]
 script = ExtResource("3_6cxqy")
-hand = NodePath("../UILayer/HandPos/Hand")
-player_panel = NodePath("../UILayer/PlayerPanel")
-bots_panels = NodePath("../UILayer/BotsPanels")
+battle_ui = NodePath("../UILayer/BattleUI")
 
 [node name="Arena" type="Node3D" parent="." unique_id=2016797397]
 

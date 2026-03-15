@@ -2,17 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dgpjik5pmuwya"
-path.s3tc="res://.godot/imported/dice_normal.png-995db0554c7f407f23f8daa3722f4603.s3tc.ctex"
+uid="uid://br77n4r5gnaq5"
+path.s3tc="res://.godot/imported/dice_dice_texture.png-fbdca21b0b21637e4b8ea9d37dcf5602.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "6dbbf5b6ae9814c79df81f1fa76589cf"
+}
 
 [deps]
 
-source_file="res://assets/dice/dice_normal.png"
-dest_files=["res://.godot/imported/dice_normal.png-995db0554c7f407f23f8daa3722f4603.s3tc.ctex"]
+source_file="res://assets/battle/dice/dice_dice_texture.png"
+dest_files=["res://.godot/imported/dice_dice_texture.png-fbdca21b0b21637e4b8ea9d37dcf5602.s3tc.ctex"]
 
 [params]
 
@@ -22,7 +25,7 @@ compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
-compress/normal_map=1
+compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1

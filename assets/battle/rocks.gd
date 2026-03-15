@@ -1,4 +1,5 @@
-extends Node3D
+## Representa la lsita de rocas de la partida
+class_name Rocks extends Node3D
 
 
 const ROCK_Y_OFFSET := 0.1
@@ -47,3 +48,12 @@ func update_rocks() -> void:
 		# Elemento
 		new_rock.element = i % GameConstants.Elements.size()
 		rocks_list.append(new_rock)
+
+
+## Obtiene la lista de rocas abstractas
+func get_abstract_rocks_list() -> Array:
+	for rock_pos in get_children():
+		var rock: RockScene = rock_pos.get_child(0)
+		rocks_list.append(rock.get_abstract_rock())
+
+	return rocks_list
