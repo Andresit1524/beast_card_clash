@@ -1,11 +1,16 @@
 [gd_resource type="Resource" script_class="Playlist" format=3 uid="uid://bc3risb100107"]
 
-[ext_resource type="AudioStream" uid="uid://cw6yfwstm10it" path="res://assets/music/start_menu_tobyfox.mp3" id="1_pn7wn"]
+[ext_resource type="AudioStream" uid="uid://b8avdtkre02oh" path="res://assets/music/menu_intro.ogg" id="1_pn7wn"]
+[ext_resource type="AudioStream" uid="uid://b4tlvggme2at1" path="res://assets/music/menu_loop.ogg" id="2_54ifc"]
 [ext_resource type="Script" uid="uid://cfmlmm4pm62wh" path="res://autoload/resources/scripts/playlist.gd" id="2_cu5nf"]
+[ext_resource type="AudioStream" uid="uid://csouig3k8028k" path="res://assets/music/menu_final.ogg" id="3_cicfr"]
+[ext_resource type="AudioStream" uid="uid://q24gsci42aqq" path="res://assets/music/battle.ogg" id="4_8fg1o"]
 
 [resource]
 script = ExtResource("2_cu5nf")
 items = Dictionary[String, Variant]({
-"start_menu": ExtResource("1_pn7wn")
+"battle": ExtResource("4_8fg1o"),
+"menu_final": ExtResource("3_cicfr"),
+"menu_intro": ExtResource("1_pn7wn"),
+"menu_loop": ExtResource("2_54ifc")
 })
-metadata/_custom_type_script = "uid://dvynl2ht5go3"
