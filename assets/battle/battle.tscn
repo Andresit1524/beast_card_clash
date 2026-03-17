@@ -1,13 +1,15 @@
 [gd_scene format=3 uid="uid://bhftk28laqsy8"]
 
-[ext_resource type="PackedScene" uid="uid://b00c0clxl6uol" path="res://assets/battle/player_panel.tscn" id="1_1054f"]
-[ext_resource type="Script" uid="uid://bi4tiwacyr4dh" path="res://assets/battle/hand.gd" id="1_oyv2c"]
-[ext_resource type="Script" uid="uid://0qb4hgslax58" path="res://assets/battle/battle_ui.gd" id="1_tlmnd"]
+[ext_resource type="PackedScene" uid="uid://b00c0clxl6uol" path="res://assets/battle/ui/player_panel.tscn" id="1_1054f"]
+[ext_resource type="Script" uid="uid://bi4tiwacyr4dh" path="res://assets/battle/ui/hand.gd" id="1_oyv2c"]
+[ext_resource type="Script" uid="uid://0qb4hgslax58" path="res://assets/battle/ui/battle_ui.gd" id="1_tlmnd"]
 [ext_resource type="PackedScene" uid="uid://dogb8dy8s5bsc" path="res://assets/cards/card.tscn" id="2_6cxqy"]
 [ext_resource type="Script" uid="uid://drdwdoxs6lwwi" path="res://assets/battle/battle_manager.gd" id="3_6cxqy"]
 [ext_resource type="PackedScene" uid="uid://mpvkdtkj0ajj" path="res://assets/battle/dice/dice.tscn" id="5_hsiu5"]
-[ext_resource type="Script" uid="uid://cjn0h33vnse38" path="res://assets/battle/rocks.gd" id="6_1e0e5"]
+[ext_resource type="Script" path="res://assets/battle/rocks.gd" id="6_1e0e5"]
 [ext_resource type="PackedScene" uid="uid://bmk14l2nvouje" path="res://assets/battle/rock.tscn" id="6_d31xq"]
+[ext_resource type="Script" uid="uid://bxs53es51hc4u" path="res://addons/state_machine/state_machine.gd" id="9_ob4nq"]
+[ext_resource type="Script" uid="uid://clvjxwv8w7kt0" path="res://assets/battle/states/start.gd" id="10_5m5wa"]
 
 [sub_resource type="Environment" id="Environment_hsiu5"]
 background_mode = 3
@@ -120,10 +122,6 @@ layout_mode = 2
 [node name="BotPanel3" parent="UILayer/BotsPanels" unique_id=954710962 instance=ExtResource("1_1054f")]
 layout_mode = 2
 
-[node name="BattleManager" type="Node" parent="." unique_id=420469907 node_paths=PackedStringArray("battle_ui")]
-script = ExtResource("3_6cxqy")
-battle_ui = NodePath("../UILayer/BattleUI")
-
 [node name="Arena" type="Node3D" parent="." unique_id=2016797397]
 
 [node name="Platform" type="MeshInstance3D" parent="Arena" unique_id=1408877626]
@@ -153,3 +151,16 @@ hightlight_color = Color(1, 0, 1, 0.5)
 [node name="ReferenceRock4" parent="Arena/Platform/Rocks" unique_id=1601587957 instance=ExtResource("6_d31xq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8)
 hightlight_color = Color(1, 0, 1, 0.5)
+
+[node name="BattleManager" type="Node" parent="." unique_id=420469907 node_paths=PackedStringArray("battle_ui")]
+script = ExtResource("3_6cxqy")
+battle_ui = NodePath("../UILayer/BattleUI")
+
+[node name="StateMachine" type="Node" parent="." unique_id=637941647 node_paths=PackedStringArray("controlled_node", "default_state")]
+script = ExtResource("9_ob4nq")
+controlled_node = NodePath("../BattleManager")
+default_state = NodePath("Start")
+metadata/_custom_type_script = "uid://bxs53es51hc4u"
+
+[node name="Start" type="Node" parent="StateMachine" unique_id=804253519]
+script = ExtResource("10_5m5wa")

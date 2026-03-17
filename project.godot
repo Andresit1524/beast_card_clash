@@ -25,11 +25,11 @@ config/icon="uid://ch3yv4m0jfjqi"
 [autoload]
 
 DialogueManager="*uid://c3rodes2l3gxb"
-SceneManager="*uid://c7qpxa5bjkyo6"
-GameConstants="*uid://bafho2r335kbv"
-PlayerStats="*uid://b1ei5cqblmk3s"
-FlagsManager="*uid://b3f4siwyi6khy"
-MusicManager="*uid://dv2bd61v3fdf0"
+SceneManager="*res://autoload/scene_manager.gd"
+MusicManager="*res://autoload/music_manager.gd"
+FlagsManager="*res://autoload/flags_manager.gd"
+GameConstants="*res://autoload/game_constants.gd"
+PlayerStats="*res://autoload/player_stats.gd"
 
 [dotnet]
 
