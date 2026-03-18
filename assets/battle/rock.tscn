@@ -5,9 +5,22 @@
 [ext_resource type="Material" uid="uid://g1t38pxhcj2" path="res://assets/ui/components/resources/outline_shader.tres" id="3_gmren"]
 [ext_resource type="Texture2D" uid="uid://b6sejbuoadth2" path="res://assets/elements/sprites/all_elements.png" id="3_t8pnm"]
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gmren"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_6ejfb"]
+sky_material = SubResource("ProceduralSkyMaterial_gmren")
+
+[sub_resource type="Environment" id="Environment_duh7a"]
+background_mode = 2
+sky = SubResource("Sky_6ejfb")
+tonemap_mode = 2
+glow_enabled = true
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lfvml"]
 resource_local_to_scene = true
-albedo_color = Color(0.15802127, 0.15802127, 0.15802127, 1)
+albedo_color = Color(0.1, 0.1, 0.1, 1)
 roughness = 0.82
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_lfvml"]
@@ -23,14 +36,24 @@ radius = 1.5
 
 [node name="Rock" type="StaticBody3D" unique_id=1628812836]
 script = ExtResource("1_6ebsn")
+element = 2
+current_state = 1
 elements_list = ExtResource("2_t8pnm")
-hightlight_color = Color(0, 1, 0.5666666, 0.33333334)
-hightlight_shader = ExtResource("3_gmren")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=390835073]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2033351970]
+environment = SubResource("Environment_duh7a")
 
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=1614443290]
+unique_name_in_owner = true
+material_overlay = ExtResource("3_gmren")
 mesh = SubResource("CylinderMesh_lfvml")
 
-[node name="Element" type="Sprite3D" parent="." unique_id=906482920]
+[node name="Element" type="Sprite3D" parent="Mesh" unique_id=906482920]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.11, 0)
 pixel_size = 0.0012
 axis = 1
@@ -40,3 +63,6 @@ texture = ExtResource("3_t8pnm")
 
 [node name="CollisionShape" type="CollisionShape3D" parent="." unique_id=1213305046]
 shape = SubResource("CylinderShape3D_gmren")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1118704183]
+transform = Transform3D(1, 0, 0, 0, 0.87691975, 0.4806368, 0, -0.4806368, 0.87691975, 0, 0.80597544, 2.171351)

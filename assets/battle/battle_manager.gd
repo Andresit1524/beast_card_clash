@@ -12,10 +12,6 @@ const MAX_PLAYERS := 4
 @export var dice: Dice
 
 
-## Máquina de estados
-@onready var state_machine: StateMachine = %StateMachine
-
-
 var player: Player
 var players: Array[Player]
 var rocks: Array[RockScene.Rock]

@@ -132,7 +132,10 @@ func _get_ondulation_offset() -> Vector2:
 func _on_pressed() -> void:
 	if disable_card or hide_card: return
 
-	print_debug("Carta %s-%s presionada" % [element, value])
+	print_debug(
+		"Carta %s-%s presionada"
+		% [Utilities.get_enum_name(element, GameConstants.Elements), value]
+	)
 	card_selected.emit(get_abstract_card())
 
 

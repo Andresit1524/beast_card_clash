@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dogb8dy8s5bsc" path="res://assets/cards/card.tscn" id="2_6cxqy"]
 [ext_resource type="Script" uid="uid://drdwdoxs6lwwi" path="res://assets/battle/battle_manager.gd" id="3_6cxqy"]
 [ext_resource type="PackedScene" uid="uid://mpvkdtkj0ajj" path="res://assets/battle/dice/dice.tscn" id="5_hsiu5"]
-[ext_resource type="Script" path="res://assets/battle/rocks.gd" id="6_1e0e5"]
+[ext_resource type="Script" uid="uid://cjn0h33vnse38" path="res://assets/battle/rocks.gd" id="6_1e0e5"]
 [ext_resource type="PackedScene" uid="uid://bmk14l2nvouje" path="res://assets/battle/rock.tscn" id="6_d31xq"]
 [ext_resource type="Script" uid="uid://clvjxwv8w7kt0" path="res://assets/battle/states/start.gd" id="10_5m5wa"]
 
@@ -136,19 +136,15 @@ rock_scene = ExtResource("6_d31xq")
 
 [node name="ReferenceRock" parent="Arena/Platform/Rocks" unique_id=1614443290 instance=ExtResource("6_d31xq")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -8, 0, 0)
-hightlight_color = Color(1, 0, 1, 0.5)
 
 [node name="ReferenceRock2" parent="Arena/Platform/Rocks" unique_id=138480051 instance=ExtResource("6_d31xq")]
 transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 8, 0, 0)
-hightlight_color = Color(1, 0, 1, 0.5)
 
 [node name="ReferenceRock3" parent="Arena/Platform/Rocks" unique_id=1301111891 instance=ExtResource("6_d31xq")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 8)
-hightlight_color = Color(1, 0, 1, 0.5)
 
 [node name="ReferenceRock4" parent="Arena/Platform/Rocks" unique_id=1601587957 instance=ExtResource("6_d31xq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8)
-hightlight_color = Color(1, 0, 1, 0.5)
 
 [node name="BattleManager" type="Node" parent="." unique_id=637941647 node_paths=PackedStringArray("battle_ui", "dice", "controlled_node", "default_state")]
 script = ExtResource("3_6cxqy")
