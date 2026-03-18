@@ -10,16 +10,10 @@ class_name BattleUI extends Node
 @export var bots_panels: Array[PlayerPanel]
 ## Nodo que almacena la lista de rocas
 @export var rocks_list: Rocks
-## Dado
-@export var dice: Dice
-
-
-func _ready() -> void:
-	dice.thrown_dice.connect(func(_number): pass )
 
 
 ## Refresca la baraja de cartas
-func set_hand_from_deck(deck) -> void:
+func set_hand_from_deck(deck: Array[CardScene.Card]) -> void:
 	hand.set_from_deck(deck)
 
 

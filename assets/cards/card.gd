@@ -138,11 +138,7 @@ func _on_pressed() -> void:
 
 ## Crea una versión abstracta de la carta
 func get_abstract_card() -> Card:
-	var abstract_card = Card.new()
-	abstract_card.element = element
-	abstract_card.value = value
-
-	return abstract_card
+	return Card.new(element, value)
 
 
 func _on_mouse_entered() -> void:
@@ -163,3 +159,7 @@ class Card:
 				return
 
 			value = v
+
+	func _init(new_element: GameConstants.Elements, new_value: int) -> void:
+		element = new_element
+		value = new_value

@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://mpvkdtkj0ajj" path="res://assets/battle/dice/dice.tscn" id="5_hsiu5"]
 [ext_resource type="Script" path="res://assets/battle/rocks.gd" id="6_1e0e5"]
 [ext_resource type="PackedScene" uid="uid://bmk14l2nvouje" path="res://assets/battle/rock.tscn" id="6_d31xq"]
-[ext_resource type="Script" uid="uid://bxs53es51hc4u" path="res://addons/state_machine/state_machine.gd" id="9_ob4nq"]
 [ext_resource type="Script" uid="uid://clvjxwv8w7kt0" path="res://assets/battle/states/start.gd" id="10_5m5wa"]
 
 [sub_resource type="Environment" id="Environment_hsiu5"]
@@ -64,13 +63,12 @@ metadata/_edit_lock_ = true
 
 [node name="UILayer" type="CanvasLayer" parent="." unique_id=651321992]
 
-[node name="BattleUI" type="Node" parent="UILayer" unique_id=791419313 node_paths=PackedStringArray("hand", "player_panel", "bots_panels", "rocks_list", "dice")]
+[node name="BattleUI" type="Node" parent="UILayer" unique_id=791419313 node_paths=PackedStringArray("hand", "player_panel", "bots_panels", "rocks_list")]
 script = ExtResource("1_tlmnd")
 hand = NodePath("../HandPos/Hand")
 player_panel = NodePath("../PlayerPanel")
 bots_panels = [NodePath("../BotsPanels/BotPanel"), NodePath("../BotsPanels/BotPanel2"), NodePath("../BotsPanels/BotPanel3")]
 rocks_list = NodePath("../../Arena/Platform/Rocks")
-dice = NodePath("../../Arena/Platform/Dice")
 
 [node name="HandPos" type="Control" parent="UILayer" unique_id=534952336]
 layout_mode = 3
@@ -152,15 +150,13 @@ hightlight_color = Color(1, 0, 1, 0.5)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8)
 hightlight_color = Color(1, 0, 1, 0.5)
 
-[node name="BattleManager" type="Node" parent="." unique_id=420469907 node_paths=PackedStringArray("battle_ui")]
+[node name="BattleManager" type="Node" parent="." unique_id=637941647 node_paths=PackedStringArray("battle_ui", "dice", "controlled_node", "default_state")]
 script = ExtResource("3_6cxqy")
 battle_ui = NodePath("../UILayer/BattleUI")
-
-[node name="StateMachine" type="Node" parent="." unique_id=637941647 node_paths=PackedStringArray("controlled_node", "default_state")]
-script = ExtResource("9_ob4nq")
-controlled_node = NodePath("../BattleManager")
+dice = NodePath("../Arena/Platform/Dice")
+controlled_node = NodePath(".")
 default_state = NodePath("Start")
 metadata/_custom_type_script = "uid://bxs53es51hc4u"
 
-[node name="Start" type="Node" parent="StateMachine" unique_id=804253519]
+[node name="Start" type="Node" parent="BattleManager" unique_id=804253519]
 script = ExtResource("10_5m5wa")
