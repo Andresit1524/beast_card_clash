@@ -1,3 +1,7 @@
+## StateMachine es la clase base para una máquina de estados. [br]
+## Los estados son nodos hijos de tipo [code]BaseState[/code] que contienen la lógica de cada estado
+## y se comunican entre si
+@icon("res://addons/state_machine/state_machine_icon.svg")
 class_name StateMachine extends Node
 
 
