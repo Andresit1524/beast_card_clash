@@ -1,40 +1,58 @@
-# `Card`
-Este script define el comportamiento y la apariencia de una carta individual en el juego **Beast Card Clash**. Extiende de `TextureButton`, lo que le permite ser un elemento interactivo de la interfaz de usuario con capacidades visuales y de entrada. Su función principal es representar visualmente una carta del juego, incluyendo su elemento, valor, estado (oculta, deshabilitada) y gestionar sus interacciones visuales, como el efecto de `hover` y la animación de rotación al ocultarse/mostrarse.
+```Markdown
+# `CardScene`
+Este script de Godot define el comportamiento visual e interactivo de una carta coleccionable en el juego **Beast Card Clash**. Extiende `TextureButton` para proporcionar una base interactiva, y su principal responsabilidad es gestionar la representación gráfica y el estado de una carta.
 
-La carta fusiona conceptos de estrategia con la temática de animales colombianos y facultades de la UNAL, según lo descrito en el `README.md`. Este componente es fundamental para la interacción del jugador con el mazo y el campo de juego.
+La `CardScene` permite configurar y mostrar una carta con las siguientes propiedades exportadas:
+-   `element`: Define el tipo elemental de la carta, utilizando los valores de `GameConstants.Elements`. Su `setter` invoca a `_update_sprite()` para reflejar el cambio visual.
+-   `value`: Representa el valor numérico de la carta, dentro del rango `1` a `GameConstants.MAX_CARD_VALUE`. Su `setter` también invoca a `_update_sprite()` para actualizar el sprite de la carta.
+-   `hide_card`: Un booleano que controla si la carta debe mostrarse boca arriba o boca abajo (como un reverso genérico). Su `setter` detecta cambios de valor e invoca a la animación `_flip_card()` para el cambio visual.
+-   `disable_card`: Un booleano que, cuando es `true`, desactiva la interactividad de la carta y la oscurece visualmente. Su `setter` invoca a `_update_sprite()` para aplicar los cambios visuales.
+-   `cards_list`: Un recurso de tipo `CardsList` que debe contener las texturas disponibles para todas las combinaciones de elementos y valores de cartas, así como el reverso genérico (`placeholder`). Este recurso es esencial para que la carta pueda cargar sus sprites.
+
+Además de la gestión visual a través de la propiedad `texture_normal` heredada de `TextureButton`, el script implementa varias animaciones para mejorar la experiencia del jugador y proporcionar retroalimentación visual:
+-   Un efecto de "ondulación" sutil y continuo, gestionado por `_physics_process`, que hace que la carta se mueva ligeramente de arriba abajo, añadiendo dinamismo.
+-   Animaciones de "hover" (`_hover_card()`) cuando el cursor del ratón entra o sale del área de la carta, que implican cambios de color (`modulate`), tamaño y posición, destacando la carta interactiva.
+-   Una animación de "volteo" (`_flip_card()`) que simula que la carta gira sobre su eje Y, utilizada para ocultar o revelar su cara.
+
+La `CardScene` emite la señal `card_selected(card: Card)` cuando es presionada, proporcionando una versión abstracta de la carta (`Card` de la clase interna) para que la lógica del juego pueda reaccionar sin acoplarse a la representación visual. También incluye la clase interna `Card`, una estructura de datos ligera y autocontenida para encapsular el elemento y valor de una carta, facilitando la interacción con otros sistemas del juego.
 
 # Métodos
 
 ## Métodos de Godot
 
 ### `_ready()`
-Este método se ejecuta una vez cuando el nodo `Card` y sus hijos han entrado en el árbol de escenas. Su propósito es inicializar el estado de la carta:
-
-1.  **Almacenamiento del estado inicial:** Guarda la posición (`position`), tamaño (`size`) y escala (`scale`) iniciales de la carta en las variables privadas `_start_pos`, `_start_size` y `_start_scale`, respectivamente. Esto es crucial para poder revertir los efectos de `hover` a su estado original.
-2.  **Centrado del pivote:** Establece el punto de pivote (`pivot_offset`) de la carta en su centro (`size / 2`). Esto asegura que las transformaciones (como el escalado o la rotación) se realicen desde el centro de la carta, lo que es esencial para la animación de rotación al ocultar/mostrar la carta.
-3.  **Actualización visual inicial:** Llama a `update_sprite()` para asegurar que la carta muestre la textura correcta y el estado visual apropiado (color, imagen) al inicio, basándose en las propiedades de `element`, `value`, `hide_card` y `disable_card` que puedan haber sido establecidas en el editor o en el código.
+Este método se llama una vez que el nodo `CardScene` entra en el árbol de la escena.
+Sus funciones principales son:
+-   **Centrar el pivote:** Establece `pivot_offset` al centro de la `size` actual de la carta. Esto es crucial para que las transformaciones (como la escala en `_flip_card` o el tamaño en `_hover_card`) se realicen desde el centro del botón y no desde su esquina superior izquierda.
+-   **Actualizar sprite inicial:** Llama a `_update_sprite()` para asegurar que la carta muestre su textura y color y configuración correctos desde el momento en que aparece en pantalla, basándose en sus propiedades iniciales.
 
 ```gdscript
 func _ready() -> void:
-	_start_pos = position
-	_start_size = size
-	_start_scale = scale
-
 	# Centra el pivote
 	pivot_offset = size / 2
+	_update_sprite()
+```
 
-	update_sprite()
+### `_physics_process(delta: float)`
+Este método es invocado en cada paso del motor físico, utilizando un `delta` que representa el tiempo transcurrido desde la última actualización. Su propósito es implementar el efecto visual de "ondulación" para la carta.
+-   **Actualización del tiempo:** Incrementa `elapsed_time` con el valor de `delta`. `elapsed_time` se inicializa con un valor aleatorio (`randf() * TAU`) para asegurar que las ondulatorias de múltiples cartas no estén perfectamente sincronizadas.
+-   **Actualización de posición:** Calcula un desplazamiento vertical utilizando `_get_ondulation_offset()` y lo añade a la `_start_position` (la posición inicial de la carta). Esto hace que la carta se mueva suavemente hacia arriba y abajo.
+Este proceso es temporalmente desactivado en `_hover_card` para evitar conflictos durante la animación de "hover".
+
+```gdscript
+func _physics_process(delta: float) -> void:
+	# Actualiza el tiempo y posición de la carta
+	elapsed_time += delta
+	position = _start_position + _get_ondulation_offset()
 ```
 
 ## Otros métodos
 
 ### `set_properties(values: Dictionary)`
-Este método es una utilidad para asignar múltiples propiedades de la carta simultáneamente a partir de un diccionario. Esto puede ser útil para inicializar o actualizar la carta de forma programática con un conjunto de atributos.
-
-1.  **Iteración sobre propiedades:** Recorre cada par `propiedad: valor` en el diccionario `values`.
-2.  **Validación de propiedad:** Verifica si la `propiedad` existe como un miembro del script `Card` (`if not property in self:`). Si una propiedad no es encontrada, emite un error para depuración.
-3.  **Asignación de valor:** Utiliza `set(property, new_value)` para asignar el `new_value` a la `propiedad` correspondiente. Esto también activa los métodos `set` personalizados definidos para las variables exportadas, como `element`, `value`, `hide_card` y `disable_card`, lo que garantiza que las actualizaciones visuales se realicen automáticamente.
-4.  **Actualización visual:** Finalmente, llama a `update_sprite()` después de asignar todas las propiedades para asegurar que la representación visual de la carta refleje todos los cambios.
+Este método proporciona una forma conveniente de establecer múltiples propiedades de la carta simultáneamente.
+-   **Asignación por diccionario:** Recorre un `Dictionary` llamado `values`. Cada clave en el diccionario se espera que sea el nombre de una propiedad de la `CardScene` (por ejemplo, "element", "value", "hide_card").
+-   **Validación:** Verifica si la propiedad existe en la instancia de la clase. Si no se encuentra, se imprime un `push_error` en la consola de Godot para facilitar la depuración.
+-   **Actualización visual:** Después de intentar establecer todas las propiedades, se llama a `_update_sprite()` para asegurar que la carta actualice su representación visual de acuerdo con los nuevos valores.
 
 ```gdscript
 func set_properties(values: Dictionary) -> void:
@@ -47,125 +65,99 @@ func set_properties(values: Dictionary) -> void:
 
 		set(property, new_value)
 
-	update_sprite()
+	_update_sprite()
 ```
 
-### `update_sprite()`
-Este método es responsable de actualizar la apariencia visual de la carta, incluyendo su color y la textura que muestra, basándose en su estado actual.
+### `_update_sprite()`
+Un método privado crucial para la gestión visual de la carta. Se encarga de determinar qué textura mostrar y qué coloración aplicar.
+-   **Pre-verificación:** Retorna tempranamente si el recurso `cards_list` no está asignado, ya que no se podrían cargar las texturas.
+-   **Modulación por estado:** Modifica el color `modulate` de la carta. Si `disable_card` es `true`, la carta se oscurece (`Color.DIM_GRAY`). De lo contrario, se muestra en su color original (`Color.WHITE`).
+-   **Carta oculta:** Si `hide_card` es `true`, establece `texture_normal` al `placeholder` (reverso de la carta) definido en `cards_list`.
+-   **Carta visible:** Si la carta no está oculta, obtiene la textura correcta de `cards_list` utilizando el `element` y `value` actuales de la carta.
+Este método es invocado por los `setter` de las propiedades `element`, `value`, `disable_card`, `hide_card` (indirectamente a través de `_flip_card`), así como en `_ready()` y `set_properties()`.
 
-1.  **Verificación de `cards_list`:** Retorna tempranamente si la propiedad `cards_list` no está asignada. Esta variable `@export` (de tipo `CardsList`) es crucial porque contiene todas las texturas de las cartas y es el punto de acceso para obtener la imagen correcta.
-2.  **Modulación de color:** Ajusta el color (`modulate`) de la carta. Si `disable_card` es `true`, la carta se oscurece a `Color.DIM_GRAY` para indicar que está inactiva. De lo contrario, se mantiene `Color.WHITE`.
-3.  **Manejo de carta oculta:** Si `hide_card` es `true`, la textura `texture_normal` se establece en `cards_list.placeholder`. Esto oculta el diseño real de la carta y muestra una textura genérica (por ejemplo, el reverso de la carta).
-4.  **Muestra de carta normal:** Si la carta no está oculta, `texture_normal` se establece llamando a `cards_list.get_card(element, value)`. Este método de `CardsList` es el encargado de obtener la textura específica para el `element` y `value` actuales de la carta.
+### `_hover_card(hover: bool)`
+Gestiona la animación de "hover" cuando el cursor del ratón entra o sale del área de la carta.
+-   **Pre-verificación:** Si la carta está `disable_card`, el efecto de hover no se aplica y el método retorna.
+-   **Tweening:** Crea un `Tween` en paralelo con una transición `Tween.TRANS_SINE` para animar suavemente las propiedades. La duración de la animación está controlada por la constante `HOVER_TIME` (0.2 segundos).
+-   **Efecto de entrada (hover = true):**
+    -   La carta se atenúa a `Color.GRAY`.
+    -   Su `size` aumenta verticalmente (su altura se multiplica por 1.5).
+    -   Si la carta no está oculta (`hide_card`), se desactiva `_physics_process` y la carta se mueve ligeramente hacia arriba desde su `_start_position`.
+-   **Efecto de salida (hover = false):**
+    -   La carta vuelve a `Color.WHITE`.
+    -   Su `size` se restablece a `_start_size`.
+    -   Si la carta no está oculta, su `position` se restablece a `_start_position`. Se utiliza un `tween_callback` para re-activar `_physics_process` una vez que la animación ha terminado, evitando saltos visuales.
 
-```gdscript
-func update_sprite() -> void:
-	if not cards_list: return
-
-	# Oscurece la carta cuando está desactivada
-	modulate = Color.DIM_GRAY if disable_card else Color.WHITE
-
-	if hide_card:
-		texture_normal = cards_list.placeholder
-		return
-
-	texture_normal = cards_list.get_card(element, value)
-```
-
-### `hover_card(hover: bool)`
-Este método gestiona la animación y los cambios visuales cuando el cursor del ratón entra o sale del área de la carta. Utiliza un `Tween` en paralelo para suavizar las transiciones.
-
-1.  **Comprobación de deshabilitación:** Si `disable_card` es `true`, el método retorna inmediatamente, evitando cualquier efecto de `hover` en cartas deshabilitadas.
-2.  **Creación del `Tween`:** Se crea un nuevo `Tween` configurado para ejecutar animaciones en paralelo (`set_parallel()`) y con una transición de `TRANS_SINE` para un movimiento suave.
-3.  **Animación de `hover` (entrada):** Si `hover` es `true`:
-    *   La `modulate` de la carta cambia a `Color.GRAY`, dándole un aspecto ligeramente sombreado.
-    *   El `size` de la carta se incrementa verticalmente, haciéndola más grande.
-    *   Si la carta no está oculta (`hide_card` es `false`), su `position` se ajusta ligeramente hacia arriba para dar la impresión de que "sale" del resto de las cartas.
-4.  **Animación de `unhover` (salida):** Si `hover` es `false`:
-    *   La `modulate` vuelve a `Color.WHITE`.
-    *   El `size` de la carta retorna a su `_start_size` original.
-    *   Si la carta no está oculta, su `position` retorna a `_start_pos`.
-Todas estas transiciones utilizan `HOVER_TIME` para controlar la duración.
+### `_flip_card()`
+Este método anima el efecto de "volteo" de la carta, que se utiliza para cambiar entre la cara visible y el reverso.
+-   **Pre-verificación:** Retorna si `_start_scale` no está inicializada, evitando errores.
+-   **Tweening:** Crea un `Tween` no paralelo con una transición `Tween.TRANS_SINE`. La duración de cada fase del volteo está definida por `ROTATION_TIME` (0.15 segundos).
+-   **Animación de volteo:**
+    1.  La propiedad `scale.x` se anima de su valor actual a `0`, haciendo que la carta se "estreche" hasta desaparecer en el eje X.
+    2.  Cuando `scale.x` llega a `0`, se invoca a `_update_sprite()` a través de un `tween_callback`. En este punto, `_update_sprite()` leerá la propiedad `hide_card` (cuyo setter ha disparado este método) y cambiará la textura de la carta (cara a reverso o viceversa).
+    3.  La propiedad `scale.x` se anima de `0` de vuelta a su `current_scale.x` original, haciendo que la carta "vuelva a crecer" y revele la nueva textura.
+Este proceso simula una rotación fluida alrededor del eje Y de la carta.
 
 ```gdscript
-func hover_card(hover: bool) -> void:
-	if disable_card: return
-
-	var tween := create_tween().set_parallel().set_trans(Tween.TRANS_SINE)
-
-	# Cambia coloración, posición y tamaño de la carta
-	if hover:
-		tween.tween_property(self , "modulate", Color.GRAY, HOVER_TIME)
-		tween.tween_property(self , "size", Vector2(_start_size.x, _start_size.y * 1.7), HOVER_TIME)
-
-		if hide_card: return
-		tween.tween_property(self , "position", _start_pos + Vector2(0, -size.y / 2) * scale, HOVER_TIME)
-	else:
-		tween.tween_property(self , "modulate", Color.WHITE, HOVER_TIME)
-		tween.tween_property(self , "size", _start_size, HOVER_TIME)
-
-		if hide_card: return
-		tween.tween_property(self , "position", _start_pos, HOVER_TIME)
-```
-
-### `rotate_card()`
-Este método maneja la animación de "rotación" o "volteo" de la carta, que se activa cuando la propiedad `hide_card` cambia. Esta animación simula que la carta se da la vuelta para mostrar su anverso o reverso.
-
-1.  **Comprobación de inicialización:** Retorna si `_start_scale` no está inicializado, lo que indica que `_ready()` aún no se ha ejecutado.
-2.  **Creación del `Tween`:** Se crea un `Tween` configurado con una transición `TRANS_SINE`. Este `Tween` es secuencial (no paralelo), lo que permite ejecutar las animaciones una tras otra.
-3.  **Primera fase de la rotación:**
-    *   La carta se escala a `Vector2(0, scale.y)` sobre el eje X. Esto hace que la carta parezca "adelgazar" y desaparecer momentáneamente, simulando el punto medio de una rotación 3D. La duración es `ROTATION_TIME`.
-4.  **Cambio de sprite intermedio:**
-    *   Una vez que la carta ha "desaparecido" (su escala X es 0), se llama a `tween.tween_callback(update_sprite)`. Esto es crucial porque en este momento es cuando la textura real de la carta se cambia (de anverso a reverso o viceversa) sin que el jugador lo perciba directamente.
-5.  **Segunda fase de la rotación:**
-    *   La carta se escala de nuevo a su `current_scale` original (que es `_start_scale` si no hay otros cambios). Esto hace que la carta "reaparezca" con la nueva textura, completando el efecto de volteo. La duración también es `ROTATION_TIME`.
-
-```gdscript
-func rotate_card() -> void:
+func _flip_card() -> void:
 	if not _start_scale: return
 
 	# Este tween no debe ser paralelo
 	var tween := create_tween().set_trans(Tween.TRANS_SINE)
 	var current_scale = scale
 
-	tween.tween_property(self , "scale", Vector2(0, scale.y), ROTATION_TIME)
-	tween.tween_callback(update_sprite)
-	tween.tween_property(self , "scale", current_scale, ROTATION_TIME)
+	tween.tween_property(self, "scale", Vector2(0, scale.y), ROTATION_TIME)
+	tween.tween_callback(_update_sprite)
+	tween.tween_property(self, "scale", current_scale, ROTATION_TIME)
 ```
+
+### `_get_ondulation_offset() -> Vector2`
+Una función auxiliar privada que calcula el vector de desplazamiento vertical para la animación de ondulación.
+-   Utiliza la función seno (`sin`) aplicada a `elapsed_time` multiplicado por `ONDULAION_SPEED` (3.5).
+-   El resultado de `sin` (que oscila entre -1 y 1) se multiplica por `ONDULAION_STRENGHT` (2) para determinar la amplitud del movimiento.
+-   Devuelve un `Vector2` donde el componente X es `0` (solo hay movimiento vertical) y el componente Y es el desplazamiento calculado, creando un movimiento de onda suave.
+
+### `get_abstract_card() -> Card`
+Este método crea y devuelve una nueva instancia de la clase interna `Card`.
+-   **Encapsulación de datos:** Recopila el `element` y `value` actuales de la `CardScene`.
+-   **Abstracción:** Pasa estos datos al constructor de la clase `Card`, devolviendo un objeto que contiene solo la información esencial de la carta, sin la sobrecarga de la representación visual o interactiva del nodo `CardScene`. Esto es útil para pasar datos de la carta a la lógica del juego o a otros componentes que no necesitan interactuar directamente con el nodo visual.
+
+### `Card` (Clase interna)
+La clase interna `Card` actúa como una estructura de datos abstracta y ligera para representar la información esencial de una carta: su elemento y su valor. No tiene representación visual ni lógica de interactividad, sirviendo únicamente como un objeto de datos para la lógica del juego.
+
+#### `_init(new_element: GameConstants.Elements, new_value: int)`
+El constructor de la clase `Card`. Se utiliza para inicializar una nueva instancia de `Card` con un elemento y un valor específicos.
+-   `new_element`: Asigna el tipo elemental de la carta.
+-   `new_value`: Asigna el valor numérico de la carta. El `setter` de la propiedad `value` se activará durante esta asignación, realizando la validación del rango.
+
+#### `value`
+Esta propiedad almacena el valor numérico de la carta. Incluye un `setter` personalizado que valida el valor de entrada (`v`):
+-   Si el `v` valor es menor que `0` o mayor que `10`, el valor de la carta se fuerza a `0`.
+-   En cualquier otro caso, `value` se establece al `v` proporcionado.
+Esto asegura que el valor numérico de una `Card` abstracta siempre se mantenga dentro de un rango esperado por el juego.
 
 ## Funciones asociadas a señales
 
-#### `_on_pressed()`
-Esta función se conecta a la señal `pressed` del nodo `TextureButton`.
-*   **Señal:** `TextureButton.pressed`
-*   **Descripción:** Se activa cuando el usuario hace clic o presiona la carta.
-*   **Funcionalidad:** Antes de realizar cualquier acción, verifica si la carta está deshabilitada (`disable_card`) o oculta (`hide_card`). Si alguna de estas condiciones es verdadera, la función retorna inmediatamente, impidiendo que la carta sea "presionada" funcionalmente. Si la carta es interactiva, imprime un mensaje de depuración en la consola indicando qué carta (`element` y `value`) ha sido presionada.
+### `_on_pressed() -> void`
+Este método es la función callback para la señal `pressed` del nodo `TextureButton`. Se ejecuta cuando el usuario hace clic o presiona la carta.
+-   **Condiciones de interacción:** Primero, verifica si la carta está `disable_card` o `hide_card`. Si alguna de estas condiciones es `true`, el método retorna inmediatamente, impidiendo que la carta sea interactuable cuando no debe serlo.
+-   **Depuración:** Imprime un mensaje de depuración que indica qué carta (elemento y valor) fue presionada.
+-   **Emisión de señal:** Emite la señal `card_selected`, pasando como argumento una nueva instancia de la clase `Card` (obtenida mediante `get_abstract_card()`) que representa los datos esenciales de la carta. Esto permite que otros nodos en el juego reaccionen a la selección de la carta.
 
 ```gdscript
 func _on_pressed() -> void:
 	if disable_card or hide_card: return
 
 	print_debug("Carta %s-%s presionada" % [element, value])
+	card_selected.emit(get_abstract_card())
 ```
 
-#### `_on_mouse_entered()`
-Esta función se conecta a la señal `mouse_entered` del nodo `TextureButton`.
-*   **Señal:** `Control.mouse_entered`
-*   **Descripción:** Se activa cuando el puntero del ratón entra en el área de la carta.
-*   **Funcionalidad:** Llama al método `hover_card(true)` para iniciar el efecto visual de `hover` (agrandar la carta, cambiar su color y desplazarla si no está oculta).
+### `_on_mouse_entered() -> void`
+Esta función es la función callback para la señal `mouse_entered` heredada de `Control`. Se dispara cuando el cursor del ratón entra en el área interactiva de la carta.
+-   **Activación de hover:** Llama al método privado `_hover_card(true)` para iniciar la animación visual de "hover", que resalta la carta.
 
-```gdscript
-func _on_mouse_entered() -> void:
-	hover_card(true)
-```
-
-#### `_on_mouse_exited()`
-Esta función se conecta a la señal `mouse_exited` del nodo `TextureButton`.
-*   **Señal:** `Control.mouse_exited`
-*   **Descripción:** Se activa cuando el puntero del ratón sale del área de la carta.
-*   **Funcionalidad:** Llama al método `hover_card(false)` para revertir el efecto visual de `hover`, devolviendo la carta a su estado original (tamaño, color y posición).
-
-```gdscript
-func _on_mouse_exited() -> void:
-	hover_card(false)
+### `_on_mouse_exited() -> void`
+Esta función es la función callback para la señal `mouse_exited` heredada de `Control`. Se dispara cuando el cursor del ratón sale del área interactiva de la carta.
+-   **Desactivación de hover:** Llama al método privado `_hover_card(false)` para revertir la animación visual de "hover", devolviendo la carta a su estado normal.
 ```

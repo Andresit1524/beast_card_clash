@@ -1,23 +1,17 @@
-# `PlayerProfile`
-Este script, denominado `PlayerProfile` (nombre inferido por su contenido), actúa como un contenedor centralizado para almacenar y gestionar los datos fundamentales de un jugador dentro del juego `Beast Card Clash`. Al extender `Node`, este script puede ser utilizado de diversas maneras en la arquitectura del proyecto. Es una práctica común en el desarrollo de videojuegos indie usar scripts como este como un *Autoload* (Singleton) para asegurar que la información del jugador esté accesible desde cualquier parte del juego sin necesidad de pasarlo explícitamente entre escenas. También podría ser parte de un nodo instanciado en una escena específica, aunque su naturaleza de "datos de jugador" sugiere una utilidad más global.
+# `PlayerData`
+Este script actúa como un contenedor de datos fundamentales para la configuración de un jugador dentro del juego. Extiende la clase `Node` de Godot, lo que le permite existir en el árbol de escenas sin una representación visual directa, siendo ideal para la gestión de estados y datos globales o específicos de una entidad. Su propósito principal es almacenar y gestionar la información base de un jugador, como su nombre, equipo asignado, especie de animal elegida y la variante de apariencia (skin) asociada a dicha especie.
 
-Su propósito principal es mantener las características esenciales del personaje del jugador, incluyendo su identificador, afiliación a un equipo o facultad, especie animal y apariencia visual inicial. Este enfoque simplifica la gestión de la identidad y las propiedades básicas del jugador a lo largo de las diferentes fases del juego, promoviendo una experiencia de desarrollo eficiente.
+La información contenida en este script se inicializa con valores por defecto, lo que indica que estos valores serán probablemente sobreescritos o configurados por el usuario o el sistema de juego en etapas posteriores (por ejemplo, durante la creación de un perfil de jugador o la selección de personaje). La dependencia de un script externo `GameConstants` para tipos enumerados (`Teams`, `Species`) y datos de configuración (`SKINS`) es evidente, lo que subraya una arquitectura donde las constantes del juego se centralizan para facilitar la consistencia y el mantenimiento.
 
-## Variables
-El script define las siguientes propiedades para almacenar los datos del jugador, las cuales se inicializan con valores predeterminados para facilitar el desarrollo y las pruebas:
+```gdscript
+# Datos del jugador
+var player_name: String = "Osorio"
+var team: GameConstants.Teams = GameConstants.Teams.NO_TEAM
+var species: GameConstants.Species = GameConstants.Species.BEAR
+var skin: String = GameConstants.SKINS[species][0]
+```
 
-*   `player_name: String = "Osorio"`
-    *   Representa el nombre o alias que el jugador ha elegido para sí mismo dentro del juego. Es un identificador de tipo `String` con un valor predeterminado "Osorio". Este nombre es crucial para la identificación del jugador en interfaces de usuario y registros de puntuación.
-
-*   `team: GameConstants.Teams = GameConstants.Teams.NO_TEAM`
-    *   Define la afiliación del jugador a un equipo o facultad específica. Se utiliza una enumeración `Teams` del script `GameConstants` para asegurar valores consistentes y predefinidos en todo el proyecto. El valor inicial `NO_TEAM` indica que el jugador no tiene una afiliación de equipo asignada, lo que podría ser el estado inicial antes de unirse a una partida o en modos de juego que no requieren equipos. Este campo es clave para mecánicas competitivas y la representación de las "facultades de la Universidad Nacional de Colombia" como equipos o facciones.
-
-*   `species: GameConstants.Species = GameConstants.Species.BEAR`
-    *   Especifica la especie animal que el jugador ha elegido o se le ha asignado, representando uno de los "animales autóctonos colombianos" que dan vida al universo de `Beast Card Clash`. Al igual que con `team`, utiliza la enumeración `Species` de `GameConstants` para mantener la coherencia y facilitar la referenciación de las diferentes criaturas. El valor inicial `BEAR` (Oso) sirve como un ejemplo de especie, fundamental para determinar las habilidades, cartas y la estética general del personaje del jugador.
-
-*   `skin: String = GameConstants.SKINS[species][0]`
-    *   Determina la apariencia visual específica ("skin") de la especie seleccionada. Es una `String` que se inicializa extrayendo el primer elemento de una colección de skins disponible para la `species` actual. Esta colección está definida en el diccionario `SKINS` de `GameConstants`.
-        ```gdscript
-        var skin: String = GameConstants.SKINS[species][0]
-        ```
-        Este fragmento de código indica que `GameConstants.SKINS` es una estructura de datos (probablemente un `Dictionary`) donde las claves son las `Species` (e.g., `GameConstants.Species.BEAR`) y los valores son arrays o listas de nombres de skins (e.g., `["default_bear_skin", "arctic_bear_skin"]`). El índice `[0]` selecciona la skin predeterminada o la primera disponible para esa especie. Este enfoque permite una fácil gestión y selección de las diferentes apariencias visuales disponibles para cada animal, contribuyendo a la personalización del juego.
+*   `player_name`: Una variable de tipo `String` que almacena el nombre del jugador, inicialmente "Osorio".
+*   `team`: Una variable de tipo `GameConstants.Teams` que define el equipo al que pertenece el jugador. Se inicializa con `GameConstants.Teams.NO_TEAM`, sugiriendo que el jugador puede no tener un equipo asignado inicialmente o que esta es la configuración por defecto antes de una selección.
+*   `species`: Una variable de tipo `GameConstants.Species` que representa la especie de animal elegida por el jugador. Se inicializa con `GameConstants.Species.BEAR`, que concuerda con la temática de animales autóctonos del proyecto.
+*   `skin`: Una variable de tipo `String` que almacena la clave o ruta de la apariencia visual (skin) del personaje del jugador. Su valor se obtiene dinámicamente de la constante `GameConstants.SKINS`, utilizando la `species` seleccionada como índice para obtener la primera opción de skin disponible para esa especie (`[0]`). Esto permite una asociación directa entre la especie y sus apariencias visuales disponibles, facilitando la personalización del personaje.

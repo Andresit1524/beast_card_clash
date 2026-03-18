@@ -1,60 +1,88 @@
-# `rock_spawner`
-Este script, adjunto a un nodo `Node3D`, tiene como función principal la generación y gestión dinámica de instancias de una escena de roca (`rock_scene`) en un entorno 3D. Actúa como un gestor de elementos ambientales que posiciona múltiples rocas en un patrón circular alrededor de la posición del nodo al que está adjunto. Su configuración se realiza completamente a través de variables exportadas en el editor de Godot, permitiendo a los diseñadores controlar el número de rocas y su distancia desde el centro de forma intuitiva.
+# `Rocks`
+El script `Rocks` define un nodo `Node3D` que actúa como un gestor para la creación y disposición de objetos de tipo "roca" en el entorno 3D del juego. Su función principal es instanciar una cantidad configurable de rocas en una formación circular, asignando a cada una un "elemento" de forma cíclica. Esta funcionalidad es clave para establecer los puntos de interés o "campos de batalla" para las cartas en el juego `Beast Card Clash`, integrando la temática de elementos y biodiversidad.
 
-El script se encarga de:
-- Instanciar la `rock_scene` definida, que es un `PackedScene` que representa la escena de una roca individual.
-- Posicionar estas instancias en un patrón circular equidistante.
-- Rotar cada roca para que su "frente" apunte hacia afuera del centro del círculo.
-- Limpiar y regenerar las rocas cuando los parámetros configurables (`rocks_count` o `radius`) cambian, tanto en tiempo de ejecución como en el editor, gracias a los *setters* implementados en las propiedades.
+Este script gestiona la lógica de:
+*   Generación dinámica de rocas a partir de una escena predefinida.
+*   Disposición espacial de las rocas en un patrón circular con un radio configurable.
+*   Asignación de un elemento a cada roca, utilizando una constante global `GameConstants.Elements`.
+*   Mantenimiento de una lista de las rocas instanciadas.
 
-Este componente es ideal para crear formaciones rocosas o estructuras similares que requieren una distribución radial y fácil ajuste por parte de los diseñadores de niveles.
+---
 
 # Métodos
 
 ## Métodos de Godot
 
 ### `_ready()`
-Este método de ciclo de vida de Godot se ejecuta una vez que el nodo al que está adjunto el script, y sus hijos, han sido añadidos al árbol de la escena. Su única función es invocar al método `update_rocks()`. Esto asegura que las rocas se generen y posicionen inmediatamente según los valores configurados de `rocks_count` (cantidad de rocas) y `radius` (distancia desde el centro hasta cada roca) tan pronto como la escena se carga o el nodo entra en el árbol.
+Este método se llama automáticamente cuando el nodo y todos sus hijos están listos para entrar en la escena. Su función es inicializar la disposición de las rocas en la escena, asegurando que se generen tan pronto como el nodo `Rocks` esté disponible.
+
+```gdscript
+func _ready():
+	update_rocks()
+```
+
+Al llamar a `update_rocks()`, se desencadena la creación, posicionamiento y configuración de todas las rocas según los parámetros definidos en el inspector de Godot.
 
 ## Otros métodos
 
 ### `update_rocks() -> void`
-Este método encapsula la lógica central para la gestión de las rocas. Su ejecución conlleva los siguientes pasos:
+Este método es el núcleo de la funcionalidad de `Rocks`. Se encarga de la generación, posicionamiento y configuración de las rocas en la escena. Es llamado tanto en `_ready()` como por los *setters* de las propiedades `rocks_count` y `radius`, lo que permite una actualización dinámica de la disposición de las rocas directamente desde el editor o durante la ejecución si estas propiedades se modifican.
 
-1.  **Limpieza de rocas existentes:**
-    Itera sobre todos los nodos hijos actuales del `rock_spawner` y los libera de la memoria usando `queue_free()`. Este paso es crucial para eliminar las rocas previamente generadas y evitar duplicaciones o acumulación de nodos antes de crear nuevas instancias, asegurando un estado limpio antes de la regeneración.
+```gdscript
+func update_rocks() -> void:
+	for child in get_children():
+		child.queue_free()
 
-    ```gdscript
-    for child in get_children():
-        child.queue_free()
-    ```
+	if not is_node_ready(): return
 
-2.  **Verificación de inicialización del nodo:**
-    Incluye una comprobación `if not is_node_ready(): return` para asegurar que el nodo está completamente inicializado en el árbol de la escena antes de proceder con la instanciación. Esto es particularmente útil cuando el método es llamado desde los *setters* de las variables exportadas (`rocks_count` y `radius`) mientras se edita en Godot, previniendo posibles errores si se intentan crear nodos antes de que el `rock_spawner` esté completamente listo.
+	var director = Vector3.FORWARD * radius
 
-3.  **Cálculo del vector director:**
-    Se inicializa un vector `director` que apunta en la dirección `Vector3.FORWARD` (eje Z positivo local del `rock_spawner`) y tiene una longitud igual al `radius` configurado. Este vector sirve como base para calcular la posición de cada roca individual a lo largo del círculo.
+	for i in range(rocks_count):
+		var new_rock: Node3D = rock_scene.instantiate()
+		var new_rock_rotation := (TAU * i) / rocks_count
 
-    ```gdscript
-    var director = Vector3.FORWARD * radius
-    ```
+		# Posición y rotación de la roca
+		new_rock.position = director.rotated(Vector3.UP, new_rock_rotation)
+		new_rock.position.y = ROCK_Y_OFFSET
+		new_rock.rotate(Vector3.UP, new_rock_rotation)
+		add_child(new_rock)
 
-4.  **Generación y posicionamiento de rocas:**
-    Se inicia un bucle que se ejecuta `rocks_count` veces. En cada iteración:
-    *   **Instanciación:** Se crea una nueva instancia de la `rock_scene` utilizando `rock_scene.instantiate()`. La `rock_scene` es una variable `@export` de tipo `PackedScene` que debe ser asignada en el editor de Godot a una escena de roca predefinida.
-    *   **Cálculo de rotación:** Se calcula el ángulo `new_rock_rotation` necesario para distribuir las rocas de manera uniforme en un círculo completo (360 grados o `TAU` radianes). Este ángulo asegura que cada roca esté equidistante de la siguiente en la circunferencia.
-    *   **Posicionamiento:** La posición de la `new_rock` se determina rotando el `director` alrededor del eje `Vector3.UP` (eje Y) por `new_rock_rotation`. Esto coloca la roca en el punto correcto de la circunferencia, a la distancia `radius` del centro del `rock_spawner`.
-    *   **Orientación:** La propia `new_rock` es rotada alrededor de su eje `Vector3.UP` por el mismo `new_rock_rotation`. Esto asegura que la "cara" frontal de la roca (su eje Z local) apunte hacia afuera desde el centro del círculo, dando una apariencia radial.
-    *   **Adición al árbol:** Finalmente, la roca instanciada y posicionada se añade como hija del nodo `rock_spawner` mediante `add_child(new_rock, true)`. El argumento `true` indica que es un hijo "interno", lo cual es una buena práctica para nodos generados programáticamente que son gestionados exclusivamente por el script padre.
+		# Elemento
+		new_rock.element = i % GameConstants.Elements.size()
+		rocks_list.append(new_rock)
+```
 
-    ```gdscript
-    for i in range(rocks_count):
-        var new_rock: Node3D = rock_scene.instantiate()
-        var new_rock_rotation := (TAU * i) / rocks_count
+**Funcionamiento detallado:**
+1.  **Limpieza previa:** Itera sobre todos los hijos actuales del nodo `Rocks` y los libera de la memoria (`child.queue_free()`). Esto asegura que no queden rocas duplicadas o antiguas al regenerar la lista.
+2.  **Verificación de nodo listo:** Realiza una comprobación `if not is_node_ready(): return` para evitar errores si el método es llamado antes de que el nodo esté completamente inicializado, especialmente útil para los *setters* en el editor.
+3.  **Cálculo de posición base:** Define un vector `director` que se extiende desde el centro del nodo `Rocks` a lo largo del eje Z (`Vector3.FORWARD`) por una distancia igual a `radius`.
+4.  **Bucle de instanciación:** Recorre un rango desde `0` hasta `rocks_count - 1`:
+    *   **Instanciación:** Crea una nueva instancia de la escena de roca (`rock_scene`). Se asume que `rock_scene` es una `PackedScene` que contiene un nodo `Node3D` como raíz, que será el `new_rock`.
+    *   **Cálculo de rotación:** Determina la rotación angular (`new_rock_rotation`) necesaria para distribuir las rocas uniformemente en un círculo completo (`TAU` radianes).
+    *   **Posicionamiento:**
+        *   La posición de `new_rock` se calcula rotando el vector `director` alrededor del eje Y (`Vector3.UP`) por `new_rock_rotation`. Esto coloca la roca en la circunferencia deseada.
+        *   Se aplica un `ROCK_Y_OFFSET` para ajustar la altura de la roca por encima del plano base.
+    *   **Rotación de la roca:** `new_rock` se rota sobre su propio eje Y (`Vector3.UP`) con el mismo ángulo `new_rock_rotation`. Esto hace que cada roca "mire" hacia afuera del centro del círculo.
+    *   **Jerarquía de nodos:** La nueva roca se añade como hija del nodo `Rocks` (`add_child(new_rock)`).
+    *   **Asignación de elemento:** Se asigna un `element` a la roca. El valor se obtiene usando el operador módulo (`%`) sobre el índice del bucle (`i`) y el tamaño de `GameConstants.Elements`. Esto asegura que los elementos se asignen de forma cíclica (por ejemplo, si hay 3 elementos, las rocas tendrán elemento 0, 1, 2, 0, 1, 2...). Se asume que `new_rock` tiene una propiedad `element` que puede ser establecida.
+    *   **Almacenamiento:** La instancia `new_rock` (que es un `Node3D`) se añade a la lista `rocks_list`.
 
-        new_rock.position = director.rotated(Vector3.UP, new_rock_rotation)
-        new_rock.rotate(Vector3.UP, new_rock_rotation)
-        add_child(new_rock, true)
-    ```
+### `get_abstract_rocks_list() -> Array`
+Este método tiene como objetivo obtener una representación "abstracta" de las rocas presentes en la escena.
 
-    Este método es invocado automáticamente por los *setters* de las variables `@export` `rocks_count` y `radius`. Esto significa que cualquier cambio en estos valores a través del Inspector de Godot resultará en una actualización visual inmediata de la disposición de las rocas, facilitando la iteración de diseño.
+```gdscript
+func get_abstract_rocks_list() -> Array:
+	for rock_pos in get_children():
+		var rock: RockScene = rock_pos.get_child(0)
+		rocks_list.append(rock.get_abstract_rock())
+
+	return rocks_list
+```
+
+**Funcionamiento detallado:**
+1.  **Iteración de hijos:** Itera sobre todos los hijos del nodo `Rocks`. Cada `rock_pos` en este bucle es una de las instancias `Node3D` creadas por `update_rocks()`.
+2.  **Acceso a `RockScene`:** Para cada `rock_pos`, se intenta acceder a su primer hijo (`rock_pos.get_child(0)`), el cual se asume que es de tipo `RockScene`. Esto implica que la escena de roca (`rock_scene`) que se instancia en `update_rocks()` tiene la estructura: `Node3D` (raíz de la escena, `new_rock`) que contiene un nodo `RockScene` como su primer hijo.
+3.  **Obtención de representación abstracta:** Se llama al método `get_abstract_rock()` en la instancia de `RockScene` encontrada. Se espera que este método devuelva un objeto que represente los datos clave o el estado de la roca de forma más concisa o para un propósito específico del juego (ej. datos para la interfaz de usuario, lógica de juego).
+4.  **Almacenamiento y retorno:** El objeto "abstracto" retornado se añade a la lista `rocks_list`.
+    *   **Nota importante:** A diferencia de `update_rocks()`, este método no limpia `rocks_list` antes de añadir nuevos elementos. Si `get_abstract_rocks_list()` es llamado después de `update_rocks()`, `rocks_list` contendrá una mezcla de `Node3D` (instancias de roca) y las representaciones "abstractas" de `RockScene`, lo que podría llevar a comportamientos inesperados si la lista no se gestiona con cuidado en otras partes del código. Se recomienda que, si el propósito es solo obtener la lista abstracta, se retorne una nueva lista o se limpie `rocks_list` antes de añadir los elementos abstractos.
+5.  Finalmente, se retorna la lista `rocks_list`, que ahora contendrá los objetos abstractos (y potencialmente las instancias de `Node3D` originales si no se vació previamente).

@@ -1,74 +1,89 @@
-# `PlayerCharacterSelection`
-Este script actúa como el controlador principal para la pantalla de selección de skins de personajes. Se encarga de inicializar las opciones de skins disponibles, gestionar la interacción del jugador para cambiar la skin visualizada, y preparar los datos de la selección para ser utilizados en escenas posteriores del juego, como el selector de equipo.
+# `skin_selection_screen`
+Este script gestiona la lógica y las interacciones de la pantalla de selección de skins de personaje, que permite a los jugadores elegir la apariencia de su "Bestia". Se encarga de inicializar la interfaz de usuario, asignar skins visuales a los personajes seleccionables, manejar la selección del jugador y preparar los datos necesarios para la siguiente fase del juego, el selector de equipo.
 
-El script funciona conectándose a los nodos de personaje disponibles en la escena, asignándoles sus skins iniciales y escuchando las interacciones del jugador (clics) para actualizar la visualización de la skin. Utiliza las propiedades exportadas `current_skin_mesh` para la visualización activa, `characters_list_node` como contenedor de los personajes seleccionables y `skins` como un arreglo de materiales para las distintas apariencias. Cuando el jugador confirma su selección, el script actualiza las estadísticas del jugador (`PlayerStats`) con la skin elegida y transiciona a la siguiente escena usando `SceneManager`.
+El script asume la existencia de nodos de personaje que emiten una señal cuando son seleccionados, y se integra con sistemas globales del proyecto como `GameConstants`, `PlayerStats` y `SceneManager` para manejar la persistencia de datos y las transiciones de escena.
 
 # Métodos
 
 ## Métodos de Godot
 
 ### `_ready()`
-Este método es parte del ciclo de vida de Godot y se ejecuta una vez cuando el nodo y todos sus hijos han entrado en el árbol de escena. Su función principal es inicializar el sistema de selección de skins:
+Este método se ejecuta una vez cuando el nodo y todos sus hijos están listos. Su función principal es inicializar la pantalla de selección de skins:
 
-1.  **Obtención de Personajes:** Recupera todos los nodos hijos del nodo `characters_list_node`, asumiendo que cada hijo representa un personaje seleccionable.
+1.  **Iteración de personajes:** Recorre todos los nodos hijos del nodo `characters_list_node`. Se espera que cada uno de estos hijos represente un personaje seleccionable en la interfaz.
+
     ```gdscript
     var characters = characters_list_node.get_children()
+    for i in characters.size():
+        var character = characters[i]
+        # ...
     ```
-2.  **Inicialización por Personaje:** Itera sobre cada uno de estos nodos de personaje para configurarlos:
-    *   Obtiene la malla 3D (`MeshInstance3D`) del personaje. Se asume que esta malla es el segundo hijo (índice `1`) del nodo `character` que se va a modificar visualmente.
-        ```gdscript
-        var character_mesh: MeshInstance3D = character.get_child(1)
-        ```
-    *   Conecta la señal `skin_selected` emitida por el nodo `character` al método `_change_skin` de este script. Esto permite que el script reaccione cuando un personaje es "seleccionado" (presumiblemente por un clic del jugador) en la interfaz.
-        ```gdscript
-        character.skin_selected.connect(_change_skin)
-        ```
-    *   Asigna un material (`Material`) de la colección `skins` a la propiedad `material_override` de la malla del personaje. Cada personaje recibe la skin correspondiente a su índice en el arreglo `skins`.
-        ```gdscript
-        character_mesh.material_override = skins[i]
-        ```
+
+2.  **Obtención de Mesh del personaje:** Para cada personaje, intenta obtener su malla 3D, asumiendo que es el segundo hijo del nodo del personaje (`character.get_child(1)`). Esta malla es utilizada para aplicar la skin visual.
+
+    ```gdscript
+    var character_mesh: MeshInstance3D = character.get_child(1)
+    ```
+
+3.  **Conexión de señal:** Conecta la señal `skin_selected` emitida por cada nodo de personaje al método local `_change_skin`. Esto permite que el script reaccione cuando el jugador selecciona un personaje.
+
+    ```gdscript
+    character.skin_selected.connect(_change_skin)
+    ```
+
+4.  **Asignación de material inicial:** Asigna un material del array `skins` a la propiedad `material_override` de la malla de cada personaje. La asignación se realiza en función del índice `i`, lo que implica que el orden de los materiales en el array `skins` debe corresponder al orden de los personajes en `characters_list_node`.
+
+    ```gdscript
+    character_mesh.material_override = skins[i]
+    ```
 
 ## Otros métodos
 
-### `_change_skin(skin_index: int) -> void`
-Este método es responsable de actualizar visualmente la skin del personaje actualmente seleccionada en la pantalla principal y de registrar la elección del jugador. Recibe un `skin_index` entero que corresponde a la skin elegida del arreglo `skins`:
+### `_change_skin(skin_index: int)`
+Este método es llamado cuando un jugador selecciona una skin de personaje, recibiendo el índice de la skin seleccionada.
 
-1.  **Actualización Visual Principal:** Cambia la propiedad `material_override` de la malla `current_skin_mesh` (que representa la skin activa en la UI principal) por el material de la colección `skins` en la posición `skin_index`.
+1.  **Actualización de la skin de previsualización:** Modifica el `material_override` de `current_skin_mesh` con el material correspondiente del array `skins` según `skin_index`. Esto actualiza visualmente la malla que muestra la skin actualmente seleccionada al jugador.
+
     ```gdscript
     current_skin_mesh.material_override = skins[skin_index]
     ```
-2.  **Registro de Selección Interna:** Almacena el identificador de la skin seleccionada en la variable `current_skin`. Para esto, accede a una constante global (`GameConstants.SKINS`) y a un tipo de especie específico (`GameConstants.Species.BEAR`), lo que sugiere que las skins están organizadas por especies y que la lógica actual está limitada.
+
+2.  **Actualización de la skin actual:** Asigna a la variable `current_skin` el identificador de la skin seleccionada. Este identificador se obtiene del diccionario `GameConstants.SKINS`, específicamente de las skins asociadas a `GameConstants.Species.BEAR` en el índice `skin_index`.
+    > **Nota**
+    > Según el comentario en el código, esta implementación está temporalmente limitada a skins de "oso".
+
     ```gdscript
     current_skin = GameConstants.SKINS[GameConstants.Species.BEAR][skin_index]
     ```
-3.  **Depuración:** Imprime un mensaje de depuración en la consola indicando el índice de la skin seleccionada.
+
+3.  **Registro de depuración:** Imprime un mensaje en la consola de depuración indicando qué skin fue seleccionada.
+
     ```gdscript
     print_debug("Skin %d seleccionada" % skin_index)
-    ```
-    > [!NOTE]
-    > Un comentario directamente en el código (`! Por ahora solo estamos trabajando con las skins de oso`) indica que la implementación actual de la lógica de skins está centrada exclusivamente en la especie "Oso" y podría requerir extensiones futuras para manejar otras especies.
-
-### `_on_next_button_pressed() -> void`
-Este método se ejecuta cuando se activa una señal asociada al botón "siguiente" en la interfaz de usuario. Su propósito es finalizar la selección de skin por parte del jugador y preparar los datos necesarios para la siguiente etapa del juego:
-
-1.  **Actualización de Estadísticas del Jugador:** Establece la especie y la skin elegida en el objeto global `PlayerStats`. Actualmente, la especie se fija como `GameConstants.Species.BEAR`, lo que refuerza la limitación actual a las skins de oso.
-    ```gdscript
-    PlayerStats.species = GameConstants.Species.BEAR
-    PlayerStats.skin = current_skin
-    ```
-2.  **Advertencia de Desarrollo:** Emite una advertencia de Godot, informando sobre la limitación temporal del juego a las skins de oso.
-    ```gdscript
-    push_warning("Por ahora solo se trabajan las skins de oso")
-    ```
-3.  **Transición de Escena:** Utiliza el `SceneManager` global para cambiar la escena actual a la escena con el nombre `team_selector`, indicando que el siguiente paso en el flujo del juego es la selección del equipo.
-    ```gdscript
-    SceneManager.change_to_scene("team_selector")
     ```
 
 ## Funciones asociadas a señales
 
-#### `_change_skin(skin_index: int) -> void`
-Este método está conectado a la señal `skin_selected` que es emitida por cada uno de los nodos de personaje (`character`) que son hijos de `characters_list_node`. Cuando un personaje en la interfaz es "seleccionado" por el jugador (presumiblemente a través de un clic o interacción táctil), esta señal se emite con el índice de la skin correspondiente. La invocación de `_change_skin` entonces actualiza la skin visualizada en la malla principal del selector y registra la elección interna.
+#### `_on_next_button_pressed()`
+Esta función se asume que es el callback de una señal emitida por un botón de "siguiente" en la interfaz. Se encarga de procesar la selección del jugador y realizar la transición a la siguiente escena del juego.
 
-#### `_on_next_button_pressed() -> void`
-Este método se activa en respuesta a la señal `pressed` de un nodo de botón en la interfaz de usuario, comúnmente etiquetado como "Siguiente". Su ejecución indica que el jugador ha finalizado su elección de skin y desea avanzar a la siguiente pantalla del juego para configurar su equipo.
+1.  **Establecimiento de especie del jugador:** Establece la especie del jugador en el singleton `PlayerStats` a `GameConstants.Species.BEAR`.
+    > **Advertencia**
+    > El código incluye una advertencia explícita (`push_warning`) indicando que, por ahora, solo se trabaja con skins de oso, lo que refuerza la limitación mencionada anteriormente. Esto debe ser considerado por otros desarrolladores.
+
+    ```gdscript
+    PlayerStats.species = GameConstants.Species.BEAR
+    push_warning("Por ahora solo se trabajan las skins de oso")
+    ```
+
+2.  **Establecimiento de skin del jugador:** Asigna el valor de `current_skin` (la skin seleccionada por el jugador) a la propiedad `skin` del singleton `PlayerStats`.
+
+    ```gdscript
+    PlayerStats.skin = current_skin
+    ```
+
+3.  **Transición de escena:** Utiliza el singleton `SceneManager` para cambiar la escena actual a "team_selector", llevando al jugador a la siguiente fase de configuración del equipo.
+
+    ```gdscript
+    SceneManager.change_to_scene("team_selector")
+    ```

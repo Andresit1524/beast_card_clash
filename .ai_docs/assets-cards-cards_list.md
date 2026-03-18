@@ -1,17 +1,26 @@
 # `CardsList`
-Este script define la clase `CardsList`, una `Resource` que funciona como un contenedor centralizado para las texturas visuales de las cartas del juego. Su propósito principal es almacenar de forma organizada las `Texture2D` de cada carta, clasificadas por su elemento, y proveer un método eficiente para acceder a una carta específica utilizando su elemento y valor. Al ser una `Resource`, puede ser creada, configurada en el editor de Godot (donde se asignan las texturas a sus respectivas arrays), y luego cargada y utilizada en cualquier parte del proyecto, facilitando la gestión de assets de cartas y promoviendo la reutilización.
+Este script define la clase `CardsList`, que extiende `Resource`. Su propósito principal es servir como un repositorio centralizado y configurable para las texturas (`Texture2D`) de todas las cartas coleccionables del juego **Beast Card Clash**. Permite a otros componentes del juego acceder a la representación visual de una carta específica mediante su elemento y su valor numérico.
 
-# Métodos
+Al ser una `Resource`, las instancias de `CardsList` pueden crearse y guardarse como archivos `.tres` directamente en el editor de Godot. Esto facilita a los diseñadores la asignación y organización de los `Texture2D` de las cartas para cada tipo elemental (Aire, Tierra, Energía, Fuego y Agua), así como una textura de "placeholder" para casos predeterminados o de error. Esta estructura promueve una arquitectura de juego data-driven, desacoplando los activos visuales de la lógica de juego y mejorando la gestión y escalabilidad de las cartas.
 
-## Otros métodos
+La clase actúa como una tabla de consulta eficiente, permitiendo que elementos como nodos que muestran cartas o gestores de mazos obtengan la textura correcta para la carta en cuestión, garantizando coherencia visual y facilidad de mantenimiento del arte del juego.
+
+## Métodos
 
 ### `get_card(element: int, value: int) -> Texture2D`
-Este método es la interfaz principal para recuperar una textura de carta de la colección. Recibe dos parámetros enteros: `element` y `value`.
+Este es el método principal y público de la clase `CardsList`. Su función es recuperar la textura (`Texture2D`) correspondiente a una carta específica, basándose en su tipo elemental y su valor numérico.
 
-- **`element`**: Representa el tipo elemental de la carta que se desea obtener. Se espera que este parámetro sea uno de los valores definidos en la enumeración `GameConstants.Elements` (por ejemplo, `GameConstants.Elements.AIR`, `GameConstants.Elements.FIRE`, etc.).
-- **`value`**: Representa el valor numérico de la carta dentro de su elemento. Se asume que las cartas tienen un valor base de 1, por lo que este valor se ajusta internamente (`value - 1`) para coincidir con los índices base cero de los arrays de Godot.
+- **Parámetros:**
+    - `element: int`: Representa el tipo elemental de la carta. Se espera que este valor corresponda con las constantes definidas en una enumeración o clase de constantes globales del proyecto, presumiblemente `GameConstants.Elements` (ej. `GameConstants.Elements.AIR`).
+    - `value: int`: Un valor entero que indica la "fuerza" o el orden de la carta dentro de su elemento. Para mayor claridad en el diseño del juego, se asume que este valor es 1-indexado (es decir, el primer valor es 1, el segundo es 2, y así sucesivamente).
 
-El método utiliza una estructura `match` para determinar qué array de texturas debe consultar, basándose en el parámetro `element`.
+- **Funcionamiento:**
+    El método utiliza una declaración `match` para evaluar el `element` proporcionado:
+    - Si el `element` es `GameConstants.Elements.NONE`, o si el valor no coincide con ninguno de los elementos reconocidos, el método devuelve la textura asignada a la variable `@export var placeholder`.
+    - Para cada elemento reconocido (`AIR`, `EARTH`, `ENERGY`, `FIRE`, `WATER`), el método accede al array de texturas correspondiente (ej. `air_cards`) y devuelve la `Texture2D` en la posición `value - 1`. La operación `value - 1` es crucial porque los arrays en GDScript son 0-indexados, lo que convierte el valor de carta 1-indexado en el índice de array correcto.
+
+- **Manejo de errores:**
+    En caso de que el valor del parámetro `element` no corresponda a ninguno de los elementos definidos y manejados por el `match` (lo que indicaría un valor inesperado o no soportado), el método emitirá un error en la consola de Godot a través de `push_error("Carta no identificada")`. Después de registrar el error, devolverá la textura `placeholder` como una medida de seguridad para evitar que el programa falle o intente acceder a un recurso inexistente.
 
 ```gdscript
 func get_card(element: int, value: int) -> Texture2D:
@@ -32,9 +41,3 @@ func get_card(element: int, value: int) -> Texture2D:
 	push_error("Carta no identificada")
 	return placeholder
 ```
-
-- Si el `element` es `GameConstants.Elements.NONE`, o si el `element` no coincide con ninguna de las categorías elementales predefinidas, el método devuelve la textura `placeholder`.
-- En caso de que se pase un valor `element` que no esté contemplado, el sistema emitirá un error utilizando `push_error("Carta no identificada")` en la consola de Godot, lo que ayuda a depurar el uso incorrecto del método.
-- Para los elementos válidos, accede al array correspondiente (ej. `air_cards`) y utiliza `value - 1` como índice para obtener la textura específica, asumiendo una numeración de cartas que comienza desde 1.
-
-Este diseño permite una gestión robusta y flexible de las imágenes de las cartas, desacoplando la lógica de obtención de la carta de la representación visual directa en otros componentes del juego.
