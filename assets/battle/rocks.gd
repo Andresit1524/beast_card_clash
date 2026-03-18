@@ -47,7 +47,6 @@ func update_rocks() -> void:
 
 		# Elemento
 		new_rock.element = (i % GameConstants.Elements.size()) as GameConstants.Elements
-		new_rock.state = RockScene.States.DISABLED
 		rocks_list.append(new_rock)
 
 
@@ -55,6 +54,6 @@ func update_rocks() -> void:
 func get_abstract_rocks_list() -> Array:
 	for rock_pos in get_children():
 		var rock: RockScene = rock_pos.get_child(0)
-		rocks_list.append(rock._get_abstract_rock())
+		rocks_list.append(rock.get_abstract_rock())
 
 	return rocks_list

@@ -1,46 +1,34 @@
 class_name RockScene extends StaticBody3D
 
 
-## Estados de la roca
-enum States {
-	DISABLED,
-	HOVER,
-	UNHOVER,
-}
-
-
 signal rock_selected(rock: Rock)
 
 
-@export_group("Parámetros")
+const COLOR_OPACITY := 0.2
+const OUTLINE_THICKNESS := 0.2
+
+
 ## Elemento de la roca
 @export var element: GameConstants.Elements = GameConstants.Elements.NONE:
 	set(value):
 		element = value
 		_update_sprite()
+		if is_node_ready(): _highlight()
 ## Estado actual de la roca
-@export var current_state: States = States.UNHOVER:
+@export var hovered: bool = false:
 	set(value):
-		if current_state == value: return
-		current_state = value
-		if is_node_ready(): _apply_highlight()
+		if not selectable:
+			hovered = false
+			return
 
-@export_group("Visuales")
-## Color para resaltar la roca
-@export_color_no_alpha var hightlight_color: Color = Color.TEAL:
+		hovered = value
+		if is_node_ready(): _highlight()
+## Hace que la roca sea seleccionable
+@export var selectable: bool = false:
 	set(value):
-		hightlight_color = value
-		if is_node_ready(): _apply_highlight()
-## Color al desactivas la roca
-@export_color_no_alpha var disabled_color: Color = Color.BLACK:
-	set(value):
-		disabled_color = value
-		if is_node_ready(): _apply_highlight()
-## Opacidad de los colores
-@export_range(0, 1, 0.05) var opacity: float = 0.5:
-	set(value):
-		opacity = value
-		if is_node_ready(): _apply_highlight()
+		selectable = value
+		if not selectable: hovered = false
+		if is_node_ready(): _highlight()
 
 @export_group("Dependencias")
 ## Lista de elementos para las rocas
@@ -51,6 +39,9 @@ signal rock_selected(rock: Rock)
 @onready var sprite: Sprite3D = %Element
 
 
+var highlight_color: Color
+
+
 func _ready():
 	input_event.connect(_on_input_event)
 	mouse_entered.connect(_on_hover.bind(true))
@@ -58,7 +49,7 @@ func _ready():
 
 	# Inicializa los visuales
 	_update_sprite()
-	_apply_highlight()
+	_highlight()
 
 
 #region Aspecto visual
@@ -72,21 +63,22 @@ func _update_sprite():
 
 
 ## Aplica el color para resaltar la roca por medio del shader
-func _apply_highlight():
-	print(
-		"Roca %s coloreada según modo %s"
-		% [name, Utilities.get_enum_name(current_state, States)]
-	)
+func _highlight():
+	# Color de resaltado
+	match element:
+		GameConstants.Elements.NONE: highlight_color = Color.GRAY
+		GameConstants.Elements.AIR: highlight_color = Color.SKY_BLUE
+		GameConstants.Elements.EARTH: highlight_color = Color.YELLOW_GREEN
+		GameConstants.Elements.ENERGY: highlight_color = Color.YELLOW
+		GameConstants.Elements.FIRE: highlight_color = Color.ORANGE_RED
+		GameConstants.Elements.WATER: highlight_color = Color.STEEL_BLUE
 
-	var final_color: Color
-	match current_state:
-		States.DISABLED: final_color = disabled_color
-		States.HOVER: final_color = hightlight_color
-		# Blanco transparente conserva el color original
-		States.UNHOVER: final_color = Color(1, 1, 1, 0)
+	# Transparencia
+	highlight_color.a = COLOR_OPACITY if hovered else 0.0
 
-	if current_state != States.UNHOVER: final_color.a = opacity
-	mesh.set_instance_shader_parameter("color", final_color)
+	# Actualiza el shader
+	mesh.set_instance_shader_parameter("color", highlight_color)
+	mesh.set_instance_shader_parameter("thickness", OUTLINE_THICKNESS if selectable else 0.0)
 
 
 #endregion
@@ -98,26 +90,27 @@ func _apply_highlight():
 # Gestiona el clic para la roca
 func _on_input_event(_camera: Node, event: InputEvent, _event_position: Vector3, _normal: Vector3, _shape_idx: int) -> void:
 	if (
-		current_state == States.DISABLED
+		not selectable
 		or not event is InputEventMouseButton
 		or not event.button_index == MOUSE_BUTTON_LEFT
 		or not event.is_pressed()
 	): return
 
 
-	print_debug(
+	Utilities.print_color(
 		"[Rock] Roca seleccionada: %s"
-		% Utilities.get_enum_name(element, GameConstants.Elements)
+		% Utilities.get_enum_name(element, GameConstants.Elements),
+		(Color(highlight_color.r, highlight_color.g, highlight_color.b, 1.0))
 	)
-	rock_selected.emit(_get_abstract_rock())
+	rock_selected.emit(get_abstract_rock())
 
 
 ## Selecciona la roca. Usado con señales
-func _on_hover(hover: bool) -> void:
-	if current_state == States.DISABLED: return
+func _on_hover(is_hovered: bool) -> void:
+	if not selectable: return
 
 	# Cambia el estado de la roca. La actualización sucede automáticamente
-	current_state = States.HOVER if hover else States.UNHOVER
+	hovered = is_hovered
 
 
 #endregion
@@ -126,7 +119,7 @@ func _on_hover(hover: bool) -> void:
 #region Roca abstracta
 
 
-func _get_abstract_rock() -> Rock:
+func get_abstract_rock() -> Rock:
 	return Rock.new(element)
 
 
