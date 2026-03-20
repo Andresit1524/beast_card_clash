@@ -10,19 +10,21 @@
 [ext_resource type="PackedScene" uid="uid://bmk14l2nvouje" path="res://assets/battle/rock.tscn" id="6_d31xq"]
 [ext_resource type="Script" uid="uid://clvjxwv8w7kt0" path="res://assets/battle/states/start.gd" id="10_5m5wa"]
 
-[sub_resource type="Environment" id="Environment_hsiu5"]
-background_mode = 3
-ambient_light_source = 2
-ambient_light_color = Color(1, 1, 1, 1)
-ambient_light_energy = 1.6
-
 [sub_resource type="Curve2D" id="Curve2D_307i3"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 320, 512, -160.10532, 0, 160.10532, 0, 576, 486, 0, 0, 0, 0, 832, 512)
 }
 point_count = 3
 
+[sub_resource type="Environment" id="Environment_hsiu5"]
+background_mode = 3
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 1.6
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1e0e5"]
+diffuse_mode = 3
+specular_mode = 1
 albedo_color = Color(0.24, 0.110400006, 0.045599997, 1)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_tlmnd"]
@@ -34,19 +36,6 @@ height = 0.1
 [node name="Battle" type="Node" unique_id=669774022]
 metadata/_edit_horizontal_guides_ = [512.0, 32.0, 616.0]
 metadata/_edit_vertical_guides_ = [320.0, 832.0, 32.0, 1120.0]
-
-[node name="World" type="Node3D" parent="." unique_id=728525797]
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="World" unique_id=13638297]
-environment = SubResource("Environment_hsiu5")
-
-[node name="Camera3D" type="Camera3D" parent="World" unique_id=824639004]
-transform = Transform3D(1, 0, 0, 0, 0.73889065, 0.6738253, 0, -0.6738253, 0.73889065, 0, 15.365939, 20.733116)
-current = true
-fov = 39.740986
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="World" unique_id=1631799841]
-transform = Transform3D(-0.23401584, -0.6283599, 0.7418897, -0.17849198, 0.7778754, 0.60253656, -0.9557076, 0.008581743, -0.29419237, -1.8196497, 21.941957, 22.545345)
 
 [node name="Background" type="CanvasLayer" parent="." unique_id=1962356091]
 layer = -1
@@ -68,7 +57,7 @@ script = ExtResource("1_tlmnd")
 hand = NodePath("../HandPos/Hand")
 player_panel = NodePath("../PlayerPanel")
 bots_panels = [NodePath("../BotsPanels/BotPanel"), NodePath("../BotsPanels/BotPanel2"), NodePath("../BotsPanels/BotPanel3")]
-rocks_list = NodePath("../../Arena/Platform/Rocks")
+rocks_list = NodePath("../../World/Platform/Rocks")
 
 [node name="HandPos" type="Control" parent="UILayer" unique_id=534952336]
 layout_mode = 3
@@ -79,7 +68,7 @@ anchor_right = 0.5
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 0
-mouse_filter = 1
+mouse_filter = 2
 
 [node name="Hand" type="Path2D" parent="UILayer/HandPos" unique_id=563384670]
 position = Vector2(-576, -648)
@@ -99,6 +88,7 @@ offset_right = 176.0
 offset_bottom = 214.0
 grow_horizontal = 1
 grow_vertical = 1
+mouse_filter = 2
 
 [node name="BotsPanels" type="VBoxContainer" parent="UILayer" unique_id=1280223489]
 anchors_preset = 1
@@ -109,50 +99,65 @@ offset_top = 32.0
 offset_right = -36.0
 offset_bottom = 526.0
 grow_horizontal = 0
+mouse_filter = 2
 theme_override_constants/separation = 8
 
 [node name="BotPanel" parent="UILayer/BotsPanels" unique_id=1053233556 instance=ExtResource("1_1054f")]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="BotPanel2" parent="UILayer/BotsPanels" unique_id=1994888533 instance=ExtResource("1_1054f")]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="BotPanel3" parent="UILayer/BotsPanels" unique_id=954710962 instance=ExtResource("1_1054f")]
 layout_mode = 2
-
-[node name="Arena" type="Node3D" parent="." unique_id=2016797397]
-
-[node name="Platform" type="MeshInstance3D" parent="Arena" unique_id=1408877626]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
-mesh = SubResource("CylinderMesh_tlmnd")
-
-[node name="Dice" parent="Arena/Platform" unique_id=1602974280 instance=ExtResource("5_hsiu5")]
-transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 1.1, 0)
-
-[node name="Rocks" type="Node3D" parent="Arena/Platform" unique_id=1152453067]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
-script = ExtResource("6_1e0e5")
-rock_scene = ExtResource("6_d31xq")
-
-[node name="ReferenceRock" parent="Arena/Platform/Rocks" unique_id=1614443290 instance=ExtResource("6_d31xq")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -8, 0, 0)
-
-[node name="ReferenceRock2" parent="Arena/Platform/Rocks" unique_id=138480051 instance=ExtResource("6_d31xq")]
-transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 8, 0, 0)
-
-[node name="ReferenceRock3" parent="Arena/Platform/Rocks" unique_id=1301111891 instance=ExtResource("6_d31xq")]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 8)
-
-[node name="ReferenceRock4" parent="Arena/Platform/Rocks" unique_id=1601587957 instance=ExtResource("6_d31xq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8)
+mouse_filter = 2
 
 [node name="BattleManager" type="Node" parent="." unique_id=637941647 node_paths=PackedStringArray("battle_ui", "dice", "controlled_node", "default_state")]
 script = ExtResource("3_6cxqy")
 battle_ui = NodePath("../UILayer/BattleUI")
-dice = NodePath("../Arena/Platform/Dice")
+dice = NodePath("../World/Platform/Dice")
 controlled_node = NodePath(".")
 default_state = NodePath("Start")
 metadata/_custom_type_script = "uid://bxs53es51hc4u"
 
 [node name="Start" type="Node" parent="BattleManager" unique_id=804253519]
 script = ExtResource("10_5m5wa")
+
+[node name="World" type="Node3D" parent="." unique_id=728525797]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="World" unique_id=13638297]
+environment = SubResource("Environment_hsiu5")
+
+[node name="Camera3D" type="Camera3D" parent="World" unique_id=824639004]
+transform = Transform3D(1, 0, 0, 0, 0.73889065, 0.6738253, 0, -0.6738253, 0.73889065, 0, 15.365939, 20.733116)
+current = true
+fov = 39.740986
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="World" unique_id=1631799841]
+transform = Transform3D(-0.23401584, -0.6283599, 0.7418897, -0.17849198, 0.7778754, 0.60253656, -0.9557076, 0.008581743, -0.29419237, -1.8196497, 21.941957, 22.545345)
+
+[node name="Platform" type="MeshInstance3D" parent="World" unique_id=1408877626]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+mesh = SubResource("CylinderMesh_tlmnd")
+
+[node name="Dice" parent="World/Platform" unique_id=1602974280 instance=ExtResource("5_hsiu5")]
+transform = Transform3D(0, 1, 0, -0.99999994, 0, 0, 0, 0, 0.99999994, 0, 1.1, 0)
+
+[node name="Rocks" type="Node3D" parent="World/Platform" unique_id=1152453067]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+script = ExtResource("6_1e0e5")
+rock_scene = ExtResource("6_d31xq")
+
+[node name="ReferenceRock" parent="World/Platform/Rocks" unique_id=1614443290 instance=ExtResource("6_d31xq")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -8, 0, 0)
+
+[node name="ReferenceRock2" parent="World/Platform/Rocks" unique_id=138480051 instance=ExtResource("6_d31xq")]
+transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 8, 0, 0)
+
+[node name="ReferenceRock3" parent="World/Platform/Rocks" unique_id=1301111891 instance=ExtResource("6_d31xq")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 8)
+
+[node name="ReferenceRock4" parent="World/Platform/Rocks" unique_id=1601587957 instance=ExtResource("6_d31xq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8)

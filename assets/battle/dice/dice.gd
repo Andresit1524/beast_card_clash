@@ -14,14 +14,14 @@ const THROW_HEIGHT := 8
 @export_range(1, 6) var number: int = 1:
 	set(value):
 		number = value
-		if not is_node_ready(): return
 		rotate_dice(ROTATIONS[number])
 
 ## Hace al dado clicable
 @export var clickable: bool = true:
 	set(value):
-		if not is_node_ready(): return
-		hitbox.input_ray_pickable = value
+		clickable = value
+		if static_body: static_body.input_ray_pickable = value
+
 
 ## Lista de cuaterniones para rotar el dado a cada número
 @onready var ROTATIONS := {
@@ -33,7 +33,7 @@ const THROW_HEIGHT := 8
 	6: Basis(Vector3.UP, Vector3.LEFT, Vector3.BACK).get_rotation_quaternion(),
 }
 ## Hitbox del dado para habilitar o desabilitar el clic
-@onready var hitbox: StaticBody3D = $StaticBody
+@onready var static_body: StaticBody3D = $StaticBody
 
 
 var _start_position: Vector3
@@ -42,13 +42,14 @@ var _start_position: Vector3
 func _ready() -> void:
 	quaternion = ROTATIONS[number]
 	_start_position = position
+	static_body.input_event.connect(_on_static_body_input_event)
 
 
 ## Mezcla el dado y lo lanza al aire
 func shuffle_dice() -> void:
 	var tween := create_tween().set_trans(Tween.TRANS_QUAD)
 	var new_number := randi_range(1, 6)
-	rotate_dice(ROTATIONS[new_number - 1])
+	rotate_dice(ROTATIONS[new_number])
 
 	# Lanza el dado y desactiva el clic
 	tween.set_ease(Tween.EASE_OUT)
@@ -59,6 +60,7 @@ func shuffle_dice() -> void:
 	tween.set_ease(Tween.EASE_IN)
 	tween.tween_property(self, "position", _start_position, ROTATION_TIME / 2.0)
 	tween.tween_callback(func():
+		print_debug("Dado lanzado: %s" % new_number)
 		thrown_dice.emit(new_number)
 		clickable = true
 	)

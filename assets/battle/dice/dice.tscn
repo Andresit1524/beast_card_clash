@@ -1,18 +1,25 @@
 [gd_scene format=3 uid="uid://mpvkdtkj0ajj"]
 
-[ext_resource type="PackedScene" uid="uid://6qvq4woher3a" path="res://assets/dice/dice.glb" id="1_w4w7p"]
-[ext_resource type="Script" uid="uid://crup472mvwn8o" path="res://assets/dice/dice.gd" id="2_kqj45"]
+[ext_resource type="PackedScene" uid="uid://6qvq4woher3a" path="res://assets/battle/dice/dice.glb" id="1_w4w7p"]
+[ext_resource type="Script" uid="uid://crup472mvwn8o" path="res://assets/battle/dice/dice.gd" id="2_kqj45"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_kqj45"]
 size = Vector3(2.1, 2.1, 2.1)
 
 [node name="Dice" unique_id=1602974280 instance=ExtResource("1_w4w7p")]
-transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 0, 0)
+transform = Transform3D(0, 1, 0, -0.99999994, 0, 0, 0, 0, 0.99999994, 0, 0, 0)
+rotation_edit_mode = 1
 script = ExtResource("2_kqj45")
+
+[node name="Cube" parent="." index="0" unique_id=1091276435]
+rotation_edit_mode = 1
 
 [node name="StaticBody" type="StaticBody3D" parent="." index="1" unique_id=1360262556]
 
 [node name="CollisionShape" type="CollisionShape3D" parent="StaticBody" index="0" unique_id=749642592]
 shape = SubResource("BoxShape3D_kqj45")
 
-[connection signal="input_event" from="StaticBody" to="." method="_on_static_body_input_event"]
+[node name="Camera3D" type="Camera3D" parent="." index="2" unique_id=1983151979]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2828426, 6.338654)
+top_level = true
+visible = false

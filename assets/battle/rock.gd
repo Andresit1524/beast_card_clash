@@ -36,7 +36,7 @@ const OUTLINE_THICKNESS := 0.2
 
 
 @onready var mesh: MeshInstance3D = %Mesh
-@onready var sprite: Sprite3D = %Element
+@onready var sprite: Sprite3D = %Sprite
 
 
 var highlight_color: Color
