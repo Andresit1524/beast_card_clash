@@ -20,10 +20,10 @@ const THROW_HEIGHT := 8
 @export var clickable: bool = true:
 	set(value):
 		clickable = value
-		if static_body: static_body.input_ray_pickable = value
+		if not is_node_ready(): return
+		static_body.input_ray_pickable = value
 
-
-## Lista de cuaterniones para rotar el dado a cada número
+## Lista de cuaterniones para rotar el dado a cada número del 1 al 6
 @onready var ROTATIONS := {
 	1: Basis(Vector3.DOWN, Vector3.RIGHT, Vector3.BACK).get_rotation_quaternion(),
 	2: Quaternion.IDENTITY,
@@ -43,6 +43,7 @@ func _ready() -> void:
 	quaternion = ROTATIONS[number]
 	_start_position = position
 	static_body.input_event.connect(_on_static_body_input_event)
+	static_body.input_ray_pickable = clickable
 
 
 ## Mezcla el dado y lo lanza al aire
@@ -60,7 +61,7 @@ func shuffle_dice() -> void:
 	tween.set_ease(Tween.EASE_IN)
 	tween.tween_property(self, "position", _start_position, ROTATION_TIME / 2.0)
 	tween.tween_callback(func():
-		print_debug("Dado lanzado: %s" % new_number)
+		print_debug("[Dice] Dado lanzado: %s" % new_number)
 		thrown_dice.emit(new_number)
 		clickable = true
 	)

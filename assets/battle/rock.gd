@@ -5,7 +5,7 @@ signal rock_selected(rock: Rock)
 
 
 const COLOR_OPACITY := 0.2
-const OUTLINE_THICKNESS := 0.2
+const OUTLINE_THICKNESS := 0.15
 
 
 ## Elemento de la roca

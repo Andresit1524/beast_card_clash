@@ -24,7 +24,6 @@ ambient_light_energy = 1.6
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1e0e5"]
 diffuse_mode = 3
-specular_mode = 1
 albedo_color = Color(0.24, 0.110400006, 0.045599997, 1)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_tlmnd"]
