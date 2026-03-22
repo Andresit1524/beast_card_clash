@@ -5,9 +5,14 @@
 [ext_resource type="Script" uid="uid://0qb4hgslax58" path="res://assets/battle/ui/battle_ui.gd" id="1_tlmnd"]
 [ext_resource type="PackedScene" uid="uid://dogb8dy8s5bsc" path="res://assets/cards/card.tscn" id="2_6cxqy"]
 [ext_resource type="Script" uid="uid://drdwdoxs6lwwi" path="res://assets/battle/battle_manager.gd" id="3_6cxqy"]
+[ext_resource type="Shader" uid="uid://d0xpw5q8ey1n6" path="res://assets/shaders/blur.gdshader" id="5_5m5wa"]
 [ext_resource type="PackedScene" uid="uid://mpvkdtkj0ajj" path="res://assets/battle/dice/dice.tscn" id="5_hsiu5"]
+[ext_resource type="Theme" uid="uid://djsw6wrf4tns" path="res://assets/ui/themes/main_theme.tres" id="5_thu85"]
 [ext_resource type="Script" uid="uid://cjn0h33vnse38" path="res://assets/battle/rocks.gd" id="6_1e0e5"]
 [ext_resource type="PackedScene" uid="uid://bmk14l2nvouje" path="res://assets/battle/rock.tscn" id="6_d31xq"]
+[ext_resource type="Script" uid="uid://dnhyvmfljit8f" path="res://assets/battle/ui/end_ui.gd" id="6_ey58u"]
+[ext_resource type="LabelSettings" uid="uid://ctvu5dp4p0kjm" path="res://assets/ui/themes/title_theme.tres" id="7_sdhuf"]
+[ext_resource type="PackedScene" uid="uid://dleubuyqowf33" path="res://assets/battle/ui/podium_panel.tscn" id="8_w7fa3"]
 [ext_resource type="Script" uid="uid://clvjxwv8w7kt0" path="res://assets/battle/states/start.gd" id="10_5m5wa"]
 
 [sub_resource type="Curve2D" id="Curve2D_307i3"]
@@ -15,6 +20,11 @@ _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 320, 512, -160.10532, 0, 160.10532, 0, 576, 486, 0, 0, 0, 0, 832, 512)
 }
 point_count = 3
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ey58u"]
+shader = ExtResource("5_5m5wa")
+shader_parameter/lod = 2.000000095
+shader_parameter/tint = Color(0, 0, 0, 0.5019608)
 
 [sub_resource type="Environment" id="Environment_hsiu5"]
 background_mode = 3
@@ -53,12 +63,12 @@ metadata/_edit_lock_ = true
 
 [node name="BattleUI" type="Node" parent="UILayer" unique_id=791419313 node_paths=PackedStringArray("hand", "player_panel", "bots_panels", "rocks_list")]
 script = ExtResource("1_tlmnd")
-hand = NodePath("../HandPos/Hand")
-player_panel = NodePath("../PlayerPanel")
-bots_panels = [NodePath("../BotsPanels/BotPanel"), NodePath("../BotsPanels/BotPanel2"), NodePath("../BotsPanels/BotPanel3")]
+hand = NodePath("HandPos/Hand")
+player_panel = NodePath("PlayerPanel")
+bots_panels = [NodePath("BotsPanels/BotPanel"), NodePath("BotsPanels/BotPanel2"), NodePath("BotsPanels/BotPanel3")]
 rocks_list = NodePath("../../World/Platform/Rocks")
 
-[node name="HandPos" type="Control" parent="UILayer" unique_id=534952336]
+[node name="HandPos" type="Control" parent="UILayer/BattleUI" unique_id=534952336]
 layout_mode = 3
 anchors_preset = 7
 anchor_left = 0.5
@@ -69,13 +79,13 @@ grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
 
-[node name="Hand" type="Path2D" parent="UILayer/HandPos" unique_id=563384670]
+[node name="Hand" type="Path2D" parent="UILayer/BattleUI/HandPos" unique_id=563384670]
 position = Vector2(-576, -648)
 curve = SubResource("Curve2D_307i3")
 script = ExtResource("1_oyv2c")
 card_scene = ExtResource("2_6cxqy")
 
-[node name="PlayerPanel" parent="UILayer" unique_id=1239815553 instance=ExtResource("1_1054f")]
+[node name="PlayerPanel" parent="UILayer/BattleUI" unique_id=1239815553 instance=ExtResource("1_1054f")]
 anchors_preset = 0
 anchor_left = 0.0
 anchor_top = 0.0
@@ -89,29 +99,116 @@ grow_horizontal = 1
 grow_vertical = 1
 mouse_filter = 2
 
-[node name="BotsPanels" type="VBoxContainer" parent="UILayer" unique_id=1280223489]
+[node name="BotsPanels" type="VBoxContainer" parent="UILayer/BattleUI" unique_id=1280223489]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -168.0
 offset_top = 32.0
 offset_right = -36.0
-offset_bottom = 526.0
+offset_bottom = 594.0
 grow_horizontal = 0
 mouse_filter = 2
 theme_override_constants/separation = 8
 
-[node name="BotPanel" parent="UILayer/BotsPanels" unique_id=1053233556 instance=ExtResource("1_1054f")]
+[node name="BotPanel" parent="UILayer/BattleUI/BotsPanels" unique_id=1053233556 instance=ExtResource("1_1054f")]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="BotPanel2" parent="UILayer/BotsPanels" unique_id=1994888533 instance=ExtResource("1_1054f")]
+[node name="BotPanel2" parent="UILayer/BattleUI/BotsPanels" unique_id=1994888533 instance=ExtResource("1_1054f")]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="BotPanel3" parent="UILayer/BotsPanels" unique_id=954710962 instance=ExtResource("1_1054f")]
+[node name="BotPanel3" parent="UILayer/BattleUI/BotsPanels" unique_id=954710962 instance=ExtResource("1_1054f")]
 layout_mode = 2
 mouse_filter = 2
+
+[node name="EndUI" type="Control" parent="UILayer" unique_id=271450613]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("5_thu85")
+script = ExtResource("6_ey58u")
+ui_visible = false
+
+[node name="BlurRect" type="ColorRect" parent="UILayer/EndUI" unique_id=102907938]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_ey58u")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EndPanel" type="PanelContainer" parent="UILayer/EndUI" unique_id=501536096]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -256.0
+offset_top = -188.0
+offset_right = 256.0
+offset_bottom = 188.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UILayer/EndUI/EndPanel" unique_id=989439369]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="Contents" type="VBoxContainer" parent="UILayer/EndUI/EndPanel/MarginContainer" unique_id=145980186]
+layout_mode = 2
+alignment = 1
+
+[node name="Title" type="Label" parent="UILayer/EndUI/EndPanel/MarginContainer/Contents" unique_id=1468187114]
+layout_mode = 2
+size_flags_vertical = 6
+text = "¡Fin del juego!"
+label_settings = ExtResource("7_sdhuf")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Space" type="Control" parent="UILayer/EndUI/EndPanel/MarginContainer/Contents" unique_id=742735063]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="Podium" type="VBoxContainer" parent="UILayer/EndUI/EndPanel/MarginContainer/Contents" unique_id=855680482]
+layout_mode = 2
+
+[node name="PodiumPanel" parent="UILayer/EndUI/EndPanel/MarginContainer/Contents/Podium" unique_id=1696558738 instance=ExtResource("8_w7fa3")]
+layout_mode = 2
+
+[node name="PodiumPanel2" parent="UILayer/EndUI/EndPanel/MarginContainer/Contents/Podium" unique_id=1250103870 instance=ExtResource("8_w7fa3")]
+layout_mode = 2
+
+[node name="PodiumPanel3" parent="UILayer/EndUI/EndPanel/MarginContainer/Contents/Podium" unique_id=1352575027 instance=ExtResource("8_w7fa3")]
+layout_mode = 2
+
+[node name="PodiumPanel4" parent="UILayer/EndUI/EndPanel/MarginContainer/Contents/Podium" unique_id=2020688800 instance=ExtResource("8_w7fa3")]
+layout_mode = 2
+
+[node name="Space2" type="Control" parent="UILayer/EndUI/EndPanel/MarginContainer/Contents" unique_id=249604052]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ExitButton" type="Button" parent="UILayer/EndUI/EndPanel/MarginContainer/Contents" unique_id=1538333617]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.972549, 0.8862745, 0.7372549, 1)
+text = "Salir"
 
 [node name="BattleManager" type="Node" parent="." unique_id=637941647 node_paths=PackedStringArray("battle_ui", "dice", "controlled_node", "default_state")]
 script = ExtResource("3_6cxqy")

@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://dleubuyqowf33"]
+
+[ext_resource type="Theme" uid="uid://djsw6wrf4tns" path="res://assets/ui/themes/main_theme.tres" id="1_uac0k"]
+[ext_resource type="Texture2D" uid="uid://ck83qwbrce022" path="res://assets/teams/sprites/character.png" id="2_xrjuq"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_aumkp"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_gf718"]
+
+[node name="PodiumPanel" type="PanelContainer" unique_id=1696558738]
+offset_right = 483.0
+offset_bottom = 40.0
+theme = ExtResource("1_uac0k")
+
+[node name="Content" type="HBoxContainer" parent="." unique_id=293918446]
+layout_mode = 2
+
+[node name="Team" type="TextureRect" parent="Content" unique_id=533984826]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("2_xrjuq")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Name" type="Label" parent="Content" unique_id=2142118677]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 4.0
+text = "Nombre del jugador"
+label_settings = SubResource("LabelSettings_aumkp")
+
+[node name="Space" type="Control" parent="Content" unique_id=1969542792]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="Points" type="Label" parent="Content" unique_id=190445324]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+label_settings = SubResource("LabelSettings_gf718")
+horizontal_alignment = 1
