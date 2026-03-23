@@ -8,12 +8,13 @@
 [ext_resource type="Shader" uid="uid://d0xpw5q8ey1n6" path="res://assets/shaders/blur.gdshader" id="5_5m5wa"]
 [ext_resource type="PackedScene" uid="uid://mpvkdtkj0ajj" path="res://assets/battle/dice/dice.tscn" id="5_hsiu5"]
 [ext_resource type="Theme" uid="uid://djsw6wrf4tns" path="res://assets/ui/themes/main_theme.tres" id="5_thu85"]
-[ext_resource type="Script" path="res://assets/battle/rocks/rocks.gd" id="6_1e0e5"]
-[ext_resource type="PackedScene" path="res://assets/battle/rocks/rock.tscn" id="6_d31xq"]
+[ext_resource type="Script" uid="uid://cjn0h33vnse38" path="res://assets/battle/rocks/rocks.gd" id="6_1e0e5"]
+[ext_resource type="PackedScene" uid="uid://bmk14l2nvouje" path="res://assets/battle/rocks/rock.tscn" id="6_d31xq"]
 [ext_resource type="Script" uid="uid://dnhyvmfljit8f" path="res://assets/battle/ui/end_ui.gd" id="6_ey58u"]
 [ext_resource type="LabelSettings" uid="uid://ctvu5dp4p0kjm" path="res://assets/ui/themes/title_theme.tres" id="7_sdhuf"]
 [ext_resource type="PackedScene" uid="uid://dleubuyqowf33" path="res://assets/battle/ui/podium_panel.tscn" id="8_w7fa3"]
 [ext_resource type="Script" uid="uid://clvjxwv8w7kt0" path="res://assets/battle/states/start.gd" id="10_5m5wa"]
+[ext_resource type="PackedScene" uid="uid://cmugargrwkit2" path="res://assets/battle/player/player.tscn" id="15_38ou4"]
 
 [sub_resource type="Curve2D" id="Curve2D_307i3"]
 _data = {
@@ -257,3 +258,17 @@ transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0
 
 [node name="ReferenceRock4" parent="World/Platform/Rocks" unique_id=1601587957 instance=ExtResource("6_d31xq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8)
+
+[node name="Players" type="Node3D" parent="World/Platform" unique_id=1113720292]
+
+[node name="ReferencePlayer" parent="World/Platform/Players" unique_id=713372367 instance=ExtResource("15_38ou4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0.3, 0)
+
+[node name="ReferencePlayer2" parent="World/Platform/Players" unique_id=1876085075 instance=ExtResource("15_38ou4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0.3, 0)
+
+[node name="ReferencePlayer3" parent="World/Platform/Players" unique_id=1408220774 instance=ExtResource("15_38ou4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 8)
+
+[node name="ReferencePlayer4" parent="World/Platform/Players" unique_id=768805005 instance=ExtResource("15_38ou4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, -8)

@@ -1,6 +1,6 @@
 ## Clase abstracta que representa un jugador en jugador en batalla. Uno de ellos representará el
 ## jugador humano. Está orientado a ser un contenedor de datos/lógica.
-class_name Player extends Node
+class_name Player extends CharacterBody3D
 
 
 signal deck_updated(new_deck: Array[CardScene.Card])

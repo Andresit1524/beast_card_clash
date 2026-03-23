@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://cmugargrwkit2"]
+
+[ext_resource type="Script" uid="uid://cv7ew2p1h8rx7" path="res://assets/battle/player/player.gd" id="1_bdst2"]
+[ext_resource type="Texture2D" uid="uid://ch3yv4m0jfjqi" path="res://icon.png" id="1_owo8s"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7mtsh"]
+size = Vector3(1.3701172, 1.4610596, 0.39624023)
+
+[node name="Player" type="CharacterBody3D" unique_id=713372367 node_paths=PackedStringArray("current_camera")]
+script = ExtResource("1_bdst2")
+current_camera = NodePath("")
+
+[node name="Sprite" type="Sprite3D" parent="." unique_id=936842565]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7289741, 0)
+pixel_size = 0.004
+billboard = 2
+texture = ExtResource("1_owo8s")
+
+[node name="CollisionShape" type="CollisionShape3D" parent="." unique_id=1031150480]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7770365, 0)
+visible = false
+shape = SubResource("BoxShape3D_7mtsh")
+debug_color = Color(0, 0.59607846, 0.7019608, 1)
