@@ -1,5 +1,6 @@
 extends Node
 
+
 # Datos del jugador
 var player_name: String = "Osorio"
 var team: GameConstants.Teams = GameConstants.Teams.NO_TEAM
