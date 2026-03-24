@@ -140,7 +140,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("5_thu85")
 script = ExtResource("6_ey58u")
-ui_visible = false
 
 [node name="BlurRect" type="ColorRect" parent="UILayer/BattleUI/EndUI" unique_id=102907938]
 unique_name_in_owner = true
