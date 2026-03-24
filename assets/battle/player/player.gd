@@ -1,5 +1,4 @@
-## Clase abstracta que representa un jugador en jugador en batalla. Uno de ellos representará el
-## jugador humano. Está orientado a ser un contenedor de datos/lógica.
+## Clase que representa un jugador en jugador en batalla, sea bot o humano.
 class_name Player extends CharacterBody3D
 
 

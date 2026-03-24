@@ -10,6 +10,8 @@ const MAX_PLAYERS := 4
 ## Mundo de batalla
 @export var battle_world: BattleWorld
 
+
+# Elementos del juego. Son todos referencias por lo que actúan como atajos
 var player: Player
 var players: Array[Player]
 var rocks: Array[RockScene.Rock]
@@ -45,15 +47,23 @@ func setup_bots() -> void:
 		new_bot.randomize()
 
 	# Establece la UI
-	print_debug("[BattleManager] %s jugadores en juego" % bots_count)
+	players.shuffle()
+	print_debug(
+		"[BattleManager] %s jugadores en juego: %s"
+		% [bots_count, players.map(func(p): return p.player_name)]
+	)
 
 
 ## Configura la UI inicialmente
 func setup_ui() -> void:
-	battle_world.set_dice(false)
 	battle_ui.refresh_player_stats(players)
 	battle_ui.set_hand_from_deck(player.deck)
 	battle_ui.set_end_ui(false)
+
+
+## Configura el mundo de batalla
+func setup_world() -> void:
+	battle_world.set_dice(false)
 
 
 #endregion

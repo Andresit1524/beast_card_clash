@@ -8,3 +8,4 @@ func start() -> void:
 	manager.setup_player()
 	manager.setup_bots()
 	manager.setup_ui()
+	manager.setup_world()
