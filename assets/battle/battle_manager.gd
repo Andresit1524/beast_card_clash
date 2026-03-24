@@ -7,10 +7,8 @@ const MAX_PLAYERS := 4
 
 ## Gestor de la interfaz de batalla
 @export var battle_ui: BattleUI
-
-## Dado del juego
-@export var dice: Dice
-
+## Mundo de batalla
+@export var battle_world: BattleWorld
 
 var player: Player
 var players: Array[Player]
@@ -52,9 +50,10 @@ func setup_bots() -> void:
 
 ## Configura la UI inicialmente
 func setup_ui() -> void:
-	dice.clickable = false
+	battle_world.set_dice(false)
 	battle_ui.refresh_player_stats(players)
 	battle_ui.set_hand_from_deck(player.deck)
+	battle_ui.set_end_ui(false)
 
 
 #endregion

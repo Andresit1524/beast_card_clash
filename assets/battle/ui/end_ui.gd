@@ -4,8 +4,9 @@ class_name EndUI extends Control
 const FADE_TIME := 0.5
 
 
-@export var ui_visible: bool = true:
+@export var ui_visible: bool = false:
 	set(value):
+		ui_visible = value
 		set_ui_visible(value)
 
 

@@ -6,9 +6,8 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_7mtsh"]
 size = Vector3(1.3701172, 1.4610596, 0.39624023)
 
-[node name="Player" type="CharacterBody3D" unique_id=713372367 node_paths=PackedStringArray("current_camera")]
+[node name="Player" type="CharacterBody3D" unique_id=713372367]
 script = ExtResource("1_bdst2")
-current_camera = NodePath("")
 
 [node name="Sprite" type="Sprite3D" parent="." unique_id=936842565]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7289741, 0)

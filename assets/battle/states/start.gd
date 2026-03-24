@@ -1,3 +1,4 @@
+## [code]BattleStart[/code] es el estado que contiene la lógica de inicio de juego, para configurar
 class_name BattleStart extends BattleState
 
 

@@ -14,7 +14,13 @@
 [ext_resource type="LabelSettings" uid="uid://ctvu5dp4p0kjm" path="res://assets/ui/themes/title_theme.tres" id="7_sdhuf"]
 [ext_resource type="PackedScene" uid="uid://dleubuyqowf33" path="res://assets/battle/ui/podium_panel.tscn" id="8_w7fa3"]
 [ext_resource type="Script" uid="uid://clvjxwv8w7kt0" path="res://assets/battle/states/start.gd" id="10_5m5wa"]
+[ext_resource type="Script" uid="uid://bd5jv2qpva2t0" path="res://assets/battle/states/turn.gd" id="12_45g41"]
+[ext_resource type="Script" uid="uid://myr5bayqdfo0" path="res://assets/battle/states/loop.gd" id="13_6pcvk"]
+[ext_resource type="Script" uid="uid://bgoqckx2cr8mi" path="res://assets/battle/states/referee.gd" id="14_kt8ap"]
 [ext_resource type="PackedScene" uid="uid://cmugargrwkit2" path="res://assets/battle/player/player.tscn" id="15_38ou4"]
+[ext_resource type="Script" uid="uid://d2wigsqxwrtwp" path="res://assets/battle/states/end.gd" id="15_ykgus"]
+[ext_resource type="Script" uid="uid://c5og7snwj47ak" path="res://assets/battle/world.gd" id="16_6pcvk"]
+[ext_resource type="Script" uid="uid://c0qqh7c4jjylr" path="res://assets/battle/players.gd" id="20_kt8ap"]
 
 [sub_resource type="Curve2D" id="Curve2D_307i3"]
 _data = {
@@ -62,12 +68,8 @@ metadata/_edit_lock_ = true
 
 [node name="UILayer" type="CanvasLayer" parent="." unique_id=651321992]
 
-[node name="BattleUI" type="Node" parent="UILayer" unique_id=791419313 node_paths=PackedStringArray("hand", "player_panel", "bots_panels", "rocks_list")]
+[node name="BattleUI" type="Node" parent="UILayer" unique_id=791419313]
 script = ExtResource("1_tlmnd")
-hand = NodePath("HandPos/Hand")
-player_panel = NodePath("PlayerPanel")
-bots_panels = [NodePath("BotsPanels/BotPanel"), NodePath("BotsPanels/BotPanel2"), NodePath("BotsPanels/BotPanel3")]
-rocks_list = NodePath("../../World/Platform/Rocks")
 
 [node name="HandPos" type="Control" parent="UILayer/BattleUI" unique_id=534952336]
 layout_mode = 3
@@ -81,12 +83,14 @@ grow_vertical = 0
 mouse_filter = 2
 
 [node name="Hand" type="Path2D" parent="UILayer/BattleUI/HandPos" unique_id=563384670]
+unique_name_in_owner = true
 position = Vector2(-576, -648)
 curve = SubResource("Curve2D_307i3")
 script = ExtResource("1_oyv2c")
 card_scene = ExtResource("2_6cxqy")
 
 [node name="PlayerPanel" parent="UILayer/BattleUI" unique_id=1239815553 instance=ExtResource("1_1054f")]
+unique_name_in_owner = true
 anchors_preset = 0
 anchor_left = 0.0
 anchor_top = 0.0
@@ -101,6 +105,7 @@ grow_vertical = 1
 mouse_filter = 2
 
 [node name="BotsPanels" type="VBoxContainer" parent="UILayer/BattleUI" unique_id=1280223489]
+unique_name_in_owner = true
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -124,7 +129,8 @@ mouse_filter = 2
 layout_mode = 2
 mouse_filter = 2
 
-[node name="EndUI" type="Control" parent="UILayer" unique_id=271450613]
+[node name="EndUI" type="Control" parent="UILayer/BattleUI" unique_id=271450613]
+unique_name_in_owner = true
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -136,7 +142,7 @@ theme = ExtResource("5_thu85")
 script = ExtResource("6_ey58u")
 ui_visible = false
 
-[node name="BlurRect" type="ColorRect" parent="UILayer/EndUI" unique_id=102907938]
+[node name="BlurRect" type="ColorRect" parent="UILayer/BattleUI/EndUI" unique_id=102907938]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_ey58u")
 layout_mode = 1
@@ -146,7 +152,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="EndPanel" type="PanelContainer" parent="UILayer/EndUI" unique_id=501536096]
+[node name="EndPanel" type="PanelContainer" parent="UILayer/BattleUI/EndUI" unique_id=501536096]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -160,18 +166,18 @@ offset_bottom = 188.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="UILayer/EndUI/EndPanel" unique_id=989439369]
+[node name="MarginContainer" type="MarginContainer" parent="UILayer/BattleUI/EndUI/EndPanel" unique_id=989439369]
 layout_mode = 2
 theme_override_constants/margin_left = 32
 theme_override_constants/margin_top = 32
 theme_override_constants/margin_right = 32
 theme_override_constants/margin_bottom = 32
 
-[node name="Contents" type="VBoxContainer" parent="UILayer/EndUI/EndPanel/MarginContainer" unique_id=145980186]
+[node name="Contents" type="VBoxContainer" parent="UILayer/BattleUI/EndUI/EndPanel/MarginContainer" unique_id=145980186]
 layout_mode = 2
 alignment = 1
 
-[node name="Title" type="Label" parent="UILayer/EndUI/EndPanel/MarginContainer/Contents" unique_id=1468187114]
+[node name="Title" type="Label" parent="UILayer/BattleUI/EndUI/EndPanel/MarginContainer/Contents" unique_id=1468187114]
 layout_mode = 2
 size_flags_vertical = 6
 text = "¡Fin del juego!"
@@ -179,31 +185,31 @@ label_settings = ExtResource("7_sdhuf")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Space" type="Control" parent="UILayer/EndUI/EndPanel/MarginContainer/Contents" unique_id=742735063]
+[node name="Space" type="Control" parent="UILayer/BattleUI/EndUI/EndPanel/MarginContainer/Contents" unique_id=742735063]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 
-[node name="Podium" type="VBoxContainer" parent="UILayer/EndUI/EndPanel/MarginContainer/Contents" unique_id=855680482]
+[node name="Podium" type="VBoxContainer" parent="UILayer/BattleUI/EndUI/EndPanel/MarginContainer/Contents" unique_id=855680482]
 layout_mode = 2
 
-[node name="PodiumPanel" parent="UILayer/EndUI/EndPanel/MarginContainer/Contents/Podium" unique_id=1696558738 instance=ExtResource("8_w7fa3")]
+[node name="PodiumPanel" parent="UILayer/BattleUI/EndUI/EndPanel/MarginContainer/Contents/Podium" unique_id=1696558738 instance=ExtResource("8_w7fa3")]
 layout_mode = 2
 
-[node name="PodiumPanel2" parent="UILayer/EndUI/EndPanel/MarginContainer/Contents/Podium" unique_id=1250103870 instance=ExtResource("8_w7fa3")]
+[node name="PodiumPanel2" parent="UILayer/BattleUI/EndUI/EndPanel/MarginContainer/Contents/Podium" unique_id=1250103870 instance=ExtResource("8_w7fa3")]
 layout_mode = 2
 
-[node name="PodiumPanel3" parent="UILayer/EndUI/EndPanel/MarginContainer/Contents/Podium" unique_id=1352575027 instance=ExtResource("8_w7fa3")]
+[node name="PodiumPanel3" parent="UILayer/BattleUI/EndUI/EndPanel/MarginContainer/Contents/Podium" unique_id=1352575027 instance=ExtResource("8_w7fa3")]
 layout_mode = 2
 
-[node name="PodiumPanel4" parent="UILayer/EndUI/EndPanel/MarginContainer/Contents/Podium" unique_id=2020688800 instance=ExtResource("8_w7fa3")]
+[node name="PodiumPanel4" parent="UILayer/BattleUI/EndUI/EndPanel/MarginContainer/Contents/Podium" unique_id=2020688800 instance=ExtResource("8_w7fa3")]
 layout_mode = 2
 
-[node name="Space2" type="Control" parent="UILayer/EndUI/EndPanel/MarginContainer/Contents" unique_id=249604052]
+[node name="Space2" type="Control" parent="UILayer/BattleUI/EndUI/EndPanel/MarginContainer/Contents" unique_id=249604052]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ExitButton" type="Button" parent="UILayer/EndUI/EndPanel/MarginContainer/Contents" unique_id=1538333617]
+[node name="ExitButton" type="Button" parent="UILayer/BattleUI/EndUI/EndPanel/MarginContainer/Contents" unique_id=1538333617]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -211,10 +217,10 @@ size_flags_horizontal = 4
 theme_override_colors/font_color = Color(0.972549, 0.8862745, 0.7372549, 1)
 text = "Salir"
 
-[node name="BattleManager" type="Node" parent="." unique_id=637941647 node_paths=PackedStringArray("battle_ui", "dice", "controlled_node", "default_state")]
+[node name="BattleManager" type="Node" parent="." unique_id=637941647 node_paths=PackedStringArray("battle_ui", "battle_world", "controlled_node", "default_state")]
 script = ExtResource("3_6cxqy")
 battle_ui = NodePath("../UILayer/BattleUI")
-dice = NodePath("../World/Platform/Dice")
+battle_world = NodePath("../World")
 controlled_node = NodePath(".")
 default_state = NodePath("Start")
 metadata/_custom_type_script = "uid://bxs53es51hc4u"
@@ -222,7 +228,23 @@ metadata/_custom_type_script = "uid://bxs53es51hc4u"
 [node name="Start" type="Node" parent="BattleManager" unique_id=804253519]
 script = ExtResource("10_5m5wa")
 
-[node name="World" type="Node3D" parent="." unique_id=728525797]
+[node name="Turn" type="Node" parent="BattleManager" unique_id=1466001643]
+script = ExtResource("12_45g41")
+
+[node name="Loop" type="Node" parent="BattleManager" unique_id=78405183]
+script = ExtResource("13_6pcvk")
+
+[node name="Referee" type="Node" parent="BattleManager" unique_id=1438471852]
+script = ExtResource("14_kt8ap")
+
+[node name="End" type="Node" parent="BattleManager" unique_id=305338238]
+script = ExtResource("15_ykgus")
+
+[node name="World" type="Node3D" parent="." unique_id=728525797 node_paths=PackedStringArray("dice", "rocks", "players")]
+script = ExtResource("16_6pcvk")
+dice = NodePath("Dice")
+rocks = NodePath("Rocks")
+players = NodePath("Players")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="World" unique_id=13638297]
 environment = SubResource("Environment_hsiu5")
@@ -235,40 +257,44 @@ fov = 39.740986
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="World" unique_id=1631799841]
 transform = Transform3D(-0.23401584, -0.6283599, 0.7418897, -0.17849198, 0.7778754, 0.60253656, -0.9557076, 0.008581743, -0.29419237, -1.8196497, 21.941957, 22.545345)
 
-[node name="Platform" type="MeshInstance3D" parent="World" unique_id=1408877626]
+[node name="Stage" type="MeshInstance3D" parent="World" unique_id=1408877626]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 mesh = SubResource("CylinderMesh_tlmnd")
 
-[node name="Dice" parent="World/Platform" unique_id=1602974280 instance=ExtResource("5_hsiu5")]
-transform = Transform3D(0, 1, 0, -0.99999994, 0, 0, 0, 0, 0.99999994, 0, 1.1, 0)
+[node name="Dice" parent="World" unique_id=1602974280 instance=ExtResource("5_hsiu5")]
+unique_name_in_owner = true
+transform = Transform3D(0, 1, 0, -0.99999994, 0, 0, 0, 0, 0.99999994, 0, 1, 0)
 
-[node name="Rocks" type="Node3D" parent="World/Platform" unique_id=1152453067]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+[node name="Rocks" type="Node3D" parent="World" unique_id=1152453067]
+unique_name_in_owner = true
 script = ExtResource("6_1e0e5")
 rock_scene = ExtResource("6_d31xq")
 
-[node name="ReferenceRock" parent="World/Platform/Rocks" unique_id=1614443290 instance=ExtResource("6_d31xq")]
+[node name="ReferenceRock" parent="World/Rocks" unique_id=1614443290 instance=ExtResource("6_d31xq")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -8, 0, 0)
 
-[node name="ReferenceRock2" parent="World/Platform/Rocks" unique_id=138480051 instance=ExtResource("6_d31xq")]
+[node name="ReferenceRock2" parent="World/Rocks" unique_id=138480051 instance=ExtResource("6_d31xq")]
 transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 8, 0, 0)
 
-[node name="ReferenceRock3" parent="World/Platform/Rocks" unique_id=1301111891 instance=ExtResource("6_d31xq")]
+[node name="ReferenceRock3" parent="World/Rocks" unique_id=1301111891 instance=ExtResource("6_d31xq")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 8)
 
-[node name="ReferenceRock4" parent="World/Platform/Rocks" unique_id=1601587957 instance=ExtResource("6_d31xq")]
+[node name="ReferenceRock4" parent="World/Rocks" unique_id=1601587957 instance=ExtResource("6_d31xq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8)
 
-[node name="Players" type="Node3D" parent="World/Platform" unique_id=1113720292]
+[node name="Players" type="Node3D" parent="World" unique_id=1113720292]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+script = ExtResource("20_kt8ap")
 
-[node name="ReferencePlayer" parent="World/Platform/Players" unique_id=713372367 instance=ExtResource("15_38ou4")]
+[node name="ReferencePlayer" parent="World/Players" unique_id=713372367 instance=ExtResource("15_38ou4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0.3, 0)
 
-[node name="ReferencePlayer2" parent="World/Platform/Players" unique_id=1876085075 instance=ExtResource("15_38ou4")]
+[node name="ReferencePlayer2" parent="World/Players" unique_id=1876085075 instance=ExtResource("15_38ou4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0.3, 0)
 
-[node name="ReferencePlayer3" parent="World/Platform/Players" unique_id=1408220774 instance=ExtResource("15_38ou4")]
+[node name="ReferencePlayer3" parent="World/Players" unique_id=1408220774 instance=ExtResource("15_38ou4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 8)
 
-[node name="ReferencePlayer4" parent="World/Platform/Players" unique_id=768805005 instance=ExtResource("15_38ou4")]
+[node name="ReferencePlayer4" parent="World/Players" unique_id=768805005 instance=ExtResource("15_38ou4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, -8)
