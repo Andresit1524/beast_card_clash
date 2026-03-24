@@ -15,13 +15,13 @@ const THROW_HEIGHT := 8
 	set(value):
 		number = value
 		rotate_dice(ROTATIONS[number])
-
 ## Hace al dado clicable
 @export var clickable: bool = true:
 	set(value):
 		clickable = value
 		if not is_node_ready(): return
 		static_body.input_ray_pickable = value
+
 
 ## Lista de cuaterniones para rotar el dado a cada número del 1 al 6
 @onready var ROTATIONS := {

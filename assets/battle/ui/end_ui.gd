@@ -6,6 +6,7 @@ const FADE_TIME := 0.5
 
 @export var ui_visible: bool = true:
 	set(value):
+		ui_visible = value
 		set_ui_visible(value)
 
 

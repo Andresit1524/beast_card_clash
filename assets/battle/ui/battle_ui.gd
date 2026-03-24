@@ -3,13 +3,16 @@ class_name BattleUI extends Node
 
 
 ## Nodo que almacena las cartas
-@export var hand: Hand
+@onready var hand: Hand = %Hand
 ## Panel del jugador
-@export var player_panel: PlayerPanel
+@onready var player_panel: PlayerPanel = %PlayerPanel
 ## Nodo que contiene los paneles de los bots
-@export var bots_panels: Array[PlayerPanel]
-## Nodo que almacena la lista de rocas
-@export var rocks_list: Rocks
+@onready var bots_panels: VBoxContainer = %BotsPanels
+## Nodo de la interfaz de fin de juego
+@onready var end_ui: EndUI = %EndUI
+
+
+#region Baraja de cartas
 
 
 ## Refresca la baraja de cartas
@@ -17,9 +20,10 @@ func set_hand_from_deck(deck: Array[CardScene.Card]) -> void:
 	hand.set_from_deck(deck)
 
 
-## Obtiene la lista de rocas
-func get_abstract_rocks_list() -> Array:
-	return rocks_list.get_abstract_rocks_list()
+#endregion
+
+
+#region Paneles de jugadores
 
 
 ## Establece o refresca los datos de la UI del jugador o de un bot [br]
@@ -28,7 +32,7 @@ func refresh_player_stats(players_list: Array) -> void:
 	# Establece el panel del jugador
 	for i in range(players_list.size()):
 		var player: Player = players_list[i]
-		var current_player_panel := player_panel if not player.is_bot else bots_panels[i - 1]
+		var current_player_panel := player_panel if not player.is_bot else bots_panels.get_child(i - 1)
 
 		current_player_panel.player_name = player.player_name
 		current_player_panel.team = player.team
@@ -42,11 +46,25 @@ func refresh_player_stats(players_list: Array) -> void:
 
 ## Oculta los paneles de los bots que no están jugando
 func _prune_bots_panels(bot_count: int) -> void:
-	if bot_count == bots_panels.size(): return
-	if bot_count > bots_panels.size() or bot_count < 1:
+	if bot_count == bots_panels.get_child_count(): return
+	if bot_count > bots_panels.get_child_count() or bot_count < 1:
 		push_error("[BattleUI] Cantidad de bots inválida: %s" % bot_count)
 		return
 
 	# Recorre los paneles que sobran
-	for i in range(bot_count, bots_panels.size()):
-		bots_panels[i].visible = false
+	for i in range(bot_count, bots_panels.get_child_count()):
+		bots_panels.get_child(i).visible = false
+
+
+#endregion
+
+
+#region Interfaz de fin de juego
+
+
+## Activa o desactiva la pantalla de final de juego
+func set_end_ui(set_visible: bool) -> void:
+	end_ui.ui_visible = set_visible
+
+
+#endregion
