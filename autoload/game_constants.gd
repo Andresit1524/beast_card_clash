@@ -5,13 +5,17 @@ const MAX_CARD_VAlUE := 10
 
 
 ## Lista de elementos
-enum Elements {
-	NONE,
-	AIR,
-	EARTH,
-	ENERGY,
-	FIRE,
-	WATER
+enum Elements {NONE, AIR, EARTH, ENERGY, FIRE, WATER}
+
+
+## Colores asociados a cada elemento
+const ELEMENTS_COLORS = {
+	Elements.NONE: Color.GRAY,
+	Elements.AIR: Color.SKY_BLUE,
+	Elements.EARTH: Color.YELLOW_GREEN,
+	Elements.ENERGY: Color.YELLOW,
+	Elements.FIRE: Color.ORANGE_RED,
+	Elements.WATER: Color.STEEL_BLUE
 }
 
 
@@ -46,12 +50,7 @@ const TEAMS_MEMBERS: Dictionary[Teams, Array] = {
 
 
 ## Especies disponibles y las skins disponibles para cada uno
-enum Species {
-	BEAR,
-	CONDOR,
-	CHAMALEON,
-	FROG
-}
+enum Species {BEAR, CONDOR, CHAMALEON, FROG}
 
 
 ## Skins disponibles para cada especie. Base (la skin por defecto) va de primero

@@ -1,4 +1,4 @@
-class_name RockScene extends StaticBody3D
+class_name Rock extends StaticBody3D
 
 
 signal rock_selected(rock: Rock)
@@ -65,13 +65,7 @@ func _update_sprite():
 ## Aplica el color para resaltar la roca por medio del shader
 func _highlight():
 	# Color de resaltado
-	match element:
-		GameConstants.Elements.NONE: highlight_color = Color.GRAY
-		GameConstants.Elements.AIR: highlight_color = Color.SKY_BLUE
-		GameConstants.Elements.EARTH: highlight_color = Color.YELLOW_GREEN
-		GameConstants.Elements.ENERGY: highlight_color = Color.YELLOW
-		GameConstants.Elements.FIRE: highlight_color = Color.ORANGE_RED
-		GameConstants.Elements.WATER: highlight_color = Color.STEEL_BLUE
+	highlight_color = GameConstants.ELEMENTS_COLORS[element]
 
 	# Transparencia
 	highlight_color.a = COLOR_OPACITY if hovered else 0.0
@@ -96,13 +90,12 @@ func _on_input_event(_camera: Node, event: InputEvent, _event_position: Vector3,
 		or not event.is_pressed()
 	): return
 
-
 	Utilities.print_color(
 		"[Rock] Roca seleccionada: %s"
 		% Utilities.get_enum_name(element, GameConstants.Elements),
-		(Color(highlight_color.r, highlight_color.g, highlight_color.b, 1.0))
+		GameConstants.ELEMENTS_COLORS[element]
 	)
-	rock_selected.emit(get_abstract_rock())
+	rock_selected.emit(self)
 
 
 ## Selecciona la roca. Usado con señales
@@ -111,24 +104,6 @@ func _on_hover(is_hovered: bool) -> void:
 
 	# Cambia el estado de la roca. La actualización sucede automáticamente
 	hovered = is_hovered
-
-
-#endregion
-
-
-#region Roca abstracta
-
-
-func get_abstract_rock() -> Rock:
-	return Rock.new(element)
-
-
-## Clase para representar los datos de una roca
-class Rock:
-	var element: GameConstants.Elements = GameConstants.Elements.NONE
-
-	func _init(new_element: GameConstants.Elements) -> void:
-		element = new_element
 
 
 #endregion

@@ -1,0 +1,82 @@
+[gd_scene format=3 uid="uid://dtkmsnf1kc3di"]
+
+[ext_resource type="Script" uid="uid://c5og7snwj47ak" path="res://assets/battle/world.gd" id="1_l178a"]
+[ext_resource type="PackedScene" uid="uid://mpvkdtkj0ajj" path="res://assets/battle/dice/dice.tscn" id="2_y2at5"]
+[ext_resource type="Script" uid="uid://cjn0h33vnse38" path="res://assets/battle/rocks/rocks.gd" id="3_a4mci"]
+[ext_resource type="PackedScene" uid="uid://bmk14l2nvouje" path="res://assets/battle/rocks/rock.tscn" id="4_6tady"]
+[ext_resource type="Script" uid="uid://c0qqh7c4jjylr" path="res://assets/battle/players.gd" id="5_un18w"]
+[ext_resource type="PackedScene" uid="uid://cmugargrwkit2" path="res://assets/battle/player/player.tscn" id="6_my12r"]
+
+[sub_resource type="Environment" id="Environment_hsiu5"]
+background_mode = 3
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 1.6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1e0e5"]
+diffuse_mode = 3
+albedo_color = Color(0.24, 0.110400006, 0.045599997, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_tlmnd"]
+material = SubResource("StandardMaterial3D_1e0e5")
+top_radius = 10.0
+bottom_radius = 10.0
+height = 0.1
+
+[node name="World" type="Node3D" unique_id=1643520225 node_paths=PackedStringArray("dice", "rocks", "players")]
+script = ExtResource("1_l178a")
+dice = NodePath("Dice")
+rocks = NodePath("Rocks")
+players = NodePath("Players")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1232321680]
+environment = SubResource("Environment_hsiu5")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=688807468]
+transform = Transform3D(1, 0, 0, 0, 0.73889065, 0.6738253, 0, -0.6738253, 0.73889065, 0, 15.365939, 20.733116)
+current = true
+fov = 39.740986
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1775168764]
+transform = Transform3D(-0.23401584, -0.6283599, 0.7418897, -0.17849198, 0.7778754, 0.60253656, -0.9557076, 0.008581743, -0.29419237, -1.8196497, 21.941957, 22.545345)
+
+[node name="Stage" type="MeshInstance3D" parent="." unique_id=1379275169]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+mesh = SubResource("CylinderMesh_tlmnd")
+
+[node name="Dice" parent="." unique_id=1602974280 instance=ExtResource("2_y2at5")]
+transform = Transform3D(0, 1, 0, -0.99999994, 0, 0, 0, 0, 0.99999994, 0, 1, 0)
+
+[node name="Rocks" type="Node3D" parent="." unique_id=2004535179]
+script = ExtResource("3_a4mci")
+rock_scene = ExtResource("4_6tady")
+
+[node name="ReferenceRock" parent="Rocks" unique_id=1628812836 instance=ExtResource("4_6tady")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -8, 0, 0)
+
+[node name="ReferenceRock2" parent="Rocks" unique_id=2115813544 instance=ExtResource("4_6tady")]
+transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 8, 0, 0)
+
+[node name="ReferenceRock3" parent="Rocks" unique_id=197845699 instance=ExtResource("4_6tady")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 8)
+
+[node name="ReferenceRock4" parent="Rocks" unique_id=1119677586 instance=ExtResource("4_6tady")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8)
+
+[node name="Players" type="Node3D" parent="." unique_id=1392816169]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+script = ExtResource("5_un18w")
+
+[node name="ReferencePlayer" parent="Players" unique_id=713372367 instance=ExtResource("6_my12r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0.3, 0)
+
+[node name="ReferencePlayer2" parent="Players" unique_id=435780807 instance=ExtResource("6_my12r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0.3, 0)
+
+[node name="ReferencePlayer3" parent="Players" unique_id=670576927 instance=ExtResource("6_my12r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 8)
+
+[node name="ReferencePlayer4" parent="Players" unique_id=1881287727 instance=ExtResource("6_my12r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, -8)
+
+[connection signal="thrown_dice" from="Dice" to="." method="_on_dice_thrown_dice"]

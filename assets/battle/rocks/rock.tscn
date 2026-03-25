@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bmk14l2nvouje"]
 
-[ext_resource type="Script" uid="uid://cwcpdcjo7y3br" path="res://assets/battle/rock.gd" id="1_6ebsn"]
+[ext_resource type="Script" uid="uid://cwcpdcjo7y3br" path="res://assets/battle/rocks/rock.gd" id="1_6ebsn"]
 [ext_resource type="Resource" uid="uid://c40w4a5rdhins" path="res://assets/elements/elements_list.tres" id="2_t8pnm"]
 [ext_resource type="Shader" uid="uid://b18qduvb22s3i" path="res://assets/shaders/highlight.gdshader" id="3_6ejfb"]
 [ext_resource type="Texture2D" uid="uid://b6sejbuoadth2" path="res://assets/elements/sprites/all_elements.png" id="3_t8pnm"]
@@ -23,11 +23,13 @@ stencil_flags = 2
 stencil_outline_thickness = 0.094
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_lfvml"]
+lightmap_size_hint = Vector2i(49, 20)
 material = SubResource("StandardMaterial3D_lfvml")
 top_radius = 1.2
 bottom_radius = 1.5
 height = 0.2
 radial_segments = 32
+rings = 404
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_gmren"]
 height = 0.5

@@ -2,10 +2,12 @@
 class_name Player extends CharacterBody3D
 
 
+signal moved()
 signal deck_updated(new_deck: Array[CardScene.Card])
 signal game_over(player: Player)
 
 
+# Datos de jugador
 const MAX_HEALTH := 5
 const INITIAL_CARDS := 7
 const NAMES := [
@@ -17,6 +19,10 @@ const NAMES := [
 	"Mov",
 	"Osito",
 ]
+
+# Posición y velocidad
+const Z_POSITION := 0.3
+const MOVE_TIME := 1
 
 
 ## Datos del jugador
@@ -35,19 +41,18 @@ var hide_card: bool = false
 #region Datos
 
 
-# Inicializa al jugador. Usa un string vacío en el nombre para hacerlo aleatorio
-func _init(new_name: String = "", new_team := GameConstants.Teams.NO_TEAM, bot: bool = true) -> void:
-	player_name = new_name if new_name else NAMES.pick_random()
-	team = new_team if new_team else GameConstants.Teams.values().pick_random()
-	is_bot = bot
-
-
 ## Elige características al azar para el jugador
 ## ! Función temporal
-func randomize() -> void:
+func randomize(for_bot: bool = false) -> void:
 	while current_element == GameConstants.Elements.NONE:
 		current_element = GameConstants.Elements.values().pick_random()
 	current_value = randi_range(1, 10)
+
+	if not for_bot: return
+
+	# Si no es bot, randomizamos todos los elementos
+	player_name = NAMES.pick_random()
+	team = GameConstants.Teams.values().pick_random()
 
 
 ## Crea la baraja de cartas
@@ -109,6 +114,21 @@ func apply_damage(damage: int) -> void:
 	if health < 0:
 		health = 0
 		game_over.emit(self)
+
+
+#endregion
+
+
+#region Movimiento
+
+
+## Mueve el jugador a la posición indicada
+func move_to(new_position: Vector3) -> void:
+	var tween := create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
+
+	var final_pos := Vector3(new_position.x, Z_POSITION, new_position.z)
+	tween.tween_property(self, "position", final_pos, MOVE_TIME)
+	tween.tween_callback(func(): moved.emit())
 
 
 #endregion

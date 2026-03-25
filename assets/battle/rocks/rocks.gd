@@ -2,58 +2,37 @@
 class_name Rocks extends Node3D
 
 
-const ROCK_Y_OFFSET := 0.1
+## Altura de las rocas
+const ROCK_Z_OFFSET := 0.1
+## Cantidad de rocas. Debe ser múltiplo de 6
+const ROCK_COUNT := 18
+## Radio del círculo de rocas
+const RADIUS := 8.0
 
 
-## Rock scene
+## Escena de la roca
 @export var rock_scene: PackedScene
-## Cantidad de rocas
-@export_range(1, 20, 1, "or_greater") var rocks_count: int = 18:
-	set(value):
-		rocks_count = value
-		update_rocks()
-## Distancia desde el centro hasta cada roca
-@export var radius: float = 8.0:
-	set(value):
-		radius = value
-		update_rocks()
-
-
-var rocks_list := []
 
 
 func _ready():
-	update_rocks()
+	_instance_rocks()
 
 
 ## Actualiza las rocas
-func update_rocks() -> void:
+func _instance_rocks() -> void:
 	for child in get_children():
-		child.queue_free()
+		child.free()
 
-	if not is_node_ready(): return
+	var director = Vector3.FORWARD * RADIUS
 
-	var director = Vector3.FORWARD * radius
-
-	for i in range(rocks_count):
-		var new_rock: RockScene = rock_scene.instantiate()
-		var new_rock_rotation := (TAU * i) / rocks_count
+	for i in range(ROCK_COUNT):
+		var new_rock: Rock = rock_scene.instantiate()
+		var new_rock_angle := (TAU * i) / ROCK_COUNT
 
 		# Posición y rotación de la roca
-		new_rock.position = director.rotated(Vector3.UP, new_rock_rotation)
-		new_rock.position.y = ROCK_Y_OFFSET
-		new_rock.rotate(Vector3.UP, new_rock_rotation)
+		new_rock.position = director.rotated(Vector3.UP, new_rock_angle) + Vector3.UP * ROCK_Z_OFFSET
+		new_rock.rotate(Vector3.UP, new_rock_angle)
 		add_child(new_rock)
 
-		# Elemento
+		# Elemento. Lo añade después para que se actualice el sprite adecuadamente
 		new_rock.element = (i % GameConstants.Elements.size()) as GameConstants.Elements
-		rocks_list.append(new_rock)
-
-
-## Obtiene la lista de rocas abstractas
-func get_abstract_rocks_list() -> Array:
-	for rock_pos in get_children():
-		var rock: RockScene = rock_pos.get_child(0)
-		rocks_list.append(rock.get_abstract_rock())
-
-	return rocks_list

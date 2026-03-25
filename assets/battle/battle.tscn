@@ -6,10 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dogb8dy8s5bsc" path="res://assets/cards/card.tscn" id="2_6cxqy"]
 [ext_resource type="Script" uid="uid://drdwdoxs6lwwi" path="res://assets/battle/battle_manager.gd" id="3_6cxqy"]
 [ext_resource type="Shader" uid="uid://d0xpw5q8ey1n6" path="res://assets/shaders/blur.gdshader" id="5_5m5wa"]
-[ext_resource type="PackedScene" uid="uid://mpvkdtkj0ajj" path="res://assets/battle/dice/dice.tscn" id="5_hsiu5"]
 [ext_resource type="Theme" uid="uid://djsw6wrf4tns" path="res://assets/ui/themes/main_theme.tres" id="5_thu85"]
-[ext_resource type="Script" uid="uid://cjn0h33vnse38" path="res://assets/battle/rocks/rocks.gd" id="6_1e0e5"]
-[ext_resource type="PackedScene" uid="uid://bmk14l2nvouje" path="res://assets/battle/rocks/rock.tscn" id="6_d31xq"]
 [ext_resource type="Script" uid="uid://dnhyvmfljit8f" path="res://assets/battle/ui/end_ui.gd" id="6_ey58u"]
 [ext_resource type="LabelSettings" uid="uid://ctvu5dp4p0kjm" path="res://assets/ui/themes/title_theme.tres" id="7_sdhuf"]
 [ext_resource type="PackedScene" uid="uid://dleubuyqowf33" path="res://assets/battle/ui/podium_panel.tscn" id="8_w7fa3"]
@@ -19,8 +16,7 @@
 [ext_resource type="Script" uid="uid://bgoqckx2cr8mi" path="res://assets/battle/states/referee.gd" id="14_kt8ap"]
 [ext_resource type="PackedScene" uid="uid://cmugargrwkit2" path="res://assets/battle/player/player.tscn" id="15_38ou4"]
 [ext_resource type="Script" uid="uid://d2wigsqxwrtwp" path="res://assets/battle/states/end.gd" id="15_ykgus"]
-[ext_resource type="Script" uid="uid://c5og7snwj47ak" path="res://assets/battle/world.gd" id="16_6pcvk"]
-[ext_resource type="Script" uid="uid://c0qqh7c4jjylr" path="res://assets/battle/players.gd" id="20_kt8ap"]
+[ext_resource type="PackedScene" uid="uid://dtkmsnf1kc3di" path="res://assets/battle/world.tscn" id="16_aumkp"]
 
 [sub_resource type="Curve2D" id="Curve2D_307i3"]
 _data = {
@@ -32,22 +28,6 @@ point_count = 3
 shader = ExtResource("5_5m5wa")
 shader_parameter/lod = 2.000000095
 shader_parameter/tint = Color(0, 0, 0, 0.5019608)
-
-[sub_resource type="Environment" id="Environment_hsiu5"]
-background_mode = 3
-ambient_light_source = 2
-ambient_light_color = Color(1, 1, 1, 1)
-ambient_light_energy = 1.6
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1e0e5"]
-diffuse_mode = 3
-albedo_color = Color(0.24, 0.110400006, 0.045599997, 1)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_tlmnd"]
-material = SubResource("StandardMaterial3D_1e0e5")
-top_radius = 10.0
-bottom_radius = 10.0
-height = 0.1
 
 [node name="Battle" type="Node" unique_id=669774022]
 metadata/_edit_horizontal_guides_ = [512.0, 32.0, 616.0]
@@ -220,6 +200,7 @@ text = "Salir"
 script = ExtResource("3_6cxqy")
 battle_ui = NodePath("../UILayer/BattleUI")
 battle_world = NodePath("../World")
+player_scene = ExtResource("15_38ou4")
 controlled_node = NodePath(".")
 default_state = NodePath("Start")
 metadata/_custom_type_script = "uid://bxs53es51hc4u"
@@ -239,61 +220,4 @@ script = ExtResource("14_kt8ap")
 [node name="End" type="Node" parent="BattleManager" unique_id=305338238]
 script = ExtResource("15_ykgus")
 
-[node name="World" type="Node3D" parent="." unique_id=728525797 node_paths=PackedStringArray("dice", "rocks", "players")]
-script = ExtResource("16_6pcvk")
-dice = NodePath("Dice")
-rocks = NodePath("Rocks")
-players = NodePath("Players")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="World" unique_id=13638297]
-environment = SubResource("Environment_hsiu5")
-
-[node name="Camera3D" type="Camera3D" parent="World" unique_id=824639004]
-transform = Transform3D(1, 0, 0, 0, 0.73889065, 0.6738253, 0, -0.6738253, 0.73889065, 0, 15.365939, 20.733116)
-current = true
-fov = 39.740986
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="World" unique_id=1631799841]
-transform = Transform3D(-0.23401584, -0.6283599, 0.7418897, -0.17849198, 0.7778754, 0.60253656, -0.9557076, 0.008581743, -0.29419237, -1.8196497, 21.941957, 22.545345)
-
-[node name="Stage" type="MeshInstance3D" parent="World" unique_id=1408877626]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
-mesh = SubResource("CylinderMesh_tlmnd")
-
-[node name="Dice" parent="World" unique_id=1602974280 instance=ExtResource("5_hsiu5")]
-unique_name_in_owner = true
-transform = Transform3D(0, 1, 0, -0.99999994, 0, 0, 0, 0, 0.99999994, 0, 1, 0)
-
-[node name="Rocks" type="Node3D" parent="World" unique_id=1152453067]
-unique_name_in_owner = true
-script = ExtResource("6_1e0e5")
-rock_scene = ExtResource("6_d31xq")
-
-[node name="ReferenceRock" parent="World/Rocks" unique_id=1614443290 instance=ExtResource("6_d31xq")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -8, 0, 0)
-
-[node name="ReferenceRock2" parent="World/Rocks" unique_id=138480051 instance=ExtResource("6_d31xq")]
-transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 8, 0, 0)
-
-[node name="ReferenceRock3" parent="World/Rocks" unique_id=1301111891 instance=ExtResource("6_d31xq")]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 8)
-
-[node name="ReferenceRock4" parent="World/Rocks" unique_id=1601587957 instance=ExtResource("6_d31xq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8)
-
-[node name="Players" type="Node3D" parent="World" unique_id=1113720292]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
-script = ExtResource("20_kt8ap")
-
-[node name="ReferencePlayer" parent="World/Players" unique_id=713372367 instance=ExtResource("15_38ou4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0.3, 0)
-
-[node name="ReferencePlayer2" parent="World/Players" unique_id=1876085075 instance=ExtResource("15_38ou4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0.3, 0)
-
-[node name="ReferencePlayer3" parent="World/Players" unique_id=1408220774 instance=ExtResource("15_38ou4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 8)
-
-[node name="ReferencePlayer4" parent="World/Players" unique_id=768805005 instance=ExtResource("15_38ou4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, -8)
+[node name="World" parent="." unique_id=1643520225 instance=ExtResource("16_aumkp")]

@@ -46,8 +46,8 @@ func _ready() -> void:
 	static_body.input_ray_pickable = clickable
 
 
-## Mezcla el dado y lo lanza al aire
-func shuffle_dice() -> void:
+## Tira el dado al aire
+func throw_dice() -> void:
 	var tween := create_tween().set_trans(Tween.TRANS_QUAD)
 	var new_number := randi_range(1, 6)
 	rotate_dice(ROTATIONS[new_number])
@@ -85,4 +85,4 @@ func _on_static_body_input_event(_camera: Node, event: InputEvent, _event_positi
 		and event.button_index == MOUSE_BUTTON_LEFT
 	): return
 
-	shuffle_dice()
+	throw_dice()
