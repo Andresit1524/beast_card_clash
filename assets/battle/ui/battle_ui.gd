@@ -29,10 +29,18 @@ func set_hand_from_deck(deck: Array[CardScene.Card]) -> void:
 ## Establece o refresca los datos de la UI del jugador o de un bot [br]
 ## Índice 0 es el panel del jugador humano, el resto son bots
 func refresh_player_stats(players_list: Array) -> void:
-	# Establece el panel del jugador
+	var bot_ui_index := 0
+
 	for i in range(players_list.size()):
 		var player: Player = players_list[i]
-		var current_player_panel := player_panel if not player.is_bot else bots_panels.get_child(i - 1)
+		var current_player_panel: PlayerPanel
+
+		if not player.is_bot:
+			current_player_panel = player_panel
+		else:
+			current_player_panel = bots_panels.get_child(bot_ui_index)
+			bot_ui_index += 1
+			current_player_panel.visible = true
 
 		current_player_panel.player_name = player.player_name
 		current_player_panel.team = player.team
@@ -41,13 +49,13 @@ func refresh_player_stats(players_list: Array) -> void:
 		current_player_panel.value = player.current_value
 		current_player_panel.hide_card = player.hide_card
 
-	_prune_bots_panels(players_list.size() - 1)
+	_prune_bots_panels(bot_ui_index)
 
 
 ## Oculta los paneles de los bots que no están jugando
 func _prune_bots_panels(bot_count: int) -> void:
 	if bot_count == bots_panels.get_child_count(): return
-	if bot_count > bots_panels.get_child_count() or bot_count < 1:
+	if bot_count > bots_panels.get_child_count() or bot_count < 0:
 		push_error("[BattleUI] Cantidad de bots inválida: %s" % bot_count)
 		return
 
