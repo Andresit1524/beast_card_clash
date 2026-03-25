@@ -1,4 +1,4 @@
-class_name CardScene extends TextureButton
+class_name Card extends TextureButton
 
 
 signal card_selected(card: Card)
@@ -136,12 +136,7 @@ func _on_pressed() -> void:
 		"Carta %s-%s presionada"
 		% [Utilities.get_enum_name(element, GameConstants.Elements), value]
 	)
-	card_selected.emit(get_abstract_card())
-
-
-## Crea una versión abstracta de la carta
-func get_abstract_card() -> Card:
-	return Card.new(element, value)
+	card_selected.emit(self)
 
 
 func _on_mouse_entered() -> void:
@@ -150,19 +145,3 @@ func _on_mouse_entered() -> void:
 
 func _on_mouse_exited() -> void:
 	_hover_card(false)
-
-
-## Clase que representa los datos de una carta
-class Card:
-	var element: GameConstants.Elements = GameConstants.Elements.NONE
-	var value: int:
-		set(v):
-			if v < 0 or v > 10:
-				value = 0
-				return
-
-			value = v
-
-	func _init(new_element: GameConstants.Elements, new_value: int) -> void:
-		element = new_element
-		value = new_value

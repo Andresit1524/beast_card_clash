@@ -45,7 +45,6 @@ elements_list = ExtResource("2_t8pnm")
 unique_name_in_owner = true
 material_overlay = SubResource("ShaderMaterial_gmren")
 instance_shader_parameters/color = Color(0, 1, 1, 0.2)
-instance_shader_parameters/thickness = 0.1
 mesh = SubResource("CylinderMesh_lfvml")
 
 [node name="Sprite" type="Sprite3D" parent="Mesh" unique_id=906482920]

@@ -20,11 +20,13 @@ class_name PlayerPanel extends PanelContainer
 ## Elemento de la carta
 @export var element: GameConstants.Elements:
 	set(value):
+		if value == element: return
 		element = value
 		if not hide_card: update_card()
 ## Valor de la carta
 @export_range(1, 10) var value: int:
 	set(val):
+		if val == value: return
 		value = val
 		if not hide_card: update_card()
 ## Oculta la carta del jugador

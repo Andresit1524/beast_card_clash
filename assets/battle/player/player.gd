@@ -3,7 +3,7 @@ class_name Player extends CharacterBody3D
 
 
 signal moved()
-signal deck_updated(new_deck: Array[CardScene.Card])
+signal deck_updated(new_deck: Array[Card])
 signal game_over(player: Player)
 
 
@@ -25,6 +25,10 @@ const Z_POSITION := 0.3
 const MOVE_TIME := 1
 
 
+## Mano del jugador
+@export var hand: Hand
+
+
 ## Datos del jugador
 var player_name: String
 var team: GameConstants.Teams = GameConstants.Teams.NO_TEAM
@@ -32,7 +36,7 @@ var health: int = MAX_HEALTH
 var is_bot: bool = true
 
 ## Baraja y carta actual (para humanos)
-var deck: Array[CardScene.Card]
+var deck: Array[Card]
 var current_element: GameConstants.Elements = GameConstants.Elements.NONE
 var current_value: int = 1
 var hide_card: bool = false
@@ -41,15 +45,9 @@ var hide_card: bool = false
 #region Datos
 
 
-## Elige características al azar para el jugador
-## ! Función temporal
-func randomize(for_bot: bool = false) -> void:
-	while current_element == GameConstants.Elements.NONE:
-		current_element = GameConstants.Elements.values().pick_random()
-	current_value = randi_range(1, 10)
-
-	if not for_bot: return
-
+## Elige características al azar para un bot
+## ! Función (posiblemente) temporal
+func randomize() -> void:
 	# Si no es bot, randomizamos todos los elementos
 	player_name = NAMES.pick_random()
 	team = GameConstants.Teams.values().pick_random()
@@ -63,7 +61,9 @@ func create_deck() -> void:
 		while new_card_element == GameConstants.Elements.NONE:
 			new_card_element = GameConstants.Elements.values().pick_random()
 
-		var new_card = CardScene.Card.new(new_card_element, randi_range(1, 10))
+		var new_card = Card.new()
+		new_card.element = new_card_element
+		new_card.value = randi_range(1, 10)
 		deck.append(new_card)
 
 	_update_deck_if_needed()
@@ -76,19 +76,19 @@ func create_deck() -> void:
 
 
 ## Añade una carta a la baraja
-func add_card(card: CardScene.Card) -> void:
+func add_card(card: Card) -> void:
 	deck.append(card)
 	_update_deck_if_needed()
 
 
 ## Elimina una carta de la baraja
-func remove_card(card: CardScene.Card) -> void:
+func remove_card(card: Card) -> void:
 	deck.erase(card)
 	_update_deck_if_needed()
 
 
 ## Juega una carta
-func play_card(card: CardScene.Card) -> void:
+func play_card(card: Card) -> void:
 	if card in deck:
 		deck.erase(card)
 		_update_deck_if_needed()

@@ -17,10 +17,10 @@ const MOVE_TIME := 0.2
 	set(value):
 		card_scale = value
 		_refresh_cards()
-## Roca del jugador actual. Luego será variable interna o movida de sitio
-@export var current_rock: GameConstants.Elements = GameConstants.Elements.NONE:
+## Elemento del jugador
+@export var current_element: GameConstants.Elements = GameConstants.Elements.NONE:
 	set(value):
-		current_rock = value
+		current_element = value
 		_refresh_cards()
 
 
@@ -29,7 +29,7 @@ const MOVE_TIME := 0.2
 
 ## Configura la lista de cartas en pantalla usando como base las de una baraja real. [br]
 ## Usado en BattleManager
-func set_from_deck(deck: Array[CardScene.Card]) -> void:
+func set_from_deck(deck: Array[Card]) -> void:
 	# Elimina a todas las cartas actuales
 	for card in get_children():
 		card.queue_free()
@@ -38,7 +38,7 @@ func set_from_deck(deck: Array[CardScene.Card]) -> void:
 	var size := deck.size() if deck else Player.INITIAL_CARDS
 	for i in range(size):
 		var new_card_pos := PathFollow2D.new()
-		var new_card: CardScene = card_scene.instantiate()
+		var new_card: Card = card_scene.instantiate()
 
 		# Ajusta la carta
 		var new_element = deck[i].element if deck else GameConstants.Elements.NONE
@@ -84,8 +84,8 @@ func _refresh_cards() -> void:
 		card.scale = Vector2(card_scale, card_scale)
 
 		# Desactiva las cartas que no son del elemento actual
-		if current_rock != GameConstants.Elements.NONE:
-			card.disable_card = card.element != current_rock
+		if current_element != GameConstants.Elements.NONE:
+			card.disable_card = card.element != current_element
 		else:
 			card.disable_card = false
 

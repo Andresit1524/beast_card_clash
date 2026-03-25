@@ -13,12 +13,20 @@ const MAX_PLAYERS := 4
 @export var player_scene: PackedScene
 
 
-# Elementos del juego. Son todos referencias por lo que actúan como atajos
+# Elementos del juego. Todos actúan como atajos
 var _player: Player
 var _players: Array[Player]
 
 
-#region Funciones de arranque
+func _ready() -> void:
+	battle_world.rock_selected.connect(_on_rock_selected)
+	battle_ui.card_selected.connect(_on_card_selected)
+
+	# Importante, para permitir que la máquina de estados arranque
+	super()
+
+
+#region Funciones de Start
 
 
 ## Establece al jugador humano
@@ -31,9 +39,6 @@ func setup_player() -> void:
 	_player.create_deck()
 	_players.append(_player)
 
-	# ! Temporal
-	_player.randomize(false)
-
 	# Mano del jugador
 	_player.deck_updated.connect(battle_ui.set_hand_from_deck)
 
@@ -44,10 +49,8 @@ func setup_bots() -> void:
 	for i in range(bots_count):
 		var new_bot := player_scene.instantiate()
 		new_bot.create_deck()
+		new_bot.randomize()
 		_players.append(new_bot)
-
-		# ! Temporal
-		new_bot.randomize(true)
 
 		print("[BattleManager] Nuevo bot creado: %s!" % new_bot.player_name)
 
@@ -63,6 +66,7 @@ func setup_bots() -> void:
 func setup_ui() -> void:
 	battle_ui.refresh_player_stats(_players)
 	battle_ui.set_hand_from_deck(_player.deck)
+	battle_ui.enable_hand(false)
 	battle_ui.set_end_ui(false)
 
 
@@ -71,5 +75,28 @@ func setup_world() -> void:
 	battle_world.enable_dice(false)
 	battle_world.set_players(_players)
 
+
+#endregion
+
+
+#region Funciones de Turn
+
+
+## Reacciona a la roca seleccionada en el turno del personaje
+func _on_rock_selected(selected_rock: Rock) -> void:
+	battle_ui.set_hand_element(selected_rock.element)
+	battle_ui.enable_hand(true)
+
+
+## Reacciona a la carta seleccionada en el turno del personaje
+func _on_card_selected(selected_card: Card) -> void:
+	print("Carta seleccionada: %s-%s" % [selected_card.element, selected_card.value])
+
+	# Actualiza al jugador
+	_player.current_element = selected_card.element
+	_player.current_value = selected_card.value
+
+	battle_ui.enable_hand(false)
+	battle_ui.refresh_player_stats(_players)
 
 #endregion

@@ -45,6 +45,12 @@ func _on_dice_thrown_dice(number: int) -> void:
 #region Funciones de las rocas
 
 
+## Activa todas las rocas, dada la lista de índices
+func enable_rocks(index: Array[int]) -> void:
+	for i in index:
+		rocks_list[i].selectable = true
+
+
 ## Establece las rocas y las configura [br]
 ## Este método se basa en que las rocas se instancian desde [code]Rocks[/code]. Acá solo las registramos
 func _set_rocks() -> void:
@@ -64,17 +70,24 @@ func _set_rocks() -> void:
 	_rocks_ready.emit()
 
 
+## Desactiva todas las rocas
+func _disable_rocks() -> void:
+	for rock in rocks_list:
+		rock.selectable = false
+
+
 ## Replica la señal de cada roca al pulsarse
 func _on_rock_selected(selected_rock: Rock) -> void:
-	rock_selected.emit(selected_rock)
+	_disable_rocks()
+	player.move_to(selected_rock.position)
+	await player.moved
 
 	Utilities.print_color(
 		"[World] Roca seleccionada: %s"
 		% Utilities.get_enum_name(selected_rock.element, GameConstants.Elements),
 		GameConstants.ELEMENTS_COLORS[selected_rock.element]
 	)
-
-	player.move_to(selected_rock.position)
+	rock_selected.emit(selected_rock)
 
 
 #endregion

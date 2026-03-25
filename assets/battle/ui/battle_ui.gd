@@ -2,6 +2,9 @@
 class_name BattleUI extends Node
 
 
+signal card_selected(card: Card)
+
+
 ## Nodo que almacena las cartas
 @onready var hand: Hand = %Hand
 ## Panel del jugador
@@ -15,9 +18,21 @@ class_name BattleUI extends Node
 #region Baraja de cartas
 
 
+## Activa o desactiva la mano de cartas
+func enable_hand(enabled: bool) -> void:
+	hand.hide_cards = not enabled
+
+
 ## Refresca la baraja de cartas
-func set_hand_from_deck(deck: Array[CardScene.Card]) -> void:
+func set_hand_from_deck(deck: Array[Card]) -> void:
 	hand.set_from_deck(deck)
+	for card in hand.get_cards():
+		card.card_selected.connect(func(c): card_selected.emit(c))
+
+
+## Establece el elemento de la baraja actual
+func set_hand_element(new_element: GameConstants.Elements) -> void:
+	hand.current_element = new_element
 
 
 #endregion
