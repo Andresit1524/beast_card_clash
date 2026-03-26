@@ -2,11 +2,10 @@ class_name Hand extends Path2D
 
 
 const HIDE_OFFSET := Vector2(0, 300)
+const HIDE_SCALE := 1 / 1.3
 const MOVE_TIME := 0.2
 
 
-## Escena de la carta para instanciarla
-@export var card_scene: PackedScene
 ## Oculta la mano de cartas
 @export var hide_cards: bool = false:
 	set(value):
@@ -22,6 +21,15 @@ const MOVE_TIME := 0.2
 	set(value):
 		current_element = value
 		_refresh_cards()
+
+@export_group("Dependencias")
+## Escena de la carta para instanciarla
+@export var card_scene: PackedScene
+## Conjuntos de puntos para las posiciones de las cartas
+@export var curves: Dictionary[StringName, Curve2D] = {
+	&"normal": null,
+	&"hidden": null
+}
 
 
 @onready var _start_position := position
@@ -48,7 +56,7 @@ func set_from_deck(deck: Array[Card]) -> void:
 			"value": card.value,
 			"hide_card": false,
 		})
-		print_debug("[Hand] Carta actualizada: %s_%s" % [card.element, card.value])
+		print_debug("[Hand]Cartaactualizada: %s_%s" % [card.element, card.value])
 
 		new_card_pos.add_child(card)
 
@@ -63,10 +71,7 @@ func _refresh_cards() -> void:
 	var tween := create_tween()
 	tween.set_parallel().set_trans(Tween.TRANS_SINE)
 
-	# Oculta la baraja
-	if hide_cards:
-		tween.tween_property(self, "position", position + HIDE_OFFSET, MOVE_TIME)
-		return
+	_set_hidden_cards(hide_cards)
 
 	# Posiciona las cartas y las ajusta
 	tween.tween_property(self, "position", _start_position, MOVE_TIME)
@@ -82,13 +87,27 @@ func _refresh_cards() -> void:
 		# Posición y tamaño
 		var final_pos = float(card_count - i - 1) / max(card_count - 1, 1) if i < card_count else 0
 		tween.tween_property(card_pos, "progress_ratio", final_pos, MOVE_TIME)
-		card.scale = Vector2(card_scale, card_scale)
 
-		# Desactiva las cartas que no son del elemento actual
-		if current_element != GameConstants.Elements.NONE:
-			card.disable_card = card.element != current_element
-		else:
-			card.disable_card = false
+		# Desactiva las cartas cuando se oculta la baraja o cuando el elemento no coincide
+		card.disable_card = hide_cards or current_element and card.element != current_element
+
+
+## Oculta las cartas
+func _set_hidden_cards(is_hidden: bool) -> void:
+	# Interpola la curva punto a punto
+	var tween := create_tween().set_trans(Tween.TRANS_SINE).set_parallel()
+	var final_curve := curves["hidden"] if is_hidden else curves["normal"]
+	curve = final_curve
+
+	# Establece tamaño y rotación
+	for card in get_cards() as Array[Card]:
+		var base_scale := Vector2(card_scale, card_scale)
+		var final_scale := base_scale if not is_hidden else base_scale * HIDE_SCALE
+
+		tween.tween_property(card, "scale", final_scale, MOVE_TIME)
+
+		# Rotamos al padre para que los comportamientos se mantengan correctos
+		tween.tween_property(card, "rotation", PI / 2 if is_hidden else 0.0, MOVE_TIME)
 
 
 ## Obtiene la lista de cartas

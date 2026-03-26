@@ -4,6 +4,8 @@
 [ext_resource type="Script" uid="uid://bi4tiwacyr4dh" path="res://assets/battle/ui/hand.gd" id="1_oyv2c"]
 [ext_resource type="Script" uid="uid://0qb4hgslax58" path="res://assets/battle/ui/battle_ui.gd" id="1_tlmnd"]
 [ext_resource type="PackedScene" uid="uid://dogb8dy8s5bsc" path="res://assets/cards/card.tscn" id="2_6cxqy"]
+[ext_resource type="Curve2D" uid="uid://sagpx5alf1g6" path="res://assets/battle/hand_hidden_curve.tres" id="2_45g41"]
+[ext_resource type="Curve2D" uid="uid://ep3owys640jk" path="res://assets/battle/hand_normal_curve.tres" id="2_vomrt"]
 [ext_resource type="Script" uid="uid://drdwdoxs6lwwi" path="res://assets/battle/battle_manager.gd" id="3_6cxqy"]
 [ext_resource type="Shader" uid="uid://d0xpw5q8ey1n6" path="res://assets/shaders/blur.gdshader" id="5_5m5wa"]
 [ext_resource type="Theme" uid="uid://djsw6wrf4tns" path="res://assets/ui/themes/main_theme.tres" id="5_thu85"]
@@ -18,20 +20,14 @@
 [ext_resource type="Script" uid="uid://d2wigsqxwrtwp" path="res://assets/battle/states/end.gd" id="15_ykgus"]
 [ext_resource type="PackedScene" uid="uid://dtkmsnf1kc3di" path="res://assets/battle/world.tscn" id="16_aumkp"]
 
-[sub_resource type="Curve2D" id="Curve2D_307i3"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 320, 512, -160.10532, 0, 160.10532, 0, 576, 486, 0, 0, 0, 0, 832, 512)
-}
-point_count = 3
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ey58u"]
 shader = ExtResource("5_5m5wa")
 shader_parameter/lod = 2.000000095
 shader_parameter/tint = Color(0, 0, 0, 0.5019608)
 
 [node name="Battle" type="Node" unique_id=669774022]
-metadata/_edit_horizontal_guides_ = [512.0, 32.0, 616.0]
-metadata/_edit_vertical_guides_ = [320.0, 832.0, 32.0, 1120.0]
+metadata/_edit_horizontal_guides_ = [512.0, 32.0, 616.0, 308.0]
+metadata/_edit_vertical_guides_ = [320.0, 832.0, 32.0, 1120.0, 104.0]
 
 [node name="Background" type="CanvasLayer" parent="." unique_id=1962356091]
 layer = -1
@@ -53,11 +49,12 @@ script = ExtResource("1_tlmnd")
 
 [node name="HandPos" type="Control" parent="UILayer/BattleUI" unique_id=534952336]
 layout_mode = 3
-anchors_preset = 7
-anchor_left = 0.5
+anchors_preset = 12
 anchor_top = 1.0
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 576.0
+offset_right = -576.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
@@ -65,9 +62,13 @@ mouse_filter = 2
 [node name="Hand" type="Path2D" parent="UILayer/BattleUI/HandPos" unique_id=563384670]
 unique_name_in_owner = true
 position = Vector2(-576, -648)
-curve = SubResource("Curve2D_307i3")
+curve = ExtResource("2_vomrt")
 script = ExtResource("1_oyv2c")
 card_scene = ExtResource("2_6cxqy")
+curves = Dictionary[StringName, Curve2D]({
+&"hidden": ExtResource("2_45g41"),
+&"normal": ExtResource("2_vomrt")
+})
 
 [node name="PlayerPanel" parent="UILayer/BattleUI" unique_id=1239815553 instance=ExtResource("1_1054f")]
 unique_name_in_owner = true

@@ -5,6 +5,11 @@ class_name Dice extends Node3D
 signal thrown_dice(number: int)
 
 
+# Aspecto
+const COLOR_OPACITY := 0.3
+const OUTLINE_THICKNESS := 0.15
+
+# Lanzamiento del dado
 const TWIST_TIME := 0.02
 const ROTATION_TIME := 1
 const THROW_HEIGHT := 8
@@ -14,13 +19,16 @@ const THROW_HEIGHT := 8
 @export_range(1, 6) var number: int = 1:
 	set(value):
 		number = value
-		rotate_dice(ROTATIONS[number])
+		_rotate_dice(ROTATIONS[number])
 ## Hace al dado clicable
 @export var clickable: bool = true:
 	set(value):
 		clickable = value
-		if not is_node_ready(): return
-		static_body.input_ray_pickable = value
+		if not is_node_ready(): await ready
+		_enable_dice(clickable)
+
+
+@onready var cube: MeshInstance3D = $Cube
 
 
 ## Lista de cuaterniones para rotar el dado a cada número del 1 al 6
@@ -46,11 +54,18 @@ func _ready() -> void:
 	static_body.input_ray_pickable = clickable
 
 
+## Habilita el dado
+func _enable_dice(is_enabled: bool) -> void:
+	static_body.input_ray_pickable = is_enabled
+	cube.set_instance_shader_parameter("thickness", OUTLINE_THICKNESS if is_enabled else 0.0)
+	cube.set_instance_shader_parameter("color", Color(Color.CYAN, COLOR_OPACITY) if is_enabled else Color.TRANSPARENT)
+
+
 ## Tira el dado al aire
 func throw_dice() -> void:
 	var tween := create_tween().set_trans(Tween.TRANS_QUAD)
 	var new_number := randi_range(1, 6)
-	rotate_dice(ROTATIONS[new_number])
+	_rotate_dice(ROTATIONS[new_number])
 
 	# Lanza el dado y desactiva el clic
 	tween.set_ease(Tween.EASE_OUT)
@@ -67,7 +82,7 @@ func throw_dice() -> void:
 
 
 ## Rota el dado según la base dada
-func rotate_dice(target_rotation: Quaternion):
+func _rotate_dice(target_rotation: Quaternion):
 	var tween := create_tween()
 
 	for i in range(ROTATION_TIME / TWIST_TIME):

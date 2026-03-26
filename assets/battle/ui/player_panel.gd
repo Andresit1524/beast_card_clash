@@ -1,6 +1,10 @@
 ## Gestiona los datos de un panel de jugador en la interfaz de batalla
 class_name PlayerPanel extends PanelContainer
 
+# No tengo idea de que poner xd
+const SOME_TIME := 0.5
+
+
 ## Nombre del jugador
 @export var player_name: String:
 	set(value):
@@ -12,7 +16,7 @@ class_name PlayerPanel extends PanelContainer
 		team = value
 		refresh_panel()
 ## Vida del jugador
-@export_range(0, 5) var health: int:
+@export_range(0, 5) var health: int = 5:
 	set(value):
 		health = value
 		refresh_panel()
@@ -58,6 +62,7 @@ func _ready():
 ## Actualiza el panel con los últimos datos del jugador
 func refresh_panel() -> void:
 	if (not name_label or not team_texture or not card_texture): return
+	var tween := create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 
 	# Actualiza los datos del jugador
 	name_label.text = player_name if player_name else "Sin nombre"
@@ -65,7 +70,13 @@ func refresh_panel() -> void:
 
 	# Actualiza la barra de vida
 	var color := "white" if health > 0 else "red"
-	life_bar.value = health
+
+	# Si la vida bajo, hace un efecto de destello
+	if life_bar.value > health:
+		modulate = Color.RED
+		tween.tween_property(self, "modulate", Color.WHITE, SOME_TIME)
+
+	tween.tween_property(life_bar, "value", health, SOME_TIME)
 	life_label.text = "[color=%s]%s[/color]" % [color, health]
 
 
