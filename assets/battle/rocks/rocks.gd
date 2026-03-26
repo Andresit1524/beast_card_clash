@@ -31,6 +31,7 @@ func _instance_rocks() -> void:
 
 		# Posición y rotación de la roca
 		new_rock.position = director.rotated(Vector3.UP, new_rock_angle) + Vector3.UP * ROCK_Z_OFFSET
+		new_rock.rock_index = i
 		new_rock.rotate(Vector3.UP, new_rock_angle)
 		add_child(new_rock)
 

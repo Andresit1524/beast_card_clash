@@ -29,17 +29,20 @@ const MOVE_TIME := 1
 @export var hand: Hand
 
 
-## Datos del jugador
+# Datos del jugador
 var player_name: String
 var team: GameConstants.Teams = GameConstants.Teams.NO_TEAM
 var health: int = MAX_HEALTH
 var is_bot: bool = true
 
-## Baraja y carta actual (para humanos)
+# Baraja y carta actual (para humanos)
 var deck: Array[Card]
 var current_element: GameConstants.Elements = GameConstants.Elements.NONE
 var current_value: int = 1
 var hide_card: bool = false
+
+# Posición
+var current_rock_index: int
 
 
 #region Datos
@@ -87,13 +90,19 @@ func remove_card(card: Card) -> void:
 	_update_deck_if_needed()
 
 
-## Juega una carta
-func play_card(card: Card) -> void:
+## Juega una carta y la retorna. Retorna null si no hay más cartas
+func play_card(card: Card = null) -> Card:
+	# Si no hay carta, elige al azar
+	if not card: card = deck.pick_random()
+
+	# Busca y elimina la carta
 	if card in deck:
 		deck.erase(card)
 		_update_deck_if_needed()
 
+	# Muere si no hay más cartas
 	if not deck: game_over.emit(self)
+	return card
 
 
 ## Actualiza la baraja si es un jugador humano
@@ -122,8 +131,12 @@ func apply_damage(damage: int) -> void:
 #region Movimiento
 
 
-## Mueve el jugador a la posición indicada
-func move_to(new_position: Vector3) -> void:
+## Mueve el jugador a la posición indicada y actualiza su indice a la vez
+func move_to(new_position: Vector3, new_index: int) -> void:
+	# Actualiza la posición
+	current_rock_index = new_index
+
+	# Mueve el jugador
 	var tween := create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
 
 	var final_pos := Vector3(new_position.x, Z_POSITION, new_position.z)

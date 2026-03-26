@@ -4,6 +4,7 @@ class_name BattleWorld extends Node3D
 
 signal dice_thrown(number: int)
 signal rock_selected(rock: Rock)
+signal players_ready()
 signal _rocks_ready()
 
 
@@ -45,8 +46,8 @@ func _on_dice_thrown_dice(number: int) -> void:
 #region Funciones de las rocas
 
 
-## Activa todas las rocas, dada la lista de índices
-func enable_rocks(index: Array[int]) -> void:
+## Activa las rocas dada la lista de índices
+func enable_rocks(index: Array) -> void:
 	for i in index:
 		rocks_list[i].selectable = true
 
@@ -71,17 +72,14 @@ func _set_rocks() -> void:
 
 
 ## Desactiva todas las rocas
-func _disable_rocks() -> void:
+func disable_rocks() -> void:
+	if not is_node_ready(): await ready
 	for rock in rocks_list:
 		rock.selectable = false
 
 
 ## Replica la señal de cada roca al pulsarse
 func _on_rock_selected(selected_rock: Rock) -> void:
-	_disable_rocks()
-	player.move_to(selected_rock.position)
-	await player.moved
-
 	Utilities.print_color(
 		"[World] Roca seleccionada: %s"
 		% Utilities.get_enum_name(selected_rock.element, GameConstants.Elements),
@@ -112,9 +110,11 @@ func set_players(new_players: Array[Player]) -> void:
 
 		# Calculamos la posición y ubicamos
 		var position_idx := int((float(i) / players_list.size()) * rocks_list.size())
-		current_player.move_to(rocks_list[position_idx].position)
+		current_player.move_to(rocks_list[position_idx].position, position_idx)
 
 		print("[World] %s en índice %s" % [current_player.player_name, position_idx])
+
+	await players_ready
 
 
 #endregion

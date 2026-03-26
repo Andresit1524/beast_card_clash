@@ -18,6 +18,7 @@ stateDiagram
 
     Turn --> Loop
     Loop --> Turn
+    Loop --> Loop
     Turn --> Referee
     Loop --> Referee
 
@@ -44,7 +45,7 @@ Si el primer turno es de nosotros, nos vamos a `BattleTurn`, si no, a `BattleLoo
 - Juega la carta
 - Revisa y delega el siguiente turno
 
-Si el siguiente turno es un bot, vuelve al principio del estado y repite con el siguiente bot.
+Si el siguiente turno es un bot, vuelve en bucle al mismo estado y repite con el siguiente bot.
 
 Si el siguiente turno es del humano, se va a `BattleTurn`
 

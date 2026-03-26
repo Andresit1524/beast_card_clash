@@ -39,6 +39,7 @@ const OUTLINE_THICKNESS := 0.15
 @onready var sprite: Sprite3D = %Sprite
 
 
+var rock_index: int
 var highlight_color: Color
 
 

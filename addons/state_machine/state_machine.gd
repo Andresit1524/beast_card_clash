@@ -66,5 +66,7 @@ func _physics_process(delta: float) -> void:
 
 
 func _setup_current_state() -> void:
+	print("[StateMachine] Cambiando a estado %s" % current_state.name)
+
 	current_state.controlled_node = controlled_node
 	if current_state.has_method("start"): current_state.start()

@@ -4,7 +4,7 @@ class_name Card extends TextureButton
 signal card_selected(card: Card)
 
 
-const ROTATION_TIME := 015
+const ROTATION_TIME := 0.15
 const HOVER_TIME := 0.2
 const ONDULAION_STRENGHT := 2
 const ONDULAION_SPEED := 3.5
@@ -63,7 +63,7 @@ func set_properties(values: Dictionary) -> void:
 		var new_value = values[property]
 
 		if not property in self:
-			push_error("Propiedad no encontrada: %s" % property)
+			push_error("[Card] Propiedad no encontrada: %s" % property)
 			continue
 
 		set(property, new_value)
@@ -132,8 +132,8 @@ func _get_ondulation_offset() -> Vector2:
 func _on_pressed() -> void:
 	if disable_card or hide_card: return
 
-	print_debug(
-		"Carta %s-%s presionada"
+	print(
+		"[Card] Carta %s-%s presionada"
 		% [Utilities.get_enum_name(element, GameConstants.Elements), value]
 	)
 	card_selected.emit(self)

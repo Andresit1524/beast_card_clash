@@ -61,9 +61,8 @@ func throw_dice() -> void:
 	tween.set_ease(Tween.EASE_IN)
 	tween.tween_property(self, "position", _start_position, ROTATION_TIME / 2.0)
 	tween.tween_callback(func():
-		print_debug("[Dice] Dado lanzado: %s" % new_number)
+		print("[Dice] Dado lanzado: %s" % new_number)
 		thrown_dice.emit(new_number)
-		clickable = true
 	)
 
 
