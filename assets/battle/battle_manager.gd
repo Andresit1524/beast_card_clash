@@ -127,6 +127,7 @@ func _on_card_selected(selected_card: Card) -> void:
 	)
 
 	# Actualiza al jugador
+	player.play_card(selected_card)
 	player.current_element = selected_card.element
 	player.current_value = selected_card.value
 

@@ -2,12 +2,14 @@
 
 [ext_resource type="Script" uid="uid://cv7ew2p1h8rx7" path="res://assets/battle/player/player.gd" id="1_bdst2"]
 [ext_resource type="Texture2D" uid="uid://ch3yv4m0jfjqi" path="res://icon.png" id="1_owo8s"]
+[ext_resource type="PackedScene" uid="uid://dogb8dy8s5bsc" path="res://assets/cards/card.tscn" id="2_msjm4"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7mtsh"]
 size = Vector3(1.3701172, 1.4610596, 0.39624023)
 
 [node name="Player" type="CharacterBody3D" unique_id=713372367]
 script = ExtResource("1_bdst2")
+card_scene = ExtResource("2_msjm4")
 
 [node name="Sprite" type="Sprite3D" parent="." unique_id=936842565]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7289741, 0)

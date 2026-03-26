@@ -30,29 +30,27 @@ const MOVE_TIME := 0.2
 ## Configura la lista de cartas en pantalla usando como base las de una baraja real. [br]
 ## Usado en BattleManager
 func set_from_deck(deck: Array[Card]) -> void:
-	# Elimina a todas las cartas actuales
-	for card in get_children():
-		card.queue_free()
+	# Elimina a todas las cartas sobrantes
+	for card_pos in get_children():
+		var actual_card = card_pos.get_child(0)
+		if not actual_card in deck: card_pos.queue_free()
 
-	# Crea las cartas nuevas
-	var size := deck.size() if deck else Player.INITIAL_CARDS
-	for i in range(size):
+	for card in deck:
+		# Si la carta ya tiene un padre, saltamos para no duplicar wrappers
+		if card.get_parent() != null: continue
+
 		var new_card_pos := PathFollow2D.new()
-		var new_card: Card = card_scene.instantiate()
+		add_child(new_card_pos)
 
-		# Ajusta la carta
-		var new_element = deck[i].element if deck else GameConstants.Elements.NONE
-		var new_value = deck[i].value if deck else 1
-
-		new_card.set_properties({
-			"element": new_element,
-			"value": new_value,
+		# Ajusta la carta antes de emparentarla
+		card.set_properties({
+			"element": card.element,
+			"value": card.value,
 			"hide_card": false,
 		})
-		# print_debug("[Hand] Carta creada: %s_%s" % [new_card.element, new_card.value])
+		print_debug("[Hand] Carta actualizada: %s_%s" % [card.element, card.value])
 
-		new_card_pos.add_child(new_card)
-		add_child(new_card_pos)
+		new_card_pos.add_child(card)
 
 	_refresh_cards()
 
@@ -76,7 +74,10 @@ func _refresh_cards() -> void:
 
 	for i in cards_pos.size():
 		var card_pos: PathFollow2D = cards_pos[i]
-		var card: Control = card_pos.get_child(0)
+		if card_pos.get_child_count() == 0: continue
+
+		var card = card_pos.get_child(0)
+		if not card: continue
 
 		# Posición y tamaño
 		var final_pos = float(card_count - i - 1) / max(card_count - 1, 1) if i < card_count else 0

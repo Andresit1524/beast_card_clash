@@ -27,6 +27,8 @@ const MOVE_TIME := 1
 
 ## Mano del jugador
 @export var hand: Hand
+## Escena de carta
+@export var card_scene: PackedScene
 
 
 # Datos del jugador
@@ -64,7 +66,7 @@ func create_deck() -> void:
 		while new_card_element == GameConstants.Elements.NONE:
 			new_card_element = GameConstants.Elements.values().pick_random()
 
-		var new_card = Card.new()
+		var new_card: Card = card_scene.instantiate()
 		new_card.element = new_card_element
 		new_card.value = randi_range(1, 10)
 		deck.append(new_card)

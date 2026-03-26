@@ -27,10 +27,10 @@ func start() -> void:
 	var card_choices: Array = manager.current_turn.deck.filter(func(v):
 		return v.element == rock_choice_element or not rock_choice_element
 	)
-	var new_card: Card = card_choices.pick_random() if card_choices else null
+	var played_card: Card = card_choices.pick_random() if card_choices else null
 
 	# Si no tiene cartas de ese elemento, salta turno
-	if not new_card:
+	if not played_card:
 		print(
 			"[BattleLoop] %s no tiene cartas de %s. Saltando turno."
 			% [manager.current_turn.player_name, Utilities.get_enum_name(rock_choice_element, GameConstants.Elements)]
@@ -40,14 +40,19 @@ func start() -> void:
 		manager.switch_next_turn_state()
 		return
 
-	# Actualiza la información del jugador y la UI tras un tiempo
-	await get_tree().create_timer(manager.WAIT_TIME).timeout
-	manager.current_turn.current_element = new_card.element
-	manager.current_turn.current_value = new_card.value
+	# Guardamos los valores antes de que la carta sea liberada por la UI
+	var card_element := played_card.element
+	var card_value := played_card.value
+
+	# Liberamos la carta y actualizamos la interfaz
+	manager.current_turn.play_card(played_card)
+	await get_tree().create_timer(manager.WAIT_TIME / 2.0).timeout
+	manager.current_turn.current_element = card_element
+	manager.current_turn.current_value = card_value
 	manager.battle_ui.refresh_player_stats(manager.players)
 	print(
 		"[Loop] Carta elegida: %s-%s"
-		% [Utilities.get_enum_name(new_card.element, GameConstants.Elements), new_card.value]
+		% [Utilities.get_enum_name(card_element, GameConstants.Elements), card_value]
 	)
 
 	# Delega el siguiente turno
