@@ -1,110 +1,33 @@
 # `PlayerPanel`
-Este script, que extiende `PanelContainer`, es responsable de gestionar y visualizar los datos de un jugador dentro de la interfaz de usuario de batalla. Actúa como un componente de UI autónomo que muestra el nombre del jugador, su equipo, su salud actual y la carta que tiene en juego (o una carta genérica si está oculta). Su diseño reactivo permite que las actualizaciones de datos se reflejen automáticamente en la interfaz.
+El script `PlayerPanel.gd` define una clase `PlayerPanel` que extiende `PanelContainer`, diseñada para gestionar y mostrar la información de un jugador en la interfaz de usuario durante las batallas del juego. Este componente de UI se encarga de representar visualmente el nombre del jugador, su equipo, su barra de vida y la carta elemental que ha puesto en juego, incluyendo animaciones y efectos visuales para una experiencia dinámica.
 
-El panel se configura mediante variables `@export` que facilitan su integración y personalización directamente desde el editor de Godot. Estas propiedades, al ser modificadas, desencadenan métodos internos para refrescar la visualización del panel, asegurando que la UI esté siempre sincronizada con el estado del jugador.
-
-## Estructura de las propiedades del panel
-El `PlayerPanel` maneja dos grupos principales de información visual:
-
-1.  **Datos del jugador:**
-    *   `player_name`: Nombre visible del jugador.
-    *   `team`: Equipo al que pertenece el jugador, representado por una enumeración de `GameConstants.Teams`.
-    *   `health`: Puntos de vida actuales del jugador, con un rango entre 0 y 5.
-
-2.  **Datos de la carta:**
-    *   `element`: Elemento de la carta, representado por una enumeración de `GameConstants.Elements`.
-    *   `value`: Valor numérico de la carta, con un rango entre 1 y 10.
-    *   `hide_card`: Booleano que determina si la carta debe mostrarse o permanecer oculta (mostrando un *placeholder*).
-
-Para obtener los recursos gráficos, el panel se apoya en dos referencias externas:
-*   `cards_list`: Un recurso (`CardsList`) que provee las texturas de las cartas según su elemento y valor.
-*   `teams_list`: Un recurso (`TeamsList`) que provee las texturas de los iconos de equipo.
-
-Estas propiedades son accesibles y configurables en el inspector de Godot.
-
-```gdscript
-class_name PlayerPanel extends PanelContainer
-
-@export var player_name: String:
-	set(value):
-		player_name = value
-		refresh_panel()
-@export var team: GameConstants.Teams:
-	set(value):
-		team = value
-		refresh_panel()
-@export_range(0, 5) var health: int:
-	set(value):
-		health = value
-		refresh_panel()
-
-@export var element: GameConstants.Elements:
-	set(value):
-		element = value
-		if not hide_card: update_card()
-@export_range(1, 10) var value: int:
-	set(val):
-		value = val
-		if not hide_card: update_card()
-@export var hide_card: bool = false:
-	set(value):
-		if value == hide_card: return
-		hide_card = value
-		update_card()
-
-@export var cards_list: CardsList
-@export var teams_list: TeamsList
-```
-<p align="center">
-    <i>Definición de las propiedades exportadas del panel.</i>
-</p>
-
-## Interacción con la interfaz de usuario
-
-El script se encarga de conectar las propiedades internas con los nodos de la UI que las representan visualmente. Esto se logra mediante la asignación de nodos `@onready`, lo que garantiza que las referencias a los controles de UI estén disponibles desde el inicio.
-
-```gdscript
-@onready var name_label: Label = $Margin/Contents/PlayerData/Name
-@onready var team_texture: TextureRect = $Margin/Contents/PlayerData/Team
-@onready var card_texture: TextureRect = $Margin/Contents/Card
-@onready var life_bar: ProgressBar = $Margin/Contents/LifeBar
-@onready var life_label: RichTextLabel = $Margin/Contents/LifeBar/LifeValue
-@onready var base_card_scale := card_texture.scale
-```
-<p align="center">
-    <i>Nodos de UI a los que el script hace referencia, declarados con <code>@onready</code>.</i>
-</p>
+La clase expone diversas propiedades que permiten configurar los datos del jugador directamente desde el editor de Godot, como el nombre, el equipo, la vida actual, el elemento y valor de la carta, y si la carta debe estar oculta. Estas propiedades, al ser modificadas, desencadenan automáticamente las funciones de actualización del panel, asegurando que la interfaz refleje siempre el estado más reciente del jugador con transiciones animadas.
 
 # Métodos
 
 ## Métodos de Godot
 
 ### `_ready()`
-Este método se ejecuta una vez que el nodo y todos sus hijos han entrado en el árbol de escena. Su función principal es asegurar que el panel se inicialice correctamente con los datos actuales del jugador y de la carta.
-
-*   Llama a `refresh_panel()` para establecer el nombre del jugador, el ícono del equipo y la barra de vida.
-*   Llama a `update_card()` para configurar la imagen de la carta, incluyendo su animación inicial.
+Este método es parte del ciclo de vida de Godot y se ejecuta una vez que el nodo y todos sus hijos han entrado en el árbol de escenas. Su propósito en `PlayerPanel` es inicializar la visualización del panel asegurando que la información del jugador y la carta se muestren correctamente desde el inicio.
 
 ```gdscript
 func _ready():
 	refresh_panel()
 	update_card()
 ```
-<p align="center">
-    <i>Inicialización del panel en <code>_ready()</code>.</i>
-</p>
+
+- Llama a `refresh_panel()`: Esto carga y muestra el nombre del jugador, su equipo y su vida inicial.
+- Llama a `update_card()`: Esto asegura que la carta configurada (o su estado oculto) se visualice correctamente desde el principio, aplicando también su animación de entrada si es la primera vez que se muestra.
 
 ## Otros métodos
 
 ### `refresh_panel() -> void`
-Este método se encarga de actualizar los elementos de la interfaz de usuario relacionados con los datos generales del jugador. Es invocado automáticamente cada vez que las propiedades `player_name`, `team` o `health` son modificadas a través de sus *setters*.
-
-*   **Actualización de datos básicos:** Establece el texto del `name_label` con el valor de `player_name` (o "Sin nombre" si está vacío) y asigna la textura del equipo (`team_texture`) obteniéndola de `teams_list` usando la propiedad `team`.
-*   **Actualización de la barra de vida:** Sincroniza el `value` de `life_bar` con la propiedad `health`. Además, actualiza el `life_label` (un `RichTextLabel`) para mostrar el valor de la vida con un color. El texto será `"[color=white]X[/color]"` si la vida es mayor que 0, y `"[color=red]0[/color]"` si es 0, proporcionando una indicación visual rápida del estado de salud del jugador.
+Este método es responsable de actualizar la información general del jugador mostrada en el panel, incluyendo su nombre, equipo y barra de vida. Utiliza un `Tween` para aplicar transiciones suaves a la barra de vida y efectos visuales cuando la vida disminuye.
 
 ```gdscript
 func refresh_panel() -> void:
 	if (not name_label or not team_texture or not card_texture): return
+	var tween := create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 
 	# Actualiza los datos del jugador
 	name_label.text = player_name if player_name else "Sin nombre"
@@ -112,17 +35,30 @@ func refresh_panel() -> void:
 
 	# Actualiza la barra de vida
 	var color := "white" if health > 0 else "red"
-	life_bar.value = health
+
+	# Si la vida bajo, hace un efecto de destello
+	if life_bar.value > health:
+		modulate = Color.RED
+		tween.tween_property(self, "modulate", Color.WHITE, SOME_TIME)
+
+	tween.tween_property(life_bar, "value", health, SOME_TIME)
 	life_label.text = "[color=%s]%s[/color]" % [color, health]
 ```
-<p align="center">
-    <i>Lógica de actualización de los datos del jugador y su barra de vida.</i>
-</p>
+
+- **Validación Inicial:** Comprueba si los nodos `@onready` (`name_label`, `team_texture`, `card_texture`) están inicializados. Esto previene errores si el método es llamado antes de que `_ready` haya completado su ejecución o si los nodos no existen por alguna razón.
+- **`Tween` para animaciones:** Se crea un `Tween` para gestionar las animaciones de forma suave.
+- **Actualización de `player_name`:** El `name_label` se actualiza con el valor de la propiedad `player_name`. Si `player_name` está vacío, se muestra "Sin nombre".
+- **Actualización de `team`:** El `team_texture` obtiene su textura del recurso `teams_list` usando el valor de la propiedad `team`. Esto asume que `teams_list` es un recurso que mapea enumeraciones de equipos a sus respectivas texturas.
+- **Actualización de la vida:**
+    - Se determina un color para el texto de la vida (`life_label`): "white" si la vida es mayor a 0, y "red" si es 0 (o menos, aunque la propiedad `health` está limitada a un rango de 0-5).
+    - **Efecto de daño:** Si la vida actual (`life_bar.value`) es mayor que la nueva vida (`health`), indica que el jugador ha recibido daño. En este caso, el panel se modula a rojo (`Color.RED`) brevemente para crear un efecto de "destello" de daño, y luego se tweenea de vuelta a blanco (`Color.WHITE`) utilizando la constante `SOME_TIME` (0.5 segundos).
+    - **Animación de la barra de vida:** El valor de la `life_bar` se tweenea a la nueva `health` a lo largo de `SOME_TIME`, proporcionando una transición visual suave.
+    - **Actualización del texto de la vida:** El `life_label` (un `RichTextLabel`) se actualiza para mostrar el valor de `health` con el color determinado, permitiendo un formato de texto enriquecido.
+
+Este método se invoca automáticamente cada vez que las propiedades `player_name`, `team` o `health` son modificadas desde el editor o por código, asegurando que el panel se mantenga sincronizado con los datos del jugador.
 
 ### `update_card() -> void`
-Este método gestiona la actualización visual de la carta del jugador, incorporando una animación de "volteo" o "revelación". Es invocado automáticamente cada vez que las propiedades `element`, `value` o `hide_card` son modificadas a través de sus *setters*.
-
-*   **Animación de escala:** Crea un `Tween` que anima la propiedad `scale` de `card_texture`. Primero, la carta se reduce horizontalmente a un ancho de 0 (`Vector2(0, base_card_scale.y)`), simulando un giro. Luego, llama al método `set_card_sprite()` como *callback* en el punto medio de la animación (cuando la carta es invisible). Finalmente, la carta se expande de nuevo a su escala original (`base_card_scale`). Esta secuencia crea un efecto visual de cambio de carta.
+Este método se encarga de la lógica visual para mostrar u ocultar la carta del jugador, incluyendo una pequeña animación de escalado para una transición más dinámica.
 
 ```gdscript
 func update_card() -> void:
@@ -134,20 +70,27 @@ func update_card() -> void:
 	tween.tween_callback(set_card_sprite)
 	tween.tween_property(card_texture, "scale", base_card_scale, 0.1)
 ```
-<p align="center">
-    <i>Método que orquesta la animación y actualización de la carta.</i>
-</p>
+
+- **Validación Inicial:** Verifica que `cards_list` (el recurso que contiene los sprites de las cartas) esté asignado. Si no lo está, el método se detiene para evitar errores.
+- **`Tween` de animación:** Se crea un `Tween` con una transición `TRANS_SINE` para el efecto de escalado.
+- **Animación de reducción:** La `card_texture` se escala rápidamente a un ancho de `0` (manteniendo la altura original) en 0.1 segundos. Esto simula que la carta "desaparece" o gira sobre su eje vertical.
+- **Cambio de sprite (callback):** Inmediatamente después de la reducción, se añade un `tween_callback` que llama a `set_card_sprite()`. Esto asegura que el sprite de la carta se actualice *mientras* la carta está en su estado reducido (invisible o casi).
+- **Animación de expansión:** Finalmente, la `card_texture` se escala de nuevo a su tamaño base (`base_card_scale`) en 0.1 segundos, haciendo que la nueva carta (o la carta oculta) "aparezca" con el mismo efecto.
+
+Este método se invoca automáticamente cuando las propiedades `element`, `value` o `hide_card` son modificadas, proporcionando una actualización visual reactiva de la carta en el panel.
 
 ### `set_card_sprite() -> void`
-Este método es el encargado directo de asignar la textura correcta a `card_texture`. Es invocado como parte de la animación de `update_card()`.
-
-*   **Lógica de asignación de textura:** Si la propiedad `hide_card` es `false`, el método obtiene la textura de la carta de `cards_list` utilizando las propiedades `element` y `value`. Si `hide_card` es `true`, asigna la textura del *placeholder* proporcionada por `cards_list`, ocultando la información de la carta real del jugador.
+Esta función auxiliar se encarga específicamente de cambiar la textura de la `card_texture` basándose en el elemento, el valor de la carta o si la carta debe estar oculta. Es llamada por `update_card()` durante su animación.
 
 ```gdscript
 func set_card_sprite() -> void:
 	if not cards_list or not card_texture.texture: return
 	card_texture.texture = cards_list.get_card(element, value) if not hide_card else cards_list.placeholder
 ```
-<p align="center">
-    <i>Lógica para establecer el sprite de la carta, considerando si debe estar oculta.</i>
-</p>
+
+- **Validación Inicial:** Comprueba si `cards_list` está asignado y si `card_texture.texture` es válido. La segunda condición, `not card_texture.texture`, parece un error tipográfico y probablemente debería ser `not card_texture` si se buscaba verificar la existencia del nodo, o no es estrictamente necesaria dado que `card_texture` es un `@onready` y debería estar presente.
+- **Asignación de textura:**
+    - Si `hide_card` es `false`, la textura de la `card_texture` se establece obteniéndola del recurso `cards_list` utilizando los valores de `element` y `value`. Se asume que `cards_list` tiene un método `get_card()` que devuelve la textura correspondiente.
+    - Si `hide_card` es `true`, la textura se establece como `cards_list.placeholder`, lo que probablemente es una textura genérica para representar una carta oculta o la parte trasera de una carta.
+
+Este método es un componente clave en la actualización visual de las cartas, permitiendo una clara separación de la lógica entre la animación y el cambio de contenido de la textura.

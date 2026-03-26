@@ -1,66 +1,82 @@
 # `BattleUI`
-`BattleUI` es una clase `Node` diseñada para centralizar y gestionar los componentes de la interfaz de usuario (UI) específicos del escenario de batalla en **Beast Card Clash**. Actúa como un punto de acceso único para otros sistemas del juego que necesitan interactuar con la UI de la batalla, como el gestor de juego principal o el controlador de turnos. Su propósito principal es encapsular las referencias a nodos UI críticos y proporcionar métodos para actualizarlos de manera coherente, facilitando así el desarrollo y mantenimiento del estado visual del juego durante una partida.
+`BattleUI` es una clase `Node` diseñada para centralizar y gestionar la interfaz de usuario del escenario de batalla. Actúa como un coordinador entre los diferentes componentes visuales de la batalla, como la mano de cartas del jugador, los paneles de estadísticas de los jugadores (humano y bots) y la interfaz de fin de juego. Su propósito principal es abstraer la lógica de actualización y visibilidad de estos elementos de UI, permitiendo que otros scripts (como un gestor de batalla principal) interactúen con la UI de manera simplificada y coherente.
 
-Esta clase expone las siguientes referencias de nodos, que deben ser asignadas desde el editor de Godot o mediante código:
-
-*   `hand: Hand`: Una referencia al nodo que gestiona y muestra la mano de cartas del jugador.
-*   `player_panel: PlayerPanel`: Una referencia al panel de UI que muestra las estadísticas y el estado del jugador humano.
-*   `bots_panels: Array[PlayerPanel]`: Un arreglo de paneles de UI, donde cada elemento representa las estadísticas y el estado de un bot o personaje controlado por la IA.
-*   `rocks_list: Rocks`: Una referencia al nodo que gestiona la lista de "rocas" o elementos interactivos del escenario.
-
-Al centralizar estas referencias, `BattleUI` simplifica la lógica de la UI y asegura que todos los componentes visuales puedan ser actualizados de forma coordinada.
-
-# Métodos
-
-## Otros métodos
-
-### `set_hand_from_deck(deck: Array[CardScene.Card]) -> void`
-Este método es utilizado para establecer o refrescar las cartas visibles en la mano del jugador. Recibe un arreglo (`Array`) de objetos `CardScene.Card`, que representan las cartas que deben mostrarse. La lógica de cómo estas cartas son renderizadas y gestionadas es delegada al nodo `hand` referenciado, que debe implementar su propio método `set_from_deck`.
-
-**Funcionamiento:**
-Simplemente invoca el método `set_from_deck` del nodo `hand`, pasando el `Array` de cartas recibido.
+La clase expone una señal que se emite cuando una carta es seleccionada en la mano del jugador, facilitando la comunicación con el sistema de juego principal.
 
 ```gdscript
-func set_hand_from_deck(deck: Array[CardScene.Card]) -> void:
+class_name BattleUI extends Node
+```
+
+## Señales
+
+### `card_selected(card: Card)`
+Esta señal se emite cuando el jugador selecciona una carta de su mano. La señal incluye una referencia a la `Card` seleccionada, lo que permite al controlador de juego principal procesar la selección y ejecutar la lógica de juego correspondiente.
+
+## Variables `@onready`
+
+- `hand: Hand = %Hand`: Referencia al nodo `Hand`, que gestiona la visualización y la interacción con las cartas que el jugador tiene en su mano. La tipificación como `Hand` sugiere que existe una clase `Hand` personalizada.
+- `player_panel: PlayerPanel = %PlayerPanel`: Referencia al nodo `PlayerPanel` que muestra las estadísticas y el estado del jugador principal (humano). La tipificación como `PlayerPanel` sugiere que existe una clase `PlayerPanel` personalizada.
+- `bots_panels: VBoxContainer = %BotsPanels`: Referencia a un `VBoxContainer` que contiene los nodos `PlayerPanel` de los bots en la batalla. Este contenedor organiza y permite acceder a los paneles de cada oponente controlado por IA.
+- `end_ui: EndUI = %EndUI`: Referencia al nodo `EndUI`, que representa la interfaz de usuario de fin de juego (por ejemplo, pantalla de victoria o derrota). La tipificación como `EndUI` sugiere que existe una clase `EndUI` personalizada.
+
+## Métodos
+
+### `enable_hand(enabled: bool) -> void`
+Controla la visibilidad y la interactividad de la mano de cartas del jugador.
+
+- **`enabled`**: Un valor booleano que determina si la mano de cartas debe estar activa (`true`) o desactivada (`false`).
+  - Cuando es `true`, la propiedad `hide_cards` del nodo `hand` se establece en `false`, lo que permite que las cartas sean visibles e interactivas.
+  - Cuando es `false`, la propiedad `hide_cards` del nodo `hand` se establece en `true`, ocultando las cartas y deshabilitando su interacción.
+
+```gdscript
+func enable_hand(enabled: bool) -> void:
+	hand.hide_cards = not enabled
+```
+
+### `set_hand_from_deck(deck: Array[Card]) -> void`
+Actualiza la mano de cartas del jugador con un nuevo conjunto de cartas.
+
+- **`deck`**: Un array de objetos `Card` que representan las cartas que el jugador debe tener en su mano.
+  - Este método invoca el método `set_from_deck()` en el nodo `hand` para poblarlo con las cartas provistas.
+  - Para cada carta en la mano (`hand.get_cards()`), se conecta su señal `card_selected` a una función anónima. Esta función anónima, a su vez, re-emite la señal `card_selected` de la propia clase `BattleUI`, pasando la carta seleccionada como argumento. Esto centraliza la gestión de la selección de cartas, permitiendo que el controlador de batalla principal solo tenga que escuchar la señal de `BattleUI`.
+
+```gdscript
+func set_hand_from_deck(deck: Array[Card]) -> void:
 	hand.set_from_deck(deck)
+	for card in hand.get_cards():
+		card.card_selected.connect(func(c): card_selected.emit(c))
 ```
 
-**Interacciones:**
-*   Depende de que el nodo `hand` (de tipo `Hand`) tenga un método `set_from_deck` que acepte un `Array` de `CardScene.Card`.
-*   Asume que `CardScene.Card` es una clase o `Resource` que representa una carta del juego.
+### `set_hand_element(new_element: GameConstants.Elements) -> void`
+Establece el elemento actual asociado a la mano de cartas del jugador.
 
-### `get_abstract_rocks_list() -> Array`
-Este método proporciona una forma de obtener una representación simplificada o "abstracta" de la lista de elementos de tipo "roca" presentes en el escenario de batalla. La implementación específica para obtener esta lista es delegada al nodo `rocks_list`.
-
-**Funcionamiento:**
-Retorna el resultado de invocar el método `get_abstract_rocks_list()` del nodo `rocks_list`.
-
-```gdscript
-func get_abstract_rocks_list() -> Array:
-	return rocks_list.get_abstract_rocks_list()
-```
-
-**Interacciones:**
-*   Depende de que el nodo `rocks_list` (de tipo `Rocks`) tenga un método `get_abstract_rocks_list()` que devuelva un `Array`.
-*   El término "abstracta" sugiere que esta lista puede contener datos resumidos o identificadores de las rocas, en lugar de las instancias de nodos `Rock` completas.
+- **`new_element`**: Un valor del tipo `GameConstants.Elements` que representa el nuevo elemento de la mano (e.g., fuego, agua, planta).
+  - Este elemento puede influir en la visualización de la mano o en las reglas de juego relacionadas con los elementos. La propiedad `current_element` del nodo `hand` se actualiza con este valor.
 
 ### `refresh_player_stats(players_list: Array) -> void`
-Este método es fundamental para actualizar la interfaz de usuario que muestra las estadísticas y el estado de todos los participantes en la batalla, incluyendo al jugador humano y a los bots. Recibe un `Array` llamado `players_list`, donde cada elemento es un objeto de tipo `Player`.
+Actualiza la información de los paneles de estadísticas para todos los jugadores (humano y bots) presentes en la batalla.
 
-**Funcionamiento:**
-1.  **Iteración:** Recorre cada `Player` dentro de `players_list`.
-2.  **Identificación del Panel:** Para cada `Player`, determina si es el jugador humano (identificado por el índice `0` en la lista) o un bot (`player.is_bot`).
-    *   Si es el jugador humano, se utiliza el `player_panel` exportado.
-    *   Si es un bot, se selecciona el `PlayerPanel` correspondiente del `bots_panels` `Array`, ajustando el índice (`i - 1`) ya que `bots_panels` solo contiene los paneles de los bots.
-3.  **Actualización de Propiedades:** Asigna directamente las propiedades del objeto `Player` (como `player_name`, `team`, `health`, `current_element`, `current_value`, `hide_card`) a las propiedades correspondientes del `current_player_panel` seleccionado. Esto se espera que actualice la representación visual en la UI.
-4.  **Poda de Paneles:** Después de actualizar todos los paneles activos, llama al método privado `_prune_bots_panels` para ocultar cualquier `PlayerPanel` de bot que no esté siendo utilizado en la batalla actual.
+- **`players_list`**: Un array de objetos `Player` que contiene la información actual de todos los participantes en la batalla. Se asume que el `Player` en la posición 0 de la lista es el jugador humano, y el resto son bots.
+  - El método itera sobre `players_list`:
+    - Si el `player` no es un bot, actualiza el `player_panel` (el panel del jugador principal).
+    - Si el `player` es un bot, selecciona el `PlayerPanel` correspondiente del `bots_panels` (usando `get_child()`) y lo hace visible.
+  - Para cada panel, se actualizan las propiedades visuales como `player_name`, `team`, `health`, `element`, `value` y `hide_card` con los datos del objeto `Player` correspondiente.
+  - Después de actualizar los paneles de los jugadores activos, llama a `_prune_bots_panels()` para ocultar cualquier panel de bot que no esté en uso en la batalla actual.
 
 ```gdscript
 func refresh_player_stats(players_list: Array) -> void:
-	# Establece el panel del jugador
+	var bot_ui_index := 0
+
 	for i in range(players_list.size()):
 		var player: Player = players_list[i]
-		var current_player_panel := player_panel if not player.is_bot else bots_panels[i - 1]
+		var current_player_panel: PlayerPanel
+
+		if not player.is_bot:
+			current_player_panel = player_panel
+		else:
+			current_player_panel = bots_panels.get_child(bot_ui_index)
+			bot_ui_index += 1
+			current_player_panel.visible = true
 
 		current_player_panel.player_name = player.player_name
 		current_player_panel.team = player.team
@@ -69,34 +85,38 @@ func refresh_player_stats(players_list: Array) -> void:
 		current_player_panel.value = player.current_value
 		current_player_panel.hide_card = player.hide_card
 
-	_prune_bots_panels(players_list.size() - 1)
+	_prune_bots_panels(bot_ui_index)
 ```
 
-**Interacciones:**
-*   Asume que cada objeto en `players_list` es una instancia de una clase `Player` y que esta clase tiene las propiedades: `is_bot` (booleano), `player_name` (string), `team` (string/enum), `health` (numérico), `current_element` (string/enum), `current_value` (numérico), y `hide_card` (booleano).
-*   Requiere que los nodos `PlayerPanel` (tanto `player_panel` como los del `bots_panels`) tengan propiedades con los mismos nombres para recibir los datos (`player_name`, `team`, `health`, etc.).
-*   La lógica de actualización visual dentro de cada `PlayerPanel` es responsabilidad de esos nodos.
-
 ### `_prune_bots_panels(bot_count: int) -> void`
-Este es un método privado (`_` prefijo) que se encarga de gestionar la visibilidad de los paneles de los bots. Su objetivo es ocultar cualquier `PlayerPanel` en el arreglo `bots_panels` que no esté asociado a un bot activo en la partida, evitando así que se muestren paneles vacíos o irrelevantes.
+Método auxiliar privado (`_` prefix) que se encarga de ocultar los paneles de bots que no están actualmente participando en la batalla. Esto asegura que solo se muestren los paneles correspondientes a los bots activos.
 
-**Funcionamiento:**
-1.  **Verificación de Equivalencia:** Primero, compara `bot_count` (el número de bots activos) con el tamaño actual del arreglo `bots_panels`. Si son iguales, significa que no hay paneles que podar, y el método termina.
-2.  **Validación de `bot_count`:** Realiza una verificación de validez para `bot_count`. Si es menor que `1` o mayor que el número total de `bots_panels` disponibles, se registra un error (`push_error`) en la consola, indicando un posible problema de configuración.
-3.  **Ocultar Paneles Sobrantes:** Si `bot_count` es válido y no coincide con el tamaño del arreglo, itera desde el índice `bot_count` hasta el final de `bots_panels`. Para cada panel en este rango, establece su propiedad `visible` a `false`, ocultándolo de la UI.
+- **`bot_count`**: El número de bots activos en la batalla.
+  - El método primero realiza verificaciones básicas para evitar operaciones innecesarias o erróneas:
+    - Si `bot_count` es igual al número total de hijos en `bots_panels`, no hay paneles que podar.
+    - Si `bot_count` es mayor que el número de paneles existentes o es negativo, se emite un error usando `push_error()` y el método termina.
+  - Recorre los paneles de bots desde el índice `bot_count` hasta el final, estableciendo su propiedad `visible` a `false` para ocultarlos.
 
 ```gdscript
 func _prune_bots_panels(bot_count: int) -> void:
-	if bot_count == bots_panels.size(): return
-	if bot_count > bots_panels.size() or bot_count < 1:
+	if bot_count == bots_panels.get_child_count(): return
+	if bot_count > bots_panels.get_child_count() or bot_count < 0:
 		push_error("[BattleUI] Cantidad de bots inválida: %s" % bot_count)
 		return
 
 	# Recorre los paneles que sobran
-	for i in range(bot_count, bots_panels.size()):
-		bots_panels[i].visible = false
+	for i in range(bot_count, bots_panels.get_child_count()):
+		bots_panels.get_child(i).visible = false
 ```
 
-**Interacciones:**
-*   Manipula directamente la propiedad `visible` de los nodos `PlayerPanel` dentro del arreglo `bots_panels`.
-*   Es llamado internamente por `refresh_player_stats` para asegurar la coherencia visual después de actualizar las estadísticas de los jugadores.
+### `set_end_ui(set_visible: bool) -> void`
+Controla la visibilidad de la interfaz de fin de juego.
+
+- **`set_visible`**: Un valor booleano.
+  - Si es `true`, la propiedad `ui_visible` del nodo `end_ui` se establece en `true`, mostrando la pantalla de fin de juego.
+  - Si es `false`, la propiedad `ui_visible` del nodo `end_ui` se establece en `false`, ocultando la pantalla de fin de juego.
+
+```gdscript
+func set_end_ui(set_visible: bool) -> void:
+	end_ui.ui_visible = set_visible
+```

@@ -1,13 +1,12 @@
 # `BattleState`
-`BattleState` es una clase fundamental en la arquitectura de estados del juego, diseñada para gestionar la lógica y el flujo específicos relacionados con el sistema de combate. Actúa como una especialización de `BaseState`, lo que la integra dentro de un patrón de máquina de estados (`State Machine`) más amplio que probablemente orquesta las diferentes fases y transiciones del juego, o específicamente de la batalla.
+`BattleState` es una clase fundamental en la arquitectura de la máquina de estados del juego, específicamente diseñada para encapsular y gestionar la lógica asociada a la fase de **duelo o combate** (la "batalla" en sí misma). Al heredar de `BaseState`, se integra en un patrón de máquina de estados que permite al juego transicionar y manejar diferentes contextos o modos de juego de manera organizada, como la exploración del mundo abierto o las interacciones de los menús.
 
-La función principal de `BattleState` es encapsular y proporcionar una interfaz de alto nivel para el `BattleManager`. Este enfoque permite que la lógica de estado se mantenga separada de la implementación detallada de las mecánicas de batalla, promoviendo así la modularidad y la claridad en el código.
+Su función principal es orquestar las operaciones que tienen lugar cuando el juego se encuentra en el estado de batalla activo. Esto incluye la gestión de los turnos de los jugadores, la aplicación de las reglas de las cartas, la actualización del estado del juego en respuesta a las acciones de los jugadores y la interacción con la interfaz de usuario específica de la batalla.
 
-El script define una única propiedad clave:
+La interacción de `BattleState` con el sistema de batalla central se realiza a través de su propiedad `manager`. Esta propiedad, tipada como `BattleManager`, actúa como un *wrapper* o envoltorio para el nodo `BattleManager` que el estado está controlando. La implementación de su *setter* y *getter* asegura que el `BattleManager` asignado sea la misma instancia referenciada por `controlled_node`, una propiedad heredada de `BaseState`. Esta conexión directa y fuertemente tipada permite que `BattleState` acceda de forma segura y eficiente a todos los servicios y datos que ofrece el `BattleManager`, como la lógica de juego, la información de los jugadores y las cartas, sin necesidad de realizar suposiciones sobre el tipo genérico de `controlled_node`.
 
 ```gdscript
 class_name BattleState extends BaseState
-
 
 ## Wrapper para el BattleManager
 var manager: BattleManager:
@@ -17,22 +16,4 @@ var manager: BattleManager:
 		return controlled_node
 ```
 
-La línea `class_name BattleState extends BaseState` declara `BattleState` como una clase globalmente accesible que hereda de `BaseState`. Se infiere que `BaseState` provee una estructura común para todos los estados del juego, incluyendo una forma de referenciar el nodo que cada estado está controlando.
-
-La variable `manager` es de tipo `BattleManager` y sirve como un "wrapper" o envoltorio para una instancia de `BattleManager`. Esta propiedad cuenta con accesores personalizados (`set` y `get`):
-
-*   **`set(value)`**: Cuando se asigna un valor a `manager`, este valor se asigna internamente a `controlled_node`. Esto implica que `controlled_node` es una variable definida en la clase base `BaseState`, utilizada de manera genérica para referenciar el nodo que un estado está manejando. En el contexto de `BattleState`, este nodo genérico se especializa para ser siempre un `BattleManager`.
-
-    ```gdscript
-    set(value):
-        controlled_node = value
-    ```
-
-*   **`get`**: Cuando se accede a la propiedad `manager`, se devuelve el valor almacenado en `controlled_node`. Esto asegura que, al interactuar con `manager`, siempre se obtenga una referencia al `BattleManager` asociado con este estado, beneficiándose de la inferencia de tipo `BattleManager` para todas las operaciones subsiguientes.
-
-    ```gdscript
-    get:
-        return controlled_node
-    ```
-
-Esta configuración permite que `BattleState` actúe como un puente entre la máquina de estados y el `BattleManager` real. De este modo, la máquina de estados puede activar o desactivar `BattleState` según sea necesario, y `BattleState`, a su vez, puede delegar la ejecución de las acciones de batalla al `BattleManager` asociado. Este patrón es robusto para gestionar los cambios de estado durante una partida de "Beast Card Clash", donde la fase de combate es una etapa crucial y compleja.
+En resumen, `BattleState` es el cerebro operativo cuando los jugadores están enfrascados en un duelo de cartas, sirviendo como un punto de control central para toda la lógica, reglas y eventos que definen el combate. Su diseño como un estado le permite ser activado y desactivado limpiamente por la máquina de estados principal, facilitando la modularidad y el mantenimiento del código.

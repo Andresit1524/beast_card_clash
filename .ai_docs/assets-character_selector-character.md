@@ -1,29 +1,43 @@
-# `CharacterSelector`
-Este script, adjunto a un nodo `CharacterBody3D`, gestiona la lógica para la selección de una "skin" de personaje al ser interactuado mediante un clic. Define una señal `skin_selected` que se emite con un identificador único cuando el personaje es clicado.
+# `SelectableCharacter`
+Este script está diseñado para ser adjuntado a nodos de tipo `CharacterBody3D` con el fin de convertirlos en elementos interactivos y seleccionables dentro del juego. Su función principal es permitir al jugador hacer clic en un personaje (representado por el `CharacterBody3D`) para indicar una selección de "skin" o apariencia. La lógica del script se basa en la convención de nombres de los nodos para identificar de forma única cada personaje seleccionable y comunicar esta selección a otros componentes del juego a través de una señal.
 
-El `character_id` es una variable `@onready` cuyo valor se inicializa automáticamente al cargar la escena. Se obtiene del nombre del nodo al que está adjunto el script, esperando que los nodos de personaje sigan una convención de nombrado como "CharacterN" (donde N es el índice numérico que lo identifica). Esta señal puede ser capturada por otros componentes del juego (como un manager de UI o un controlador de selección) para actualizar la apariencia o el estado del jugador, fusionando así la interacción del usuario con la lógica de selección de elementos del juego.
+## Métodos
 
-# Métodos
-
-## Métodos de Godot
+### Métodos de Godot
 
 ### `_ready()`
-Este método se ejecuta una vez cuando el nodo y todos sus hijos están listos. Su propósito es establecer la conexión entre el evento de entrada (`input_event`) del propio nodo y el método `_on_input_event`. Esto asegura que cada vez que se produce un evento de entrada sobre el `CharacterBody3D`, el método `_on_input_event` sea llamado para procesarlo.
+Este método se llama automáticamente cuando el nodo, al que está adjunto este script, entra en el árbol de la escena. Su propósito es configurar la interacción inicial del personaje.
 
 ```gdscript
 func _ready():
 	self.input_event.connect(_on_input_event)
 ```
 
-## Funciones asociadas a señales
+Dentro de `_ready()`, se establece una conexión entre la señal `input_event` del propio nodo `CharacterBody3D` y el método `_on_input_event` de este script. La señal `input_event` es emitida por nodos 3D cuando se detecta un evento de entrada (como un clic del ratón) que intersecta con su área de colisión. Al conectar esta señal, el script se asegura de que cualquier clic en el personaje sea detectado y procesado por la lógica de selección definida en `_on_input_event`.
+
+### Funciones asociadas a señales
 
 #### `_on_input_event(_c, event: InputEvent, _p, _n, _s)`
-Esta función es la encargada de procesar los eventos de entrada (`InputEvent`) que ocurren sobre el nodo `CharacterBody3D`. Está conectada a la señal `input_event` del nodo, lo que significa que se activa cada vez que el usuario interactúa con el personaje.
-
-El método filtra los eventos, buscando específicamente la acción "left_click" cuando esta es presionada. Si se detecta un "left_click" presionado, la función emite la señal `skin_selected`, pasando como argumento el `character_id` del personaje actual. Esto comunica a cualquier otro script o nodo que esté escuchando esta señal que este personaje ha sido seleccionado, permitiendo la actualización de la "skin" o la lógica de juego correspondiente. Los parámetros `_c`, `_p`, `_n`, `_s` se ignoran en esta implementación.
+Este método es una función de *callback* que se ejecuta cada vez que la señal `input_event` es emitida por el `CharacterBody3D` al que está adjunto el script. Se encarga de detectar si el evento de entrada corresponde a un clic izquierdo y, en caso afirmativo, emitir la señal de selección de skin.
 
 ```gdscript
 func _on_input_event(_c, event: InputEvent, _p, _n, _s):
 	if event.is_action_pressed("left_click"):
 		skin_selected.emit(character_id)
 ```
+
+La señal `input_event` proporciona varios parámetros (`_c`, `event`, `_p`, `_n`, `_s`), aunque en este script solo se utiliza el parámetro `event: InputEvent` para determinar el tipo de interacción.
+
+1.  **Detección de clic izquierdo**: El método primero verifica si el evento de entrada es una acción de "left_click" que ha sido presionada (`event.is_action_pressed("left_click")`). La acción "left_click" se define típicamente en la configuración de *Input Map* del proyecto Godot.
+2.  **Emisión de señal `skin_selected`**: Si se detecta un clic izquierdo, el script emite la señal `skin_selected`, pasando el valor de la variable `character_id` como argumento. La señal `skin_selected` está definida al inicio del script:
+    ```gdscript
+    signal skin_selected(index: int)
+    ```
+    Esta señal (`skin_selected`) tiene el propósito de notificar a otros componentes del juego (como un gestor de UI, un controlador de estado del juego o un script de selección de personajes) que se ha seleccionado un personaje específico. El `index` (que corresponde a `character_id`) permite identificar cuál de los personajes ha sido seleccionado.
+
+    > [!Note] `character_id`
+    > La variable `@onready var character_id: int` se inicializa cuando el nodo está listo para usarse. Su valor se deriva del nombre del nodo al que se adjunta el script.
+    > ```gdscript
+    > @onready var character_id: int = self.name.trim_prefix("Character") as int
+    > ```
+    > Este código asume que los nodos de los personajes tienen un nombre siguiendo el patrón `"CharacterN"`, donde `N` es un número entero (ej., "Character1", "Character2", "Character3"). El método `trim_prefix("Character")` elimina la parte "Character" del nombre, dejando solo el número, el cual se convierte a un entero (`as int`) para ser usado como identificador único. Esta es una forma eficiente de asociar un identificador con un nodo sin necesidad de asignarlo manualmente en el Inspector.

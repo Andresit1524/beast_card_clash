@@ -1,37 +1,53 @@
 # `BattleStart`
-Este script define la clase `BattleStart`, que hereda de `BattleState`. Representa el estado inicial de una secuencia de batalla dentro del juego **Beast Card Clash**. Su función principal es llevar a cabo todas las operaciones de configuración necesarias justo cuando una batalla comienza, tales como la reproducción de la música ambiental adecuada y la inicialización de las entidades del jugador y de los bots, junto con los componentes de la interfaz de usuario.
-
-`BattleStart` es un componente integral de una máquina de estados diseñada para gestionar el flujo de la batalla. Actúa como el punto de entrada, facilitando la transición del juego desde un estado pre-batalla a la fase de combate activa, asegurando que todos los elementos estén preparados antes de que cualquier acción del jugador o del bot pueda ocurrir.
+`BattleStart` es una clase que representa un estado dentro de la máquina de estados del sistema de combate principal del juego `Beast Card Clash`. Hereda directamente de `BattleState`, lo que la integra en el flujo general de la lógica de batalla. Su función principal es gestionar todas las configuraciones y preparaciones iniciales necesarias para que un duelo de cartas pueda comenzar. Esto incluye la orquestación de la música, la configuración de los participantes (jugador y bots), la interfaz de usuario específica de la batalla y el entorno de juego. Una vez que todas estas configuraciones se han completado, `BattleStart` cede el control al estado de juego apropiado para iniciar el primer turno de la batalla.
 
 # Métodos
 
 ## Otros métodos
 
 ### `start() -> void`
-Este método es la función principal y el único punto de ejecución lógico dentro de la clase `BattleStart`. Se invoca automáticamente cuando el sistema de gestión de estados de batalla activa el estado "Inicio de Batalla". Su objetivo es inicializar y preparar todos los elementos esenciales para que el combate pueda desarrollarse de manera fluida.
+El método `start()` se invoca automáticamente cuando la máquina de estados de batalla transiciona a este estado (`BattleStart`). Este método es el punto de entrada para toda la lógica de inicialización de la batalla y se encarga de asegurar que todos los componentes estén debidamente configurados antes de que la acción comience.
 
-Las acciones específicas que `start()` ejecuta son:
+A continuación, se detalla el flujo de ejecución de este método:
 
-1.  **Reproducción de Música de Batalla:**
+```gdscript
+func start() -> void:
+	MusicManager.play_music("battle")
+
+	manager.setup_player()
+	manager.setup_bots()
+	manager.setup_ui()
+	manager.setup_world()
+
+	# Delega el turno al jugador que corresponda
+	to_state.emit(BattleLoop if manager.current_turn.is_bot else BattleTurn)
+```
+
+1.  **Reproducción de música:**
     ```gdscript
-    MusicManager.play_music("battle")
+    	MusicManager.play_music("battle")
     ```
-    Esta línea de código instruye al `MusicManager` para que comience a reproducir la pista de audio designada para las batallas. Esto establece la atmósfera sonora adecuada desde el primer instante de la confrontación. Es altamente probable que `MusicManager` sea un *singleton* o *autoload* global, encargado de manejar toda la lógica de reproducción musical del juego.
+    Esta línea es responsable de iniciar la reproducción de la música de fondo específica para las batallas. Se asume que `MusicManager` es un singleton o un nodo accesible globalmente que gestiona la lógica de audio del juego, cargando y reproduciendo la pista identificada con el nombre "battle".
 
-2.  **Configuración del Jugador:**
+2.  **Configuración de componentes de batalla:**
     ```gdscript
-    manager.setup_player()
+    	manager.setup_player()
+    	manager.setup_bots()
+    	manager.setup_ui()
+    	manager.setup_world()
     ```
-    Se llama al método `setup_player()` en el objeto `manager`. Esta operación es fundamental para preparar al jugador para la batalla. Esto incluye, pero no se limita a, la inicialización de su mazo de cartas, el reparto de la mano inicial, la configuración de sus puntos de vida y cualquier otro recurso o estado específico del jugador. El objeto `manager` es, presumiblemente, una entidad central (posiblemente la clase `BattleManager` o la propia máquina de estados) que orquesta y coordina los diversos componentes de la batalla.
+    Estas cuatro llamadas a métodos en la instancia `manager` son cruciales para preparar el ecosistema de la batalla. El objeto `manager` actúa como un orquestador central que coordina los diferentes aspectos del juego:
+    *   `manager.setup_player()`: Inicializa o configura al jugador principal, incluyendo la carga de su mazo de cartas, sus puntos de vida y otros atributos relevantes para el combate.
+    *   `manager.setup_bots()`: Prepara a los oponentes controlados por la inteligencia artificial (IA). Esto implica asignarles sus respectivos mazos, establecer sus atributos iniciales y cualquier otra configuración necesaria para su lógica.
+    *   `manager.setup_ui()`: Configura y muestra los elementos de la interfaz de usuario (UI) específicos para la batalla, como el HUD (Heads-Up Display) que muestra la mano de cartas del jugador, contadores de turnos, barras de vida, etc.
+    *   `manager.setup_world()`: Prepara el escenario o entorno de juego donde se llevará a cabo la batalla. Esto puede incluir la carga de modelos 3D o 2.5D, la configuración de cámaras, iluminación y otros elementos visuales interactivos.
 
-3.  **Configuración de los Bots:**
+3.  **Transición al siguiente estado de batalla:**
     ```gdscript
-    manager.setup_bots()
+    	to_state.emit(BattleLoop if manager.current_turn.is_bot else BattleTurn)
     ```
-    Similar a la configuración del jugador, este método invocado en el objeto `manager` se encarga de preparar a los oponentes controlados por la inteligencia artificial. Esto podría implicar la generación de sus mazos de cartas, la asignación de sus cartas iniciales, la configuración de sus puntos de vida y la inicialización de su lógica de comportamiento para la batalla.
+    Después de que todas las configuraciones iniciales se han completado, `BattleStart` emite la señal `to_state`. Esta señal es el mecanismo estándar para que la máquina de estados de batalla transicione a un nuevo estado, delegando el control del flujo del juego. El estado al que se transiciona se determina dinámicamente según la lógica del primer turno:
+    *   Si `manager.current_turn.is_bot` es `true`, lo que indica que el bot tiene el primer turno, la señal emite la clase `BattleLoop`. Este estado es probable que gestione la lógica para los turnos de los oponentes de IA.
+    *   Si `manager.current_turn.is_bot` es `false`, lo que significa que el jugador humano tiene el primer turno, la señal emite la clase `BattleTurn`. Este estado probablemente se encarga de la lógica específica para el turno del jugador.
 
-4.  **Configuración de la Interfaz de Usuario:**
-    ```gdscript
-    manager.setup_ui()
-    ```
-    Finalmente, esta llamada al método `setup_ui()` en el objeto `manager` es responsable de inicializar y mostrar todos los elementos visuales de la interfaz de usuario (UI) que son pertinentes para la batalla. Esto puede incluir medidores de salud, contadores de cartas, botones de acción, paneles informativos y las representaciones gráficas de los personajes y sus estados.
+    Tanto `BattleLoop` como `BattleTurn` se espera que sean también clases que extienden `BattleState`, continuando el ciclo de la máquina de estados de combate. Esta decisión condicional garantiza que la batalla siempre comience con el participante correcto, alineándose con las reglas del juego o la configuración inicial establecida por el `manager`.

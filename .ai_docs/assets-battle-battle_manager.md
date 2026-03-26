@@ -1,89 +1,120 @@
 # `BattleManager`
-El script `BattleManager`, que extiende `Node`, es el orquestador central para la lógica y configuración inicial de una instancia de batalla en **Beast Card Clash**. Su propósito es actuar como un puente clave entre los datos fundamentales del juego (jugadores, dado, interfaz de usuario) y la máquina de estados de la batalla, asegurando una experiencia de juego coherente.
+El script `BattleManager.gd` define la clase `BattleManager`, que extiende `StateMachine` y sirve como el centro de control principal para la lógica de una partida en *Beast Card Clash*. Su propósito fundamental es gestionar el flujo del juego, los datos de los jugadores, la interacción entre los componentes de la interfaz de usuario (`BattleUI`) y el mundo del juego (`BattleWorld`), y la transición entre los diferentes estados de la batalla.
 
-Las responsabilidades principales de `BattleManager` incluyen la inicialización del jugador humano y de los oponentes controlados por la IA (bots), la gestión de sus mazos de cartas, y la configuración del estado inicial de la interfaz de usuario de la batalla. Además, establece conexiones para actualizaciones en tiempo real y gestiona una `StateMachine` para controlar las fases y transiciones lógicas del juego de estrategia por turnos. Este script se posiciona como el centro principal para todos los datos e interacciones específicas de la batalla, sentando las bases para el desarrollo de la experiencia estratégica del juego de cartas.
+Actúa como un coordinador, centralizando las referencias a objetos clave como la interfaz de usuario, el entorno 3D y las instancias de jugadores, facilitando así la comunicación y la orquestación de las acciones durante los turnos, rondas y eventos específicos de la batalla. Al heredar de `StateMachine`, `BattleManager` delega la lógica de los distintos momentos de la partida (inicio, turno de jugador, turno de bot, resolución de ronda) a estados individuales (`BattleState` y sus derivados), permitiendo un flujo de juego claro y modular.
 
-## Propiedades y Componentes Clave
+## Métodos
 
-*   **`MAX_PLAYERS: int = 4`**: Una constante que define el número máximo de jugadores (incluyendo al humano y los bots) que pueden participar en una única batalla.
+### Métodos de Godot
 
-*   **`battle_ui: BattleUI`**: Una referencia exportada al nodo o script que gestiona la interfaz de usuario específica de la batalla. Es crucial para mostrar la información del juego al jugador y para recibir entradas de la UI.
+### `_ready()`
+Este método se llama una vez que el nodo y todos sus hijos han entrado en la "escena activa" (scene tree). En `BattleManager`, su función es crucial para la inicialización y el establecimiento de conexiones entre los componentes del juego:
 
-*   **`dice: Dice`**: Una referencia exportada al nodo o script que representa el dado del juego. Es un elemento interactivo que probablemente influye en las decisiones o resultados del turno.
+1.  **Inyección de Dependencias para Estados:** Antes de iniciar la máquina de estados, el método itera sobre todos sus nodos hijos. Si un hijo es una instancia de `BattleState` (la clase base para los estados del juego), se le inyecta una referencia al propio `BattleManager` (`self`). Esto asegura que cada estado tenga acceso al manager para coordinar acciones y cambiar entre estados, una práctica común para un **patrón de máquina de estados robusto**.
 
-*   **`state_machine: StateMachine`**: Una referencia a un nodo `StateMachine` en el árbol de escenas, obtenida al cargar el nodo (usando `%StateMachine`). Esta máquina de estados es fundamental para controlar el flujo y las diferentes fases de la batalla (ej. turno del jugador, turno de la IA, fase de resolución, etc.).
+    ```gdscript
+    for child in get_children():
+        if child is BattleState:
+            child.manager = self
+    ```
 
-*   **`player: Player`**: Una instancia del objeto `Player` que representa al jugador humano. Contiene su mazo, mano, estadísticas y otras propiedades relacionadas.
+2.  **Inicialización de la Máquina de Estados:** Después de preparar los estados, se llama a `super()`. Esto invoca el método `_ready` de la clase base `StateMachine`, lo que generalmente inicia el primer estado de la máquina.
 
-*   **`players: Array[Player]`**: Un array que almacena instancias de `Player` para todos los participantes en la batalla, incluyendo tanto al jugador humano como a todos los bots.
+3.  **Conexión de Señales:** Establece las conexiones esenciales entre el `BattleManager` y los componentes de `BattleWorld` y `BattleUI`. Estas conexiones son fundamentales para que el manager reaccione a eventos generados por la interacción del jugador o por la lógica del mundo del juego:
+    *   `battle_world.rock_selected` se conecta a `_on_rock_selected`, permitiendo al manager reaccionar cuando una roca es elegida.
+    *   `battle_ui.card_selected` se conecta a `_on_card_selected`, para manejar la selección de cartas por el jugador.
+    *   `battle_world.dice_thrown` se conecta a `set_dice_value`, para registrar el resultado de un lanzamiento de dado.
+    *   `battle_world.players_ready` se conecta a `setup_ui`, para configurar la interfaz una vez que los jugadores estén listos en el mundo.
 
-*   **`rocks: Array[RockScene.Rock]`**: Un array declarado para almacenar objetos de tipo `RockScene.Rock`. Aunque no se utiliza explícitamente en el fragmento de código proporcionado, su presencia sugiere la existencia de elementos de escenario (rocas) que podrían ser interactivos, destructibles o tener propiedades que afectan el juego.
-
-# Métodos
-
-## Otros métodos
+### Otros métodos
 
 ### `setup_player() -> void`
-Este método es responsable de inicializar al jugador humano al comienzo de la batalla.
+Este método se encarga de instanciar y configurar al jugador humano al inicio de la partida. Su función es preparar la entidad del jugador con sus atributos básicos y asociarlo con la interfaz de usuario:
 
-1.  **Creación del Jugador**: Instancia un nuevo objeto `Player` utilizando el nombre y equipo definidos en la clase estática `PlayerStats`, y lo configura como no-bot (`false`).
-    ```gdscript
-    player = Player.new(PlayerStats.player_name, PlayerStats.team, false)
-    ```
-2.  **Creación del Mazo**: Llama al método `create_deck()` en el objeto `player` recién creado. Se espera que este método se encargue de poblar el mazo inicial del jugador con las cartas correspondientes.
-3.  **Registro en el Juego**: Añade la instancia del jugador humano al array `players`, que es la lista central de todos los participantes activos en la batalla.
-    ```gdscript
-    players.append(player)
-    ```
-4.  **Configuración Temporal**: Incluye una llamada a `player.randomize()`.
-    > [!NOTE] Comportamiento Temporal
-    > La llamada a `player.randomize()` es una funcionalidad provisional, probablemente utilizada para pruebas o para inicializar rápidamente aspectos del jugador durante el desarrollo sin una configuración completa. Este método es susceptible de ser eliminado o reemplazado por una lógica de inicialización más robusta en futuras versiones del juego.
-5.  **Conexión de UI**: Establece una conexión de señal crítica: cuando la señal `deck_updated` del `player` se emite (lo que indica un cambio en el mazo del jugador), el método `set_hand_from_deck` del `battle_ui` es llamado. Esto asegura que la interfaz de usuario de la batalla actualice automáticamente la mano del jugador para reflejar el estado actual de su mazo.
-    ```gdscript
-    player.deck_updated.connect(battle_ui.set_hand_from_deck)
-    ```
+*   **Instanciación:** Crea una nueva instancia del jugador a partir de la `player_scene` exportada.
+*   **Configuración de Atributos:** Asigna el nombre y el equipo del jugador, utilizando los datos guardados en `PlayerStats` (que se asume es un `Singleton` o un recurso global). También marca al jugador como `is_bot = false`.
+*   **Creación de Mazo:** Llama a `player.create_deck()` para generar el mazo inicial de cartas del jugador.
+*   **Registro del Jugador:** Añade la instancia del jugador a la lista global `players` gestionada por el `BattleManager`.
+*   **Conexión UI:** Conecta la señal `deck_updated` del jugador al método `battle_ui.set_hand_from_deck`. Esto asegura que la interfaz de la mano del jugador se actualice automáticamente cada vez que el mazo del jugador sufra cambios (ej. al robar una carta).
 
 ### `setup_bots() -> void`
-Este método se encarga de generar e inicializar los oponentes controlados por la IA (bots) para la batalla actual.
+Prepara e inicializa a los oponentes controlados por la IA (bots) para la partida. Este proceso incluye la creación de un número aleatorio de bots y su configuración inicial:
 
-1.  **Determinación del Número de Bots**: Calcula un número aleatorio de bots a crear, que varía entre 1 y `MAX_PLAYERS - 1`. Esto permite una diversidad en el número de oponentes en cada batalla.
-    ```gdscript
-    var bots_count := randi_range(1, MAX_PLAYERS - 1)
-    ```
-2.  **Creación e Inicialización de Bots**: Itera para crear cada bot:
-    *   Instancia un nuevo objeto `Player` para el bot.
-    *   Llama a `create_deck()` en el bot para establecer su colección inicial de cartas.
-    *   Añade la instancia del `new_bot` al array `players`, integrándolo en la lista de participantes de la batalla.
-    *   Imprime un mensaje de depuración indicando la creación del bot y su nombre generado automáticamente.
-    *   **Configuración Temporal**: Llama a `new_bot.randomize()`.
-        > [!NOTE] Comportamiento Temporal
-        > Al igual que con el jugador humano, la llamada a `new_bot.randomize()` es una funcionalidad provisional. Se utiliza probablemente para inicializar rápidamente los estados o características de los bots con fines de prueba o desarrollo, y podría ser eliminada o reemplazada en el futuro.
-    ```gdscript
-    for i in range(bots_count):
-        var new_bot := Player.new()
-        new_bot.create_deck()
-        players.append(new_bot)
-        print_debug("[BattleManager] Nuevo bot creado: %s!" % new_bot.player_name)
-        # ! Temporal
-        new_bot.randomize()
-    ```
-3.  **Confirmación de Bots**: Después de crear todos los bots, imprime un mensaje de depuración final mostrando la cantidad de jugadores bot que se han generado para esta partida.
-    ```gdscript
-    print_debug("[BattleManager] %s jugadores en juego" % bots_count)
-    ```
+*   **Conteo de Bots:** Genera un número aleatorio de bots entre 1 y `MAX_PLAYERS - 1` (para asegurar que siempre haya al menos un jugador humano y hasta 3 bots, sumando un máximo de 4 participantes).
+*   **Instanciación y Configuración:** En un bucle, crea cada instancia de bot utilizando `player_scene`, le asigna un mazo con `create_deck()`, y llama a `randomize()` para darle propiedades aleatorias (nombre, equipo, etc.).
+*   **Registro de Bots:** Añade cada bot a la lista `players`.
+*   **Mezcla de Jugadores:** Una vez que todos los jugadores (humano y bots) están en la lista, se utiliza `players.shuffle()` para mezclar el orden, asegurando que el primer turno sea asignado aleatoriamente.
+*   **Asignación de Primer Turno:** Establece el `current_turn` al primer jugador de la lista mezclada.
 
 ### `setup_ui() -> void`
-Este método configura el estado inicial de varios elementos de la interfaz de usuario relacionados con la batalla.
+Este método se encarga de la configuración inicial de la interfaz de usuario de batalla (`BattleUI`) una vez que los jugadores han sido establecidos en el mundo:
 
-1.  **Deshabilitar Dado**: Establece la propiedad `clickable` del objeto `dice` a `false`. Esto asegura que el dado no sea interactivo o no pueda ser utilizado hasta que el estado del juego lo permita.
+*   **Actualización de Estadísticas:** Llama a `battle_ui.refresh_player_stats(players)` para mostrar las estadísticas de todos los jugadores en la interfaz.
+*   **Configuración de Mano Inicial:** Llama a `battle_ui.set_hand_from_deck(player.deck)` para mostrar las cartas iniciales en la mano del jugador humano.
+*   **Desactivación Inicial de Mano:** Deshabilita la interacción con la mano del jugador (`battle_ui.enable_hand(false)`), indicando que no es el momento de seleccionar cartas.
+*   **Desactivación de UI de Fin de Partida:** Se asegura de que la interfaz de fin de partida no esté visible al inicio (`battle_ui.set_end_ui(false)`).
+
+### `setup_world() -> void`
+Prepara el entorno del `BattleWorld` al inicio de la partida, controlando qué elementos están activos o visibles:
+
+*   **Desactivación de Rocas:** Llama a `battle_world.disable_rocks()` para deshabilitar la interacción con las rocas del escenario, ya que la selección de rocas se habilita en momentos específicos del turno.
+*   **Desactivación de Dados:** Deshabilita la interacción con el dado (`battle_world.enable_dice(false)`).
+*   **Asignación de Jugadores al Mundo:** Proporciona la lista de `players` al `battle_world`, lo que permite que el mundo del juego pueda referenciar a los personajes presentes.
+
+### `set_dice_value(value: int) -> void`
+Este método es una función auxiliar simple que se utiliza para almacenar el valor resultante de un lanzamiento de dado.
+
+*   **Almacenamiento:** Actualiza la variable `current_dice_value` con el `value` pasado como argumento. Esta variable será utilizada posteriormente por la lógica de los estados para determinar el progreso en el tablero o los efectos del dado.
+
+### `switch_next_turn_state() -> void`
+Es un método central para la progresión de los turnos y rondas en la partida. Su responsabilidad es determinar qué jugador tiene el siguiente turno y, en función de eso, cambiar el estado de la máquina de estados:
+
+*   **Determinación del Siguiente Turno:** Calcula la posición del siguiente jugador en la lista `players` de forma circular (`(players.find(current_turn) + 1) % players.size()`).
+*   **Fin de Ronda:** Si la `next_turn_pos` vuelve a ser `0` (indicando que todos los jugadores han tenido su turno y es el turno del primer jugador de la lista de nuevo), se considera que la ronda ha finalizado. En este caso:
+    *   Se cambia el estado a `BattleReferee`, que se encarga de procesar y resolver los efectos de la ronda.
+    *   Se espera a que la señal `round_handled` sea emitida por el `BattleReferee` antes de continuar con la lógica (posiblemente un cambio de estado posterior, aunque aquí no se explicita).
     ```gdscript
-    dice.clickable = false
+    if next_turn_pos == 0:
+        change_to_state(BattleReferee)
+        print("[BattleManager] Fin de la ronda")
+
+        await round_handled
     ```
-2.  **Actualizar Estadísticas de Jugadores**: Llama al método `refresh_player_stats` en el `battle_ui`, pasándole el array `players`. Esto instruye a la UI para que muestre las estadísticas iniciales de todos los participantes en la batalla.
-    ```gdscript
-    battle_ui.refresh_player_stats(players)
-    ```
-3.  **Mostrar Mano Inicial del Jugador**: Llama al método `set_hand_from_deck` en el `battle_ui`, proporcionándole el mazo actual del jugador humano (`player.deck`). Esto asegura que la mano inicial del jugador se muestre correctamente en la interfaz. Esta llamada complementa la conexión de señal establecida en `setup_player()` para las actualizaciones continuas.
-    ```gdscript
-    battle_ui.set_hand_from_deck(player.deck)
-    ```
+*   **Turno de Jugador Humano:** Si el siguiente jugador no es un bot (`not players[next_turn_pos].is_bot`), se establece como `current_turn` y se cambia el estado a `BattleTurn`, que maneja la lógica para la interacción del jugador humano.
+*   **Turno de Bot:** En cualquier otro caso (el siguiente jugador es un bot), se establece como `current_turn` y se cambia el estado a `BattleLoop`, que gestiona la lógica para el turno de un oponente de la IA.
+
+Este método es vital para mantener el ciclo de turnos y rondas y para la integración con la `StateMachine`.
+
+### `get_rocks()`
+Método de acceso simple que devuelve la lista de rocas disponibles en el `BattleWorld`.
+
+*   **Delegación:** Simplemente retorna `battle_world.rocks_list`, permitiendo que otros componentes del sistema (especialmente los estados de la máquina de estados) puedan obtener la referencia a las rocas sin tener que acceder directamente a `battle_world`.
+
+## Funciones asociadas a señales
+
+#### `_on_rock_selected(selected_rock: Rock) -> void`
+Esta función es un *slot* que se ejecuta cuando el jugador humano selecciona una roca en el `BattleWorld`. Está conectada a la señal `battle_world.rock_selected`.
+
+**Funcionamiento:**
+1.  **Desactivar Interacción:** Primero, deshabilita la interacción con todas las rocas del mundo (`battle_world.disable_rocks()`) para evitar selecciones múltiples o interferencias.
+2.  **Movimiento del Jugador:** Mueve al `player` (humano) a la posición de la `selected_rock` y le pasa el índice de la roca.
+3.  **Esperar Movimiento:** Utiliza `await player.moved` para pausar la ejecución hasta que el jugador haya completado su movimiento, asegurando que las siguientes acciones se realicen después de que el jugador esté en su nueva posición.
+4.  **Verificación de Cartas:** Filtra el mazo del jugador (`player.deck`) para encontrar cartas que coincidan con el `element` de la roca seleccionada, o cualquier carta si la roca no tiene un elemento específico.
+5.  **Turno Saltado:** Si no hay `card_choices` disponibles (el jugador no tiene cartas jugables para esa roca), el turno se salta llamando a `switch_next_turn_state()`.
+6.  **Mostrar Mano:** Si hay cartas jugables, la interfaz de la mano del jugador (`battle_ui`) se actualiza para resaltar las cartas del elemento correspondiente a la roca (`battle_ui.set_hand_element`) y se habilita para que el jugador pueda seleccionar una carta (`battle_ui.enable_hand(true)`).
+
+Este método es fundamental para la fase de movimiento y selección de cartas del turno del jugador humano.
+
+#### `_on_card_selected(selected_card: Card) -> void`
+Esta función es un *slot* que se activa cuando el jugador humano selecciona una carta de su mano a través de la interfaz de usuario. Está conectada a la señal `battle_ui.card_selected`.
+
+**Funcionamiento:**
+1.  **Registro de Carta:** Imprime en la consola el elemento y valor de la `selected_card` para seguimiento.
+2.  **Actualización del Jugador:**
+    *   Llama a `player.play_card(selected_card)` para ejecutar la lógica asociada a jugar la carta desde el mazo del jugador.
+    *   Actualiza las propiedades `current_element` y `current_value` del `player` con los datos de la carta jugada.
+3.  **Desactivar Mano:** Deshabilita la interacción con la mano del jugador en la interfaz (`battle_ui.enable_hand(false)`) una vez que la carta ha sido seleccionada y jugada.
+4.  **Actualizar Estadísticas UI:** Refresca la visualización de las estadísticas de todos los jugadores (`battle_ui.refresh_player_stats(players)`) para reflejar cualquier cambio producido por la carta jugada (ej. pérdida de una carta del mazo).
+5.  **Notificar Fin de Turno:** Emite la señal `player_turn_ended()`. Esta señal es clave para la máquina de estados, ya que indica que la fase de acción del jugador humano ha concluido y el `BattleManager` puede proceder a la siguiente fase o al siguiente turno.
+
+Este método coordina la acción más importante del turno del jugador: la selección y juego de una carta.
