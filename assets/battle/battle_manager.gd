@@ -3,6 +3,7 @@ class_name BattleManager extends StateMachine
 
 
 signal player_turn_ended()
+signal round_handled()
 
 
 const MAX_PLAYERS := 4
@@ -39,6 +40,7 @@ func _ready() -> void:
 	battle_world.rock_selected.connect(_on_rock_selected)
 	battle_ui.card_selected.connect(_on_card_selected)
 	battle_world.dice_thrown.connect(set_dice_value)
+	battle_world.players_ready.connect(setup_ui)
 
 
 #region Funciones de Start
@@ -152,8 +154,13 @@ func switch_next_turn_state() -> void:
 	# Calculamos la siguiente posición de forma circular
 	var next_turn_pos := (players.find(current_turn) + 1) % players.size()
 
-	# TODO: Implementar una condición de victoria real para cambiar a BattleEnd
-	# ! Por ahora, la partida seguirá en un bucle infinito de turnos
+	# Si el siguiente turno es el primero, acabamos la ronda y nos vamos a referee
+	if next_turn_pos == 0:
+		change_to_state(BattleReferee)
+		print("[BattleManager] Fin de la ronda")
+
+		# Esperamos a que el referee emita la señal y continuamos
+		await round_handled
 
 	# Jugador humano: pasa al turno del humano
 	if not players[next_turn_pos].is_bot:

@@ -120,6 +120,7 @@ func _update_deck_if_needed() -> void:
 
 ## Aplica daño al jugador
 func apply_damage(damage: int) -> void:
+	print("[Player] Daño aplicado: %s - %s" % [health, damage])
 	health -= damage
 
 	if health < 0:

@@ -5,6 +5,7 @@ class_name BattleWorld extends Node3D
 signal dice_thrown(number: int)
 signal rock_selected(rock: Rock)
 signal players_ready()
+signal players_updated(new_players: Array[Player])
 signal _rocks_ready()
 
 
@@ -20,6 +21,7 @@ var rocks_list: Array[Rock] = []
 
 func _ready() -> void:
 	_set_rocks()
+	players.players_updated.connect(func(new_players): players_updated.emit(new_players))
 
 
 #region Funciones del dado
