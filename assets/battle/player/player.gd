@@ -9,15 +9,43 @@ signal game_over(player: Player)
 
 # Datos de jugador
 const MAX_HEALTH := 5
-const INITIAL_CARDS := 7
+const INITIAL_CARDS := 9
 const NAMES := [
-	"Osoria",
-	"Zarah",
+	"Ana La Rana",
+	"Andrew",
+	"Arturo",
+	"Barry",
+	"Bartolome",
+	"Beth",
+	"Bianca",
+	"Búho Sensei - Nacho",
+	"Carlos Jimenez",
+	"Carmen",
+	"Chepe García",
+	"Cristal",
+	"Don Poncho",
+	"Dorothy",
+	"Doru",
+	"Eliel Picoalto",
+	"Fabio Aguilar",
+	"Guacharaco",
+	"Juan Orca",
+	"Keneth",
+	"Manchas",
+	"Maria",
+	"Marjane",
+	"Matt Cougar",
+	"Mr Bear",
+	"Nairo “El Andino”",
+	"Osorio P",
+	"Ramón",
+	"Teddy",
+	"Thiago",
+	"Thomas",
+	"Titi",
+	"Walter Mendoza",
 	"Wolfy",
-	"Jayfer",
-	"Richi",
-	"Mov",
-	"Osito",
+	"Zarah",
 ]
 
 # Posición y velocidad
@@ -98,9 +126,23 @@ func play_card(card: Card = null) -> Card:
 	if not card: card = deck.pick_random()
 
 	# Busca y elimina la carta
-	if card in deck:
-		deck.erase(card)
-		_update_deck_if_needed()
+	if card in deck: deck.erase(card)
+
+	# Añade una nueva carta al azar
+	var new_card_element := GameConstants.Elements.NONE
+	while not new_card_element:
+		new_card_element = GameConstants.Elements.values().pick_random()
+	var new_card_value := randi_range(1, 10)
+	var new_card = card_scene.instantiate()
+	new_card.element = new_card_element
+	new_card.value = new_card_value
+	deck.append(new_card)
+	print(
+		"[Player] Nueva carta añadida: %s-%s"
+		% [Utilities.get_enum_name(new_card.element, GameConstants.Elements), new_card.value]
+	)
+
+	_update_deck_if_needed()
 
 	# Muere si no hay más cartas
 	if not deck: game_over.emit(self)
