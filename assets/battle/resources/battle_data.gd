@@ -75,7 +75,18 @@ func shuffle_players() -> void:
 ## Establece el siguiente turno automáticamente cuando se establece el actual
 func _set_next_turn() -> void:
 	if players.is_empty(): return
-	var current_idx := players.find(current_turn)
+
+	var current_idx: int = -1
+	# Verificamos si el turno actual sigue siendo válido y está en la lista de jugadores activos
+	if is_instance_valid(current_turn):
+		current_idx = players.find(current_turn)
+
+	# Si el jugador no está en la lista (murió o fue eliminado), el siguiente turno
+	# por defecto es el primero disponible para iniciar la nueva ronda.
+	if current_idx == -1:
+		next_turn = players[0]
+		return
+
 	var next_turn_pos := (current_idx + 1) % players.size()
 	next_turn = players[next_turn_pos]
 
@@ -110,10 +121,8 @@ func apply_game_over() -> void:
 	# Sube el ranking
 	current_rank -= 1
 
-	print(
-		"[BattleData] Jugadores eliminados: %s"
-		% [queued_ranked_players.map(func(p: Player): return p.player_name)]
-	)
+	# Actualizamos el puntero al siguiente turno porque la lista de jugadores cambió
+	_set_next_turn()
 
 	# Los jugadores restantes quedan en el primer si ya llegamos a él
 	if current_rank != 1: return
