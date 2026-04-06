@@ -59,6 +59,9 @@ const MOVE_TIME := 1
 @export var card_scene: PackedScene
 
 
+@onready var sprite: Sprite3D = $Sprite
+
+
 # Datos del jugador
 var player_name: String
 var team: GameConstants.Teams = GameConstants.Teams.NO_TEAM
@@ -73,6 +76,12 @@ var hide_card: bool = false
 
 # Posición
 var current_rock_index: int
+
+
+func _ready() -> void:
+	# Si somos humanos, ponemos un color diferente
+	# ! Temporal
+	if not is_bot: sprite.modulate = Color.SKY_BLUE
 
 
 #region Datos
@@ -161,12 +170,23 @@ func _update_deck_if_needed() -> void:
 
 ## Aplica daño al jugador
 func apply_damage(damage: int = 1) -> void:
+	# Si ya no tiene vida, no procesamos más daño ni señales
+	if health <= 0: return
+
 	print("[Player] Daño aplicado: %s - %s" % [health, damage])
 	health -= damage
 
-	if health < 0:
+	if health <= 0:
 		health = 0
 		game_over.emit(self)
+
+
+## Desaparece al jugador si acabo todo
+# ! Por ahora, solo desaparece con desvanecimiento, y eliminamos al jugador
+func dissapear():
+	var tween := create_tween()
+	tween.tween_property(sprite, "modulate", Color.TRANSPARENT, 1.0)
+	tween.tween_callback(queue_free)
 
 
 #endregion

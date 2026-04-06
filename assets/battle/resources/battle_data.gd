@@ -75,7 +75,8 @@ func shuffle_players() -> void:
 ## Establece el siguiente turno automáticamente cuando se establece el actual
 func _set_next_turn() -> void:
 	if players.is_empty(): return
-	var next_turn_pos := (players.find(current_turn) + 1) % players.size()
+	var current_idx := players.find(current_turn)
+	var next_turn_pos := (current_idx + 1) % players.size()
 	next_turn = players[next_turn_pos]
 
 
@@ -93,9 +94,17 @@ func queue_game_over(_player: Player) -> void:
 func apply_game_over() -> void:
 	if not queued_ranked_players: return
 
+	print(
+		"[BattleData] Jugadores eliminados: %s"
+		% [queued_ranked_players.map(func(p: Player): return p.player_name)]
+	)
+
 	# Añade a los jugadores al ranking y los quita de la lista de espera
-	ranking[current_rank] = queued_ranked_players
+	ranking[current_rank] = queued_ranked_players.duplicate()
 	players = players.filter(func(p): return p not in queued_ranked_players)
+	# Elimina ahora si a los jugadores
+	for _player in queued_ranked_players:
+		_player.dissapear()
 	queued_ranked_players.clear()
 
 	# Sube el ranking
@@ -109,7 +118,7 @@ func apply_game_over() -> void:
 	# Los jugadores restantes quedan en el primer si ya llegamos a él
 	if current_rank != 1: return
 
-	queued_ranked_players = players
+	queued_ranked_players = players.duplicate()
 	apply_game_over()
 
 	print(

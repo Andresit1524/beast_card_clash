@@ -2,7 +2,7 @@
 class_name Players extends Node3D
 
 
-signal players_game_over(players: Array[Player])
+signal players_game_over(player: Player)
 
 
 ## Añade a los jugadores a la escena [br]
@@ -27,5 +27,5 @@ func add_players(players_list: Array[Player]) -> void:
 
 ## Gestiona la pérdida de un jugador
 func _on_player_game_over(player: Player) -> void:
-	players_game_over.emit([player])
+	players_game_over.emit(player)
 	print("[Players] Jugador eliminado de la escena: %s" % player.player_name)
