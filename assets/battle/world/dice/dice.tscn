@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://mpvkdtkj0ajj"]
 
-[ext_resource type="PackedScene" uid="uid://6qvq4woher3a" path="res://assets/battle/dice/dice.glb" id="1_w4w7p"]
-[ext_resource type="Script" uid="uid://crup472mvwn8o" path="res://assets/battle/dice/dice.gd" id="2_kqj45"]
+[ext_resource type="PackedScene" uid="uid://6qvq4woher3a" path="res://assets/battle/world/dice/dice.glb" id="1_w4w7p"]
+[ext_resource type="Script" uid="uid://crup472mvwn8o" path="res://assets/battle/world/dice/dice.gd" id="2_kqj45"]
 [ext_resource type="Shader" uid="uid://b18qduvb22s3i" path="res://assets/shaders/highlight.gdshader" id="3_a420a"]
 [ext_resource type="Shader" uid="uid://bjns65a1m7iph" path="res://assets/shaders/outline.gdshader" id="4_a7eud"]
 

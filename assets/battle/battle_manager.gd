@@ -7,7 +7,7 @@ signal round_handled()
 
 
 const MAX_PLAYERS := 4
-const WAIT_TIME := 2
+const WAIT_TIME := 2.0
 
 
 ## Gestor de la interfaz de batalla

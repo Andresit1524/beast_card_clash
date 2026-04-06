@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cmugargrwkit2"]
 
-[ext_resource type="Script" uid="uid://cv7ew2p1h8rx7" path="res://assets/battle/player/player.gd" id="1_bdst2"]
+[ext_resource type="Script" uid="uid://cv7ew2p1h8rx7" path="res://assets/battle/world/player/player.gd" id="1_bdst2"]
 [ext_resource type="Texture2D" uid="uid://ch3yv4m0jfjqi" path="res://icon.png" id="1_owo8s"]
 [ext_resource type="PackedScene" uid="uid://dogb8dy8s5bsc" path="res://assets/cards/card.tscn" id="2_msjm4"]
 

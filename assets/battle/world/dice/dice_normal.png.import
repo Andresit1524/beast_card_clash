@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dgpjik5pmuwya"
-path.s3tc="res://.godot/imported/dice_normal.png-58994731fdf84b9ad71bee9b82806174.s3tc.ctex"
+path.s3tc="res://.godot/imported/dice_normal.png-2215afd419695e13aae046ddab076671.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/battle/dice/dice_normal.png"
-dest_files=["res://.godot/imported/dice_normal.png-58994731fdf84b9ad71bee9b82806174.s3tc.ctex"]
+source_file="res://assets/battle/world/dice/dice_normal.png"
+dest_files=["res://.godot/imported/dice_normal.png-2215afd419695e13aae046ddab076671.s3tc.ctex"]
 
 [params]
 

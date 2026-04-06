@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://dtkmsnf1kc3di"]
 
-[ext_resource type="Script" uid="uid://c5og7snwj47ak" path="res://assets/battle/world.gd" id="1_l178a"]
-[ext_resource type="PackedScene" uid="uid://mpvkdtkj0ajj" path="res://assets/battle/dice/dice.tscn" id="2_y2at5"]
-[ext_resource type="Script" uid="uid://cjn0h33vnse38" path="res://assets/battle/rocks/rocks.gd" id="3_a4mci"]
-[ext_resource type="PackedScene" uid="uid://bmk14l2nvouje" path="res://assets/battle/rocks/rock.tscn" id="4_6tady"]
-[ext_resource type="Script" uid="uid://c0qqh7c4jjylr" path="res://assets/battle/players.gd" id="5_un18w"]
-[ext_resource type="PackedScene" uid="uid://cmugargrwkit2" path="res://assets/battle/player/player.tscn" id="6_my12r"]
+[ext_resource type="Script" uid="uid://c5og7snwj47ak" path="res://assets/battle/world/world.gd" id="1_l178a"]
+[ext_resource type="PackedScene" uid="uid://mpvkdtkj0ajj" path="res://assets/battle/world/dice/dice.tscn" id="2_y2at5"]
+[ext_resource type="Script" uid="uid://cjn0h33vnse38" path="res://assets/battle/world/rocks/rocks.gd" id="3_a4mci"]
+[ext_resource type="PackedScene" uid="uid://bmk14l2nvouje" path="res://assets/battle/world/rocks/rock.tscn" id="4_6tady"]
+[ext_resource type="Script" uid="uid://c0qqh7c4jjylr" path="res://assets/battle/world/players.gd" id="5_un18w"]
+[ext_resource type="PackedScene" uid="uid://cmugargrwkit2" path="res://assets/battle/world/player/player.tscn" id="6_my12r"]
 
 [sub_resource type="Environment" id="Environment_hsiu5"]
 background_mode = 3

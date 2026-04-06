@@ -4,8 +4,8 @@
 [ext_resource type="Script" uid="uid://bi4tiwacyr4dh" path="res://assets/battle/ui/hand.gd" id="1_oyv2c"]
 [ext_resource type="Script" uid="uid://0qb4hgslax58" path="res://assets/battle/ui/battle_ui.gd" id="1_tlmnd"]
 [ext_resource type="PackedScene" uid="uid://dogb8dy8s5bsc" path="res://assets/cards/card.tscn" id="2_6cxqy"]
-[ext_resource type="Curve2D" uid="uid://sagpx5alf1g6" path="res://assets/battle/hand_hidden_curve.tres" id="2_45g41"]
-[ext_resource type="Curve2D" uid="uid://ep3owys640jk" path="res://assets/battle/hand_normal_curve.tres" id="2_vomrt"]
+[ext_resource type="Curve2D" uid="uid://sagpx5alf1g6" path="res://assets/battle/ui/hand_hidden_curve.tres" id="2_45g41"]
+[ext_resource type="Curve2D" uid="uid://ep3owys640jk" path="res://assets/battle/ui/hand_normal_curve.tres" id="2_vomrt"]
 [ext_resource type="Script" uid="uid://drdwdoxs6lwwi" path="res://assets/battle/battle_manager.gd" id="3_6cxqy"]
 [ext_resource type="Shader" uid="uid://d0xpw5q8ey1n6" path="res://assets/shaders/blur.gdshader" id="5_5m5wa"]
 [ext_resource type="Theme" uid="uid://djsw6wrf4tns" path="res://assets/ui/themes/main_theme.tres" id="5_thu85"]
@@ -16,9 +16,9 @@
 [ext_resource type="Script" uid="uid://bd5jv2qpva2t0" path="res://assets/battle/states/turn.gd" id="12_45g41"]
 [ext_resource type="Script" uid="uid://myr5bayqdfo0" path="res://assets/battle/states/loop.gd" id="13_6pcvk"]
 [ext_resource type="Script" uid="uid://bgoqckx2cr8mi" path="res://assets/battle/states/referee.gd" id="14_kt8ap"]
-[ext_resource type="PackedScene" uid="uid://cmugargrwkit2" path="res://assets/battle/player/player.tscn" id="15_38ou4"]
+[ext_resource type="PackedScene" uid="uid://cmugargrwkit2" path="res://assets/battle/world/player/player.tscn" id="15_38ou4"]
 [ext_resource type="Script" uid="uid://d2wigsqxwrtwp" path="res://assets/battle/states/end.gd" id="15_ykgus"]
-[ext_resource type="PackedScene" uid="uid://dtkmsnf1kc3di" path="res://assets/battle/world.tscn" id="16_aumkp"]
+[ext_resource type="PackedScene" uid="uid://dtkmsnf1kc3di" path="res://assets/battle/world/world.tscn" id="16_aumkp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ey58u"]
 shader = ExtResource("5_5m5wa")
