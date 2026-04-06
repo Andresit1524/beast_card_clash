@@ -56,7 +56,10 @@ func set_from_deck(deck: Array[Card]) -> void:
 			"value": card.value,
 			"hide_card": false,
 		})
-		print_debug("[Hand]Cartaactualizada: %s_%s" % [card.element, card.value])
+		print(
+			"[Hand] Carta actualizada: %s_%s"
+			% [Utilities.get_enum_name(card.element, GameConstants.Elements), card.value]
+		)
 
 		new_card_pos.add_child(card)
 
@@ -112,14 +115,9 @@ func _set_hidden_cards(is_hidden: bool) -> void:
 
 ## Obtiene la lista de cartas
 func get_cards() -> Array:
-	var cards := []
-
 	# ? La estructura de la baraja de cartas en el árbol de escenas es:
 	# ? - Hand (nodo actual)
 	# ?     - PathFollow2D (Posición)
 	# ?         - Card (Carta)
 	# ?     - ...
-	for card_pos in get_children():
-		cards.append(card_pos.get_child(0))
-
-	return cards
+	return get_children().map(func(c): return c.get_child(0))

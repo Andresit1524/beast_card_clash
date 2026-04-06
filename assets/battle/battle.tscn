@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://cmugargrwkit2" path="res://assets/battle/world/player/player.tscn" id="15_38ou4"]
 [ext_resource type="Script" uid="uid://d2wigsqxwrtwp" path="res://assets/battle/states/end.gd" id="15_ykgus"]
 [ext_resource type="PackedScene" uid="uid://dtkmsnf1kc3di" path="res://assets/battle/world/world.tscn" id="16_aumkp"]
+[ext_resource type="Script" uid="uid://cqbraws606682" path="res://assets/battle/resources/battle_data.gd" id="20_6pcvk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ey58u"]
 shader = ExtResource("5_5m5wa")
@@ -197,10 +198,15 @@ size_flags_horizontal = 4
 theme_override_colors/font_color = Color(0.972549, 0.8862745, 0.7372549, 1)
 text = "Salir"
 
-[node name="BattleManager" type="Node" parent="." unique_id=637941647 node_paths=PackedStringArray("battle_ui", "battle_world", "controlled_node", "default_state")]
+[node name="BattleData" type="Node" parent="." unique_id=1350346319]
+script = ExtResource("20_6pcvk")
+metadata/_custom_type_script = "uid://cqbraws606682"
+
+[node name="BattleManager" type="Node" parent="." unique_id=637941647 node_paths=PackedStringArray("battle_ui", "battle_world", "battle_data", "controlled_node", "default_state")]
 script = ExtResource("3_6cxqy")
 battle_ui = NodePath("../UILayer/BattleUI")
 battle_world = NodePath("../World")
+battle_data = NodePath("../BattleData")
 player_scene = ExtResource("15_38ou4")
 controlled_node = NodePath(".")
 default_state = NodePath("Start")
@@ -221,4 +227,5 @@ script = ExtResource("14_kt8ap")
 [node name="End" type="Node" parent="BattleManager" unique_id=305338238]
 script = ExtResource("15_ykgus")
 
-[node name="World" parent="." unique_id=1643520225 instance=ExtResource("16_aumkp")]
+[node name="World" parent="." unique_id=1643520225 node_paths=PackedStringArray("battle_data") instance=ExtResource("16_aumkp")]
+battle_data = NodePath("../BattleData")

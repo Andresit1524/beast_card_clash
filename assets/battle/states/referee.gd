@@ -5,36 +5,40 @@ class_name BattleReferee extends BattleState
 
 func start() -> void:
 	# Espera un tiempo
-	await get_tree().create_timer(manager.WAIT_TIME).timeout
+	await get_tree().create_timer(battle_data.WAIT_TIME).timeout
 
 	# Creamos la lista de todos los pares de enfrentamientos
 	var pairs := []
-	for player in manager.players:
-		for rival in manager.players:
-			# Omite a sí mismo
-			if player == rival: continue
-
-			# Omite duplicados
-			if [player, rival] in pairs or [rival, player] in pairs: continue
-			pairs.append([player, rival])
+	var p_count := battle_data.players.size()
+	for i in range(p_count):
+		for j in range(i + 1, p_count):
+			pairs.append([battle_data.players[i], battle_data.players[j]])
 
 	# Por cada enfrentamiento, comparamos y aplicamos los daños
 	for pair in pairs:
 		var player1: Player = pair[0]
 		var player2: Player = pair[1]
 		var winner := _compare_players(pair[0], pair[1])
+
 		match winner:
-			1: player2.apply_damage(1)
-			-1: player1.apply_damage(1)
+			1: player2.apply_damage()
+			-1: player1.apply_damage()
 			0: pass
 
 	# Reseteamos las elecciones de cada jugador
-	for player in manager.players:
+	for player in battle_data.players:
 		player.current_element = GameConstants.Elements.NONE
 		player.current_value = 0
 
-	# Actualizamos la interfaz
-	manager.battle_ui.refresh_player_stats(manager.players)
+	# Actualizamos los jugadores
+	battle_data.apply_game_over()
+
+	# Si solo queda un jugador (o ninguno por un empate fatal), la partida termina
+	if battle_data.players.size() <= 1:
+		to_state.emit(BattleEnd)
+		return
+
+	manager.battle_ui.refresh_player_stats(battle_data.players)
 
 	# Decidimos el nuevo turno
 	manager.round_handled.emit()

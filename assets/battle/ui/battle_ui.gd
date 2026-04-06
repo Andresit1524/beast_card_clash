@@ -27,7 +27,12 @@ func enable_hand(enabled: bool) -> void:
 func set_hand_from_deck(deck: Array[Card]) -> void:
 	hand.set_from_deck(deck)
 	for card in hand.get_cards():
-		card.card_selected.connect(func(c): card_selected.emit(c))
+		if not card.card_selected.is_connected(_on_card_from_hand_selected):
+			card.card_selected.connect(_on_card_from_hand_selected)
+
+
+func _on_card_from_hand_selected(card: Card) -> void:
+	card_selected.emit(card)
 
 
 ## Establece el elemento de la baraja actual

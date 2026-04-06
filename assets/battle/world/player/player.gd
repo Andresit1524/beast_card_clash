@@ -125,27 +125,26 @@ func play_card(card: Card = null) -> Card:
 	# Si no hay carta, elige al azar
 	if not card: card = deck.pick_random()
 
-	# Busca y elimina la carta
-	if card in deck: deck.erase(card)
+	# Si la carta está en el mazo, la procesamos
+	if card in deck:
+		deck.erase(card)
 
-	# Añade una nueva carta al azar
-	var new_card_element := GameConstants.Elements.NONE
-	while not new_card_element:
-		new_card_element = GameConstants.Elements.values().pick_random()
-	var new_card_value := randi_range(1, 10)
-	var new_card = card_scene.instantiate()
-	new_card.element = new_card_element
-	new_card.value = new_card_value
-	deck.append(new_card)
-	print(
-		"[Player] Nueva carta añadida: %s-%s"
-		% [Utilities.get_enum_name(new_card.element, GameConstants.Elements), new_card.value]
-	)
+		# Añade una nueva carta al azar para reponer
+		var new_card_element := GameConstants.Elements.NONE
+		while not new_card_element:
+			new_card_element = GameConstants.Elements.values().pick_random()
+
+		var new_card = card_scene.instantiate()
+		new_card.element = new_card_element
+		new_card.value = randi_range(1, 10)
+
+		deck.append(new_card)
+		print(
+			"[Player] Nueva carta añadida: %s-%s"
+			% [Utilities.get_enum_name(new_card.element, GameConstants.Elements), new_card.value]
+		)
 
 	_update_deck_if_needed()
-
-	# Muere si no hay más cartas
-	if not deck: game_over.emit(self)
 	return card
 
 
@@ -161,7 +160,7 @@ func _update_deck_if_needed() -> void:
 
 
 ## Aplica daño al jugador
-func apply_damage(damage: int) -> void:
+func apply_damage(damage: int = 1) -> void:
 	print("[Player] Daño aplicado: %s - %s" % [health, damage])
 	health -= damage
 

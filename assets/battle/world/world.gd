@@ -5,23 +5,27 @@ class_name BattleWorld extends Node3D
 signal dice_thrown(number: int)
 signal rock_selected(rock: Rock)
 signal players_ready()
-signal players_updated(new_players: Array[Player])
 signal _rocks_ready()
 
 
+## Nodo del dado
 @export var dice: Dice
+## Nodo que contiene a las rocas
 @export var rocks: Rocks
+## Nodo que contiene a los jugadores
 @export var players: Players
+## Datos de batalla
+@export var battle_data: BattleData
 
 
-var player: Player
-var players_list: Array[Player] = []
+# var player: Player
+# var players_list: Array[Player] = []
 var rocks_list: Array[Rock] = []
 
 
 func _ready() -> void:
 	_set_rocks()
-	players.players_updated.connect(func(new_players): players_updated.emit(new_players))
+	players.players_game_over.connect(battle_data.queue_game_over)
 
 
 #region Funciones del dado
@@ -96,22 +100,21 @@ func _on_rock_selected(selected_rock: Rock) -> void:
 #region Funciones de los jugadores
 
 
-## Establece a los jugadores [br]
-## Este método se basa en que los jugadores se definen desde afuera
+## Establece a los jugadores, definidos desde afuera
 func set_players(new_players: Array[Player]) -> void:
-	players_list = new_players
-	players.add_players(players_list)
+	battle_data.players = new_players
+	players.add_players(new_players)
 
 	# Posiciona a los jugadores en rocas igualmente espaciadas
 	await _rocks_ready
-	for i in range(players_list.size()):
-		var current_player := players_list[i]
+	for i in range(battle_data.get_players_count()):
+		var current_player := battle_data.players[i]
 
 		# Usamos una referencia aparte para el jugador humano
-		if not current_player.is_bot: player = current_player
+		if not current_player.is_bot: battle_data.player = current_player
 
 		# Calculamos la posición y ubicamos
-		var position_idx := int((float(i) / players_list.size()) * rocks_list.size())
+		var position_idx := int((float(i) / battle_data.players.size()) * rocks_list.size())
 		current_player.move_to(rocks_list[position_idx].position, position_idx)
 
 		print("[World] %s en índice %s" % [current_player.player_name, position_idx])

@@ -12,4 +12,4 @@ func start() -> void:
 	manager.setup_world()
 
 	# Delega el turno al jugador que corresponda
-	to_state.emit(BattleLoop if manager.current_turn.is_bot else BattleTurn)
+	to_state.emit(BattleLoop if battle_data.current_turn.is_bot else BattleTurn)
