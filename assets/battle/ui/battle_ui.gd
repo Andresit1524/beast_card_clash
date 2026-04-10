@@ -2,16 +2,21 @@
 class_name BattleUI extends Node
 
 
+## Emitida cuando se selecciona una carta de la mano del jugador
 signal card_selected(card: Card)
 
 
-## Nodo que almacena las cartas
+## Datos de la batalla
+@export var battle_data: BattleData
+
+
+## Mano de las cartas
 @onready var hand: Hand = %Hand
 ## Panel del jugador
 @onready var player_panel: PlayerPanel = %PlayerPanel
-## Nodo que contiene los paneles de los bots
+## Paneles de los bots
 @onready var bots_panels: VBoxContainer = %BotsPanels
-## Nodo de la interfaz de fin de juego
+## Interfaz de fin de juego
 @onready var end_ui: EndUI = %EndUI
 
 
@@ -93,6 +98,9 @@ func _prune_bots_panels(bot_count: int) -> void:
 ## Activa o desactiva la pantalla de final de juego
 func set_end_ui(set_visible: bool) -> void:
 	end_ui.ui_visible = set_visible
+
+	# Actualiza el podium
+	if set_visible: end_ui.set_podium(battle_data.ranking)
 
 
 #endregion

@@ -21,13 +21,13 @@ var player: Player
 var players: Array[Player]
 
 ## Ranking del juego en formato puesto: jugadores
-var ranking: Dictionary[int, Array] = {}
+var ranking: Array[Array]
 
 
 #endregion
 
 
-#region Variables actuales (current)
+#region Variables de estado actual
 
 
 ## Valor actual del dado
@@ -38,12 +38,8 @@ var current_turn: Player:
 	set(value):
 		current_turn = value
 		_set_next_turn()
-
 ## Jugador con el siguiente turno
 var next_turn: Player
-
-## Ranking actual de los jugadores
-var current_rank: int = MAX_PLAYERS
 
 ## Lista de jugadores que han perdido en espera de ser añadidos al ranking
 var queued_ranked_players: Array[Player]
@@ -52,7 +48,7 @@ var queued_ranked_players: Array[Player]
 #endregion
 
 
-#region Funciones
+#region Funciones de la lista de jugador
 
 
 ## Añade un jugador
@@ -70,6 +66,12 @@ func get_players_count() -> int:
 func shuffle_players() -> void:
 	players.shuffle()
 	current_turn = players[0]
+
+
+#endregion
+
+
+#region Funciones para decidir el siguiente turno
 
 
 ## Establece el siguiente turno automáticamente cuando se establece el actual
@@ -96,6 +98,12 @@ func switch_next_turn() -> void:
 	current_turn = next_turn
 
 
+#endregion
+
+
+#region Funciones de fin de juego
+
+
 ## Añade un jugador a la lista de espera para ser añadido al ranking
 func queue_game_over(_player: Player) -> void:
 	queued_ranked_players.append(_player)
@@ -111,29 +119,31 @@ func apply_game_over() -> void:
 	)
 
 	# Añade a los jugadores al ranking y los quita de la lista de espera
-	ranking[current_rank] = queued_ranked_players.duplicate()
+	var snapshot: Array[PlayerData] = []
+	for _player in queued_ranked_players:
+		snapshot.append(PlayerData.new(_player.player_name, _player.team))
+
+	ranking.push_front(snapshot)
 	players = players.filter(func(p): return p not in queued_ranked_players)
 	# Elimina ahora si a los jugadores
 	for _player in queued_ranked_players:
 		_player.dissapear()
 	queued_ranked_players.clear()
 
-	# Sube el ranking
-	current_rank -= 1
-
 	# Actualizamos el puntero al siguiente turno porque la lista de jugadores cambió
 	_set_next_turn()
 
-	# Los jugadores restantes quedan en el primer si ya llegamos a él
-	if current_rank != 1: return
+	# Si solo queda un jugador (el ganador), lo añadimos al ranking en el puesto 1
+	if players.size() == 1:
+		queued_ranked_players = players.duplicate()
+		apply_game_over()
+		return
 
-	queued_ranked_players = players.duplicate()
-	apply_game_over()
-
-	print(
-		"[BattleData] Fin de juego. Ganadores: %s"
-		% [ranking[1].map(func(p: Player): return p.player_name)]
-	)
+	if players.is_empty():
+		print(
+			"[BattleData] Fin de juego. Ganadores: %s"
+			% [ranking[0].map(func(p): return p.name)]
+		)
 
 
 ## Indica si perdimos el juego
@@ -142,3 +152,18 @@ func we_lose():
 
 
 #endregion
+
+
+class PlayerData:
+	var name: String
+	var team: GameConstants.Teams
+
+	func _init(new_name: String, new_team: GameConstants.Teams) -> void:
+		name = new_name
+		team = new_team
+
+	func _to_string() -> String:
+		return (
+			"[Nombre: %s, Equipo: %s]"
+			% [name, Utilities.get_enum_name(team, GameConstants.Teams)]
+		)

@@ -13,6 +13,7 @@
 [ext_resource type="LabelSettings" uid="uid://ctvu5dp4p0kjm" path="res://assets/ui/themes/title_theme.tres" id="7_sdhuf"]
 [ext_resource type="PackedScene" uid="uid://dleubuyqowf33" path="res://assets/battle/ui/podium_panel.tscn" id="8_w7fa3"]
 [ext_resource type="Script" uid="uid://clvjxwv8w7kt0" path="res://assets/battle/states/start.gd" id="10_5m5wa"]
+[ext_resource type="Resource" uid="uid://c4gqyhuufijo" path="res://assets/teams/teams_list.tres" id="10_kt8ap"]
 [ext_resource type="Script" uid="uid://bd5jv2qpva2t0" path="res://assets/battle/states/turn.gd" id="12_45g41"]
 [ext_resource type="Script" uid="uid://myr5bayqdfo0" path="res://assets/battle/states/loop.gd" id="13_6pcvk"]
 [ext_resource type="Script" uid="uid://bgoqckx2cr8mi" path="res://assets/battle/states/referee.gd" id="14_kt8ap"]
@@ -45,8 +46,9 @@ metadata/_edit_lock_ = true
 
 [node name="UILayer" type="CanvasLayer" parent="." unique_id=651321992]
 
-[node name="BattleUI" type="Node" parent="UILayer" unique_id=791419313]
+[node name="BattleUI" type="Node" parent="UILayer" unique_id=791419313 node_paths=PackedStringArray("battle_data")]
 script = ExtResource("1_tlmnd")
+battle_data = NodePath("../../BattleData")
 
 [node name="HandPos" type="Control" parent="UILayer/BattleUI" unique_id=534952336]
 layout_mode = 3
@@ -122,6 +124,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("5_thu85")
 script = ExtResource("6_ey58u")
+podium_panel_scene = ExtResource("8_w7fa3")
+teams_list = ExtResource("10_kt8ap")
 
 [node name="BlurRect" type="ColorRect" parent="UILayer/BattleUI/EndUI" unique_id=102907938]
 unique_name_in_owner = true
@@ -172,6 +176,7 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 
 [node name="Podium" type="VBoxContainer" parent="UILayer/BattleUI/EndUI/EndPanel/MarginContainer/Contents" unique_id=855680482]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="PodiumPanel" parent="UILayer/BattleUI/EndUI/EndPanel/MarginContainer/Contents/Podium" unique_id=1696558738 instance=ExtResource("8_w7fa3")]
