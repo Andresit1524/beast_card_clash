@@ -1,6 +1,7 @@
 # Abril de 2026
 
 ## Semana del 06 de abril al 12 de abril
+- [10 abril 2026] Conexión con la interfaz de fin de batalla, con colores para el ranking
 - [06 abril 2026] Hotfix en el manejo de la lógica de fin de juego (Game Over)
 - [06 abril 2026] Corrección de "cartas fantasma" y gestión de jugadores eliminados
 - [06 abril 2026] Ajustes integrales en el gestor de batalla y estados del juego

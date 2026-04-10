@@ -66,10 +66,25 @@ func set_podium(ranking: Array[Array]):
 			var new_podium_panel: PodiumPanel = podium_panel_scene.instantiate()
 			podium.add_child(new_podium_panel)
 
+			# Datos
 			new_podium_panel.position_label.text = str(i + 1)
 			new_podium_panel.team.texture = teams_list.get_team(player.team)
 			new_podium_panel.name_label.text = player.name
 			new_podium_panel.points.text = str(0)
+
+			# Aspecto visual
+			new_podium_panel.color = get_rank_color(i + 1)
+
+
+## Selecciona un color de acuerdo al ranking
+func get_rank_color(rank: int) -> Color:
+	const COLORS := [
+		Color.GOLD,
+		Color.SILVER,
+		Color.PERU,
+	]
+
+	return (COLORS[rank - 1] if rank <= COLORS.size() else Color.DARK_SLATE_GRAY) * 0.7
 
 
 ## Se sale de la batalla
