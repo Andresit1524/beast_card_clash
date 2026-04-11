@@ -3,6 +3,16 @@
 class_name BattleReferee extends BattleState
 
 
+## Matriz de fortalezas. Indica que elementos derrota el elemento dado
+const WINNERS_MATRIX: Dictionary[GameConstants.Elements, Array] = {
+	GameConstants.Elements.AIR: [GameConstants.Elements.EARTH, GameConstants.Elements.WATER],
+	GameConstants.Elements.EARTH: [GameConstants.Elements.ENERGY, GameConstants.Elements.FIRE],
+	GameConstants.Elements.ENERGY: [GameConstants.Elements.AIR, GameConstants.Elements.WATER],
+	GameConstants.Elements.FIRE: [GameConstants.Elements.AIR, GameConstants.Elements.ENERGY],
+	GameConstants.Elements.WATER: [GameConstants.Elements.EARTH, GameConstants.Elements.FIRE],
+}
+
+
 func start() -> void:
 	# Espera un tiempo
 	await get_tree().create_timer(battle_data.WAIT_TIME).timeout
@@ -53,51 +63,13 @@ func _compare_players(player1: Player, player2: Player) -> int:
 	# Elementos iguales: gana el mayor número
 	if player1.current_element == player2.current_element:
 		match player1.current_value:
-			var _p when player1.current_value > player2.current_value: return 1
-			var _p when player1.current_value < player2.current_value: return -1
+			var value when value > player2.current_value: return 1
+			var value when value < player2.current_value: return -1
 			_: return 0
 
 	# Elementos diferentes: se combate siguendo las reglas en "res://.docs/ganadores entre elementos.png"
-	match player1.current_element:
-		GameConstants.Elements.AIR:
-			match player2.current_element:
-				GameConstants.Elements.EARTH: return 1
-				GameConstants.Elements.ENERGY: return -1
-				GameConstants.Elements.FIRE: return -1
-				GameConstants.Elements.WATER: return 1
+	if player2.current_element in WINNERS_MATRIX[player1.current_element]: return 1
+	if player1.current_element in WINNERS_MATRIX[player2.current_element]: return -1
 
-		GameConstants.Elements.EARTH:
-			match player2.current_element:
-				GameConstants.Elements.AIR: return -1
-				GameConstants.Elements.ENERGY: return 1
-				GameConstants.Elements.FIRE: return 1
-				GameConstants.Elements.WATER: return -1
-
-		GameConstants.Elements.ENERGY:
-			match player2.current_element:
-				GameConstants.Elements.AIR: return 1
-				GameConstants.Elements.EARTH: return -1
-				GameConstants.Elements.FIRE: return -1
-				GameConstants.Elements.WATER: return 1
-
-		GameConstants.Elements.FIRE:
-			match player2.current_element:
-				GameConstants.Elements.AIR: return 1
-				GameConstants.Elements.EARTH: return -1
-				GameConstants.Elements.ENERGY: return 1
-				GameConstants.Elements.WATER: return -1
-
-		GameConstants.Elements.WATER:
-			match player2.current_element:
-				GameConstants.Elements.AIR: return -1
-				GameConstants.Elements.EARTH: return 1
-				GameConstants.Elements.ENERGY: return -1
-				GameConstants.Elements.FIRE: return 1
-
-	# Nada funciona: empate
-	# ! No deberíamos llegar aquí btw
-	push_warning(
-		"[BattleReferee] Enfrentamiento entre %s y %s no definible"
-		% [player1.player_name, player2.player_name]
-	)
+	# En caso de que no se cumpla nada
 	return 0
