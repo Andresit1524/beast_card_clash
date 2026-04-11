@@ -1,6 +1,8 @@
 # Abril de 2026
 
 ## Semana del 06 de abril al 12 de abril
+- [11 abril 2026] Mejoras en el cálculo de enfrentamientos entre elementos
+- [11 abril 2026] Adición del sprite del oso y de GEMINI.md para uso de IA
 - [10 abril 2026] Conexión con la interfaz de fin de batalla, con colores para el ranking
 - [06 abril 2026] Hotfix en el manejo de la lógica de fin de juego (Game Over)
 - [06 abril 2026] Corrección de "cartas fantasma" y gestión de jugadores eliminados

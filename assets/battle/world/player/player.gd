@@ -50,7 +50,7 @@ const NAMES := [
 
 # Posición y velocidad
 const Z_POSITION := 0.3
-const MOVE_TIME := 1
+const MOVE_TIME := 1.0
 
 
 ## Mano del jugador
