@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bdod61o7b67j1"]
 
-[ext_resource type="PackedScene" uid="uid://c2bre6cen67xc" path="res://assets/models/characters.blend" id="1_7yiwo"]
+[ext_resource type="PackedScene" uid="uid://c2bre6cen67xc" path="res://to_delete/characters/models/characters.blend" id="1_7yiwo"]
 
 [node name="3DTests" type="Node3D" unique_id=1581092721]
 
@@ -8,5 +8,5 @@
 transform = Transform3D(1, 0, 0, 0, 0.9652267, 0.26141423, 0, -0.26141423, 0.9652267, 2.3841858e-07, 1.5204132, 1.7310495)
 fov = 86.45696
 
-[node name="characters" parent="." unique_id=681502369 instance=ExtResource("1_7yiwo")]
+[node name="characters" parent="." unique_id=1542075082 instance=ExtResource("1_7yiwo")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)

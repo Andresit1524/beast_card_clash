@@ -1,6 +1,8 @@
 # Abril de 2026
 
 ## Semana del 20 al 26 de abril
+- [24 abril 2026] Organización de licencias y tests
+- [24 abril 2026] Eliminacion de los modelos viejos
 - [24 abril 2026] Nueva animación para el oso
 
 ## Semana del 06 al 12 de abril
