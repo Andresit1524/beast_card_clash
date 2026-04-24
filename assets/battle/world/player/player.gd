@@ -59,7 +59,7 @@ const MOVE_TIME := 1.0
 @export var card_scene: PackedScene
 
 
-@onready var sprite: Sprite3D = $Sprite
+@onready var sprite: AnimatedSprite3D = $AnimatedSprite
 
 
 # Datos del jugador

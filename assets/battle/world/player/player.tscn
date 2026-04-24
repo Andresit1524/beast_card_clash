@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cv7ew2p1h8rx7" path="res://assets/battle/world/player/player.gd" id="1_bdst2"]
 [ext_resource type="PackedScene" uid="uid://dogb8dy8s5bsc" path="res://assets/cards/card.tscn" id="2_msjm4"]
-[ext_resource type="Texture2D" uid="uid://crp508ghmx67g" path="res://assets/battle/world/player/oso.png" id="3_3uphs"]
+[ext_resource type="SpriteFrames" uid="uid://c3yne7po44lpx" path="res://assets/battle/world/player/sprites/spriteframes.tres" id="3_3uphs"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7mtsh"]
 size = Vector3(1.3701172, 1.4610596, 0.39624023)
@@ -11,11 +11,15 @@ size = Vector3(1.3701172, 1.4610596, 0.39624023)
 script = ExtResource("1_bdst2")
 card_scene = ExtResource("2_msjm4")
 
-[node name="Sprite" type="Sprite3D" parent="." unique_id=936842565]
+[node name="AnimatedSprite" type="AnimatedSprite3D" parent="." unique_id=569125069]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-pixel_size = 0.004
+pixel_size = 0.002
 billboard = 2
-texture = ExtResource("3_3uphs")
+double_sided = false
+sprite_frames = ExtResource("3_3uphs")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.08394104
 
 [node name="CollisionShape" type="CollisionShape3D" parent="." unique_id=1031150480]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7770365, 0)
