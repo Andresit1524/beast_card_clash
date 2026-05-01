@@ -11,6 +11,7 @@ extends Control
 @onready var line_edit_node: LineEdit = %LineEdit
 ## Botón de enviar y jugar
 @onready var play_button: Button = %PlayButton
+@onready var play_text := play_button.text
 
 
 var selected_team: int = -1
@@ -38,6 +39,7 @@ func _set_team(pressed_button: Button):
 
 	# Oscurece el boton presionado y resetea los demás
 	_highlight_buttons()
+	play_button.text = play_text
 
 
 ## Actualiza los datos y pasa a jugar cuando se presiona el botón de jugar
@@ -51,7 +53,7 @@ func _submit_and_play():
 	# Equipo vacío
 	if selected_team == -1:
 		push_warning("[TeamSelector] Equipo vacío")
-		play_button.text = "¡Equipo vacío!"
+		play_button.text = "¡Selecciona un equipo!"
 		_highlight_buttons(true)
 		return
 
@@ -68,7 +70,15 @@ func _submit_and_play():
 func _highlight_buttons(warn := false) -> void:
 	for button: Button in teams_button_group.get_buttons():
 		if warn:
-			button.modulate = Color.ORANGE
+			button.modulate = Color.FIREBRICK
 			continue
 
 		button.modulate = Color.DIM_GRAY if button.button_pressed else Color.WHITE
+
+	if not warn: return
+
+	# Deshace el color rojo de la advertencia
+	const FADE_TIME := 0.5
+	for button: Button in teams_button_group.get_buttons():
+		var tween := create_tween().set_trans(Tween.TRANS_SINE)
+		tween.tween_property(button, "modulate", Color.WHITE, FADE_TIME)

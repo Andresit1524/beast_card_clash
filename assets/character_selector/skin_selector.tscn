@@ -55,10 +55,11 @@ offset_right = 48.0
 offset_bottom = 48.0
 
 [node name="TeamButton" type="Button" parent="UI/UI" unique_id=127917071]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 95.0
 offset_top = 100.0
-offset_right = 268.0
+offset_right = 263.0
 offset_bottom = 324.0
 theme_override_colors/font_color = Color(0.6901961, 0.7411765, 0.54509807, 1)
 text = "Selecciona tu equipo"
