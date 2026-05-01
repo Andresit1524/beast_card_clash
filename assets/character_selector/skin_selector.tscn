@@ -4,7 +4,6 @@
 [ext_resource type="Theme" uid="uid://djsw6wrf4tns" path="res://assets/ui/themes/main_theme.tres" id="2_ii6tb"]
 [ext_resource type="PackedScene" uid="uid://k0ve14ptvtnb" path="res://assets/ui/components/back_button.tscn" id="3_tr4br"]
 [ext_resource type="Texture2D" uid="uid://ck83qwbrce022" path="res://assets/teams/sprites/character.png" id="4_trm87"]
-[ext_resource type="LabelSettings" uid="uid://ctvu5dp4p0kjm" path="res://assets/ui/themes/title_theme.tres" id="5_pndue"]
 [ext_resource type="Texture2D" uid="uid://crp508ghmx67g" path="res://assets/player/oso.png" id="6_secjd"]
 [ext_resource type="FontFile" uid="uid://7afj2g1cbx0x" path="res://assets/fonts/delius.ttf" id="7_trm87"]
 [ext_resource type="Script" uid="uid://bne6jcg4h2cuj" path="res://assets/character_selector/character.gd" id="8_g4vix"]
@@ -55,30 +54,19 @@ offset_top = 8.0
 offset_right = 48.0
 offset_bottom = 48.0
 
-[node name="TeamSelectorButton" type="VBoxContainer" parent="UI/UI" unique_id=182014248]
-custom_minimum_size = Vector2(150, 150)
+[node name="TeamButton" type="Button" parent="UI/UI" unique_id=127917071]
 layout_mode = 0
-offset_left = 64.0
-offset_top = 64.0
-offset_right = 214.0
-offset_bottom = 299.0
-alignment = 1
-
-[node name="NextButton" type="TextureButton" parent="UI/UI/TeamSelectorButton" unique_id=1998010532]
-custom_minimum_size = Vector2(150, 150)
-layout_mode = 2
-texture_normal = ExtResource("4_trm87")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="Text" type="Label" parent="UI/UI/TeamSelectorButton" unique_id=1860085470]
-custom_minimum_size = Vector2(150, 0)
-layout_mode = 2
+offset_left = 95.0
+offset_top = 100.0
+offset_right = 268.0
+offset_bottom = 324.0
+theme_override_colors/font_color = Color(0.6901961, 0.7411765, 0.54509807, 1)
 text = "Selecciona tu equipo"
-label_settings = ExtResource("5_pndue")
-horizontal_alignment = 1
-vertical_alignment = 1
+icon = ExtResource("4_trm87")
 autowrap_mode = 2
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
 
 [node name="Selector" type="Node3D" parent="." unique_id=1144916870]
 
@@ -175,4 +163,4 @@ transform = Transform3D(0.7071068, -0.4469409, 0.5479451, 0, 0.7749114, 0.632069
 current = true
 fov = 38.5
 
-[connection signal="pressed" from="UI/UI/TeamSelectorButton/NextButton" to="." method="_on_next_button_pressed"]
+[connection signal="pressed" from="UI/UI/TeamButton" to="." method="_on_team_button_pressed"]

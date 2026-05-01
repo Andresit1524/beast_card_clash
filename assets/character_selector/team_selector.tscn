@@ -4,7 +4,6 @@
 [ext_resource type="Script" uid="uid://dh0xc58qusk8q" path="res://assets/character_selector/team_selector.gd" id="2_2c77f"]
 [ext_resource type="ButtonGroup" uid="uid://dj2wtx2pk26j1" path="res://assets/character_selector/resources/teams_buttons_group.tres" id="3_lcpbu"]
 [ext_resource type="PackedScene" uid="uid://jooi3svq5ikl" path="res://assets/ui/components/upper_bar.tscn" id="4_sp5k0"]
-[ext_resource type="Texture2D" uid="uid://c2d15cfelhaxm" path="res://assets/character_selector/resources/bear.png" id="5_xysd1"]
 [ext_resource type="LabelSettings" uid="uid://ctvu5dp4p0kjm" path="res://assets/ui/themes/title_theme.tres" id="6_sesa0"]
 [ext_resource type="Texture2D" uid="uid://ck83qwbrce022" path="res://assets/teams/sprites/character.png" id="7_vchsu"]
 [ext_resource type="Texture2D" uid="uid://dd6mwgq24mgin" path="res://assets/teams/sprites/acetiles.png" id="8_1vm8b"]
@@ -15,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://bqg8nme86squs" path="res://assets/teams/sprites/pluma_dorada.png" id="13_ckhug"]
 [ext_resource type="Texture2D" uid="uid://df1jydvq6kuhy" path="res://assets/teams/sprites/real_pincel.png" id="14_y3p1b"]
 [ext_resource type="Texture2D" uid="uid://dvfti85fufh7x" path="res://assets/teams/sprites/zootecnicos.png" id="15_mhvx6"]
+[ext_resource type="Texture2D" uid="uid://dvexsyty0k16w" path="res://assets/player/sprites/placeholder/andean.png" id="16_2c77f"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ex3ic"]
 font_color = Color(0, 0.2509804, 0.1882353, 1)
@@ -33,16 +33,25 @@ keycode = 4194309
 [sub_resource type="Shortcut" id="Shortcut_6wp27"]
 events = [SubResource("InputEventKey_1ocy6")]
 
-[node name="TeamSelector" type="Control" unique_id=71131889 node_paths=PackedStringArray("line_edit_node", "submit_button")]
+[node name="TeamSelector" type="Control" unique_id=71131889 node_paths=PackedStringArray("teams")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1152.0
 offset_bottom = 648.0
 theme = ExtResource("1_sxn6k")
 script = ExtResource("2_2c77f")
+teams = {
+NodePath("Contents/TeamSelector/TeamButtonsGrid/NoTeam/Button"): 0,
+NodePath("Contents/TeamSelector/TeamButtonsGrid/Acetiles/Button"): 1,
+NodePath("Contents/TeamSelector/TeamButtonsGrid/ADN/Button"): 2,
+NodePath("Contents/TeamSelector/TeamButtonsGrid/IngeniososElementales/Button"): 3,
+NodePath("Contents/TeamSelector/TeamButtonsGrid/PhotoAgros/Button"): 4,
+NodePath("Contents/TeamSelector/TeamButtonsGrid/RCPTeam/Button"): 6,
+NodePath("Contents/TeamSelector/TeamButtonsGrid/PlumaDorada/Button"): 5,
+NodePath("Contents/TeamSelector/TeamButtonsGrid/RealPincel/Button"): 7,
+NodePath("Contents/TeamSelector/TeamButtonsGrid/Zootecnicos/Button"): 9
+}
 teams_button_group = ExtResource("3_lcpbu")
-line_edit_node = NodePath("Contents/Footer/NameEdit/LineEdit")
-submit_button = NodePath("Contents/Footer/PlayButton")
 
 [node name="Background" type="ColorRect" parent="." unique_id=1156223875]
 layout_mode = 1
@@ -56,30 +65,20 @@ color = Color(0.30980393, 0.46666667, 0.1764706, 1)
 [node name="UpperBar" parent="." unique_id=989018212 instance=ExtResource("4_sp5k0")]
 layout_mode = 1
 
-[node name="SkinSelectorButton" type="VBoxContainer" parent="." unique_id=1283453137]
-custom_minimum_size = Vector2(150, 150)
+[node name="BackButton" type="Button" parent="." unique_id=2046866639]
 layout_mode = 0
-offset_left = 64.0
-offset_top = 64.0
-offset_right = 214.0
-offset_bottom = 273.0
-alignment = 1
-
-[node name="BackButton" type="TextureButton" parent="SkinSelectorButton" unique_id=520661658]
-custom_minimum_size = Vector2(150, 150)
-layout_mode = 2
-texture_normal = ExtResource("5_xysd1")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="Text" type="Label" parent="SkinSelectorButton" unique_id=1366672838]
-custom_minimum_size = Vector2(150, 0)
-layout_mode = 2
-text = "Volver a selector de aspectos"
-label_settings = ExtResource("6_sesa0")
-horizontal_alignment = 1
-vertical_alignment = 1
+offset_left = 95.0
+offset_top = 100.0
+offset_right = 226.0
+offset_bottom = 355.0
+theme_override_colors/font_color = Color(0.8117647, 0.7882353, 0.6156863, 1)
+text = "Volver al selector de personajes"
+icon = ExtResource("16_2c77f")
+flat = true
 autowrap_mode = 2
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
 
 [node name="Contents" type="VBoxContainer" parent="." unique_id=1380023105]
 layout_mode = 0
@@ -333,6 +332,7 @@ vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="LineEdit" type="LineEdit" parent="Contents/Footer/NameEdit" unique_id=1909608743]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("1_sxn6k")
@@ -344,6 +344,7 @@ custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
 
 [node name="PlayButton" type="Button" parent="Contents/Footer" unique_id=246091984]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("1_sxn6k")
@@ -353,5 +354,5 @@ shortcut = SubResource("Shortcut_6wp27")
 text = "Jugar"
 autowrap_mode = 2
 
-[connection signal="pressed" from="SkinSelectorButton/BackButton" to="." method="_on_back_button_pressed"]
-[connection signal="pressed" from="Contents/Footer/PlayButton" to="." method="submit_and_play"]
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="Contents/Footer/PlayButton" to="." method="_submit_and_play"]

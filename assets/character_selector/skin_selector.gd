@@ -26,7 +26,7 @@ func _change_skin(skin: Texture2D) -> void:
 
 
 ## Actualiza los datos y pasa al selector de equipos cuando se presiona el botón de siguiente
-func _on_next_button_pressed() -> void:
+func _on_team_button_pressed() -> void:
 	push_warning("[SkinSelector] Por ahora solo se trabajan las skins de oso")
 
 	PlayerStats.species = Constants.Species.BEAR

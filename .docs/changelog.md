@@ -1,6 +1,7 @@
 # Abril de 2026
 
 ## Semana del 27 de abril al 3 de mayo
+- [01 mayo 2026] Mejoras en la interfaz y lógica de los selectores
 - [01 mayo 2026] Corrección en el selector de skins para usar los nuevos sprites
 - [01 mayo 2026] Cambio en el ícono del juego
 - [01 mayo 2026] GameConstants ahora es Constants, sin autoload

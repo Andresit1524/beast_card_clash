@@ -1,20 +1,24 @@
 extends Control
 
 
+## Lista de botones asociados al equipo que representan
+@export var teams: Dictionary[TextureButton, Constants.Teams]
+## Grupo de botones de los equipos
 @export var teams_button_group: ButtonGroup
-@export var line_edit_node: LineEdit
-@export var submit_button: Button
 
 
-var current_team: int = -1
+## Campo para escribir el nombre del jugador
+@onready var line_edit_node: LineEdit = %LineEdit
+## Botón de enviar y jugar
+@onready var play_button: Button = %PlayButton
 
 
-# El grupo de botones tiene como finalidad para sus botones miembros:
-#
-# - Tener comportamiento de Radio Button (solo seleccionar uno a la vez)
-# - Centralizar las señales como ves abajo
+var selected_team: int = -1
+
+
 func _ready():
-	teams_button_group.pressed.connect(set_team)
+	# Conecta todos los botones de los equipos al selector
+	teams_button_group.pressed.connect(_set_team)
 
 
 ## Vuelve al selector de aspectos con el botón de volver
@@ -23,54 +27,48 @@ func _on_back_button_pressed() -> void:
 
 
 ## Establece el equipo del jugador dependiendo del botón pulsado en el selector de equipo
-func set_team(team_node: TextureButton):
+func _set_team(pressed_button: TextureButton):
+	print(
+		"[TeamSelector] Equipo elegido: %s"
+		% Utilities.get_enum_name(selected_team, Constants.Teams)
+	)
+
 	# VA-Games no es equipo elegible, ergo, no aparece. No lo añadas
-	match team_node.get_parent().name:
-		"NoTeam":
-			current_team = Constants.Teams.NO_TEAM
-		"Acetiles":
-			current_team = Constants.Teams.ACETILES
-		"ADN":
-			current_team = Constants.Teams.ADN
-		"IngeniososElementales":
-			current_team = Constants.Teams.INGENIOSOS_ELEMENTALES
-		"PhotoAgros":
-			current_team = Constants.Teams.PHOTO_AGROS
-		"PlumaDorada":
-			current_team = Constants.Teams.PLUMA_DORADA
-		"RCPTeam":
-			current_team = Constants.Teams.RPC_TEAM
-		"RealPincel":
-			current_team = Constants.Teams.REAL_PINCEL
-		"Zootecnicos":
-			current_team = Constants.Teams.ZOOTECNICOS
+	selected_team = teams[pressed_button]
 
 	# Oscurece el boton presionado y resetea los demás
-	for button in teams_button_group.get_buttons():
-		button.modulate = Color.DIM_GRAY if button.button_pressed else Color.WHITE
-
-	print_debug("Equipo elegido: ", current_team as Constants.Teams)
+	_highlight_buttons()
 
 
-## Actualiza los datos y pasa a jugar cuando se presiona el botón de jugar.[br]
-##
-## No pueden haber datos vacíos
-func submit_and_play():
+## Actualiza los datos y pasa a jugar cuando se presiona el botón de jugar
+func _submit_and_play():
+	# Nombre vacío
 	if not line_edit_node.text:
-		push_warning("Nombre vacío")
+		push_warning("[TeamSelector] Nombre vacío")
 		line_edit_node.placeholder_text = "¡Nombre vacío!"
 		return
 
-	if current_team == -1:
-		push_warning("Equipo vacío")
-		submit_button.text = "¡Equipo vacío!"
-		for button in teams_button_group.get_buttons():
-			button.modulate = Color(0.887, 0.359, 0.359)
-
+	# Equipo vacío
+	if selected_team == -1:
+		push_warning("[TeamSelector] Equipo vacío")
+		play_button.text = "¡Equipo vacío!"
+		_highlight_buttons(true)
 		return
 
-	PlayerStats.team = current_team as Constants.Teams
+	# Establece los datos del jugador y pasa a jugar
+	PlayerStats.team = selected_team as Constants.Teams
 	PlayerStats.player_name = line_edit_node.text
-
 	FlagsManager.set_flag("character_selected", true)
-	push_warning("No hay escena de juego")
+
+	push_warning("[TeamSelector] No hay escena de mapa. Pasando a batalla")
+	SceneManager.change_to_scene("battle")
+
+
+## Establece el color de los botones
+func _highlight_buttons(warn := false) -> void:
+	for button: TextureButton in teams_button_group.get_buttons():
+		if warn:
+			button.modulate = Color.ORANGE
+			continue
+
+		button.modulate = Color.DIM_GRAY if button.button_pressed else Color.WHITE
