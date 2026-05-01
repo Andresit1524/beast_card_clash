@@ -8,9 +8,9 @@
             "type": "godot",
             "request": "launch",
             "project": "${workspaceFolder}",
-            "debug_collisions": false,
-            "debug_paths": false,
-            "debug_navigation": false,
+            "debug_collisions": true,
+            "debug_paths": true,
+            "debug_navigation": true,
             "additional_options": ""
         }
     ]

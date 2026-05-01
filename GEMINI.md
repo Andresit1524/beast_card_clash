@@ -1,19 +1,18 @@
 # 🐾 Beast Card Clash - Guía del Agente Gemini
-
 Este archivo proporciona instrucciones y contexto crítico para trabajar en el proyecto **Beast Card Clash (BCC)**, un juego de cartas por turnos en Godot 4.6.
 
 ## 📌 Resumen del Proyecto
 BCC es un juego inspirado en Card Jitsu Fuego, con temática de fauna colombiana y ambientación en la Universidad Nacional de Colombia. Utiliza una estética 2.5D/3D.
 
-- **Motor:** Godot 4.6.1 (Stable)
+- **Motor:** Godot 4.6.1.stable.mono
 - **Lenguaje Principal:** GDScript (C# soportado)
 - **Arquitectura:** La recomendada por Godot (basado en herencia, organizado por cercania, convenciones de nombres oficiales)
 
 ## 🛠️ Comandos Clave (CLI)
 - **Ejecutar Proyecto:** `godot --path .` (Asumiendo que `godot` está en el PATH).
-- **Pruebas:** El proyecto usa `addons/` para utilidades, pero no se detectó un framework de tests (como GUT) instalado en el root. TODO: Verificar sistema de tests.
+- **Pruebas:** El proyecto usa `addons/` y `assets/utils/` para utilidades, sin un framework integrado para tests.
 - **Búsqueda:** Usa siempre `rg` (ripgrep) para buscar en el código.
-- **Scripts de Soporte:** Usa `py` para ejecutar herramientas en `.doc_maker/`.
+- **Scripts de Soporte:** Usa `py` para ejecutar herramientas en `.doc_maker/` en lugar de `python`.
 
 ## 📏 Convenciones de Desarrollo
 
@@ -22,7 +21,7 @@ BCC es un juego inspirado en Card Jitsu Fuego, con temática de fauna colombiana
 - **Documentación/Comentarios:** Deben estar en **Español**.
 - **Estilo de Código:** Sigue la convencion de GDScript o C# dependiendo del lenguaje:
     - `snake_case`: Variables, funciones, archivos (`.gd`, `.tscn`).
-    - `PascalCase`: Clases (`class_name`), Tipos, Nodos en la Escena.
+    - `PascalCase`: Clases (`class_name` y `class`) y tipos
     - `SCREAMING_SNAKE_CASE`: Constantes y Enums.
 - **Nodos:** Los nombres de los nodos en el árbol de escenas deben usar `PascalCase`.
 
@@ -42,10 +41,9 @@ BCC es un juego inspirado en Card Jitsu Fuego, con temática de fauna colombiana
 
 ## 🧩 Autoloads Críticos
 1. `SceneManager`: Cambio de escenas centralizado.
-2. `GameConstants`: Enums globales (`Elements`, `Teams`, `Species`) y colores.
-3. `PlayerStats`: Persistencia temporal de la sesión del jugador.
-4. `DialogueManager`: Manejo de diálogos (Plugin).
-5. `FlagsManager`: Gestión de estados de progreso.
+2. `PlayerStats`: Persistencia temporal de la sesión del jugador.
+3. `DialogueManager`: Manejo de diálogos (Plugin).
+4. `FlagsManager`: Gestión de estados de progreso.
 
 ## ⚠️ Consideraciones de Seguridad y Estilo
 - **Mimetismo:** Antes de implementar, revisa `assets/utils/utilities.gd` para usar funciones de ayuda existentes.
@@ -53,4 +51,5 @@ BCC es un juego inspirado en Card Jitsu Fuego, con temática de fauna colombiana
 - **Rutas:** Usa `uid://` preferiblemente para recursos de Godot 4 para evitar problemas con cambios de ruta.
 
 ---
+
 *Este archivo es una guía viva para el agente Gemini. Actualízalo si descubres nuevos patrones o herramientas.*
