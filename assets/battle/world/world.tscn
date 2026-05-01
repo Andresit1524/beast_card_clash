@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://cjn0h33vnse38" path="res://assets/battle/world/rocks/rocks.gd" id="3_a4mci"]
 [ext_resource type="PackedScene" uid="uid://bmk14l2nvouje" path="res://assets/battle/world/rocks/rock.tscn" id="4_6tady"]
 [ext_resource type="Script" uid="uid://c0qqh7c4jjylr" path="res://assets/battle/world/players.gd" id="5_un18w"]
-[ext_resource type="PackedScene" uid="uid://cmugargrwkit2" path="res://assets/battle/world/player/player.tscn" id="6_my12r"]
+[ext_resource type="PackedScene" uid="uid://cmugargrwkit2" path="res://assets/player/player.tscn" id="6_my12r"]
 
 [sub_resource type="Environment" id="Environment_hsiu5"]
 background_mode = 3

@@ -17,7 +17,7 @@
 [ext_resource type="Script" uid="uid://bd5jv2qpva2t0" path="res://assets/battle/states/turn.gd" id="12_45g41"]
 [ext_resource type="Script" uid="uid://myr5bayqdfo0" path="res://assets/battle/states/loop.gd" id="13_6pcvk"]
 [ext_resource type="Script" uid="uid://bgoqckx2cr8mi" path="res://assets/battle/states/referee.gd" id="14_kt8ap"]
-[ext_resource type="PackedScene" uid="uid://cmugargrwkit2" path="res://assets/battle/world/player/player.tscn" id="15_38ou4"]
+[ext_resource type="PackedScene" uid="uid://cmugargrwkit2" path="res://assets/player/player.tscn" id="15_38ou4"]
 [ext_resource type="Script" uid="uid://d2wigsqxwrtwp" path="res://assets/battle/states/end.gd" id="15_ykgus"]
 [ext_resource type="PackedScene" uid="uid://dtkmsnf1kc3di" path="res://assets/battle/world/world.tscn" id="16_aumkp"]
 [ext_resource type="Script" uid="uid://cqbraws606682" path="res://assets/battle/resources/battle_data.gd" id="20_6pcvk"]

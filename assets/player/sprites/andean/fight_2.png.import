@@ -2,21 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://e8tjge0x8fpr"
-path.s3tc="res://.godot/imported/spritesheet.png-6c33c0835f64647f7aa45e587adce8e4.s3tc.ctex"
+uid="uid://dloy2w2nvq3oi"
+path="res://.godot/imported/fight_2.png-cb99fc49e81bc26a063e54e8f041fe06.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/battle/world/player/sprites/spritesheet.png"
-dest_files=["res://.godot/imported/spritesheet.png-6c33c0835f64647f7aa45e587adce8e4.s3tc.ctex"]
+source_file="res://assets/player/sprites/andean/fight_2.png"
+dest_files=["res://.godot/imported/fight_2.png-cb99fc49e81bc26a063e54e8f041fe06.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
@@ -24,7 +23,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -38,4 +37,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1
