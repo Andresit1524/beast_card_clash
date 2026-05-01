@@ -33,27 +33,29 @@ rings = 0
 radius = 5.409
 height = 17.574
 
-[node name="SkinSelector" type="Node2D" unique_id=1551561580]
+[node name="SkinSelector" type="Node3D" unique_id=1340727131]
 script = ExtResource("1_cahfw")
 
-[node name="UI" type="Control" parent="." unique_id=821648702]
+[node name="UI" type="CanvasLayer" parent="." unique_id=1335998942]
+
+[node name="UI" type="Control" parent="UI" unique_id=821648702]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
+mouse_filter = 1
 theme = ExtResource("2_ii6tb")
 
-[node name="BackButton" parent="UI" unique_id=533340432 instance=ExtResource("3_tr4br")]
+[node name="BackButton" parent="UI/UI" unique_id=533340432 instance=ExtResource("3_tr4br")]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 8.0
 offset_right = 48.0
 offset_bottom = 48.0
 
-[node name="TeamSelectorButton" type="VBoxContainer" parent="UI" unique_id=182014248]
+[node name="TeamSelectorButton" type="VBoxContainer" parent="UI/UI" unique_id=182014248]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 0
 offset_left = 64.0
@@ -62,14 +64,14 @@ offset_right = 214.0
 offset_bottom = 299.0
 alignment = 1
 
-[node name="NextButton" type="TextureButton" parent="UI/TeamSelectorButton" unique_id=1998010532]
+[node name="NextButton" type="TextureButton" parent="UI/UI/TeamSelectorButton" unique_id=1998010532]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 texture_normal = ExtResource("4_trm87")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="Text" type="Label" parent="UI/TeamSelectorButton" unique_id=1860085470]
+[node name="Text" type="Label" parent="UI/UI/TeamSelectorButton" unique_id=1860085470]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 text = "Selecciona tu equipo"
@@ -173,4 +175,4 @@ transform = Transform3D(0.7071068, -0.4469409, 0.5479451, 0, 0.7749114, 0.632069
 current = true
 fov = 38.5
 
-[connection signal="pressed" from="UI/TeamSelectorButton/NextButton" to="." method="_on_next_button_pressed"]
+[connection signal="pressed" from="UI/UI/TeamSelectorButton/NextButton" to="." method="_on_next_button_pressed"]
