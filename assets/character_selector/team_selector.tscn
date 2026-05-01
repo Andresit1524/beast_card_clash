@@ -16,9 +16,6 @@
 [ext_resource type="Texture2D" uid="uid://dvfti85fufh7x" path="res://assets/teams/sprites/zootecnicos.png" id="15_mhvx6"]
 [ext_resource type="Texture2D" uid="uid://dvexsyty0k16w" path="res://assets/player/sprites/placeholder/andean.png" id="16_2c77f"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_ex3ic"]
-font_color = Color(0, 0.2509804, 0.1882353, 1)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pfi7o"]
 bg_color = Color(0.47058824, 0.7254902, 0.70980394, 1)
 corner_radius_top_left = 20
@@ -35,21 +32,23 @@ events = [SubResource("InputEventKey_1ocy6")]
 
 [node name="TeamSelector" type="Control" unique_id=71131889 node_paths=PackedStringArray("teams")]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 1152.0
-offset_bottom = 648.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("1_sxn6k")
 script = ExtResource("2_2c77f")
 teams = {
-NodePath("Contents/TeamSelector/TeamButtonsGrid/NoTeam/Button"): 0,
-NodePath("Contents/TeamSelector/TeamButtonsGrid/Acetiles/Button"): 1,
-NodePath("Contents/TeamSelector/TeamButtonsGrid/ADN/Button"): 2,
-NodePath("Contents/TeamSelector/TeamButtonsGrid/IngeniososElementales/Button"): 3,
-NodePath("Contents/TeamSelector/TeamButtonsGrid/PhotoAgros/Button"): 4,
-NodePath("Contents/TeamSelector/TeamButtonsGrid/RCPTeam/Button"): 6,
-NodePath("Contents/TeamSelector/TeamButtonsGrid/PlumaDorada/Button"): 5,
-NodePath("Contents/TeamSelector/TeamButtonsGrid/RealPincel/Button"): 7,
-NodePath("Contents/TeamSelector/TeamButtonsGrid/Zootecnicos/Button"): 9
+NodePath("Contents/TeamSelector/TeamButtonsGrid/NoTeam"): 0,
+NodePath("Contents/TeamSelector/TeamButtonsGrid/Acetiles"): 1,
+NodePath("Contents/TeamSelector/TeamButtonsGrid/ADN"): 2,
+NodePath("Contents/TeamSelector/TeamButtonsGrid/IngeniososElementales"): 3,
+NodePath("Contents/TeamSelector/TeamButtonsGrid/PhotoAgros"): 4,
+NodePath("Contents/TeamSelector/TeamButtonsGrid/RCPTeam"): 6,
+NodePath("Contents/TeamSelector/TeamButtonsGrid/PlumaDorada"): 5,
+NodePath("Contents/TeamSelector/TeamButtonsGrid/RealPincel"): 7,
+NodePath("Contents/TeamSelector/TeamButtonsGrid/Zootecnicos"): 9
 }
 teams_button_group = ExtResource("3_lcpbu")
 
@@ -64,6 +63,21 @@ color = Color(0.30980393, 0.46666667, 0.1764706, 1)
 
 [node name="UpperBar" parent="." unique_id=989018212 instance=ExtResource("4_sp5k0")]
 layout_mode = 1
+
+[node name="Title" type="Label" parent="UpperBar" unique_id=19991719]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+text = "Selecciona tu equipo"
+label_settings = ExtResource("6_sesa0")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="BackButton" type="Button" parent="." unique_id=2046866639]
 layout_mode = 0
@@ -81,240 +95,173 @@ vertical_icon_alignment = 0
 expand_icon = true
 
 [node name="Contents" type="VBoxContainer" parent="." unique_id=1380023105]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = 288.0
-offset_top = 56.0
-offset_right = 1054.0
-offset_bottom = 576.0
+offset_top = 100.0
+offset_right = -98.0
+offset_bottom = -72.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="TeamSelector" type="VBoxContainer" parent="Contents" unique_id=1227085585]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 5.0
-
-[node name="Title" type="Label" parent="Contents/TeamSelector" unique_id=19991719]
-custom_minimum_size = Vector2(0, 20)
-layout_mode = 2
-size_flags_vertical = 3
-text = "Selecciona tu equipo"
-label_settings = ExtResource("6_sesa0")
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 2
+size_flags_stretch_ratio = 3.0
 
 [node name="TeamButtonsGrid" type="GridContainer" parent="Contents/TeamSelector" unique_id=1607751789]
 layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
 columns = 5
 
-[node name="NoTeam" type="VBoxContainer" parent="Contents/TeamSelector/TeamButtonsGrid" unique_id=1886299935]
+[node name="NoTeam" type="Button" parent="Contents/TeamSelector/TeamButtonsGrid" unique_id=8467517]
+custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
-
-[node name="Button" type="TextureButton" parent="Contents/TeamSelector/TeamButtonsGrid/NoTeam" unique_id=1787561081]
-custom_minimum_size = Vector2(150, 100)
-layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6901961, 0.7411765, 0.54509807, 1)
 toggle_mode = true
 button_mask = 5
 button_group = ExtResource("3_lcpbu")
-texture_normal = ExtResource("7_vchsu")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="Name" type="Label" parent="Contents/TeamSelector/TeamButtonsGrid/NoTeam" unique_id=1846732237]
-custom_minimum_size = Vector2(150, 0)
-layout_mode = 2
 text = "Sin equipo"
-label_settings = SubResource("LabelSettings_ex3ic")
-horizontal_alignment = 1
-vertical_alignment = 1
+icon = ExtResource("7_vchsu")
 autowrap_mode = 2
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
 
-[node name="Acetiles" type="VBoxContainer" parent="Contents/TeamSelector/TeamButtonsGrid" unique_id=1060370436]
+[node name="Acetiles" type="Button" parent="Contents/TeamSelector/TeamButtonsGrid" unique_id=745776507]
+custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
-
-[node name="Button" type="TextureButton" parent="Contents/TeamSelector/TeamButtonsGrid/Acetiles" unique_id=508636803]
-custom_minimum_size = Vector2(150, 100)
-layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6901961, 0.7411765, 0.54509807, 1)
 toggle_mode = true
 button_mask = 5
 button_group = ExtResource("3_lcpbu")
-texture_normal = ExtResource("8_1vm8b")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="Name" type="Label" parent="Contents/TeamSelector/TeamButtonsGrid/Acetiles" unique_id=1471618893]
-custom_minimum_size = Vector2(150, 0)
-layout_mode = 2
 text = "Acetiles"
-label_settings = SubResource("LabelSettings_ex3ic")
-horizontal_alignment = 1
-vertical_alignment = 1
+icon = ExtResource("8_1vm8b")
 autowrap_mode = 2
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
 
-[node name="ADN" type="VBoxContainer" parent="Contents/TeamSelector/TeamButtonsGrid" unique_id=195151862]
+[node name="ADN" type="Button" parent="Contents/TeamSelector/TeamButtonsGrid" unique_id=682106809]
+custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
-
-[node name="Button" type="TextureButton" parent="Contents/TeamSelector/TeamButtonsGrid/ADN" unique_id=750253463]
-custom_minimum_size = Vector2(150, 100)
-layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6901961, 0.7411765, 0.54509807, 1)
 toggle_mode = true
 button_mask = 5
 button_group = ExtResource("3_lcpbu")
-texture_normal = ExtResource("9_5w2yb")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="Name" type="Label" parent="Contents/TeamSelector/TeamButtonsGrid/ADN" unique_id=717918887]
-custom_minimum_size = Vector2(150, 0)
-layout_mode = 2
 text = "ADN"
-label_settings = SubResource("LabelSettings_ex3ic")
-horizontal_alignment = 1
-vertical_alignment = 1
+icon = ExtResource("9_5w2yb")
 autowrap_mode = 2
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
 
-[node name="IngeniososElementales" type="VBoxContainer" parent="Contents/TeamSelector/TeamButtonsGrid" unique_id=600138494]
+[node name="IngeniososElementales" type="Button" parent="Contents/TeamSelector/TeamButtonsGrid" unique_id=1424460270]
+custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
-
-[node name="Button" type="TextureButton" parent="Contents/TeamSelector/TeamButtonsGrid/IngeniososElementales" unique_id=1124074075]
-custom_minimum_size = Vector2(150, 100)
-layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6901961, 0.7411765, 0.54509807, 1)
 toggle_mode = true
 button_mask = 5
 button_group = ExtResource("3_lcpbu")
-texture_normal = ExtResource("10_h5kec")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="Name" type="Label" parent="Contents/TeamSelector/TeamButtonsGrid/IngeniososElementales" unique_id=1703784713]
-custom_minimum_size = Vector2(150, 0)
-layout_mode = 2
 text = "Ingeniosos Elementales"
-label_settings = SubResource("LabelSettings_ex3ic")
-horizontal_alignment = 1
-vertical_alignment = 1
+icon = ExtResource("10_h5kec")
 autowrap_mode = 2
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
 
-[node name="PhotoAgros" type="VBoxContainer" parent="Contents/TeamSelector/TeamButtonsGrid" unique_id=2000832334]
+[node name="PhotoAgros" type="Button" parent="Contents/TeamSelector/TeamButtonsGrid" unique_id=596065008]
+custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
-
-[node name="Button" type="TextureButton" parent="Contents/TeamSelector/TeamButtonsGrid/PhotoAgros" unique_id=1912018343]
-custom_minimum_size = Vector2(150, 100)
-layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6901961, 0.7411765, 0.54509807, 1)
 toggle_mode = true
 button_mask = 5
 button_group = ExtResource("3_lcpbu")
-texture_normal = ExtResource("11_gj0y0")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="Name" type="Label" parent="Contents/TeamSelector/TeamButtonsGrid/PhotoAgros" unique_id=798398518]
-custom_minimum_size = Vector2(150, 0)
-layout_mode = 2
-text = "Photo-Agros"
-label_settings = SubResource("LabelSettings_ex3ic")
-horizontal_alignment = 1
-vertical_alignment = 1
+text = "PhotoAgros"
+icon = ExtResource("11_gj0y0")
 autowrap_mode = 2
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
 
-[node name="Space" type="Control" parent="Contents/TeamSelector/TeamButtonsGrid" unique_id=1372311289]
+[node name="Space" type="Control" parent="Contents/TeamSelector/TeamButtonsGrid" unique_id=1797641134]
+custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="RCPTeam" type="VBoxContainer" parent="Contents/TeamSelector/TeamButtonsGrid" unique_id=1964846199]
+[node name="RCPTeam" type="Button" parent="Contents/TeamSelector/TeamButtonsGrid" unique_id=1184212303]
+custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
-
-[node name="Button" type="TextureButton" parent="Contents/TeamSelector/TeamButtonsGrid/RCPTeam" unique_id=430369553]
-custom_minimum_size = Vector2(150, 100)
-layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6901961, 0.7411765, 0.54509807, 1)
 toggle_mode = true
 button_mask = 5
 button_group = ExtResource("3_lcpbu")
-texture_normal = ExtResource("12_pcjs0")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="Name" type="Label" parent="Contents/TeamSelector/TeamButtonsGrid/RCPTeam" unique_id=949850468]
-custom_minimum_size = Vector2(150, 0)
-layout_mode = 2
 text = "RCP Team"
-label_settings = SubResource("LabelSettings_ex3ic")
-horizontal_alignment = 1
-vertical_alignment = 1
+icon = ExtResource("12_pcjs0")
 autowrap_mode = 2
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
 
-[node name="PlumaDorada" type="VBoxContainer" parent="Contents/TeamSelector/TeamButtonsGrid" unique_id=1423493383]
+[node name="PlumaDorada" type="Button" parent="Contents/TeamSelector/TeamButtonsGrid" unique_id=995010980]
+custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
-
-[node name="Button" type="TextureButton" parent="Contents/TeamSelector/TeamButtonsGrid/PlumaDorada" unique_id=1772139426]
-custom_minimum_size = Vector2(150, 100)
-layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6901961, 0.7411765, 0.54509807, 1)
 toggle_mode = true
 button_mask = 5
 button_group = ExtResource("3_lcpbu")
-texture_normal = ExtResource("13_ckhug")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="Name" type="Label" parent="Contents/TeamSelector/TeamButtonsGrid/PlumaDorada" unique_id=1083814232]
-custom_minimum_size = Vector2(150, 0)
-layout_mode = 2
-text = "Pluma dorada"
-label_settings = SubResource("LabelSettings_ex3ic")
-horizontal_alignment = 1
-vertical_alignment = 1
+text = "Pluma Dorada"
+icon = ExtResource("13_ckhug")
 autowrap_mode = 2
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
 
-[node name="RealPincel" type="VBoxContainer" parent="Contents/TeamSelector/TeamButtonsGrid" unique_id=2103898918]
+[node name="RealPincel" type="Button" parent="Contents/TeamSelector/TeamButtonsGrid" unique_id=2007896542]
+custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
-
-[node name="Button" type="TextureButton" parent="Contents/TeamSelector/TeamButtonsGrid/RealPincel" unique_id=1667541283]
-custom_minimum_size = Vector2(150, 100)
-layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6901961, 0.7411765, 0.54509807, 1)
 toggle_mode = true
 button_mask = 5
 button_group = ExtResource("3_lcpbu")
-texture_normal = ExtResource("14_y3p1b")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="Name" type="Label" parent="Contents/TeamSelector/TeamButtonsGrid/RealPincel" unique_id=639708394]
-custom_minimum_size = Vector2(150, 0)
-layout_mode = 2
 text = "Real Pincel"
-label_settings = SubResource("LabelSettings_ex3ic")
-horizontal_alignment = 1
-vertical_alignment = 1
+icon = ExtResource("14_y3p1b")
 autowrap_mode = 2
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
 
-[node name="Zootecnicos" type="VBoxContainer" parent="Contents/TeamSelector/TeamButtonsGrid" unique_id=128539938]
+[node name="Zootecnicos" type="Button" parent="Contents/TeamSelector/TeamButtonsGrid" unique_id=2144656302]
+custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
-
-[node name="Button" type="TextureButton" parent="Contents/TeamSelector/TeamButtonsGrid/Zootecnicos" unique_id=1244328667]
-custom_minimum_size = Vector2(150, 100)
-layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6901961, 0.7411765, 0.54509807, 1)
 toggle_mode = true
 button_mask = 5
 button_group = ExtResource("3_lcpbu")
-texture_normal = ExtResource("15_mhvx6")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="Name" type="Label" parent="Contents/TeamSelector/TeamButtonsGrid/Zootecnicos" unique_id=1273918265]
-custom_minimum_size = Vector2(150, 0)
-layout_mode = 2
 text = "Zootécnicos"
-label_settings = SubResource("LabelSettings_ex3ic")
-horizontal_alignment = 1
-vertical_alignment = 1
+icon = ExtResource("15_mhvx6")
 autowrap_mode = 2
-
-[node name="Space" type="Control" parent="Contents" unique_id=1579270219]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-size_flags_vertical = 3
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
 
 [node name="Footer" type="HBoxContainer" parent="Contents" unique_id=286657520]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="NameEdit" type="VBoxContainer" parent="Contents/Footer" unique_id=55318114]
 layout_mode = 2

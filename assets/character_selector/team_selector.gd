@@ -2,7 +2,7 @@ extends Control
 
 
 ## Lista de botones asociados al equipo que representan
-@export var teams: Dictionary[TextureButton, Constants.Teams]
+@export var teams: Dictionary[Button, Constants.Teams]
 ## Grupo de botones de los equipos
 @export var teams_button_group: ButtonGroup
 
@@ -27,7 +27,7 @@ func _on_back_button_pressed() -> void:
 
 
 ## Establece el equipo del jugador dependiendo del botón pulsado en el selector de equipo
-func _set_team(pressed_button: TextureButton):
+func _set_team(pressed_button: Button):
 	print(
 		"[TeamSelector] Equipo elegido: %s"
 		% Utilities.get_enum_name(selected_team, Constants.Teams)
@@ -66,7 +66,7 @@ func _submit_and_play():
 
 ## Establece el color de los botones
 func _highlight_buttons(warn := false) -> void:
-	for button: TextureButton in teams_button_group.get_buttons():
+	for button: Button in teams_button_group.get_buttons():
 		if warn:
 			button.modulate = Color.ORANGE
 			continue
