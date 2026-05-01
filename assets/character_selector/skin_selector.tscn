@@ -1,0 +1,176 @@
+[gd_scene format=3 uid="uid://bic014fgq3gi1"]
+
+[ext_resource type="Script" uid="uid://dy2kbjnfs4cmi" path="res://assets/character_selector/skin_selector.gd" id="1_cahfw"]
+[ext_resource type="Theme" uid="uid://djsw6wrf4tns" path="res://assets/ui/themes/main_theme.tres" id="2_ii6tb"]
+[ext_resource type="PackedScene" uid="uid://k0ve14ptvtnb" path="res://assets/ui/components/back_button.tscn" id="3_tr4br"]
+[ext_resource type="Texture2D" uid="uid://ck83qwbrce022" path="res://assets/teams/sprites/character.png" id="4_trm87"]
+[ext_resource type="LabelSettings" uid="uid://ctvu5dp4p0kjm" path="res://assets/ui/themes/title_theme.tres" id="5_pndue"]
+[ext_resource type="Texture2D" uid="uid://crp508ghmx67g" path="res://assets/player/oso.png" id="6_secjd"]
+[ext_resource type="FontFile" uid="uid://7afj2g1cbx0x" path="res://assets/fonts/delius.ttf" id="7_trm87"]
+[ext_resource type="Script" uid="uid://bne6jcg4h2cuj" path="res://assets/character_selector/character.gd" id="8_g4vix"]
+[ext_resource type="Texture2D" uid="uid://vyg2g88qnd3u" path="res://assets/player/sprites/placeholder/grizzly.png" id="9_trm87"]
+[ext_resource type="Texture2D" uid="uid://ddilnwuspmv1v" path="res://assets/player/sprites/placeholder/panda.png" id="10_pndue"]
+[ext_resource type="Texture2D" uid="uid://ccr5qcs32tgun" path="res://assets/player/sprites/placeholder/polar.png" id="11_secjd"]
+
+[sub_resource type="Environment" id="Environment_sgm35"]
+background_mode = 1
+background_color = Color(0.30980393, 0.46666667, 0.1764706, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.5, 0.5, 0.5, 1)
+adjustment_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_65v6f"]
+albedo_color = Color(0.269822, 0.25380173, 0.25380173, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ii6tb"]
+material = SubResource("StandardMaterial3D_65v6f")
+top_radius = 2.5
+bottom_radius = 0.0
+height = 0.001
+rings = 0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cahfw"]
+radius = 5.409
+height = 17.574
+
+[node name="SkinSelector" type="Node2D" unique_id=1551561580]
+script = ExtResource("1_cahfw")
+
+[node name="UI" type="Control" parent="." unique_id=821648702]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("2_ii6tb")
+
+[node name="BackButton" parent="UI" unique_id=533340432 instance=ExtResource("3_tr4br")]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 48.0
+offset_bottom = 48.0
+
+[node name="TeamSelectorButton" type="VBoxContainer" parent="UI" unique_id=182014248]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 0
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 214.0
+offset_bottom = 299.0
+alignment = 1
+
+[node name="NextButton" type="TextureButton" parent="UI/TeamSelectorButton" unique_id=1998010532]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+texture_normal = ExtResource("4_trm87")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Text" type="Label" parent="UI/TeamSelectorButton" unique_id=1860085470]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Selecciona tu equipo"
+label_settings = ExtResource("5_pndue")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Selector" type="Node3D" parent="." unique_id=1144916870]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Selector" unique_id=1857657039]
+environment = SubResource("Environment_sgm35")
+
+[node name="DirectionalLight" type="DirectionalLight3D" parent="Selector" unique_id=1887477898]
+transform = Transform3D(0.4960938, -0.4429812, 0.7467656, -0.07060596, 0.83663243, 0.54319537, -0.86539346, -0.32220197, 0.38377106, 3.794119, 4.7734003, 1.5942965)
+
+[node name="Floor" type="MeshInstance3D" parent="Selector" unique_id=1441224704]
+mesh = SubResource("CylinderMesh_ii6tb")
+
+[node name="CurrentSkin" type="Sprite3D" parent="Selector/Floor" unique_id=332198112]
+unique_name_in_owner = true
+transform = Transform3D(0.09999999, 0, 0, 0, 0.10000001, 0, 0, 0, 0.10000001, 0, 0.77720237, 0)
+pixel_size = 0.03
+billboard = 2
+texture = ExtResource("6_secjd")
+
+[node name="CurrentSkinText" type="Label3D" parent="Selector/Floor" unique_id=1957962252]
+transform = Transform3D(0.7071067, -0.35355338, 0.6123724, 0, 0.8660254, 0.5, -0.7071067, -0.35355338, 0.6123724, 0.5, 0.16, 0.5)
+outline_modulate = Color(1, 1, 1, 1)
+text = "Tu aspecto actual"
+font = ExtResource("7_trm87")
+font_size = 42
+outline_size = 4
+autowrap_mode = 2
+
+[node name="Skins" type="Node3D" parent="Selector/Floor" unique_id=1752997206]
+unique_name_in_owner = true
+
+[node name="Skin" type="Sprite3D" parent="Selector/Floor/Skins" unique_id=339555356]
+transform = Transform3D(0.09999999, 0, 0, 0, 0.10000001, 0, 0, 0, 0.10000001, 0, 0.77720237, -2)
+pixel_size = 0.03
+billboard = 2
+texture = ExtResource("6_secjd")
+script = ExtResource("8_g4vix")
+
+[node name="ClickArea" type="Area3D" parent="Selector/Floor/Skins/Skin" unique_id=1670981476]
+transform = Transform3D(0.9999999, 0, 5.9604645e-08, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="CollisionShape" type="CollisionShape3D" parent="Selector/Floor/Skins/Skin/ClickArea" unique_id=74478485]
+transform = Transform3D(0.99999994, 0, 2.9802322e-08, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_cahfw")
+debug_color = Color(0, 0.94863033, 1, 1)
+
+[node name="Skin2" type="Sprite3D" parent="Selector/Floor/Skins" unique_id=1561412040]
+transform = Transform3D(0.09999998, 0, 0, 0, 0.10000001, 0, 0, 0, 0.10000001, 2, 0.77720237, 0)
+pixel_size = 0.03
+billboard = 2
+texture = ExtResource("9_trm87")
+script = ExtResource("8_g4vix")
+
+[node name="ClickArea" type="Area3D" parent="Selector/Floor/Skins/Skin2" unique_id=257902511]
+transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 5.9604645e-08, 0, 1, 0, 0, 0)
+
+[node name="CollisionShape" type="CollisionShape3D" parent="Selector/Floor/Skins/Skin2/ClickArea" unique_id=724825023]
+transform = Transform3D(0.9999999, 0, 2.9802322e-08, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_cahfw")
+debug_color = Color(0, 0.94863033, 1, 1)
+
+[node name="Skin3" type="Sprite3D" parent="Selector/Floor/Skins" unique_id=1032722718]
+transform = Transform3D(0.09999998, 0, 0, 0, 0.10000001, 0, 0, 0, 0.10000001, 0, 0.77720237, 2)
+pixel_size = 0.03
+billboard = 2
+texture = ExtResource("10_pndue")
+script = ExtResource("8_g4vix")
+
+[node name="ClickArea" type="Area3D" parent="Selector/Floor/Skins/Skin3" unique_id=662796323]
+transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 5.9604645e-08, 0, 1, 0, 0, 0)
+
+[node name="CollisionShape" type="CollisionShape3D" parent="Selector/Floor/Skins/Skin3/ClickArea" unique_id=1240020591]
+transform = Transform3D(0.9999999, 0, 2.9802322e-08, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_cahfw")
+debug_color = Color(0, 0.94863033, 1, 1)
+
+[node name="Skin4" type="Sprite3D" parent="Selector/Floor/Skins" unique_id=685561614]
+transform = Transform3D(0.09999998, 0, 0, 0, 0.10000001, 0, 0, 0, 0.10000001, -2, 0.77720237, 0)
+pixel_size = 0.03
+billboard = 2
+texture = ExtResource("11_secjd")
+script = ExtResource("8_g4vix")
+
+[node name="ClickArea" type="Area3D" parent="Selector/Floor/Skins/Skin4" unique_id=441720513]
+transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 5.9604645e-08, 0, 1, 0, 0, 0)
+
+[node name="CollisionShape" type="CollisionShape3D" parent="Selector/Floor/Skins/Skin4/ClickArea" unique_id=1895628899]
+transform = Transform3D(0.9999999, 0, 2.9802322e-08, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_cahfw")
+debug_color = Color(0, 0.94863033, 1, 1)
+
+[node name="Camera" type="Camera3D" parent="Selector" unique_id=1693921512]
+transform = Transform3D(0.7071068, -0.4469409, 0.5479451, 0, 0.7749114, 0.6320699, -0.7071068, -0.4469409, 0.5479451, 5, 6, 5)
+current = true
+fov = 38.5
+
+[connection signal="pressed" from="UI/TeamSelectorButton/NextButton" to="." method="_on_next_button_pressed"]

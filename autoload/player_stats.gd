@@ -1,8 +1,15 @@
+## [code]PlayerStats[/code] almacena los datos del jugador
 extends Node
 
 
-# Datos del jugador
+## Nombre del jugador
 var player_name: String = "Osorio"
+
+## Equipo del jugador
 var team: Constants.Teams = Constants.Teams.NO_TEAM
+
+## Especie del jugador
 var species: Constants.Species = Constants.Species.BEAR
-var skin: String = Constants.SKINS[species][0]
+
+## Skin actual del personaje
+var skin: Texture2D

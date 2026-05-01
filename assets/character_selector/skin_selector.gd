@@ -1,34 +1,35 @@
-extends Node
+class_name SkinSelector extends Node
 
-@export var current_skin_mesh: MeshInstance3D
-@export var characters_list_node: Node
-@export var skins: Array[Material]
 
-var current_skin: String
+# Sprite que muestra el aspecto actual del personaje
+@onready var current_skin_sprite: Sprite3D = %CurrentSkin
+# Nodo que contiene a todos los personajes
+@onready var characters_list: Node = %Skins
+
+
+var current_skin: Texture2D
+
 
 # Se conecta a cada personaje para detectar sus clics y le asigna su skin
 func _ready() -> void:
-	var characters = characters_list_node.get_children()
-	for i in characters.size():
-		var character = characters[i]
-		var character_mesh: MeshInstance3D = character.get_child(1)
-
+	for character: Character in characters_list.get_children():
 		character.skin_selected.connect(_change_skin)
-		character_mesh.material_override = skins[i]
 
-# ! Por ahora solo estamos trabajando con las skins de oso
+
 ## Cambiamos la skin actual por la que hayamos presionado.
-func _change_skin(skin_index: int) -> void:
-	current_skin_mesh.material_override = skins[skin_index]
-	current_skin = Constants.SKINS[Constants.Species.BEAR][skin_index]
+# ! Por ahora solo estamos trabajando con las skins de oso
+func _change_skin(skin: Texture2D) -> void:
+	current_skin_sprite.texture = skin
+	current_skin = skin
 
-	print_debug("Skin %d seleccionada" % skin_index)
+	print("[SkinSelector] Skin %s seleccionada" % skin.resource_path)
 
-## Pasa al selector de equipo y actualiza los datos cuando se presiona el botón de siguiente
+
+## Actualiza los datos y pasa al selector de equipos cuando se presiona el botón de siguiente
 func _on_next_button_pressed() -> void:
+	push_warning("[SkinSelector] Por ahora solo se trabajan las skins de oso")
+
 	PlayerStats.species = Constants.Species.BEAR
 	PlayerStats.skin = current_skin
-
-	push_warning("Por ahora solo se trabajan las skins de oso")
 
 	SceneManager.change_to_scene("team_selector")

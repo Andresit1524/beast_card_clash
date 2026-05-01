@@ -1,18 +1,19 @@
-extends CharacterBody3D
+class_name Character extends Sprite3D
 
-## Cuando se clica el personaje, emite su id para establecer la skin
-signal skin_selected(index: int)
 
-## Identificador de la skin actual.[br]
-##
-## Depende de que los nodos se llamen "CharacterN", donde N es el índice
-@onready var character_id: int = self.name.trim_prefix("Character") as int
+## Cuando se clica el personaje, emite su propia skin para establecerla
+signal skin_selected(skin: Texture2D)
 
-# Al inicio, se conecta a su propia señal de clic (evento)
+
+## Caja de colisión
+@onready var click_area = $ClickArea
+
+
 func _ready():
-	self.input_event.connect(_on_input_event)
+	# Se conecta a su propia señal de clic (evento)
+	click_area.input_event.connect(_on_input_event)
 
-## Detecta y filtra los clics
-func _on_input_event(_c, event: InputEvent, _p, _n, _s):
-	if event.is_action_pressed("left_click"):
-		skin_selected.emit(character_id)
+
+func _on_input_event(_camera, event: InputEvent, _pos, _normal, _shape_idx):
+	# Emite su propia skin cuando recibe un clic
+	if event.is_action_pressed("left_click"): skin_selected.emit(texture)

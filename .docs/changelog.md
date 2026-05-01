@@ -1,5 +1,11 @@
 # Abril de 2026
 
+## Semana del 27 de abril al 3 de mayo
+- [01 mayo 2026] Corrección en el selector de skins para usar los nuevos sprites
+- [01 mayo 2026] Cambio en el ícono del juego
+- [01 mayo 2026] GameConstants ahora es Constants, sin autoload
+- [01 mayo 2026] Integración de nuevas animaciones para los osos
+
 ## Semana del 20 al 26 de abril
 - [24 abril 2026] Organización de licencias y tests
 - [24 abril 2026] Eliminacion de los modelos viejos
@@ -14,6 +20,7 @@
 - [06 abril 2026] Corrección de "cartas fantasma" y gestión de jugadores eliminados
 - [06 abril 2026] Ajustes integrales en el gestor de batalla y estados del juego
 - [06 abril 2026] Reorganización de activos de batalla (dados, jugadores, rocas) en sus respectivas carpetas
+
 
 # Marzo de 2026
 
@@ -68,6 +75,7 @@
 - [01 marzo 2026] Adición de nuevos elementos y diseño de nuevas cartas
 - [01 marzo 2026] Actualización del sistema de diálogos (DialogueManager)
 
+
 # Febrero de 2026
 
 ## Semana del 23 de febrero al 01 de marzo
@@ -95,6 +103,7 @@
 - [03 febrero 2026] Implementación de sistema de diálogos y singleton para gestión de banderas (Flags)
 - [03 febrero 2026] Reestructuración del proyecto: referencias por UID y organización de recursos en carpeta 'assets'
 - [03 febrero 2026] Ajustes generales y actualización de la documentación
+
 
 # Enero de 2026
 

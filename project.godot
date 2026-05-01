@@ -17,7 +17,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 config/name="Beast Card Clash"
 config/version="0.1"
 config/tags=PackedStringArray("gdd")
-run/main_scene="uid://bhftk28laqsy8"
+run/main_scene="uid://bic014fgq3gi1"
 config/features=PackedStringArray("4.6")
 config/icon="uid://kbjlhn33ow1p"
 
