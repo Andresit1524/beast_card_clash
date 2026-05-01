@@ -122,7 +122,7 @@ func _on_rock_selected(selected_rock: Rock) -> void:
 func _on_card_selected(selected_card: Card) -> void:
 	print(
 		"[BattleManager] Carta seleccionada: %s-%s"
-		% [Utilities.get_enum_name(selected_card.element, GameConstants.Elements), selected_card.value]
+		% [Utilities.get_enum_name(selected_card.element, Constants.Elements), selected_card.value]
 	)
 
 	# Actualiza al jugador

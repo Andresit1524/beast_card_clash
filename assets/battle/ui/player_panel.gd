@@ -11,7 +11,7 @@ const SOME_TIME := 0.5
 		player_name = value
 		refresh_panel()
 ## Equipo del jugador
-@export var team: GameConstants.Teams:
+@export var team: Constants.Teams:
 	set(value):
 		team = value
 		refresh_panel()
@@ -22,7 +22,7 @@ const SOME_TIME := 0.5
 		refresh_panel()
 
 ## Elemento de la carta
-@export var element: GameConstants.Elements:
+@export var element: Constants.Elements:
 	set(value):
 		if value == element: return
 		element = value

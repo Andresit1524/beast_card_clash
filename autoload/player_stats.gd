@@ -3,6 +3,6 @@ extends Node
 
 # Datos del jugador
 var player_name: String = "Osorio"
-var team: GameConstants.Teams = GameConstants.Teams.NO_TEAM
-var species: GameConstants.Species = GameConstants.Species.BEAR
-var skin: String = GameConstants.SKINS[species][0]
+var team: Constants.Teams = Constants.Teams.NO_TEAM
+var species: Constants.Species = Constants.Species.BEAR
+var skin: String = Constants.SKINS[species][0]

@@ -20,13 +20,13 @@ func _ready() -> void:
 ## Cambiamos la skin actual por la que hayamos presionado.
 func _change_skin(skin_index: int) -> void:
 	current_skin_mesh.material_override = skins[skin_index]
-	current_skin = GameConstants.SKINS[GameConstants.Species.BEAR][skin_index]
+	current_skin = Constants.SKINS[Constants.Species.BEAR][skin_index]
 
 	print_debug("Skin %d seleccionada" % skin_index)
 
 ## Pasa al selector de equipo y actualiza los datos cuando se presiona el botón de siguiente
 func _on_next_button_pressed() -> void:
-	PlayerStats.species = GameConstants.Species.BEAR
+	PlayerStats.species = Constants.Species.BEAR
 	PlayerStats.skin = current_skin
 
 	push_warning("Por ahora solo se trabajan las skins de oso")

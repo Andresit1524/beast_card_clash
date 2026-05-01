@@ -27,29 +27,29 @@ func set_team(team_node: TextureButton):
 	# VA-Games no es equipo elegible, ergo, no aparece. No lo añadas
 	match team_node.get_parent().name:
 		"NoTeam":
-			current_team = GameConstants.Teams.NO_TEAM
+			current_team = Constants.Teams.NO_TEAM
 		"Acetiles":
-			current_team = GameConstants.Teams.ACETILES
+			current_team = Constants.Teams.ACETILES
 		"ADN":
-			current_team = GameConstants.Teams.ADN
+			current_team = Constants.Teams.ADN
 		"IngeniososElementales":
-			current_team = GameConstants.Teams.INGENIOSOS_ELEMENTALES
+			current_team = Constants.Teams.INGENIOSOS_ELEMENTALES
 		"PhotoAgros":
-			current_team = GameConstants.Teams.PHOTO_AGROS
+			current_team = Constants.Teams.PHOTO_AGROS
 		"PlumaDorada":
-			current_team = GameConstants.Teams.PLUMA_DORADA
+			current_team = Constants.Teams.PLUMA_DORADA
 		"RCPTeam":
-			current_team = GameConstants.Teams.RPC_TEAM
+			current_team = Constants.Teams.RPC_TEAM
 		"RealPincel":
-			current_team = GameConstants.Teams.REAL_PINCEL
+			current_team = Constants.Teams.REAL_PINCEL
 		"Zootecnicos":
-			current_team = GameConstants.Teams.ZOOTECNICOS
+			current_team = Constants.Teams.ZOOTECNICOS
 
 	# Oscurece el boton presionado y resetea los demás
 	for button in teams_button_group.get_buttons():
 		button.modulate = Color.DIM_GRAY if button.button_pressed else Color.WHITE
 
-	print_debug("Equipo elegido: ", current_team as GameConstants.Teams)
+	print_debug("Equipo elegido: ", current_team as Constants.Teams)
 
 
 ## Actualiza los datos y pasa a jugar cuando se presiona el botón de jugar.[br]
@@ -69,7 +69,7 @@ func submit_and_play():
 
 		return
 
-	PlayerStats.team = current_team as GameConstants.Teams
+	PlayerStats.team = current_team as Constants.Teams
 	PlayerStats.player_name = line_edit_node.text
 
 	FlagsManager.set_flag("character_selected", true)

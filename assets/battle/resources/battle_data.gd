@@ -156,14 +156,14 @@ func we_lose():
 
 class PlayerData:
 	var name: String
-	var team: GameConstants.Teams
+	var team: Constants.Teams
 
-	func _init(new_name: String, new_team: GameConstants.Teams) -> void:
+	func _init(new_name: String, new_team: Constants.Teams) -> void:
 		name = new_name
 		team = new_team
 
 	func _to_string() -> String:
 		return (
 			"[Nombre: %s, Equipo: %s]"
-			% [name, Utilities.get_enum_name(team, GameConstants.Teams)]
+			% [name, Utilities.get_enum_name(team, Constants.Teams)]
 		)

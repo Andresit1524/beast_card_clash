@@ -3,10 +3,10 @@
 class_name ElementsList extends Resource
 
 
-## Lista de elementos. Deben ir en el mismo orden que el enumerador en [code]GameConstants.Elements[/code]
+## Lista de elementos. Deben ir en el mismo orden que el enumerador en [code]Constants.Elements[/code]
 @export var sprites_list: Array[Texture2D]
 
 
 ## Obtiene un elemento por su índice
-func get_element(element: GameConstants.Elements) -> Texture2D:
+func get_element(element: Constants.Elements) -> Texture2D:
 	return sprites_list[element]

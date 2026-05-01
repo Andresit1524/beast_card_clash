@@ -14,17 +14,17 @@ class_name CardsList extends Resource
 ## Obtiene la carta por su elemento y valor
 func get_card(element: int, value: int) -> Texture2D:
 	match element:
-		GameConstants.Elements.NONE:
+		Constants.Elements.NONE:
 			return placeholder
-		GameConstants.Elements.AIR:
+		Constants.Elements.AIR:
 			return air_cards[value - 1]
-		GameConstants.Elements.EARTH:
+		Constants.Elements.EARTH:
 			return earth_cards[value - 1]
-		GameConstants.Elements.ENERGY:
+		Constants.Elements.ENERGY:
 			return energy_cards[value - 1]
-		GameConstants.Elements.FIRE:
+		Constants.Elements.FIRE:
 			return fire_cards[value - 1]
-		GameConstants.Elements.WATER:
+		Constants.Elements.WATER:
 			return water_cards[value - 1]
 
 	push_error("Carta no identificada")

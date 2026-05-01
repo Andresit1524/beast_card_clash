@@ -9,7 +9,7 @@ const OUTLINE_THICKNESS := 0.15
 
 
 ## Elemento de la roca
-@export var element: GameConstants.Elements = GameConstants.Elements.NONE:
+@export var element: Constants.Elements = Constants.Elements.NONE:
 	set(value):
 		element = value
 		_update_sprite()
@@ -66,7 +66,7 @@ func _update_sprite():
 ## Aplica el color para resaltar la roca por medio del shader
 func _highlight():
 	# Color de resaltado
-	highlight_color = GameConstants.ELEMENTS_COLORS[element]
+	highlight_color = Constants.ELEMENTS_COLORS[element]
 
 	# Transparencia
 	highlight_color.a = COLOR_OPACITY if hovered else 0.0
@@ -93,8 +93,8 @@ func _on_input_event(_camera: Node, event: InputEvent, _event_position: Vector3,
 
 	Utilities.print_color(
 		"[Rock] Roca seleccionada: %s"
-		% Utilities.get_enum_name(element, GameConstants.Elements),
-		GameConstants.ELEMENTS_COLORS[element]
+		% Utilities.get_enum_name(element, Constants.Elements),
+		Constants.ELEMENTS_COLORS[element]
 	)
 	rock_selected.emit(self)
 

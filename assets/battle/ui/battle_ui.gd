@@ -41,7 +41,7 @@ func _on_card_from_hand_selected(card: Card) -> void:
 
 
 ## Establece el elemento de la baraja actual
-func set_hand_element(new_element: GameConstants.Elements) -> void:
+func set_hand_element(new_element: Constants.Elements) -> void:
 	hand.current_element = new_element
 
 

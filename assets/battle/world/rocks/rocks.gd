@@ -36,4 +36,4 @@ func _instance_rocks() -> void:
 		add_child(new_rock)
 
 		# Elemento. Lo añade después para que se actualice el sprite adecuadamente
-		new_rock.element = (i % GameConstants.Elements.size()) as GameConstants.Elements
+		new_rock.element = (i % Constants.Elements.size()) as Constants.Elements

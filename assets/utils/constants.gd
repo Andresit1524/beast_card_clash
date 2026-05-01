@@ -1,4 +1,6 @@
-extends Node
+## [code]Constants[/code] almacena las constantes del juego para su consulta a lo largo del proyecto
+class_name Constants extends Node
+
 
 ## Constantes del juego
 const MAX_CARD_VAlUE := 10

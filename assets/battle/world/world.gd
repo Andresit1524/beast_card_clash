@@ -88,8 +88,8 @@ func disable_rocks() -> void:
 func _on_rock_selected(selected_rock: Rock) -> void:
 	Utilities.print_color(
 		"[World] Roca seleccionada: %s"
-		% Utilities.get_enum_name(selected_rock.element, GameConstants.Elements),
-		GameConstants.ELEMENTS_COLORS[selected_rock.element]
+		% Utilities.get_enum_name(selected_rock.element, Constants.Elements),
+		Constants.ELEMENTS_COLORS[selected_rock.element]
 	)
 	rock_selected.emit(selected_rock)
 

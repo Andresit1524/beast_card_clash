@@ -17,7 +17,7 @@ const MOVE_TIME := 0.2
 		card_scale = value
 		_refresh_cards()
 ## Elemento del jugador
-@export var current_element: GameConstants.Elements = GameConstants.Elements.NONE:
+@export var current_element: Constants.Elements = Constants.Elements.NONE:
 	set(value):
 		current_element = value
 		_refresh_cards()
@@ -58,7 +58,7 @@ func set_from_deck(deck: Array[Card]) -> void:
 		})
 		print(
 			"[Hand] Carta actualizada: %s_%s"
-			% [Utilities.get_enum_name(card.element, GameConstants.Elements), card.value]
+			% [Utilities.get_enum_name(card.element, Constants.Elements), card.value]
 		)
 
 		new_card_pos.add_child(card)

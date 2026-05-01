@@ -64,13 +64,13 @@ const MOVE_TIME := 1.0
 
 # Datos del jugador
 var player_name: String
-var team: GameConstants.Teams = GameConstants.Teams.NO_TEAM
+var team: Constants.Teams = Constants.Teams.NO_TEAM
 var health: int = MAX_HEALTH
 var is_bot: bool = true
 
 # Baraja y carta actual (para humanos)
 var deck: Array[Card]
-var current_element: GameConstants.Elements = GameConstants.Elements.NONE
+var current_element: Constants.Elements = Constants.Elements.NONE
 var current_value: int = 1
 var hide_card: bool = false
 
@@ -92,16 +92,16 @@ func _ready() -> void:
 func randomize() -> void:
 	# Si no es bot, randomizamos todos los elementos
 	player_name = NAMES.pick_random()
-	team = GameConstants.Teams.values().pick_random()
+	team = Constants.Teams.values().pick_random()
 
 
 ## Crea la baraja de cartas
 func create_deck() -> void:
 	for i in range(INITIAL_CARDS):
 		# Elemento de la carta
-		var new_card_element := GameConstants.Elements.NONE
-		while new_card_element == GameConstants.Elements.NONE:
-			new_card_element = GameConstants.Elements.values().pick_random()
+		var new_card_element := Constants.Elements.NONE
+		while new_card_element == Constants.Elements.NONE:
+			new_card_element = Constants.Elements.values().pick_random()
 
 		var new_card: Card = card_scene.instantiate()
 		new_card.element = new_card_element
@@ -139,9 +139,9 @@ func play_card(card: Card = null) -> Card:
 		deck.erase(card)
 
 		# Añade una nueva carta al azar para reponer
-		var new_card_element := GameConstants.Elements.NONE
+		var new_card_element := Constants.Elements.NONE
 		while not new_card_element:
-			new_card_element = GameConstants.Elements.values().pick_random()
+			new_card_element = Constants.Elements.values().pick_random()
 
 		var new_card = card_scene.instantiate()
 		new_card.element = new_card_element
@@ -150,7 +150,7 @@ func play_card(card: Card = null) -> Card:
 		deck.append(new_card)
 		print(
 			"[Player] Nueva carta añadida: %s-%s"
-			% [Utilities.get_enum_name(new_card.element, GameConstants.Elements), new_card.value]
+			% [Utilities.get_enum_name(new_card.element, Constants.Elements), new_card.value]
 		)
 
 	_update_deck_if_needed()

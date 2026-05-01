@@ -4,12 +4,12 @@ class_name BattleReferee extends BattleState
 
 
 ## Matriz de fortalezas. Indica que elementos derrota el elemento dado
-const WINNERS_MATRIX: Dictionary[GameConstants.Elements, Array] = {
-	GameConstants.Elements.AIR: [GameConstants.Elements.EARTH, GameConstants.Elements.WATER],
-	GameConstants.Elements.EARTH: [GameConstants.Elements.ENERGY, GameConstants.Elements.FIRE],
-	GameConstants.Elements.ENERGY: [GameConstants.Elements.AIR, GameConstants.Elements.WATER],
-	GameConstants.Elements.FIRE: [GameConstants.Elements.AIR, GameConstants.Elements.ENERGY],
-	GameConstants.Elements.WATER: [GameConstants.Elements.EARTH, GameConstants.Elements.FIRE],
+const WINNERS_MATRIX: Dictionary[Constants.Elements, Array] = {
+	Constants.Elements.AIR: [Constants.Elements.EARTH, Constants.Elements.WATER],
+	Constants.Elements.EARTH: [Constants.Elements.ENERGY, Constants.Elements.FIRE],
+	Constants.Elements.ENERGY: [Constants.Elements.AIR, Constants.Elements.WATER],
+	Constants.Elements.FIRE: [Constants.Elements.AIR, Constants.Elements.ENERGY],
+	Constants.Elements.WATER: [Constants.Elements.EARTH, Constants.Elements.FIRE],
 }
 
 
@@ -37,7 +37,7 @@ func start() -> void:
 
 	# Reseteamos las elecciones de cada jugador
 	for player in battle_data.players:
-		player.current_element = GameConstants.Elements.NONE
+		player.current_element = Constants.Elements.NONE
 		player.current_value = 0
 
 	# Actualizamos los jugadores

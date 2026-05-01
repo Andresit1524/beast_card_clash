@@ -11,12 +11,12 @@ const ONDULAION_SPEED := 3.5
 
 
 ## Elemento de la carta
-@export var element := GameConstants.Elements.NONE:
+@export var element := Constants.Elements.NONE:
 	set(value):
 		element = value
 		_update_sprite()
 ## Valor de la carta
-@export_range(1, GameConstants.MAX_CARD_VAlUE) var value := 1:
+@export_range(1, Constants.MAX_CARD_VAlUE) var value := 1:
 	set(val):
 		value = val
 		_update_sprite()
@@ -134,7 +134,7 @@ func _on_pressed() -> void:
 
 	print(
 		"[Card] Carta %s-%s presionada"
-		% [Utilities.get_enum_name(element, GameConstants.Elements), value]
+		% [Utilities.get_enum_name(element, Constants.Elements), value]
 	)
 	card_selected.emit(self)
 

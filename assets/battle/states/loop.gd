@@ -33,9 +33,9 @@ func start() -> void:
 	if not played_card:
 		print(
 			"[BattleLoop] %s no tiene cartas de %s. Saltando turno."
-			% [battle_data.current_turn.player_name, Utilities.get_enum_name(rock_choice_element, GameConstants.Elements)]
+			% [battle_data.current_turn.player_name, Utilities.get_enum_name(rock_choice_element, Constants.Elements)]
 		)
-		battle_data.current_turn.current_element = GameConstants.Elements.NONE
+		battle_data.current_turn.current_element = Constants.Elements.NONE
 		battle_data.current_turn.current_value = 0
 		manager.switch_next_turn_state()
 		return
@@ -52,7 +52,7 @@ func start() -> void:
 	manager.battle_ui.refresh_player_stats(battle_data.players)
 	print(
 		"[Loop] Carta elegida: %s-%s"
-		% [Utilities.get_enum_name(card_element, GameConstants.Elements), card_value]
+		% [Utilities.get_enum_name(card_element, Constants.Elements), card_value]
 	)
 
 	# Delega el siguiente turno

@@ -27,7 +27,6 @@ DialogueManager="*uid://c3rodes2l3gxb"
 SceneManager="*res://autoload/scene_manager.gd"
 MusicManager="*res://autoload/music_manager.gd"
 FlagsManager="*res://autoload/flags_manager.gd"
-GameConstants="*res://autoload/game_constants.gd"
 PlayerStats="*res://autoload/player_stats.gd"
 
 [dotnet]
