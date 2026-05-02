@@ -1,4 +1,4 @@
-# Abril de 2026
+# Mayo de 2026
 
 ## Semana del 27 de abril al 3 de mayo
 - [01 mayo 2026] Mejoras en la interfaz y lógica de los selectores
@@ -6,6 +6,9 @@
 - [01 mayo 2026] Cambio en el ícono del juego
 - [01 mayo 2026] GameConstants ahora es Constants, sin autoload
 - [01 mayo 2026] Integración de nuevas animaciones para los osos
+
+
+# Abril de 2026
 
 ## Semana del 20 al 26 de abril
 - [24 abril 2026] Organización de licencias y tests
