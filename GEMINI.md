@@ -20,9 +20,9 @@ BCC es un juego inspirado en Card Jitsu Fuego, con temática de fauna colombiana
 - **Código:** Todo el código (variables, funciones, clases) debe estar en **Inglés**.
 - **Documentación/Comentarios:** Deben estar en **Español**.
 - **Estilo de Código:** Sigue la convencion de GDScript o C# dependiendo del lenguaje:
-    - `snake_case`: Variables, funciones, archivos (`.gd`, `.tscn`).
-    - `PascalCase`: Clases (`class_name` y `class`) y tipos
-    - `SCREAMING_SNAKE_CASE`: Constantes y Enums.
+	- `snake_case`: Variables, funciones, archivos (`.gd`, `.tscn`).
+	- `PascalCase`: Clases (`class_name` y `class`) y tipos
+	- `SCREAMING_SNAKE_CASE`: Constantes y Enums.
 - **Nodos:** Los nombres de los nodos en el árbol de escenas deben usar `PascalCase`.
 
 ### Arquitectura de Batalla
