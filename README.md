@@ -2,7 +2,7 @@
 
 # 🐾🐻‍❄️ Beast Card Clash 🐻🐼
 [![Linktree](https://img.shields.io/badge/Linktree-gray?style=flat-square&logo=linktree&logoColor=%2345E55F)](https://linktr.ee/beast_card_clash)
-[![Mintlify docs](https://img.shields.io/badge/Mintlify-docs-18E299?style=flat-square&logo=mintlify)](https://andresit1524-beast_card_clash.mintlify.app/dev/overview)
+[![Docs](https://img.shields.io/badge/Docs-gray?style=flat-square&logo=github)](https://andresit1524.github.io/bcc_docs)
 
 </div>
 
