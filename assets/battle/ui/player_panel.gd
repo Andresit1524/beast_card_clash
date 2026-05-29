@@ -1,10 +1,12 @@
 ## Gestiona los datos de un panel de jugador en la interfaz de batalla
 class_name PlayerPanel extends PanelContainer
 
-# No tengo idea de que poner xd
-const SOME_TIME := 0.5
+
+## Tiempo de la animación al refrescar la vida del jugador
+const REFRESH_HEALTH_TIME := 0.5
 
 
+@export_group("Player data")
 ## Nombre del jugador
 @export var player_name: String:
 	set(value):
@@ -21,6 +23,7 @@ const SOME_TIME := 0.5
 		health = value
 		refresh_panel()
 
+@export_group("Card data")
 ## Elemento de la carta
 @export var element: Constants.Elements:
 	set(value):
@@ -40,17 +43,24 @@ const SOME_TIME := 0.5
 		hide_card = value
 		update_card()
 
-## Cards list to get the sprites
+## Lista de cartas para obtener los sprites
 @export var cards_list: CardsList
-## Teams list to get the sprites
+## Lista de equipos para obtener los sprites
 @export var teams_list: TeamsList
 
 
+## Nombre
 @onready var name_label: Label = $Margin/Contents/PlayerData/Name
+## Sprite del equipo
 @onready var team_texture: TextureRect = $Margin/Contents/PlayerData/Team
+## Sprite de la carta
 @onready var card_texture: TextureRect = $Margin/Contents/Card
+## Barra de vida
 @onready var life_bar: ProgressBar = $Margin/Contents/LifeBar
+## Valor de la vida
 @onready var life_label: RichTextLabel = $Margin/Contents/LifeBar/LifeValue
+
+## Escala base de la carta, para las animaciones
 @onready var base_card_scale := card_texture.scale
 
 
@@ -61,7 +71,7 @@ func _ready():
 
 ## Actualiza el panel con los últimos datos del jugador
 func refresh_panel() -> void:
-	if (not name_label or not team_texture or not card_texture): return
+	if not (name_label and team_texture and card_texture): return
 	var tween := create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 
 	# Actualiza los datos del jugador
@@ -69,18 +79,17 @@ func refresh_panel() -> void:
 	team_texture.texture = teams_list.get_team(team)
 
 	# Actualiza la barra de vida
-	var color := "white" if health > 0 else "red"
-
-	# Si la vida bajo, hace un efecto de destello
+	# Si la vida bajo, hace un efecto de destello en rojo
+	var color2 := Color.WHITE if health > 0 else Color.RED
 	if life_bar.value > health:
 		modulate = Color.RED
-		tween.tween_property(self, "modulate", Color.WHITE, SOME_TIME)
+		tween.tween_property(self, "modulate", Color.WHITE, REFRESH_HEALTH_TIME)
 
-	tween.tween_property(life_bar, "value", health, SOME_TIME)
-	life_label.text = "[color=%s]%s[/color]" % [color, health]
+	tween.tween_property(life_bar, "value", health, REFRESH_HEALTH_TIME)
+	life_label.text = "[color=%s]%s[/color]" % [color2.to_html(), health]
 
 
-## Establece la carta
+## Actualiza la carta
 func update_card() -> void:
 	if not cards_list: return
 

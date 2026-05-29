@@ -5,7 +5,7 @@ class_name PodiumPanel extends PanelContainer
 @export var color: Color:
 	set(value):
 		color = value
-		_configure_color()
+		_set_color()
 
 
 ## Texto con la posición en al ranking de jugadores
@@ -19,7 +19,7 @@ class_name PodiumPanel extends PanelContainer
 
 
 ## Configura el color del panel
-func _configure_color() -> void:
+func _set_color() -> void:
 	# Obtenemos el estilo actual y lo duplicamos para no afectar a otros paneles.
 	var style = get_theme_stylebox("panel").duplicate()
 

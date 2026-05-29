@@ -3,6 +3,8 @@ class_name EndUI extends Control
 
 ## Tiempo de desvanecimiento de la interfaz
 const FADE_TIME := 0.5
+## Colores para los diferentes rankings
+const COLORS := [Color.GOLD, Color.SILVER, Color.PERU]
 
 
 ## Hace visible la interfaz
@@ -78,12 +80,6 @@ func set_podium(ranking: Array[Array]):
 
 ## Selecciona un color de acuerdo al ranking
 func get_rank_color(rank: int) -> Color:
-	const COLORS := [
-		Color.GOLD,
-		Color.SILVER,
-		Color.PERU,
-	]
-
 	return (COLORS[rank - 1] if rank <= COLORS.size() else Color.DARK_SLATE_GRAY) * 0.7
 
 

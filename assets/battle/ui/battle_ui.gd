@@ -6,10 +6,6 @@ class_name BattleUI extends Control
 signal card_selected(card: Card)
 
 
-## Datos de la batalla
-@export var battle_data: BattleData
-
-
 ## Mano de las cartas
 @onready var hand: Hand = %Hand
 ## Panel del jugador
@@ -18,6 +14,8 @@ signal card_selected(card: Card)
 @onready var bots_panels: VBoxContainer = %BotsPanels
 ## Interfaz de fin de juego
 @onready var end_ui: EndUI = %EndUI
+## Datos de la batalla
+@onready var battle_data: BattleData = %BattleData
 
 
 #region Baraja de cartas
@@ -31,11 +29,14 @@ func enable_hand(enabled: bool) -> void:
 ## Refresca la baraja de cartas
 func set_hand_from_deck(deck: Array[Card]) -> void:
 	hand.set_from_deck(deck)
+
+	# Conecta la señal de selección de carta
 	for card in hand.get_cards():
 		if not card.card_selected.is_connected(_on_card_from_hand_selected):
 			card.card_selected.connect(_on_card_from_hand_selected)
 
 
+## Callback para cuando se selecciona una carta de la mano
 func _on_card_from_hand_selected(card: Card) -> void:
 	card_selected.emit(card)
 
@@ -84,7 +85,7 @@ func _prune_bots_panels(bot_count: int) -> void:
 		push_error("[BattleUI] Cantidad de bots inválida: %s" % bot_count)
 		return
 
-	# Recorre los paneles que sobran
+	# Oculta los paneles que sobran
 	for i in range(bot_count, bots_panels.get_child_count()):
 		bots_panels.get_child(i).visible = false
 

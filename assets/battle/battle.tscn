@@ -66,7 +66,7 @@ metadata/_edit_lock_ = true
 
 [node name="UILayer" type="CanvasLayer" parent="." unique_id=651321992]
 
-[node name="BattleUI" type="Control" parent="UILayer" unique_id=2020999291 node_paths=PackedStringArray("battle_data")]
+[node name="BattleUI" type="Control" parent="UILayer" unique_id=2020999291]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -75,7 +75,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_tlmnd")
-battle_data = NodePath("../../BattleData")
 
 [node name="HandPos" type="Control" parent="UILayer/BattleUI" unique_id=534952336]
 layout_mode = 1
@@ -233,6 +232,7 @@ theme_override_colors/font_color = Color(0.972549, 0.8862745, 0.7372549, 1)
 text = "Salir"
 
 [node name="BattleData" type="Node" parent="." unique_id=1350346319 node_paths=PackedStringArray("manager")]
+unique_name_in_owner = true
 script = ExtResource("20_6pcvk")
 manager = NodePath("../BattleManager")
 metadata/_custom_type_script = "uid://cqbraws606682"

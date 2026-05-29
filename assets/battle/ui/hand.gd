@@ -1,3 +1,4 @@
+## [code]Hand[code] controla la baraja de cartas a nivel de interfaz, su posición y animaciones.
 class_name Hand extends Path2D
 
 
@@ -32,6 +33,7 @@ const MOVE_TIME := 0.2
 }
 
 
+## Posición inicial de la mano, usada para las animaciones
 @onready var _start_position := position
 
 
@@ -74,7 +76,7 @@ func _refresh_cards() -> void:
 	var tween := create_tween()
 	tween.set_parallel().set_trans(Tween.TRANS_SINE)
 
-	_set_hidden_cards(hide_cards)
+	_hide_cards(hide_cards)
 
 	# Posiciona las cartas y las ajusta
 	tween.tween_property(self, "position", _start_position, MOVE_TIME)
@@ -95,22 +97,22 @@ func _refresh_cards() -> void:
 		card.disable_card = hide_cards or current_element and card.element != current_element
 
 
-## Oculta las cartas
-func _set_hidden_cards(is_hidden: bool) -> void:
+## Oculta las cartas (manda la curva a la posición de oculto y ajusta tamaño y rotación)
+func _hide_cards(value: bool) -> void:
 	# Interpola la curva punto a punto
 	var tween := create_tween().set_trans(Tween.TRANS_SINE).set_parallel()
-	var final_curve := curves["hidden"] if is_hidden else curves["normal"]
+	var final_curve := curves["hidden"] if value else curves["normal"]
 	curve = final_curve
 
 	# Establece tamaño y rotación
-	for card in get_cards() as Array[Card]:
+	for card: Card in get_cards():
 		var base_scale := Vector2(card_scale, card_scale)
-		var final_scale := base_scale if not is_hidden else base_scale * HIDE_SCALE
+		var final_scale := base_scale if not value else base_scale * HIDE_SCALE
 
 		tween.tween_property(card, "scale", final_scale, MOVE_TIME)
 
 		# Rotamos al padre para que los comportamientos se mantengan correctos
-		tween.tween_property(card, "rotation", PI / 2 if is_hidden else 0.0, MOVE_TIME)
+		tween.tween_property(card, "rotation", PI / 2 if value else 0.0, MOVE_TIME)
 
 
 ## Obtiene la lista de cartas
