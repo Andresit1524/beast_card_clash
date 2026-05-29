@@ -78,7 +78,7 @@ func setup_ui() -> void:
 	battle_ui.refresh_player_stats(battle_data.players)
 	battle_ui.set_hand_from_deck(battle_data.player.deck)
 	battle_ui.enable_hand(false)
-	battle_ui.set_end_ui(false)
+	battle_ui.enable_end_ui(false)
 
 
 ## Configura el mundo de batalla

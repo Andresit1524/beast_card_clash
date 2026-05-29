@@ -1,5 +1,5 @@
 ## Clase para gestionar la UI del escenario de batalla con referencias centralizadas
-class_name BattleUI extends Node
+class_name BattleUI extends Control
 
 
 ## Emitida cuando se selecciona una carta de la mano del jugador
@@ -96,11 +96,11 @@ func _prune_bots_panels(bot_count: int) -> void:
 
 
 ## Activa o desactiva la pantalla de final de juego
-func set_end_ui(set_visible: bool) -> void:
-	end_ui.ui_visible = set_visible
+func enable_end_ui(value: bool) -> void:
+	end_ui.ui_visible = value
 
 	# Actualiza el podium
-	if set_visible: end_ui.set_podium(battle_data.ranking)
+	if value: end_ui.set_podium(battle_data.ranking)
 
 
 #endregion

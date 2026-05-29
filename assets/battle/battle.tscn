@@ -46,12 +46,19 @@ metadata/_edit_lock_ = true
 
 [node name="UILayer" type="CanvasLayer" parent="." unique_id=651321992]
 
-[node name="BattleUI" type="Node" parent="UILayer" unique_id=791419313 node_paths=PackedStringArray("battle_data")]
+[node name="BattleUI" type="Control" parent="UILayer" unique_id=2020999291 node_paths=PackedStringArray("battle_data")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("1_tlmnd")
 battle_data = NodePath("../../BattleData")
 
 [node name="HandPos" type="Control" parent="UILayer/BattleUI" unique_id=534952336]
-layout_mode = 3
+layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -75,6 +82,7 @@ curves = Dictionary[StringName, Curve2D]({
 
 [node name="PlayerPanel" parent="UILayer/BattleUI" unique_id=1239815553 instance=ExtResource("1_1054f")]
 unique_name_in_owner = true
+layout_mode = 0
 anchors_preset = 0
 anchor_left = 0.0
 anchor_top = 0.0
@@ -90,6 +98,7 @@ mouse_filter = 2
 
 [node name="BotsPanels" type="VBoxContainer" parent="UILayer/BattleUI" unique_id=1280223489]
 unique_name_in_owner = true
+layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -116,7 +125,7 @@ mouse_filter = 2
 [node name="EndUI" type="Control" parent="UILayer/BattleUI" unique_id=271450613]
 unique_name_in_owner = true
 visible = false
-layout_mode = 3
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -203,8 +212,9 @@ size_flags_horizontal = 4
 theme_override_colors/font_color = Color(0.972549, 0.8862745, 0.7372549, 1)
 text = "Salir"
 
-[node name="BattleData" type="Node" parent="." unique_id=1350346319]
+[node name="BattleData" type="Node" parent="." unique_id=1350346319 node_paths=PackedStringArray("manager")]
 script = ExtResource("20_6pcvk")
+manager = NodePath("../BattleManager")
 metadata/_custom_type_script = "uid://cqbraws606682"
 
 [node name="BattleManager" type="Node" parent="." unique_id=637941647 node_paths=PackedStringArray("battle_ui", "battle_world", "battle_data", "controlled_node", "default_state")]
