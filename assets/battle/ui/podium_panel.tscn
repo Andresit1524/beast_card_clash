@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dleubuyqowf33"]
 
 [ext_resource type="Theme" uid="uid://djsw6wrf4tns" path="res://assets/ui/themes/main_theme.tres" id="1_uac0k"]
-[ext_resource type="LabelSettings" uid="uid://bbicpoq7r4bdo" path="res://assets/battle/ui/label_settings.tres" id="2_4m5bp"]
+[ext_resource type="LabelSettings" uid="uid://bbicpoq7r4bdo" path="res://assets/battle/ui/resources/label_settings.tres" id="2_4m5bp"]
 [ext_resource type="Texture2D" uid="uid://ck83qwbrce022" path="res://assets/teams/sprites/character.png" id="2_xrjuq"]
 [ext_resource type="Script" uid="uid://k5dq6mtq1rg0" path="res://assets/battle/ui/podium_panel.gd" id="2_yiqrk"]
 
