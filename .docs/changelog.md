@@ -1,3 +1,12 @@
+# Junio de 2026
+
+## Semana del 1 al 7 de junio
+- [01 junio 2026] Mejora en el flujo del usuario
+- [01 junio 2026] Etiqueta de versión de juego en el menú principal
+- [01 junio 2026] Tutorial implementado y actualizado (sustituye al lore que había)
+- [01 junio 2026] Menú de pausa y música en bucle
+
+
 # Mayo de 2026
 
 ## Semana del 27 de abril al 3 de mayo
