@@ -7,24 +7,12 @@ const MAX_PLAYERS := 4
 const WAIT_TIME := 2.0
 
 
-## Manager de la batalla. SOLO para acceder a constantes
-@export var manager: BattleManager
-
-
-#region Variables
-
-
 ## Jugador humano
 var player: Player
-
 ## Lista de jugadores
 var players: Array[Player]
-
 ## Ranking del juego en formato puesto: jugadores
 var ranking: Array[Array]
-
-
-#endregion
 
 
 #region Variables de estado actual
@@ -38,6 +26,7 @@ var current_turn: Player:
 	set(value):
 		current_turn = value
 		_set_next_turn()
+
 ## Jugador con el siguiente turno
 var next_turn: Player
 
@@ -48,7 +37,7 @@ var queued_ranked_players: Array[Player]
 #endregion
 
 
-#region Funciones de la lista de jugador
+#region Funciones de la lista de jugadores
 
 
 ## Añade un jugador
@@ -78,10 +67,9 @@ func shuffle_players() -> void:
 func _set_next_turn() -> void:
 	if players.is_empty(): return
 
-	var current_idx: int = -1
 	# Verificamos si el turno actual sigue siendo válido y está en la lista de jugadores activos
-	if is_instance_valid(current_turn):
-		current_idx = players.find(current_turn)
+	var current_idx: int
+	if is_instance_valid(current_turn): current_idx = players.find(current_turn)
 
 	# Si el jugador no está en la lista (murió o fue eliminado), el siguiente turno
 	# por defecto es el primero disponible para iniciar la nueva ronda.
@@ -93,7 +81,8 @@ func _set_next_turn() -> void:
 	next_turn = players[next_turn_pos]
 
 
-## Pasa al siguiente turno
+## Pasa al siguiente turno.
+## El siguiente turno del siguiente se pone automáticamente al establecer el actual
 func switch_next_turn() -> void:
 	current_turn = next_turn
 
@@ -119,9 +108,9 @@ func apply_game_over() -> void:
 	)
 
 	# Añade a los jugadores al ranking y los quita de la lista de espera
-	var snapshot: Array[PlayerData] = []
+	var snapshot: Array[Snapshot] = []
 	for _player in queued_ranked_players:
-		snapshot.append(PlayerData.new(_player.player_name, _player.team))
+		snapshot.append(Snapshot.new(_player.player_name, _player.team))
 
 	ranking.push_front(snapshot)
 	players = players.filter(func(p): return p not in queued_ranked_players)
@@ -133,7 +122,7 @@ func apply_game_over() -> void:
 	# Actualizamos el puntero al siguiente turno porque la lista de jugadores cambió
 	_set_next_turn()
 
-	# Si solo queda un jugador (el ganador), lo añadimos al ranking en el puesto 1
+	# Si solo queda un jugador (el ganador), lo añadimos al ranking automáticamente
 	if players.size() == 1:
 		queued_ranked_players = players.duplicate()
 		apply_game_over()
@@ -151,10 +140,8 @@ func we_lose():
 	return not player in players
 
 
-#endregion
-
-
-class PlayerData:
+## Clase que almacena los datos de un jugador de manera ligera y segura
+class Snapshot:
 	var name: String
 	var team: Constants.Teams
 
@@ -167,3 +154,6 @@ class PlayerData:
 			"[Nombre: %s, Equipo: %s]"
 			% [name, Utilities.get_enum_name(team, Constants.Teams)]
 		)
+
+
+#endregion

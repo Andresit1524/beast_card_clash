@@ -12,8 +12,10 @@ signal card_selected(card: Card)
 @onready var player_panel: PlayerPanel = %PlayerPanel
 ## Paneles de los bots
 @onready var bots_panels: VBoxContainer = %BotsPanels
+## Panel de pausa
+@onready var pause: Control = %Pause
 ## Interfaz de fin de juego
-@onready var end_ui: EndUI = %EndUI
+@onready var end_ui: EndUI = %End
 ## Datos de la batalla
 @onready var battle_data: BattleData = %BattleData
 
@@ -88,6 +90,35 @@ func _prune_bots_panels(bot_count: int) -> void:
 	# Oculta los paneles que sobran
 	for i in range(bot_count, bots_panels.get_child_count()):
 		bots_panels.get_child(i).visible = false
+
+
+#endregion
+
+
+#region Pausa
+
+
+## Acciona o desactiva el menú de pausa
+func _pause(value: bool) -> void:
+	get_tree().paused = value
+	pause.visible = value
+
+
+## Devuelve el juego a la pantalla de inicio
+func _on_back_button_pressed() -> void:
+	_pause(false)
+	SceneManager.change_to_scene("start_menu")
+
+
+## Continúa la partida
+func _on_continue_button_pressed() -> void:
+	_pause(false)
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	# Alterna la pausa con la tecla Esc
+	if not event.is_action_pressed("back"): return
+	_pause(not get_tree().paused)
 
 
 #endregion

@@ -48,97 +48,120 @@ label_settings = ExtResource("4_l0gy7")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Contents" type="HBoxContainer" parent="." unique_id=677869106]
-layout_mode = 0
-offset_left = 160.0
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=1970917780]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -437.0
 offset_top = 56.0
-offset_right = 992.0
-offset_bottom = 648.0
+offset_right = 437.0
 grow_horizontal = 2
 grow_vertical = 2
+vertical_scroll_mode = 3
+
+[node name="CenterContainer" type="CenterContainer" parent="ScrollContainer" unique_id=332677093]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Contents" type="HBoxContainer" parent="ScrollContainer/CenterContainer" unique_id=677869106]
+layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 10.0
 alignment = 1
 
-[node name="LeftColumn" type="VBoxContainer" parent="Contents" unique_id=1986401723]
-custom_minimum_size = Vector2(300, 0)
+[node name="LeftColumn" type="VBoxContainer" parent="ScrollContainer/CenterContainer/Contents" unique_id=1986401723]
+custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="Content" type="RichTextLabel" parent="Contents/LeftColumn" unique_id=1920013000]
+[node name="Content" type="RichTextLabel" parent="ScrollContainer/CenterContainer/Contents/LeftColumn" unique_id=1920013000]
 layout_mode = 2
 bbcode_enabled = true
 text = "[font_size=24]Idea original[/font_size]
 Valeria Díaz [i](Osito)[/i]
 
-[font_size=24]Arte y diseño creativo[/font_size]
-Richi Calderón
+[font_size=24]Narrativa[/font_size]
+Ricardo Calderón [i](Richi)[/i]
 
-[font_size=24]Diseños, arte y animación en 3D[/font_size]
-Fabián Montes [i](Movido51)[/i]
+[font_size=24]Diseño de juego[/font_size]
+Valeria Díaz [i](Osito)[/i]
+Ricardo Calderón [i](Richi)[/i]
+Hayran Andrés López
 
 [font_size=24]Programación[/font_size]
-Hayran Andrés López (Godot)
-Fabián Montés [i](Movido51)[/i] (Unity)
+Hayran Andrés López
+Fabián Montés [i](Movido51)[/i] (para Unity)
 
 [font_size=24]Música y SFX[/font_size]
 Juan Felipe Naranjo
-"
+
+[font_size=24]Arte y diseño creativo[/font_size]
+Lucia Rocco [i](Lu)[/i]: Diseño de personajes
+Jonathan [i](AFRO CODE)[/i]: Diseño de escenarios
+Ricardo Calderón [i](Richi)[/i]: Diseño de cartas, equipos y elementos"
 fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Space" type="Control" parent="Contents" unique_id=19564033]
+[node name="Space" type="Control" parent="ScrollContainer/CenterContainer/Contents" unique_id=19564033]
 custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
 
-[node name="RightColumn" type="VBoxContainer" parent="Contents" unique_id=1478334255]
-custom_minimum_size = Vector2(300, 0)
+[node name="RightColumn" type="VBoxContainer" parent="ScrollContainer/CenterContainer/Contents" unique_id=1478334255]
+custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="Content" type="RichTextLabel" parent="Contents/RightColumn" unique_id=375199011]
+[node name="Content" type="RichTextLabel" parent="ScrollContainer/CenterContainer/Contents/RightColumn" unique_id=375199011]
 layout_mode = 2
 bbcode_enabled = true
-text = "[font_size=24]Diseño de UI[/font_size]
-Hayran Andrés López (Godot)
+text = "[font_size=24]Diseños, arte y animación en 3D (para la demo en Unity)[/font_size]
+Fabián Montes [i](Movido51)
+
+[/i][font_size=24]Diseño de interfaz[/font_size]
+Hayran Andrés López y Lucía Rocco (Godot)
 David García (Unity)"
 fit_content = true
 autowrap_mode = 2
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Space" type="Control" parent="Contents/RightColumn" unique_id=664790395]
+[node name="Space" type="Control" parent="ScrollContainer/CenterContainer/Contents/RightColumn" unique_id=664790395]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
-[node name="MadeWith" type="RichTextLabel" parent="Contents/RightColumn" unique_id=1012572005]
+[node name="MadeWith" type="RichTextLabel" parent="ScrollContainer/CenterContainer/Contents/RightColumn" unique_id=1012572005]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 bbcode_enabled = true
-text = "[font_size=24]Hecho con[/font_size]"
+text = "Un abrazo de oso a todas las personas que han pasado por este proyecto y han estado o colaborado de alguna manera 🐻
+
+[font_size=24]Hecho con:[/font_size]"
 fit_content = true
 autowrap_mode = 2
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="GodotLogo" type="TextureRect" parent="Contents/RightColumn" unique_id=1809208040]
+[node name="GodotLogo" type="TextureRect" parent="ScrollContainer/CenterContainer/Contents/RightColumn" unique_id=1809208040]
 custom_minimum_size = Vector2(300, 100)
 layout_mode = 2
 texture = ExtResource("4_umgus")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="GDD" type="RichTextLabel" parent="Contents/RightColumn" unique_id=1389597443]
+[node name="GDD" type="RichTextLabel" parent="ScrollContainer/CenterContainer/Contents/RightColumn" unique_id=1389597443]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 bbcode_enabled = true
 text = "Por BCC DevTeam
 un equipo de GDD (antes UN-GAMES)
 
-[i]© 2025 - 2026[/i]"
+[b]© 2025 - 2026[/b]"
 fit_content = true
 autowrap_mode = 2
 horizontal_alignment = 1

@@ -60,7 +60,7 @@ func set_podium(ranking: Array[Array]):
 
 	# Por cada ranking
 	for i in ranking.size():
-		var rank: Array[BattleData.PlayerData] = ranking[i]
+		var rank: Array[BattleData.Snapshot] = ranking[i]
 
 		# Por cada posición en el ranking
 		for player in rank:

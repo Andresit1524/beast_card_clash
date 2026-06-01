@@ -16,6 +16,7 @@
 [ext_resource type="Resource" uid="uid://c4gqyhuufijo" path="res://assets/teams/teams_list.tres" id="10_kt8ap"]
 [ext_resource type="Script" uid="uid://bd5jv2qpva2t0" path="res://assets/battle/states/turn.gd" id="12_45g41"]
 [ext_resource type="Script" uid="uid://myr5bayqdfo0" path="res://assets/battle/states/loop.gd" id="13_6pcvk"]
+[ext_resource type="FontFile" uid="uid://cx0dmyddc8f5" path="res://assets/fonts/tilt_wrap.ttf" id="13_tl2es"]
 [ext_resource type="Script" uid="uid://bgoqckx2cr8mi" path="res://assets/battle/states/referee.gd" id="14_kt8ap"]
 [ext_resource type="PackedScene" uid="uid://cmugargrwkit2" path="res://assets/player/player.tscn" id="15_38ou4"]
 [ext_resource type="Script" uid="uid://d2wigsqxwrtwp" path="res://assets/battle/states/end.gd" id="15_ykgus"]
@@ -30,6 +31,10 @@
 shader = ExtResource("5_5m5wa")
 shader_parameter/lod = 2.000000095
 shader_parameter/tint = Color(0, 0, 0, 0.5019608)
+
+[sub_resource type="LabelSettings" id="LabelSettings_s2dql"]
+font = ExtResource("13_tl2es")
+font_size = 47
 
 [sub_resource type="Environment" id="Environment_hsiu5"]
 background_mode = 3
@@ -66,7 +71,8 @@ metadata/_edit_lock_ = true
 
 [node name="UILayer" type="CanvasLayer" parent="." unique_id=651321992]
 
-[node name="BattleUI" type="Control" parent="UILayer" unique_id=2020999291]
+[node name="UI" type="Control" parent="UILayer" unique_id=2020999291]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -74,9 +80,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+theme = ExtResource("5_thu85")
 script = ExtResource("1_tlmnd")
 
-[node name="HandPos" type="Control" parent="UILayer/BattleUI" unique_id=534952336]
+[node name="HandPos" type="Control" parent="UILayer/UI" unique_id=534952336]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -88,7 +95,7 @@ grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
 
-[node name="Hand" type="Path2D" parent="UILayer/BattleUI/HandPos" unique_id=563384670]
+[node name="Hand" type="Path2D" parent="UILayer/UI/HandPos" unique_id=563384670]
 unique_name_in_owner = true
 position = Vector2(-576, -648)
 curve = ExtResource("2_vomrt")
@@ -99,7 +106,7 @@ curves = Dictionary[StringName, Curve2D]({
 &"normal": ExtResource("2_vomrt")
 })
 
-[node name="PlayerPanel" parent="UILayer/BattleUI" unique_id=1239815553 instance=ExtResource("1_1054f")]
+[node name="PlayerPanel" parent="UILayer/UI" unique_id=1239815553 instance=ExtResource("1_1054f")]
 unique_name_in_owner = true
 layout_mode = 0
 anchors_preset = 0
@@ -115,7 +122,7 @@ grow_horizontal = 1
 grow_vertical = 1
 mouse_filter = 2
 
-[node name="BotsPanels" type="VBoxContainer" parent="UILayer/BattleUI" unique_id=1280223489]
+[node name="BotsPanels" type="VBoxContainer" parent="UILayer/UI" unique_id=1280223489]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 1
@@ -129,19 +136,75 @@ grow_horizontal = 0
 mouse_filter = 2
 theme_override_constants/separation = 8
 
-[node name="BotPanel" parent="UILayer/BattleUI/BotsPanels" unique_id=1053233556 instance=ExtResource("1_1054f")]
+[node name="BotPanel" parent="UILayer/UI/BotsPanels" unique_id=1053233556 instance=ExtResource("1_1054f")]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="BotPanel2" parent="UILayer/BattleUI/BotsPanels" unique_id=1994888533 instance=ExtResource("1_1054f")]
+[node name="BotPanel2" parent="UILayer/UI/BotsPanels" unique_id=1994888533 instance=ExtResource("1_1054f")]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="BotPanel3" parent="UILayer/BattleUI/BotsPanels" unique_id=954710962 instance=ExtResource("1_1054f")]
+[node name="BotPanel3" parent="UILayer/UI/BotsPanels" unique_id=954710962 instance=ExtResource("1_1054f")]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="EndUI" type="Control" parent="UILayer/BattleUI" unique_id=271450613]
+[node name="Pause" type="Control" parent="UILayer/UI" unique_id=841112671]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BlurRect" type="ColorRect" parent="UILayer/UI/Pause" unique_id=968549916]
+material = SubResource("ShaderMaterial_ey58u")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Contents" type="VBoxContainer" parent="UILayer/UI/Pause" unique_id=722269699]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 320.0
+offset_top = 209.0
+offset_right = -320.0
+offset_bottom = -136.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="UILayer/UI/Pause/Contents" unique_id=1042434554]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+text = "Pausa"
+label_settings = SubResource("LabelSettings_s2dql")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Buttons" type="HBoxContainer" parent="UILayer/UI/Pause/Contents" unique_id=1504043901]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ContinueButton" type="Button" parent="UILayer/UI/Pause/Contents/Buttons" unique_id=1644976826]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.49803922, 0.7019608, 0.44313726, 1)
+text = "Continuar"
+
+[node name="BackButton" type="Button" parent="UILayer/UI/Pause/Contents/Buttons" unique_id=1974290690]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.49803922, 0.7019608, 0.44313726, 1)
+text = "Salir al menú principal"
+
+[node name="End" type="Control" parent="UILayer/UI" unique_id=271450613]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
@@ -155,7 +218,7 @@ script = ExtResource("6_ey58u")
 podium_panel_scene = ExtResource("8_w7fa3")
 teams_list = ExtResource("10_kt8ap")
 
-[node name="BlurRect" type="ColorRect" parent="UILayer/BattleUI/EndUI" unique_id=102907938]
+[node name="BlurRect" type="ColorRect" parent="UILayer/UI/End" unique_id=102907938]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_ey58u")
 layout_mode = 1
@@ -165,7 +228,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="EndPanel" type="PanelContainer" parent="UILayer/BattleUI/EndUI" unique_id=501536096]
+[node name="EndPanel" type="PanelContainer" parent="UILayer/UI/End" unique_id=501536096]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -179,18 +242,18 @@ offset_bottom = 188.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="UILayer/BattleUI/EndUI/EndPanel" unique_id=989439369]
+[node name="MarginContainer" type="MarginContainer" parent="UILayer/UI/End/EndPanel" unique_id=989439369]
 layout_mode = 2
 theme_override_constants/margin_left = 32
 theme_override_constants/margin_top = 32
 theme_override_constants/margin_right = 32
 theme_override_constants/margin_bottom = 32
 
-[node name="Contents" type="VBoxContainer" parent="UILayer/BattleUI/EndUI/EndPanel/MarginContainer" unique_id=145980186]
+[node name="Contents" type="VBoxContainer" parent="UILayer/UI/End/EndPanel/MarginContainer" unique_id=145980186]
 layout_mode = 2
 alignment = 1
 
-[node name="Title" type="Label" parent="UILayer/BattleUI/EndUI/EndPanel/MarginContainer/Contents" unique_id=1468187114]
+[node name="Title" type="Label" parent="UILayer/UI/End/EndPanel/MarginContainer/Contents" unique_id=1468187114]
 layout_mode = 2
 size_flags_vertical = 6
 text = "¡Fin del juego!"
@@ -198,32 +261,32 @@ label_settings = ExtResource("7_sdhuf")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Space" type="Control" parent="UILayer/BattleUI/EndUI/EndPanel/MarginContainer/Contents" unique_id=742735063]
+[node name="Space" type="Control" parent="UILayer/UI/End/EndPanel/MarginContainer/Contents" unique_id=742735063]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 
-[node name="Podium" type="VBoxContainer" parent="UILayer/BattleUI/EndUI/EndPanel/MarginContainer/Contents" unique_id=855680482]
+[node name="Podium" type="VBoxContainer" parent="UILayer/UI/End/EndPanel/MarginContainer/Contents" unique_id=855680482]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="PodiumPanel" parent="UILayer/BattleUI/EndUI/EndPanel/MarginContainer/Contents/Podium" unique_id=1696558738 instance=ExtResource("8_w7fa3")]
+[node name="PodiumPanel" parent="UILayer/UI/End/EndPanel/MarginContainer/Contents/Podium" unique_id=1696558738 instance=ExtResource("8_w7fa3")]
 layout_mode = 2
 
-[node name="PodiumPanel2" parent="UILayer/BattleUI/EndUI/EndPanel/MarginContainer/Contents/Podium" unique_id=1250103870 instance=ExtResource("8_w7fa3")]
+[node name="PodiumPanel2" parent="UILayer/UI/End/EndPanel/MarginContainer/Contents/Podium" unique_id=1250103870 instance=ExtResource("8_w7fa3")]
 layout_mode = 2
 
-[node name="PodiumPanel3" parent="UILayer/BattleUI/EndUI/EndPanel/MarginContainer/Contents/Podium" unique_id=1352575027 instance=ExtResource("8_w7fa3")]
+[node name="PodiumPanel3" parent="UILayer/UI/End/EndPanel/MarginContainer/Contents/Podium" unique_id=1352575027 instance=ExtResource("8_w7fa3")]
 layout_mode = 2
 
-[node name="PodiumPanel4" parent="UILayer/BattleUI/EndUI/EndPanel/MarginContainer/Contents/Podium" unique_id=2020688800 instance=ExtResource("8_w7fa3")]
+[node name="PodiumPanel4" parent="UILayer/UI/End/EndPanel/MarginContainer/Contents/Podium" unique_id=2020688800 instance=ExtResource("8_w7fa3")]
 layout_mode = 2
 
-[node name="Space2" type="Control" parent="UILayer/BattleUI/EndUI/EndPanel/MarginContainer/Contents" unique_id=249604052]
+[node name="Space2" type="Control" parent="UILayer/UI/End/EndPanel/MarginContainer/Contents" unique_id=249604052]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ExitButton" type="Button" parent="UILayer/BattleUI/EndUI/EndPanel/MarginContainer/Contents" unique_id=1538333617]
+[node name="ExitButton" type="Button" parent="UILayer/UI/End/EndPanel/MarginContainer/Contents" unique_id=1538333617]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -231,15 +294,13 @@ size_flags_horizontal = 4
 theme_override_colors/font_color = Color(0.972549, 0.8862745, 0.7372549, 1)
 text = "Salir"
 
-[node name="BattleData" type="Node" parent="." unique_id=1350346319 node_paths=PackedStringArray("manager")]
+[node name="BattleData" type="Node" parent="." unique_id=1350346319]
 unique_name_in_owner = true
 script = ExtResource("20_6pcvk")
-manager = NodePath("../BattleManager")
-metadata/_custom_type_script = "uid://cqbraws606682"
 
 [node name="BattleManager" type="Node" parent="." unique_id=637941647 node_paths=PackedStringArray("battle_ui", "battle_world", "battle_data", "controlled_node", "default_state")]
 script = ExtResource("3_6cxqy")
-battle_ui = NodePath("../UILayer/BattleUI")
+battle_ui = NodePath("../UILayer/UI")
 battle_world = NodePath("../Stage")
 battle_data = NodePath("../BattleData")
 player_scene = ExtResource("15_38ou4")
@@ -319,4 +380,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 8)
 [node name="ReferencePlayer4" parent="Stage/Players" unique_id=1881287727 instance=ExtResource("15_38ou4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, -8)
 
+[connection signal="pressed" from="UILayer/UI/Pause/Contents/Buttons/ContinueButton" to="UILayer/UI" method="_on_continue_button_pressed"]
+[connection signal="pressed" from="UILayer/UI/Pause/Contents/Buttons/BackButton" to="UILayer/UI" method="_on_back_button_pressed"]
 [connection signal="thrown_dice" from="Stage/Dice" to="Stage" method="_on_dice_thrown_dice"]
