@@ -172,13 +172,12 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Contents/Panel4" unique_id=810379397]
-custom_minimum_size = Vector2(300, 500)
+custom_minimum_size = Vector2(400, 500)
 layout_mode = 2
 bbcode_enabled = true
-text = "Hay algunas casillas especiales también:
+text = "Hay una casilla especial también: las [b]casillas clash[/b] en las que puedes jugar el elemento que quieras. Lo identificas por el uso de los 5 elementos en su ícono.
 
-[b]Elemental:[/b] tú eliges el elemento que todos juegan.
-[b]Clash:[/b] cada quien juega la carta que quiera."
+En todo caso la baraja de cartas te impedirá jugar las cartas incorrectas. Si no puedes jugar ninguna carta el turno se salta automáticamente."
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -200,6 +199,23 @@ Pierdes 1 punto al perder el enfrentamiento con los otros jugadores. Ganas 1 pun
 
 Gana la partida quien sobreviva cuando todos los demás lleguen a 0.
 "
+vertical_alignment = 1
+
+[node name="Panel6" type="CenterContainer" parent="Contents" unique_id=545771186]
+visible = false
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Contents/Panel6" unique_id=542185556]
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 2
+text = "Creo que eso es todo por ahora. ¡Buena suerte jugando!
+
+Siempre puedes volver a este tutorial desde el menú principal."
+horizontal_alignment = 1
 vertical_alignment = 1
 
 [connection signal="pressed" from="Buttons/NextButton" to="." method="_on_next_button_pressed"]

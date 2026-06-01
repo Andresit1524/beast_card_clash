@@ -25,9 +25,7 @@ func _next_panel() -> bool:
 	current_panel += 1
 
 	# Error de rango
-	if current_panel < 0 or current_panel >= panels.size():
-		push_error("[Tutorial] Índice de panel inválido: %s" % current_panel)
-		return false
+	if current_panel < 0 or current_panel >= panels.size(): return false
 
 	for i in range(panels.size()):
 		panels[i].visible = (i == current_panel)
