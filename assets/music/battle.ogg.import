@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/battle.ogg-5c3e6fadfe34134cafa588676061a973.o
 
 [params]
 
-loop=false
+loop=true
 loop_offset=0
 bpm=0
 beat_count=0
