@@ -1,5 +1,8 @@
 [gd_resource type="LabelSettings" format=3 uid="uid://ctvu5dp4p0kjm"]
 
+[ext_resource type="FontFile" uid="uid://7afj2g1cbx0x" path="res://assets/fonts/delius.ttf" id="1_kmh3h"]
+
 [resource]
+font = ExtResource("1_kmh3h")
 font_size = 28
 font_color = Color(0.8627451, 0.8156863, 0.65882355, 1)

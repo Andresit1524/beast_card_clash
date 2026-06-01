@@ -1,24 +1,23 @@
 [gd_scene format=3 uid="uid://c1gyjxesm65cg"]
 
+[ext_resource type="Theme" uid="uid://djsw6wrf4tns" path="res://assets/ui/themes/main_theme.tres" id="1_hahch"]
 [ext_resource type="Texture2D" uid="uid://b5f3rhm0gflu5" path="res://assets/ui/tutorial/resources/tutorial_bg.png" id="1_sqcm7"]
-[ext_resource type="Texture2D" uid="uid://c3m8p4h1kjph3" path="res://assets/ui/tutorial/panels/tutorial_panel_1.png" id="2_3nh40"]
 [ext_resource type="Script" uid="uid://d2udhlmd4ii60" path="res://assets/ui/tutorial/tutorial.gd" id="3_xpy58"]
 [ext_resource type="Texture2D" uid="uid://b7lw8u1ydnd2u" path="res://assets/ui/tutorial/resources/next_page_button.png" id="4_aw2cu"]
-[ext_resource type="Texture2D" uid="uid://bmo8uausdhlfy" path="res://assets/ui/tutorial/panels/tutorial_panel_2.png" id="4_xpy58"]
-[ext_resource type="Texture2D" uid="uid://cghyea1c1bxqx" path="res://assets/ui/tutorial/panels/tutorial_panel_3.png" id="5_aw2cu"]
 [ext_resource type="Texture2D" uid="uid://b0m34aaou5stc" path="res://assets/ui/tutorial/resources/skip_button.png" id="5_leiwb"]
 [ext_resource type="PackedScene" uid="uid://jooi3svq5ikl" path="res://assets/ui/components/upper_bar.tscn" id="6_y4c3n"]
+[ext_resource type="LabelSettings" uid="uid://ctvu5dp4p0kjm" path="res://assets/ui/themes/title_theme.tres" id="7_l1h4v"]
+[ext_resource type="Texture2D" uid="uid://di6dprby2cbxt" path="res://assets/ui/tutorial/image.png" id="8_y4c3n"]
 
-[node name="Tutorial" type="Control" unique_id=959098823 node_paths=PackedStringArray("panel_node")]
+[node name="Tutorial" type="Control" unique_id=959098823]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_hahch")
 script = ExtResource("3_xpy58")
-panels_list = Array[Resource]([ExtResource("2_3nh40"), ExtResource("4_xpy58"), ExtResource("5_aw2cu")])
-panel_node = NodePath("TutorialPanels")
 
 [node name="Background" type="TextureRect" parent="." unique_id=1330699218]
 layout_mode = 1
@@ -31,21 +30,24 @@ texture = ExtResource("1_sqcm7")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="TutorialPanels" type="TextureRect" parent="." unique_id=369405058]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 148.0
-offset_right = -148.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_3nh40")
-expand_mode = 1
-stretch_mode = 5
-
 [node name="UpperBar" parent="." unique_id=989018212 instance=ExtResource("6_y4c3n")]
 layout_mode = 1
+
+[node name="Label" type="Label" parent="UpperBar" unique_id=1457927987]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Tutorial"
+label_settings = ExtResource("7_l1h4v")
 
 [node name="Buttons" type="VBoxContainer" parent="." unique_id=296258002]
 layout_mode = 0
@@ -67,6 +69,138 @@ layout_mode = 2
 texture_normal = ExtResource("5_leiwb")
 ignore_texture_size = true
 stretch_mode = 5
+
+[node name="Contents" type="Control" parent="." unique_id=931914268]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -409.0
+offset_top = -268.0
+offset_right = 409.0
+offset_bottom = 324.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="CenterContainer" parent="Contents" unique_id=16153718]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="RichTextLabel" parent="Contents/Panel" unique_id=1701655034]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+bbcode_enabled = true
+text = "[b]Beast Card Clash[/b] es un juego de cartas por turnos para 2 a 4 jugadores (por ahora, jugarás contra NPCs). El objetivo es ser el último en pie reduciendo la vida de tus rivales a 0.
+
+Al inicio, cada jugador recibe 9 cartas aleatorias de 5 elementos (Fuego, Agua, Tierra, Aire, Energía) y 5 puntos de vida.
+"
+fit_content = true
+autowrap_mode = 2
+vertical_alignment = 1
+
+[node name="Panel2" type="CenterContainer" parent="Contents" unique_id=1229561074]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="RichTextLabel" parent="Contents/Panel2" unique_id=516514529]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+bbcode_enabled = true
+text = "En cada turno:
+
+1. Lanzas el dado y te mueves en la Arena de batalla a la derecha o izquierda dependiendo el número que te salió.
+2. La casilla donde caes determina qué elemento debes jugar.
+3. Cada jugador elige una carta en secreto y se revelan al mismo tiempo.
+4. Se comparan los elementos y los números (como dinámica de  piedra-papel-tijera)
+5. Si un elemento gana, el perdedor pierde 1 vida
+6. Si empatan, dependerá del número de la carta
+
+Si aún así empatan, no pasa nada."
+fit_content = true
+autowrap_mode = 2
+vertical_alignment = 1
+
+[node name="Panel3" type="CenterContainer" parent="Contents" unique_id=1679792609]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="HBoxContainer" parent="Contents/Panel3" unique_id=1905046815]
+custom_minimum_size = Vector2(600, 500)
+layout_mode = 2
+
+[node name="CenterContainer" type="TextureRect" parent="Contents/Panel3/CenterContainer" unique_id=919023780]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("8_y4c3n")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CenterContainer2" type="RichTextLabel" parent="Contents/Panel3/CenterContainer" unique_id=1072672747]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+bbcode_enabled = true
+text = "Los elementos se ganan entre sí de la siguiente manera.
+
+[i]Creo que lo tendrás que anotar, por si acaso.[/i]"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel4" type="CenterContainer" parent="Contents" unique_id=45939798]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Contents/Panel4" unique_id=810379397]
+custom_minimum_size = Vector2(300, 500)
+layout_mode = 2
+bbcode_enabled = true
+text = "Hay algunas casillas especiales también:
+
+[b]Elemental:[/b] tú eliges el elemento que todos juegan.
+[b]Clash:[/b] cada quien juega la carta que quiera."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel5" type="CenterContainer" parent="Contents" unique_id=1804495728]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Contents/Panel5" unique_id=1619883385]
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 2
+text = "Al final del turno, cada jugador vuelve a tener 9 cartas.
+
+Pierdes 1 punto al perder el enfrentamiento con los otros jugadores. Ganas 1 punto al ganar en casillas Elemental o Clash.
+
+Gana la partida quien sobreviva cuando todos los demás lleguen a 0.
+"
+vertical_alignment = 1
 
 [connection signal="pressed" from="Buttons/NextButton" to="." method="_on_next_button_pressed"]
 [connection signal="pressed" from="Buttons/SkipButton" to="." method="_on_skip_button_pressed"]

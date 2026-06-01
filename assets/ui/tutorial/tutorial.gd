@@ -1,28 +1,51 @@
 extends Node
 
-@export var panels_list: Array[Resource]
-@export var panel_node: TextureRect
 
+@onready var contents: Control = $Contents
+
+
+var panels: Array[Control]
 var current_panel: int = 0
+
 
 # Fuerza a mostrar el primer panel al inicio
 func _ready() -> void:
-	panel_node.texture = panels_list[0]
+	# Configura
+	for child in contents.get_children():
+		if not child is Control: continue
 
-## Cambia de panel cuando se presiona el botón de siguiente
-func _on_next_button_pressed() -> void:
+		child.visible = false
+		panels.append(child)
+
+	panels[0].visible = true
+
+
+## Hace visible el panel indicado y oculta el resto
+func _next_panel() -> bool:
 	current_panel += 1
 
-	if current_panel >= panels_list.size():
-		_on_skip_button_pressed()
-		return
+	# Error de rango
+	if current_panel < 0 or current_panel >= panels.size():
+		push_error("[Tutorial] Índice de panel inválido: %s" % current_panel)
+		return false
 
-	panel_node.texture = panels_list[current_panel]
+	for i in range(panels.size()):
+		panels[i].visible = (i == current_panel)
+
+	return true
+
+
+## Cambia de panel cuando se presiona el botón de siguiente, o se sale si no es el caso
+func _on_next_button_pressed() -> void:
+	if not _next_panel(): SceneManager.change_to_scene("start_menu")
+
 
 ## Botón de saltar:
-## ! Por ahora no está la acción para esto
+## ! Por ahora no está la acción para esto. Por ahora, salir al menú principal
 func _on_skip_button_pressed() -> void:
 	print_debug("¡Salta el tutorial!")
+	SceneManager.change_to_scene("start_menu")
+
 
 ## Botón atrás: vuelve al menú principal
 func _on_back_button_pressed() -> void:
