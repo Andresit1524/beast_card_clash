@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="icon.png" width="15%"/>
+
 # 🐾🐻‍❄️ Beast Card Clash 🐻🐼
 [![Linktree](https://img.shields.io/badge/Linktree-gray?style=flat-square&logo=linktree&logoColor=%2345E55F)](https://linktr.ee/beast_card_clash)
 [![Docs](https://img.shields.io/badge/Docs-gray?style=flat-square&logo=github)](https://andresit1524.github.io/bcc_docs)
