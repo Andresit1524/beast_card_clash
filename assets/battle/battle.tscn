@@ -20,7 +20,7 @@
 [ext_resource type="Script" uid="uid://bgoqckx2cr8mi" path="res://assets/battle/states/referee.gd" id="14_kt8ap"]
 [ext_resource type="PackedScene" uid="uid://cmugargrwkit2" path="res://assets/player/player.tscn" id="15_38ou4"]
 [ext_resource type="Script" uid="uid://d2wigsqxwrtwp" path="res://assets/battle/states/end.gd" id="15_ykgus"]
-[ext_resource type="Script" uid="uid://d35sa10cw66ca" path="res://assets/battle/battle_data.gd" id="20_6pcvk"]
+[ext_resource type="Script" path="res://assets/battle/battle_data.gd" id="20_6pcvk"]
 [ext_resource type="Script" uid="uid://c5og7snwj47ak" path="res://assets/battle/stage/world.gd" id="21_63i6v"]
 [ext_resource type="PackedScene" uid="uid://mpvkdtkj0ajj" path="res://assets/battle/stage/dice/dice.tscn" id="22_tl2es"]
 [ext_resource type="Script" uid="uid://cjn0h33vnse38" path="res://assets/battle/stage/rocks/rocks.gd" id="23_s2dql"]

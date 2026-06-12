@@ -1,14 +1,18 @@
 {
     "recommendations": [
-        "edwinhuish.better-comments-next",
-        "geequlim.godot-tools",
-        "usernamehw.errorlens",
-        "mhutchie.git-graph",
-        "hakubox.dialogue-godot-support",
-        "alfish.godot-files",
-        "yzhang.markdown-all-in-one",
-        "christian-kohler.path-intellisense",
-        "MS-CEINTL.vscode-language-pack-es",
-        "ms-dotnettools.csharp"
+        // Godot
+        "geequlim.godot-tools", // Soporte base
+        "alfish.godot-files", // Soporte mejorado para shaders y recursos
+        "hakubox.dialogue-godot-support", // Soporte para archivos de dialogue manager
+        // Mejoras del editor
+        "miguelsolorio.symbols", // Paquete de iconos con soporte Godot
+        "edwinhuish.better-comments-next", // Mejores comentarios (colores según icono)
+        "usernamehw.errorlens", // Muestra errores en línea
+        "christian-kohler.path-intellisense", // Autocompletado de rutas
+        "MS-CEINTL.vscode-language-pack-es", // Español para VSCode
+        "mhutchie.git-graph", // Grafo para ver el árbol de Git
+        // Herramientas
+        "yzhang.markdown-all-in-one", // Mejor soporte para Markdown
+        "ms-dotnettools.csharp" // Soporte C# (opcional)
     ]
 }

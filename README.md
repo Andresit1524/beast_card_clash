@@ -19,22 +19,24 @@ Beast Card Clash contiene o plantea contener:
 4. Un estilo artístico adorable en 2.5D
 
 ## 🗂️ Documentación y contribución
-La documentación de este proyecto lo encuentras en la carpeta de [documentación](./.docs). También en [Mintlify](https://andresit1524-beast_card_clash.mintlify.app) (recomendado).
+La documentación de este proyecto lo encuentras en la carpeta de [documentación](./.docs) para ajustes rápidos, luego en [esta página](https://andresit1524.github.io/bcc_docs) para lo definitivo.
 
-En la [guía de contribución](./CONTRIBUTING.md) te explicamos como aportar en el desarrollo de este juego.
+En la [guía de contribución](./CONTRIBUTING.md) te explicamos como aportar adecuadamente en el desarrollo de este juego.
 
 ## 🧠 Créditos y licencia
-Beast Card Clash es desarrollado por **BCC DevTeam.**, un equipo de desarrollo dentro GDD, el grupo estudiantil de desarrollo de videojuegos de la Universidad Nacional de Colombia. _Nombre de equipo pendiente_.
+Beast Card Clash es desarrollado por **BCC DevTeam**, un equipo de desarrollo dentro de GDD, el grupo estudiantil de desarrollo de videojuegos de la Universidad Nacional de Colombia. _El nombre del equipo es temporal_.
 
 > ### Integrantes de BCC DevTeam
 >
-> - Hayran Andrés López (Andresit1524, el Ralsei)
-> - Valeria Díaz (Osito)
-> - Ricardo Calderón (Richi)
-> - Fabián Montés (Movido45)
-> - Juan Felipe Naranjo
-> - Jhonatan (Afrocode)
-> - Alejandra (Cato3o)
-> - Lucía (Lu)
+> **Activos**
+> - Hayran Andrés López (el Ralsei) -> Programador
+> - Valeria Díaz (Osito) -> Idea original
+> - Ricardo Calderón (Richi) -> Administrador y organizador
+> - Juan Felipe Naranjo -> Músico
+> - Jhonatan (Afrocode) -> Arte de escenarios
+> - Lucía (Lu) -> Arte de interfaz (pendiente) y personajes
+>
+> **Anteriores o retirados**
+> - Fabián Montés (Movido45) -> Programación de la demo original en Unity
 
 Este juego actualmente sigue la [**licencia MIT**](./LICENSE.md). La cambiaremos a una propietaria en el futuro, probablemente.

@@ -1,5 +1,4 @@
 # BCC: Plan de Mejora del Sistema de Batalla
-
 Este documento detalla los pasos para limpiar la arquitectura de batalla, reducir el acoplamiento y mejorar la legibilidad.
 
 ---
@@ -23,25 +22,7 @@ Crear un sistema donde el Manager y los estados puedan escuchar eventos de bajo 
 
 ---
 
-## 3. Matriz de Debilidades (Refactorización del Árbitro)
-Reemplazar el `match` gigante en `BattleReferee.gd` por una estructura de datos estática.
-
-**Propuesta de implementación:**
-```gdscript
-const WEAKNESS_MATRIX := {
-    Elements.AIR: [Elements.EARTH, Elements.WATER],  # A quién gana Aire
-    Elements.EARTH: [Elements.ENERGY, Elements.FIRE],
-    # ... etc
-}
-
-func compare(e1, e2):
-    if e1 == e2: return 0
-    return 1 if e2 in WEAKNESS_MATRIX[e1] else -1
-```
-
----
-
-## 4. Desacoplamiento Player -> Hand
+## 3. Desacoplamiento Player -> Hand
 El nodo `Player.gd` (3D) no debe conocer a `Hand.gd` (UI).
 
 **Acción:**
@@ -51,7 +32,7 @@ El nodo `Player.gd` (3D) no debe conocer a `Hand.gd` (UI).
 
 ---
 
-## 5. Limpieza de `BattleData`
+## 4. Limpieza de `BattleData`
 Mover la responsabilidad de las constantes y eliminar la referencia circular al Manager.
 
 **Acción:**
@@ -61,7 +42,7 @@ Mover la responsabilidad de las constantes y eliminar la referencia circular al 
 
 ---
 
-## 6. Reestructuración de Archivos (Pasos)
+## 5. Reestructuración de Archivos (Pasos)
 Organizar el caos actual de carpetas siguiendo el esquema de `arquitectura_batalla.md`.
 
 1. Crear carpetas `core/`, `world/` y `ui/`.

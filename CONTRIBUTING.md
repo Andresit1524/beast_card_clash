@@ -5,8 +5,8 @@
 Para contribuir al desarrollo de BCC, asegúrate de tener lo siguiente:
 
 ### Requisitos
-- [Godot 4.6](https://downloads.godotengine.org/?version=4.6.1&flavor=stable&slug=mono_win64.zip&platform=windows.64). Recomendamos la versión .NET. Godot será actualizado en la medida de los posible, al menos dentro de las versiones 4.x
-- [Plantillas de exportación de Godot](https://downloads.godotengine.org/?version=4.6.1&flavor=stable&slug=mono_export_templates.tpz&platform=templates) para tu versión del motor. Esto para exportar el juego.
+- [Godot 4.6](https://downloads.godotengine.org/?version=4.6.3&flavor=stable&slug=mono_win64.zip&platform=windows.64). Recomendamos la versión .NET. Godot será actualizado en la medida de los posible, al menos dentro de las versiones 4.x
+- [Plantillas de exportación de Godot](https://downloads.godotengine.org/?version=4.6.3&flavor=stable&slug=mono_export_templates.tpz&platform=templates) para tu versión del motor. Esto para exportar el juego. **¡Las plantillas se deben actualizar a la vez con el editor!**.
 - [.NET SDK 9 o superior](https://dotnet.microsoft.com/en-us/download/dotnet/9.0) (opcional, para usar C#).
 - Un editor de código como Visual Studio Code (recomendado).
 
@@ -30,10 +30,10 @@ Opcionalmente, puedes usar una herramienta visual como GitHub Desktop.
 > 
 > Si usas Visual Studio Code
 > 
-> 1. Instala la extensión [godot-tools](https://marketplace.visualstudio.com/items?itemName=geequlim.godot-tools) para obtener la mejor integración con Godot.
-> 2. En la carpeta `.vscode/` habrán archivos de configuracción que te ayudarán a tener una experiencia coherente con el del resto de personas. No lo cambies 
+> 1. Instala la extensión [godot-tools](https://marketplace.visualstudio.com/items?itemName=geequlim.godot-tools) para obtener la mejor integración con Godot. El editor te lo recomienda automáticamente.
+> 2. En la carpeta `.vscode/` habrán archivos de configuración y recomendación que te ayudarán a tener una experiencia coherente con el del resto de personas. No lo cambies.
 > 3. Abre el proyecto en Godot para que genere los archivos de configuración necesarios.
-> 4. Recomendamos no usar otro formateador que el de Godot tools. Otros formateadores como GDFormat pueden ser perniciosos con los archivos ya existentes.
+> 4. No recomendamos usar otro formateador diferente de Godot tools. Otros formateadores como GDFormat pueden ser perniciosos con los archivos ya existentes.
 
 ## Guía de Estilo de Código
 Para mantener la consistencia en el proyecto, te pedimos que sigas estas guías:
@@ -43,6 +43,7 @@ Para mantener la consistencia en el proyecto, te pedimos que sigas estas guías:
 - C# usa sus propias reglas de estilo, las cuales puedes consultar [aquí](https://docs.godotengine.org/es/4.x/tutorials/scripting/c_sharp/c_sharp_style_guide.html).
 - Los nodos en la escena deben usar `PascalCase`. Mientras que las escenas y los archivos en `snake_case`
 - Mantén siempre una buena ortografía y sé consistente con el estilo del código existente.
+- Añade anotaciones de tipo siempre que puedas, te ayudará con el autocompletado y la lectura de código.
 
 ## Cómo Enviar Cambios
 Para asegurar un desarrollo ordenado, nunca trabajes directamente sobre la rama `main`. Sigue estos pasos para enviar tus cambios:
@@ -53,7 +54,7 @@ Para asegurar un desarrollo ordenado, nunca trabajes directamente sobre la rama 
     git checkout -b <tu_rama>
     ```
 
-2. **Realiza tus cambios:** Mantén commits ordenados en el proceso
+2. **Realiza tus cambios:** Mantén commits ordenados en el proceso.
 3. **Sube tu rama al repositorio:**
 
     ```bash
