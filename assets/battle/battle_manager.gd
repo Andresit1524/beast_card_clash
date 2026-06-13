@@ -2,7 +2,6 @@
 class_name BattleManager extends StateMachine
 
 
-signal player_turn_ended()
 signal round_handled()
 
 
@@ -14,10 +13,17 @@ signal round_handled()
 ## Datos de batalla
 @export var battle_data: BattleData
 
-
 @export_group("Dependencias")
 ## Escena de personaje
 @export var player_scene: PackedScene
+
+
+# Estados de batalla
+@onready var start: BattleStart = $Start
+@onready var turn: BattleTurn = $Turn
+@onready var loop: BattleLoop = $Loop
+@onready var referee: BattleReferee = $Referee
+@onready var end: BattleEnd = $End
 
 
 func _ready() -> void:
@@ -33,6 +39,10 @@ func _ready() -> void:
 	battle_ui.card_selected.connect(_on_card_selected)
 	battle_world.dice_thrown.connect(set_dice_value)
 	battle_world.players_ready.connect(setup_ui)
+
+	# Lanzamiento del dado para el jugador humano
+	battle_world.dice_thrown.connect(_decide_dice_thrown)
+	turn.enable_dice.connect(battle_world.enable_dice.bind(true))
 
 
 #region Funciones de Start
@@ -94,6 +104,13 @@ func setup_world() -> void:
 #region Funciones de Turn
 
 
+## Decide si resaltar las rocas o no cuando se lanza el dado
+func _decide_dice_thrown(number: int) -> void:
+	if battle_data.current_turn.is_bot: return
+
+	turn._on_dice_thrown(number)
+
+
 ## Reacciona a la roca seleccionada en el turno del personaje
 func _on_rock_selected(selected_rock: Rock) -> void:
 	# Si no es el turno de un humano, ignoramos el clic para evitar desincronía
@@ -109,8 +126,8 @@ func _on_rock_selected(selected_rock: Rock) -> void:
 	)
 
 	if not card_choices:
-		# Avisamos que el turno terminó para desbloquear el estado BattleTurn
-		player_turn_ended.emit()
+		# Nos saltamos el turno
+		_decide_next_turn()
 		return
 
 	# Muestra la baraja
@@ -132,7 +149,9 @@ func _on_card_selected(selected_card: Card) -> void:
 
 	battle_ui.enable_hand(false)
 	battle_ui.refresh_player_stats(battle_data.players)
-	player_turn_ended.emit()
+
+	# Pasamos el turno
+	_decide_next_turn()
 
 
 #endregion
@@ -147,7 +166,7 @@ func set_dice_value(value: int) -> void:
 
 
 ## Decide a que estado delegarle al turno y lo delega
-func switch_next_turn_state() -> void:
+func _decide_next_turn() -> void:
 	# Si el siguiente turno es el primero, acabamos la ronda y nos vamos a referee
 	if battle_data.next_turn == battle_data.players[0]:
 		change_to_state(BattleReferee)

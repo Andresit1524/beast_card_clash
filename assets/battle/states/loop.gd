@@ -37,7 +37,7 @@ func start() -> void:
 		)
 		battle_data.current_turn.current_element = Constants.Elements.NONE
 		battle_data.current_turn.current_value = 0
-		manager.switch_next_turn_state()
+		manager._decide_next_turn()
 		return
 
 	# Guardamos los valores antes de que la carta sea liberada por la UI
@@ -56,4 +56,4 @@ func start() -> void:
 	)
 
 	# Delega el siguiente turno
-	manager.switch_next_turn_state()
+	manager._decide_next_turn()
