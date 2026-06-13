@@ -303,13 +303,13 @@ script = ExtResource("3_6cxqy")
 battle_ui = NodePath("../UILayer/UI")
 battle_world = NodePath("../Stage")
 battle_data = NodePath("../BattleData")
-player_scene = ExtResource("15_38ou4")
 controlled_node = NodePath(".")
 default_state = NodePath("Start")
 metadata/_custom_type_script = "uid://bxs53es51hc4u"
 
 [node name="Start" type="Node" parent="BattleManager" unique_id=804253519]
 script = ExtResource("10_5m5wa")
+player_scene = ExtResource("15_38ou4")
 
 [node name="Turn" type="Node" parent="BattleManager" unique_id=1466001643]
 script = ExtResource("12_45g41")

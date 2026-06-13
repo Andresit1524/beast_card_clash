@@ -13,10 +13,6 @@ signal round_handled()
 ## Datos de batalla
 @export var battle_data: BattleData
 
-@export_group("Dependencias")
-## Escena de personaje
-@export var player_scene: PackedScene
-
 
 # Estados de batalla
 @onready var start: BattleStart = $Start
@@ -45,49 +41,18 @@ func _ready() -> void:
 	turn.enable_dice.connect(battle_world.enable_dice.bind(true))
 
 
-#region Funciones de Start
-
-
-## Establece al jugador humano
-func setup_player() -> void:
-	# Crea el jugador humano
-	var player: Player = player_scene.instantiate()
-	player.player_name = PlayerStats.player_name
-	player.team = PlayerStats.team
-	player.is_bot = false
-	player.create_deck()
-
-	# Mano del jugador
-	player.deck_updated.connect(battle_ui.set_hand_from_deck)
-
-	# Añade a los datos de juego
-	battle_data.add_player(player)
-
-
-## Establece los bots
-func setup_bots() -> void:
-	var bots_count := randi_range(1, battle_data.MAX_PLAYERS - 1)
-	for i in range(bots_count):
-		var new_bot := player_scene.instantiate()
-		new_bot.create_deck()
-		new_bot.randomize()
-		battle_data.add_player(new_bot)
-
-		print("[BattleManager] Nuevo bot creado: %s!" % new_bot.player_name)
-
-	# Mezcla a los jugadores. El primer turno lo pone el mismo battle_data
-	battle_data.shuffle_players()
-	print(
-		"[BattleManager] %s jugadores en juego: %s"
-		% [bots_count + 1, battle_data.players.map(func(p): return p.player_name)]
-	)
+#region Funciones de Start (configuracion)
 
 
 ## Configura la UI inicialmente
 func setup_ui() -> void:
-	battle_ui.refresh_player_stats(battle_data.players)
+	# Mano
+	battle_data.player.deck_updated.connect(battle_ui.set_hand_from_deck)
 	battle_ui.set_hand_from_deck(battle_data.player.deck)
+	battle_ui.refresh_player_stats(battle_data.players)
 	battle_ui.enable_hand(false)
+
+	# Fin de juego
 	battle_ui.enable_end_ui(false)
 
 
