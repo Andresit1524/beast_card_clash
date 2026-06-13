@@ -1,8 +1,6 @@
 ## Clase que maneja los datos de la partida de forma centralizada y conectando las piezas del escenario
+# TODO: Renombrar 'world' a 'stage'
 class_name BattleManager extends StateMachine
-
-
-signal round_handled()
 
 
 @export_group("Nodos de la escena")
@@ -138,7 +136,7 @@ func _decide_next_turn() -> void:
 		print("[BattleManager] Fin de la ronda")
 
 		# Esperamos a que el referee emita la señal y continuamos
-		await round_handled
+		await referee.round_handled
 
 	# Seguridad: Si después del referee no quedan jugadores suficientes, abortamos el cambio de turno
 	if battle_data.players.size() <= 1: return
