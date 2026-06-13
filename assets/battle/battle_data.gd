@@ -140,6 +140,22 @@ func we_lose():
 	return not player in players
 
 
+## Crea un podio artificial para los jugadores restantes
+func lose_remaining() -> void:
+	while not players.is_empty():
+		print(
+			"[BattleData] Daño sobre: %s. Perdedores: %s"
+			% [
+				players.map(func(p: Player): return "%s: %s, " % [p.player_name, p.health]),
+				queued_ranked_players.map(func(p: Player): return "%s: %s, " % [p.player_name, p.health])
+			]
+		)
+		for _player in players:
+			_player.apply_damage()
+
+		apply_game_over()
+
+
 ## Clase que almacena los datos de un jugador de manera ligera y segura
 class Snapshot:
 	var name: String

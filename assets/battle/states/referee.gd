@@ -45,9 +45,9 @@ func start() -> void:
 		player.current_element = Constants.Elements.NONE
 		player.current_value = 0
 
-	# Fin de juego (ganador o empate fatal)
+	# Fin de juego (ganador, empate fatal o jugador humano fuera)
 	battle_data.apply_game_over()
-	if battle_data.players.size() <= 1:
+	if battle_data.players.size() <= 1 or battle_data.we_lose():
 		to_state.emit(BattleEnd)
 		return
 
