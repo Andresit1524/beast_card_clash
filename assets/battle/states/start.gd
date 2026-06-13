@@ -9,6 +9,7 @@ class_name BattleStart extends BattleState
 
 
 func start() -> void:
+	await manager.ready
 	MusicManager.play_music("battle")
 
 	_setup_player()
@@ -18,6 +19,7 @@ func start() -> void:
 	manager.setup_world()
 
 	# Delega el turno al jugador que corresponda
+	await get_tree().create_timer(battle_data.WAIT_TIME / 2).timeout
 	to_state.emit(BattleLoop if battle_data.current_turn.is_bot else BattleTurn)
 
 
