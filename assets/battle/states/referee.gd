@@ -42,8 +42,7 @@ func start() -> void:
 
 	# Reseteamos las elecciones de cada jugador
 	for player in battle_data.players:
-		player.current_element = Constants.Elements.NONE
-		player.current_value = 0
+		player.reset_choice()
 
 	# Fin de juego (ganador, empate fatal o jugador humano fuera)
 	battle_data.apply_game_over()

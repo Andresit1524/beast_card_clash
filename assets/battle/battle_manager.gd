@@ -71,7 +71,7 @@ func setup_world() -> void:
 func _decide_dice_thrown(number: int) -> void:
 	if battle_data.current_turn.is_bot: return
 
-	turn._on_dice_thrown(number)
+	turn.on_dice_thrown(number)
 
 
 ## Reacciona a la roca seleccionada en el turno del personaje
@@ -90,7 +90,7 @@ func _on_rock_selected(selected_rock: Rock) -> void:
 
 	if not card_choices:
 		# Nos saltamos el turno
-		_decide_next_turn()
+		decide_next_or_end()
 		return
 
 	# Muestra la baraja
@@ -105,16 +105,13 @@ func _on_card_selected(selected_card: Card) -> void:
 		% [Utilities.get_enum_name(selected_card.element, Constants.Elements), selected_card.value]
 	)
 
-	# Actualiza al jugador
+	# Juega y refrezca la interfaz
 	battle_data.current_turn.play_card(selected_card)
-	battle_data.current_turn.current_element = selected_card.element
-	battle_data.current_turn.current_value = selected_card.value
-
 	battle_ui.enable_hand(false)
 	battle_ui.refresh_player_stats(battle_data.players)
 
 	# Pasamos el turno
-	_decide_next_turn()
+	decide_next_or_end()
 
 
 #endregion
@@ -129,8 +126,8 @@ func set_dice_value(value: int) -> void:
 
 
 ## Decide a que estado delegarle al turno y lo delega
-func _decide_next_turn() -> void:
-	# Si el siguiente turno es el primero, acabamos la ronda y nos vamos a referee
+func decide_next_or_end() -> void:
+	# Fin de la ronda, si volvemos al principio
 	if battle_data.next_turn == battle_data.players[0]:
 		change_to_state(BattleReferee)
 		print("[BattleManager] Fin de la ronda")
@@ -138,21 +135,15 @@ func _decide_next_turn() -> void:
 		# Esperamos a que el referee emita la señal y continuamos
 		await referee.round_handled
 
-	# Seguridad: Si después del referee no quedan jugadores suficientes, abortamos el cambio de turno
-	if battle_data.players.size() <= 1: return
+	# Fin de juego
+	if battle_data.players.size() <= 1:
+		change_to_state(BattleEnd)
+		return
 
 	# Pasa el turno
 	battle_data.switch_next_turn()
-
-	# Verificamos al jugador que TIENE el turno ahora (current_turn)
-	if not battle_data.current_turn.is_bot:
-		print("[BattleManager] Turno de %s" % battle_data.current_turn.player_name)
-		change_to_state(BattleTurn)
-		return
-
-	# Caso contrario, pasa al BattleLoop
 	print("[BattleManager] Turno de %s" % battle_data.current_turn.player_name)
-	change_to_state(BattleLoop)
+	change_to_state(BattleTurn if not battle_data.current_turn.is_bot else BattleLoop)
 
 
 ## Obtiene la lista de rocas

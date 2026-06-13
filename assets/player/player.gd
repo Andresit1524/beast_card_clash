@@ -129,7 +129,7 @@ func remove_card(card: Card) -> void:
 	_update_deck_if_needed()
 
 
-## Juega una carta y la retorna. Retorna null si no hay más cartas
+## Juega una carta (indicada, o al azar) y la retorna. Retorna null si no hay más cartas
 func play_card(card: Card = null) -> Card:
 	# Si no hay carta, elige al azar
 	if not card: card = deck.pick_random()
@@ -137,6 +137,8 @@ func play_card(card: Card = null) -> Card:
 	# Si la carta está en el mazo, la procesamos
 	if card in deck:
 		deck.erase(card)
+		current_element = card.element
+		current_value = card.value
 
 		# Añade una nueva carta al azar para reponer
 		var new_card_element := Constants.Elements.NONE
@@ -155,6 +157,12 @@ func play_card(card: Card = null) -> Card:
 
 	_update_deck_if_needed()
 	return card
+
+
+## Resetea la elección del jugador
+func reset_choice() -> void:
+	current_element = Constants.Elements.NONE
+	current_value = 0
 
 
 ## Actualiza la baraja si es un jugador humano

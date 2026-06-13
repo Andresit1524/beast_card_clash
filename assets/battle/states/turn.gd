@@ -13,7 +13,7 @@ func start() -> void:
 
 
 ## Activa las rocas cuando el dado sea lanzado
-func _on_dice_thrown(number: int) -> void:
+func on_dice_thrown(number: int) -> void:
 	# Definimos las rocas a las que nos podemos mover y las activamos
 	var current_pos = battle_data.player.current_rock_index
 	var available_pos := [
