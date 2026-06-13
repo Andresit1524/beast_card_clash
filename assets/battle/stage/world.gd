@@ -107,7 +107,7 @@ func set_players(new_players: Array[Player]) -> void:
 
 	# Posiciona a los jugadores en rocas igualmente espaciadas
 	await _rocks_ready
-	for i in range(battle_data.get_players_count()):
+	for i in battle_data.get_players_count():
 		var current_player := battle_data.players[i]
 
 		# Usamos una referencia aparte para el jugador humano

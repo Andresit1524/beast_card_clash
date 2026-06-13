@@ -97,7 +97,7 @@ func randomize() -> void:
 
 ## Crea la baraja de cartas
 func create_deck() -> void:
-	for i in range(INITIAL_CARDS):
+	for i in INITIAL_CARDS:
 		# Elemento de la carta
 		var new_card_element := Constants.Elements.NONE
 		while new_card_element == Constants.Elements.NONE:

@@ -27,7 +27,7 @@ func _next_panel() -> bool:
 	# Error de rango
 	if current_panel < 0 or current_panel >= panels.size(): return false
 
-	for i in range(panels.size()):
+	for i in panels.size():
 		panels[i].visible = (i == current_panel)
 
 	return true

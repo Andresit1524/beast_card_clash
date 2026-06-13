@@ -59,7 +59,7 @@ func set_hand_element(new_element: Constants.Elements) -> void:
 func refresh_player_stats(players_list: Array) -> void:
 	var bot_ui_index := 0
 
-	for i in range(players_list.size()):
+	for i in players_list.size():
 		var player: Player = players_list[i]
 		var current_player_panel: PlayerPanel
 

@@ -20,7 +20,7 @@ func start() -> void:
 	# Creamos la lista de todos los pares de enfrentamientos
 	var pairs := []
 	var p_count := battle_data.players.size()
-	for i in range(p_count):
+	for i in p_count:
 		for j in range(i + 1, p_count):
 			pairs.append([battle_data.players[i], battle_data.players[j]])
 

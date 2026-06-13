@@ -25,7 +25,7 @@ func _instance_rocks() -> void:
 
 	var director = Vector3.FORWARD * RADIUS
 
-	for i in range(ROCK_COUNT):
+	for i in ROCK_COUNT:
 		var new_rock: Rock = rock_scene.instantiate()
 		var new_rock_angle := (TAU * i) / ROCK_COUNT
 

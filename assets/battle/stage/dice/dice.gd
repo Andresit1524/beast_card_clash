@@ -85,7 +85,7 @@ func throw_dice() -> void:
 func _rotate_dice(target_rotation: Quaternion):
 	var tween := create_tween()
 
-	for i in range(ROTATION_TIME / TWIST_TIME):
+	for i in (ROTATION_TIME / TWIST_TIME):
 		tween.tween_property(self, "quaternion", ROTATIONS[randi() % 6 + 1], TWIST_TIME)
 
 	tween.tween_property(self, "quaternion", target_rotation, TWIST_TIME)
