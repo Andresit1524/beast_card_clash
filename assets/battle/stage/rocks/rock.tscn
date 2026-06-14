@@ -63,3 +63,7 @@ shape = SubResource("CylinderShape3D_gmren")
 [node name="DebugCamera" type="Camera3D" parent="." unique_id=786780113]
 transform = Transform3D(1, 0, 0, 0, 0.6627115, 0.7488748, 0, -0.7488748, 0.6627115, 0, 1.8322113, 2.0244293)
 visible = false
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="mouse_entered" from="." to="." method="_on_hover" binds= [true]]
+[connection signal="mouse_exited" from="." to="." method="_on_hover" binds= [false]]

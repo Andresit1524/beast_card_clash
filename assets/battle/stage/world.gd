@@ -2,7 +2,6 @@
 class_name BattleWorld extends Node3D
 
 
-signal dice_thrown(number: int)
 signal rock_selected(rock: Rock)
 signal players_ready()
 signal _rocks_ready()
@@ -25,7 +24,6 @@ var rocks_list: Array[Rock] = []
 
 func _ready() -> void:
 	_set_rocks()
-	players.players_game_over.connect(battle_data.queue_game_over)
 
 
 #region Funciones del dado
@@ -39,11 +37,6 @@ func throw_dice() -> void:
 ## Activa o desactiva el dado
 func enable_dice(enabled: bool) -> void:
 	dice.clickable = enabled
-
-
-## Replica la señal del dado
-func _on_dice_thrown_dice(number: int) -> void:
-	dice_thrown.emit(number)
 
 
 #endregion

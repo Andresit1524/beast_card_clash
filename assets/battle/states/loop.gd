@@ -39,7 +39,7 @@ func start() -> void:
 ## Lanza el dado
 func _throw_dice() -> int:
 	manager.battle_world.throw_dice()
-	await manager.battle_world.dice_thrown
+	await manager.battle_world.dice.thrown_dice
 	print("[Loop] Dado lanzado: %s" % battle_data.current_dice_value)
 
 	return battle_data.current_dice_value

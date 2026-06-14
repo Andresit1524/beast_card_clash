@@ -44,10 +44,6 @@ var highlight_color: Color
 
 
 func _ready():
-	input_event.connect(_on_input_event)
-	mouse_entered.connect(_on_hover.bind(true))
-	mouse_exited.connect(_on_hover.bind(false))
-
 	# Inicializa los visuales
 	_update_sprite()
 	_highlight()

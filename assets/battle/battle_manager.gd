@@ -13,11 +13,8 @@ class_name BattleManager extends StateMachine
 
 
 # Estados de batalla
-@onready var start: BattleStart = $Start
 @onready var turn: BattleTurn = $Turn
-@onready var loop: BattleLoop = $Loop
 @onready var referee: BattleReferee = $Referee
-@onready var end: BattleEnd = $End
 
 
 func _ready() -> void:
@@ -27,16 +24,6 @@ func _ready() -> void:
 		if child is BattleState: child.manager = self
 
 	super() # Arranca la máquina de estados (StateMachine)
-
-	# Conecta las señales necesarias
-	battle_world.rock_selected.connect(_on_rock_selected)
-	battle_ui.card_selected.connect(_on_card_selected)
-	battle_world.dice_thrown.connect(set_dice_value)
-	battle_world.players_ready.connect(setup_ui)
-
-	# Lanzamiento del dado para el jugador humano
-	battle_world.dice_thrown.connect(_decide_dice_thrown)
-	turn.enable_dice.connect(battle_world.enable_dice.bind(true))
 
 
 #region Funciones de Start (configuracion)

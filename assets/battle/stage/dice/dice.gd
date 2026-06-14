@@ -50,7 +50,6 @@ var _start_position: Vector3
 func _ready() -> void:
 	quaternion = ROTATIONS[number]
 	_start_position = position
-	static_body.input_event.connect(_on_static_body_input_event)
 	static_body.input_ray_pickable = clickable
 
 

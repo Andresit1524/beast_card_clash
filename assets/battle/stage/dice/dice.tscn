@@ -22,7 +22,7 @@ transform = Transform3D(0, 1, 0, -0.99999994, 0, 0, 0, 0, 0.99999994, 0, 0, 0)
 rotation_edit_mode = 1
 script = ExtResource("2_kqj45")
 
-[node name="Cube" parent="." index="0" unique_id=1091276435]
+[node name="Cube" parent="." index="0" unique_id=1213184836]
 rotation_edit_mode = 1
 material_overlay = SubResource("ShaderMaterial_j4q3a")
 
@@ -35,3 +35,5 @@ shape = SubResource("BoxShape3D_kqj45")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2828426, 6.338654)
 top_level = true
 visible = false
+
+[connection signal="input_event" from="StaticBody" to="." method="_on_static_body_input_event"]

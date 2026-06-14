@@ -28,10 +28,6 @@ const COLORS := [Color.GOLD, Color.SILVER, Color.PERU]
 @onready var exit_button: Button = %ExitButton
 
 
-func _ready() -> void:
-	exit_button.pressed.connect(_quit_battle)
-
-
 ## Establece la visibilidad de la interfaz de usuario con un efecto de fade
 func set_ui_visible(value: bool) -> void:
 	var tween := create_tween()
