@@ -1,5 +1,5 @@
 ## Clase que almacena los elementos del mundo 3D, de forma diferida al mundo de la interfaz 2D
-class_name BattleWorld extends Node3D
+class_name BattleStage extends Node3D
 
 
 signal rock_selected(rock: Rock)
@@ -63,7 +63,7 @@ func _set_rocks() -> void:
 
 	if rocks.get_child_count() != rocks.ROCK_COUNT:
 		push_warning(
-			"[World] Cantidad de rocas inesperada. Esperado: %s, Obtenido: %s"
+			"[Stage] Cantidad de rocas inesperada. Esperado: %s, Obtenido: %s"
 			% [rocks.ROCK_COUNT, rocks.get_child_count()]
 		)
 
@@ -80,7 +80,7 @@ func disable_rocks() -> void:
 ## Replica la señal de cada roca al pulsarse
 func _on_rock_selected(selected_rock: Rock) -> void:
 	Utilities.print_color(
-		"[World] Roca seleccionada: %s"
+		"[Stage] Roca seleccionada: %s"
 		% Utilities.get_enum_name(selected_rock.element, Constants.Elements),
 		Constants.ELEMENTS_COLORS[selected_rock.element]
 	)
@@ -110,7 +110,7 @@ func set_players(new_players: Array[Player]) -> void:
 		var position_idx := int((float(i) / battle_data.players.size()) * rocks_list.size())
 		current_player.move_to(rocks_list[position_idx].position, position_idx)
 
-		print("[World] %s en índice %s" % [current_player.player_name, position_idx])
+		print("[Stage] %s en índice %s" % [current_player.player_name, position_idx])
 
 	await players_ready
 

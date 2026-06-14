@@ -1,5 +1,4 @@
 ## Clase que maneja los datos de la partida de forma centralizada y conectando las piezas del escenario
-# TODO: Renombrar 'world' a 'stage'
 class_name BattleManager extends StateMachine
 
 
@@ -7,7 +6,7 @@ class_name BattleManager extends StateMachine
 ## Gestor de la interfaz de batalla
 @export var battle_ui: BattleUI
 ## Mundo de batalla
-@export var battle_world: BattleWorld
+@export var battle_stage: BattleStage
 ## Datos de batalla
 @export var battle_data: BattleData
 
@@ -42,10 +41,10 @@ func setup_ui() -> void:
 
 
 ## Configura el mundo de batalla
-func setup_world() -> void:
-	battle_world.disable_rocks()
-	battle_world.enable_dice(false)
-	battle_world.set_players(battle_data.players)
+func setup_stage() -> void:
+	battle_stage.disable_rocks()
+	battle_stage.enable_dice(false)
+	battle_stage.set_players(battle_data.players)
 
 
 #endregion
@@ -66,7 +65,7 @@ func _on_rock_selected(selected_rock: Rock) -> void:
 	# Si no es el turno de un humano, ignoramos el clic para evitar desincronía
 	if battle_data.current_turn.is_bot: return
 
-	battle_world.disable_rocks()
+	battle_stage.disable_rocks()
 	battle_data.current_turn.move_to(selected_rock.position, selected_rock.rock_index)
 	await battle_data.current_turn.moved
 
@@ -135,7 +134,7 @@ func decide_next_or_end() -> void:
 
 ## Obtiene la lista de rocas
 func get_rocks():
-	return battle_world.rocks_list
+	return battle_stage.rocks_list
 
 
 #endregion

@@ -23,4 +23,4 @@ func on_dice_thrown(number: int) -> void:
 
 	# Resaltamos las rocas disponibles
 	# El resto del turno corre por cuenta de reacciones en el manager
-	manager.battle_world.enable_rocks(available_pos)
+	manager.battle_stage.enable_rocks(available_pos)

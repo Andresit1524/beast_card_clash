@@ -21,7 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://cmugargrwkit2" path="res://assets/player/player.tscn" id="15_38ou4"]
 [ext_resource type="Script" uid="uid://d2wigsqxwrtwp" path="res://assets/battle/states/end.gd" id="15_ykgus"]
 [ext_resource type="Script" uid="uid://d35sa10cw66ca" path="res://assets/battle/battle_data.gd" id="20_6pcvk"]
-[ext_resource type="Script" uid="uid://c5og7snwj47ak" path="res://assets/battle/stage/world.gd" id="21_63i6v"]
+[ext_resource type="Script" path="res://assets/battle/stage/stage.gd" id="21_63i6v"]
 [ext_resource type="PackedScene" uid="uid://mpvkdtkj0ajj" path="res://assets/battle/stage/dice/dice.tscn" id="22_tl2es"]
 [ext_resource type="Script" uid="uid://cjn0h33vnse38" path="res://assets/battle/stage/rocks/rocks.gd" id="23_s2dql"]
 [ext_resource type="PackedScene" uid="uid://bmk14l2nvouje" path="res://assets/battle/stage/rocks/rock.tscn" id="24_kn2os"]
@@ -298,10 +298,9 @@ text = "Salir"
 unique_name_in_owner = true
 script = ExtResource("20_6pcvk")
 
-[node name="BattleManager" type="Node" parent="." unique_id=637941647 node_paths=PackedStringArray("battle_ui", "battle_world", "battle_data", "controlled_node", "default_state")]
+[node name="BattleManager" type="Node" parent="." unique_id=637941647 node_paths=PackedStringArray("battle_ui", "battle_data", "controlled_node", "default_state")]
 script = ExtResource("3_6cxqy")
 battle_ui = NodePath("../UILayer/UI")
-battle_world = NodePath("../Stage")
 battle_data = NodePath("../BattleData")
 controlled_node = NodePath(".")
 default_state = NodePath("Start")

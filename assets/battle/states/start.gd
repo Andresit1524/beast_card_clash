@@ -16,7 +16,7 @@ func start() -> void:
 	_setup_bots()
 
 	manager.setup_ui()
-	manager.setup_world()
+	manager.setup_stage()
 
 	# Delega el turno al jugador que corresponda
 	await get_tree().create_timer(battle_data.WAIT_TIME / 2.0).timeout
