@@ -21,7 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://cmugargrwkit2" path="res://assets/player/player.tscn" id="15_38ou4"]
 [ext_resource type="Script" uid="uid://d2wigsqxwrtwp" path="res://assets/battle/states/end.gd" id="15_ykgus"]
 [ext_resource type="Script" uid="uid://d35sa10cw66ca" path="res://assets/battle/battle_data.gd" id="20_6pcvk"]
-[ext_resource type="Script" path="res://assets/battle/stage/stage.gd" id="21_63i6v"]
+[ext_resource type="Script" uid="uid://c5og7snwj47ak" path="res://assets/battle/stage/stage.gd" id="21_63i6v"]
 [ext_resource type="PackedScene" uid="uid://mpvkdtkj0ajj" path="res://assets/battle/stage/dice/dice.tscn" id="22_tl2es"]
 [ext_resource type="Script" uid="uid://cjn0h33vnse38" path="res://assets/battle/stage/rocks/rocks.gd" id="23_s2dql"]
 [ext_resource type="PackedScene" uid="uid://bmk14l2nvouje" path="res://assets/battle/stage/rocks/rock.tscn" id="24_kn2os"]
@@ -83,7 +83,16 @@ mouse_filter = 1
 theme = ExtResource("5_thu85")
 script = ExtResource("1_tlmnd")
 
-[node name="HandPos" type="Control" parent="UILayer/UI" unique_id=534952336]
+[node name="Battle" type="Control" parent="UILayer/UI" unique_id=99794430]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="HandPos" type="Control" parent="UILayer/UI/Battle" unique_id=534952336]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -95,7 +104,7 @@ grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
 
-[node name="Hand" type="Path2D" parent="UILayer/UI/HandPos" unique_id=563384670]
+[node name="Hand" type="Path2D" parent="UILayer/UI/Battle/HandPos" unique_id=563384670]
 unique_name_in_owner = true
 position = Vector2(-576, -648)
 curve = ExtResource("2_vomrt")
@@ -106,7 +115,7 @@ curves = Dictionary[StringName, Curve2D]({
 &"normal": ExtResource("2_vomrt")
 })
 
-[node name="PlayerPanel" parent="UILayer/UI" unique_id=1239815553 instance=ExtResource("1_1054f")]
+[node name="PlayerPanel" parent="UILayer/UI/Battle" unique_id=1239815553 instance=ExtResource("1_1054f")]
 unique_name_in_owner = true
 layout_mode = 0
 anchors_preset = 0
@@ -116,13 +125,13 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 32.0
 offset_top = 32.0
-offset_right = 176.0
+offset_right = 164.0
 offset_bottom = 214.0
 grow_horizontal = 1
 grow_vertical = 1
 mouse_filter = 2
 
-[node name="BotsPanels" type="VBoxContainer" parent="UILayer/UI" unique_id=1280223489]
+[node name="BotsPanels" type="VBoxContainer" parent="UILayer/UI/Battle" unique_id=1280223489]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 1
@@ -136,15 +145,15 @@ grow_horizontal = 0
 mouse_filter = 2
 theme_override_constants/separation = 8
 
-[node name="BotPanel" parent="UILayer/UI/BotsPanels" unique_id=1053233556 instance=ExtResource("1_1054f")]
+[node name="BotPanel" parent="UILayer/UI/Battle/BotsPanels" unique_id=1053233556 instance=ExtResource("1_1054f")]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="BotPanel2" parent="UILayer/UI/BotsPanels" unique_id=1994888533 instance=ExtResource("1_1054f")]
+[node name="BotPanel2" parent="UILayer/UI/Battle/BotsPanels" unique_id=1994888533 instance=ExtResource("1_1054f")]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="BotPanel3" parent="UILayer/UI/BotsPanels" unique_id=954710962 instance=ExtResource("1_1054f")]
+[node name="BotPanel3" parent="UILayer/UI/Battle/BotsPanels" unique_id=954710962 instance=ExtResource("1_1054f")]
 layout_mode = 2
 mouse_filter = 2
 
@@ -298,9 +307,10 @@ text = "Salir"
 unique_name_in_owner = true
 script = ExtResource("20_6pcvk")
 
-[node name="BattleManager" type="Node" parent="." unique_id=637941647 node_paths=PackedStringArray("battle_ui", "battle_data", "controlled_node", "default_state")]
+[node name="BattleManager" type="Node" parent="." unique_id=637941647 node_paths=PackedStringArray("battle_ui", "battle_stage", "battle_data", "controlled_node", "default_state")]
 script = ExtResource("3_6cxqy")
 battle_ui = NodePath("../UILayer/UI")
+battle_stage = NodePath("../Stage")
 battle_data = NodePath("../BattleData")
 controlled_node = NodePath(".")
 default_state = NodePath("Start")
