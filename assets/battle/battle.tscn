@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bhftk28laqsy8"]
 
-[ext_resource type="PackedScene" uid="uid://b00c0clxl6uol" path="res://assets/battle/ui/player_panel.tscn" id="1_1054f"]
+[ext_resource type="PackedScene" uid="uid://b00c0clxl6uol" path="res://assets/battle/ui/components/player_panel.tscn" id="1_1054f"]
 [ext_resource type="Script" uid="uid://bi4tiwacyr4dh" path="res://assets/battle/ui/hand.gd" id="1_oyv2c"]
 [ext_resource type="Script" uid="uid://0qb4hgslax58" path="res://assets/battle/ui/battle_ui.gd" id="1_tlmnd"]
 [ext_resource type="PackedScene" uid="uid://dogb8dy8s5bsc" path="res://assets/cards/card.tscn" id="2_6cxqy"]
@@ -11,7 +11,7 @@
 [ext_resource type="Theme" uid="uid://djsw6wrf4tns" path="res://assets/ui/themes/main_theme.tres" id="5_thu85"]
 [ext_resource type="Script" uid="uid://dnhyvmfljit8f" path="res://assets/battle/ui/end_ui.gd" id="6_ey58u"]
 [ext_resource type="LabelSettings" uid="uid://ctvu5dp4p0kjm" path="res://assets/ui/themes/title_theme.tres" id="7_sdhuf"]
-[ext_resource type="PackedScene" uid="uid://dleubuyqowf33" path="res://assets/battle/ui/podium_panel.tscn" id="8_w7fa3"]
+[ext_resource type="PackedScene" uid="uid://dleubuyqowf33" path="res://assets/battle/ui/components/podium_panel.tscn" id="8_w7fa3"]
 [ext_resource type="Script" uid="uid://clvjxwv8w7kt0" path="res://assets/battle/states/start.gd" id="10_5m5wa"]
 [ext_resource type="Resource" uid="uid://c4gqyhuufijo" path="res://assets/teams/teams_list.tres" id="10_kt8ap"]
 [ext_resource type="Script" uid="uid://bd5jv2qpva2t0" path="res://assets/battle/states/turn.gd" id="12_45g41"]
