@@ -2,9 +2,10 @@
 class_name BattleStage extends Node3D
 
 
-signal rock_selected(rock: Rock)
-signal players_ready()
+## Indica que las rocas están listas para que los jugadores se ubiquen en ellas
 signal _rocks_ready()
+## Se emite cuando una roca es seleccionada, y envía la referencia de la misma
+signal rock_selected(rock: Rock)
 
 
 ## Nodo del dado
@@ -17,9 +18,8 @@ signal _rocks_ready()
 @export var battle_data: BattleData
 
 
-# var player: Player
-# var players_list: Array[Player] = []
-var rocks_list: Array[Rock] = []
+## Lista de referencias a las rocas
+var rocks_list: Array[Rock]
 
 
 func _ready() -> void:
@@ -45,29 +45,22 @@ func enable_dice(enabled: bool) -> void:
 #region Funciones de las rocas
 
 
-## Activa las rocas dada la lista de índices
-func enable_rocks(index: Array) -> void:
-	for i in index:
-		rocks_list[i].selectable = true
-
-
-## Establece las rocas y las configura [br]
-## Este método se basa en que las rocas se instancian desde [code]Rocks[/code]. Acá solo las registramos
+## Accede a las rocas y las agrega a la lista
 func _set_rocks() -> void:
 	# Filtra las rocas y se conecta a cada una
-	rocks_list.clear()
-	for rock in rocks.get_children():
-		if rock is Rock:
-			rocks_list.append(rock)
-			rock.rock_selected.connect(_on_rock_selected)
+	rocks_list.assign(rocks.get_children().filter(func(c): return c is Rock))
+	for rock in rocks_list:
+		rock.rock_selected.connect(rock_selected.emit)
 
-	if rocks.get_child_count() != rocks.ROCK_COUNT:
-		push_warning(
-			"[Stage] Cantidad de rocas inesperada. Esperado: %s, Obtenido: %s"
-			% [rocks.ROCK_COUNT, rocks.get_child_count()]
-		)
+	if rocks.get_child_count() == rocks.ROCK_COUNT:
+		_rocks_ready.emit()
+		return
 
-	_rocks_ready.emit()
+
+## Activa las rocas dada la lista de índices
+func enable_rocks(index_list: Array) -> void:
+	for i in index_list:
+		rocks_list[i].selectable = true
 
 
 ## Desactiva todas las rocas
@@ -75,16 +68,6 @@ func disable_rocks() -> void:
 	if not is_node_ready(): await ready
 	for rock in rocks_list:
 		rock.selectable = false
-
-
-## Replica la señal de cada roca al pulsarse
-func _on_rock_selected(selected_rock: Rock) -> void:
-	Utilities.print_color(
-		"[Stage] Roca seleccionada: %s"
-		% Utilities.get_enum_name(selected_rock.element, Constants.Elements),
-		Constants.ELEMENTS_COLORS[selected_rock.element]
-	)
-	rock_selected.emit(selected_rock)
 
 
 #endregion
@@ -97,9 +80,9 @@ func _on_rock_selected(selected_rock: Rock) -> void:
 func set_players(new_players: Array[Player]) -> void:
 	battle_data.players = new_players
 	players.add_players(new_players)
+	await _rocks_ready
 
 	# Posiciona a los jugadores en rocas igualmente espaciadas
-	await _rocks_ready
 	for i in battle_data.get_players_count():
 		var current_player := battle_data.players[i]
 
@@ -111,8 +94,6 @@ func set_players(new_players: Array[Player]) -> void:
 		current_player.move_to(rocks_list[position_idx].position, position_idx)
 
 		print("[Stage] %s en índice %s" % [current_player.player_name, position_idx])
-
-	await players_ready
 
 
 #endregion
