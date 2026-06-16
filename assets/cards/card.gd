@@ -16,7 +16,7 @@ const ONDULAION_SPEED := 3.5
 		element = value
 		_update_sprite()
 ## Valor de la carta
-@export_range(1, Constants.MAX_CARD_VAlUE) var value := 1:
+@export_range(1, Constants.MAX_CARD_VALUE) var value := 1:
 	set(val):
 		value = val
 		_update_sprite()
@@ -107,7 +107,7 @@ func _hover_card(hover: bool) -> void:
 
 		if hide_card: return
 		tween.tween_property(self, "position", _start_position, HOVER_TIME)
-		tween.tween_callback(func(): set_physics_process(true))
+		tween.tween_callback(set_physics_process.bind(true))
 
 
 ## Voltea la carta para ocultarla o mostrarla

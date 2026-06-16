@@ -42,7 +42,6 @@ func _setup_bots() -> void:
 	for i in bots_count:
 		var new_bot: Player = player_scene.instantiate()
 		new_bot.create_deck()
-		new_bot.randomize()
 		battle_data.add_player(new_bot)
 
 		print("[BattleManager] Nuevo bot creado: %s!" % new_bot.player_name)
