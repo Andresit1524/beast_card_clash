@@ -395,6 +395,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, -8)
 [connection signal="pressed" from="UILayer/UI/End/EndPanel/MarginContainer/Contents/ExitButton" to="UILayer/UI/End" method="_quit_battle"]
 [connection signal="enable_dice" from="BattleManager/Turn" to="Stage" method="enable_dice" binds= [true]]
 [connection signal="rock_selected" from="Stage" to="BattleManager" method="_on_rock_selected"]
-[connection signal="thrown_dice" from="Stage/Dice" to="BattleManager" method="_decide_dice_thrown"]
-[connection signal="thrown_dice" from="Stage/Dice" to="BattleManager" method="set_dice_value"]
+[connection signal="thrown" from="Stage/Dice" to="BattleManager" method="_on_dice_thrown"]
 [connection signal="players_game_over" from="Stage/Players" to="BattleData" method="queue_game_over"]

@@ -53,8 +53,9 @@ func setup_stage() -> void:
 #region Funciones de Turn
 
 
-## Decide si resaltar las rocas o no cuando se lanza el dado
-func _decide_dice_thrown(number: int) -> void:
+## Actualiza los datos sobre el dado y envía el número al BattleTurn si es el caso
+func _on_dice_thrown(number: int) -> void:
+	battle_data.current_dice_value = number
 	if battle_data.current_turn.is_bot: return
 
 	turn.on_dice_thrown(number)
@@ -104,11 +105,6 @@ func _on_card_selected(selected_card: Card) -> void:
 
 
 #region Funciones compartidas y otros
-
-
-## Almacena el valor del dado cuando se lanza
-func set_dice_value(value: int) -> void:
-	battle_data.current_dice_value = value
 
 
 ## Decide a que estado delegarle al turno y lo delega
