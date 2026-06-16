@@ -50,7 +50,7 @@ func _set_rocks() -> void:
 	# Filtra las rocas y se conecta a cada una
 	rocks_list.assign(rocks.get_children().filter(func(c): return c is Rock))
 	for rock in rocks_list:
-		rock.rock_selected.connect(rock_selected.emit)
+		rock.selected.connect(rock_selected.emit)
 
 	if rocks.get_child_count() == rocks.ROCK_COUNT:
 		_rocks_ready.emit()
