@@ -44,14 +44,14 @@ Actualmente existen abstracciones excesivas y código obsoleto que complican el 
 
 ## 7. Ajustes de Reglas de Combate y Lógica de Árbitro
 La lógica de resolución de batallas tiene comportamientos inconsistentes en empates.
-- [ ] Corregir Resolución de Empates en `BattleReferee`: Modificar la función `_compare_players` en `referee.gd`. Actualmente, ante elementos e iguales valores, devuelve `-1` otorgándole la victoria al segundo jugador por defecto. Debe retornar `0` e implementar una mecánica de desempate real (como una ronda extra o daño nulo).
+- [X] Corregir Resolución de Empates en `BattleReferee`: Modificar la función `_compare_players` en `referee.gd`. Actualmente, ante elementos e iguales valores, devuelve `-1` otorgándole la victoria al segundo jugador por defecto. Debe retornar `0` e implementar una mecánica de desempate real (como una ronda extra o daño nulo).
 - [X] ~~Evitar Referencias de UI Bloqueadas en el Panel de Jugador: En `PlayerPanel.gd`, corregir la función `set_card_sprite` que tiene el chequeo `not card_texture.texture` para permitir la asignación correcta cuando el sprite de la textura inicial es nulo.~~
 
 ## 8. Revisión de Código - Beast Card Clash (Proyecto General)
 
 ### Crítico
 Problemas que causarán errores, bloqueos o problemas de rendimiento significativos.
-- [ ] referee.gd — La comparación de jugadores en `_compare_players()` otorga la victoria por defecto al segundo jugador si hay empate en elementos y valores al retornar `-1` — Solución sugerida: Retornar `0` para indicar un empate real y resolver el flujo con daño nulo o ronda de desempate.
+- [X] referee.gd — La comparación de jugadores en `_compare_players()` otorga la victoria por defecto al segundo jugador si hay empate en elementos y valores al retornar `-1` — Solución sugerida: Retornar `0` para indicar un empate real y resolver el flujo con daño nulo o ronda de desempate.
 - [X] ~~player_panel.gd — El método `set_card_sprite()` valida `not card_texture.texture` antes de asignar la textura de la carta, bloqueando la primera asignación si el sprite en el inspector empieza siendo nulo — Solución sugerida: Retirar la comprobación `not card_texture.texture` de la línea.~~
 - [X] ~~player.gd — `Player` hereda de `CharacterBody3D` sin hacer uso de físicas de colisión ni funciones cinemáticas 3D nativas (movimientos manuales por Tween) — Solución sugerida: Heredar directamente de `Node3D` para reducir el overhead en el motor de físicas de Godot.~~
 

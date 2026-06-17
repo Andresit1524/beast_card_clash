@@ -73,4 +73,5 @@ func _compare_players(player1: Player, player2: Player) -> int:
 	if element1 != element2: return 1 if element2 in WINNERS_MATRIX[element1] else -1
 
 	# Elementos iguales: gana el mayor número
+	if player1.current_value == player2.current_value: return 0
 	return 1 if player1.current_value > player2.current_value else -1
