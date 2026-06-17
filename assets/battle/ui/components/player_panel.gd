@@ -6,7 +6,7 @@ class_name PlayerPanel extends PanelContainer
 const REFRESH_HEALTH_TIME := 0.5
 
 
-@export_group("Player data")
+@export_group("Player")
 ## Nombre del jugador
 @export var player_name: String:
 	set(value):
@@ -23,24 +23,18 @@ const REFRESH_HEALTH_TIME := 0.5
 		health = value
 		refresh_panel()
 
-@export_group("Card data")
+@export_group("Card")
 ## Elemento de la carta
 @export var element: Constants.Elements:
 	set(value):
 		if value == element: return
 		element = value
-		if not hide_card: update_card()
+		update_card()
 ## Valor de la carta
-@export_range(1, 10) var value: int:
+@export_range(1, Constants.MAX_CARD_VALUE) var value: int:
 	set(val):
 		if val == value: return
 		value = val
-		if not hide_card: update_card()
-## Oculta la carta del jugador
-@export var hide_card: bool = false:
-	set(value):
-		if value == hide_card: return
-		hide_card = value
 		update_card()
 
 ## Lista de cartas para obtener los sprites
@@ -50,15 +44,15 @@ const REFRESH_HEALTH_TIME := 0.5
 
 
 ## Nombre
-@onready var name_label: Label = $Margin/Contents/PlayerData/Name
+@onready var name_label: Label = %Name
 ## Sprite del equipo
-@onready var team_texture: TextureRect = $Margin/Contents/PlayerData/Team
+@onready var team_texture: TextureRect = %Team
 ## Sprite de la carta
-@onready var card_texture: TextureRect = $Margin/Contents/Card
+@onready var card_texture: TextureRect = %Card
 ## Barra de vida
-@onready var life_bar: ProgressBar = $Margin/Contents/LifeBar
+@onready var life_bar: ProgressBar = %LifeBar
 ## Valor de la vida
-@onready var life_label: RichTextLabel = $Margin/Contents/LifeBar/LifeValue
+@onready var life_label: RichTextLabel = %LifeValue
 
 ## Escala base de la carta, para las animaciones
 @onready var base_card_scale := card_texture.scale
@@ -96,11 +90,11 @@ func update_card() -> void:
 	# Actualiza el sprite de la carta
 	var tween := create_tween().set_trans(Tween.TRANS_SINE)
 	tween.tween_property(card_texture, "scale", Vector2(0, base_card_scale.y), 0.1)
-	tween.tween_callback(set_card_sprite)
+	tween.tween_callback(_set_card_sprite)
 	tween.tween_property(card_texture, "scale", base_card_scale, 0.1)
 
 
 ## Actualiza el sprite de la carta con una amimación
-func set_card_sprite() -> void:
-	if not cards_list or not card_texture.texture: return
-	card_texture.texture = cards_list.get_card(element, value) if not hide_card else cards_list.placeholder
+func _set_card_sprite() -> void:
+	if not cards_list: return
+	card_texture.texture = cards_list.get_card(element, value)

@@ -1,4 +1,5 @@
-## Clase para gestionar la UI del escenario de batalla con referencias centralizadas
+## Gestiona la UI del escenario de batalla, que incluye los paneles de los jugadores, la baraja, la
+## interfaz de pausa y la interfaz del podium al final de la batalla.
 class_name BattleUI extends Control
 
 
@@ -24,8 +25,8 @@ signal card_selected(card: Card)
 
 
 ## Activa o desactiva la mano de cartas
-func enable_hand(enabled: bool) -> void:
-	hand.hide_cards = not enabled
+func enable_hand(value: bool) -> void:
+	hand.hide_cards = not value
 
 
 ## Refresca la baraja de cartas
@@ -34,13 +35,8 @@ func set_hand_from_deck(deck: Array[Card]) -> void:
 
 	# Conecta la señal de selección de carta
 	for card in hand.get_cards():
-		if not card.card_selected.is_connected(_on_card_from_hand_selected):
-			card.card_selected.connect(_on_card_from_hand_selected)
-
-
-## Callback para cuando se selecciona una carta de la mano
-func _on_card_from_hand_selected(card: Card) -> void:
-	card_selected.emit(card)
+		if not card.card_selected.is_connected(card_selected.emit):
+			card.card_selected.connect(card_selected.emit)
 
 
 ## Establece el elemento de la baraja actual
@@ -54,30 +50,28 @@ func set_hand_element(new_element: Constants.Elements) -> void:
 #region Paneles de jugadores
 
 
-## Establece o refresca los datos de la UI del jugador o de un bot [br]
-## Índice 0 es el panel del jugador humano, el resto son bots
-func refresh_player_stats(players_list: Array) -> void:
-	var bot_ui_index := 0
-
+## Redistribuye y actualiza los paneles de los jugadores. El primer jugador siempre es el humano
+# TODO: automatizar esto. El BattleData ya está disponible
+func refresh_player_panels(players_list: Array) -> void:
+	var bot_count := 0
 	for i in players_list.size():
 		var player: Player = players_list[i]
-		var current_player_panel: PlayerPanel
+		var current_panel: PlayerPanel
 
 		if not player.is_bot:
-			current_player_panel = player_panel
+			current_panel = player_panel
 		else:
-			current_player_panel = bots_panels.get_child(bot_ui_index)
-			bot_ui_index += 1
-			current_player_panel.visible = true
+			current_panel = bots_panels.get_child(bot_count)
+			current_panel.visible = true
+			bot_count += 1
 
-		current_player_panel.player_name = player.player_name
-		current_player_panel.team = player.team
-		current_player_panel.health = player.health
-		current_player_panel.element = player.current_element
-		current_player_panel.value = player.current_value
-		current_player_panel.hide_card = player.hide_card
+		current_panel.player_name = player.player_name
+		current_panel.team = player.team
+		current_panel.health = player.health
+		current_panel.element = player.current_element
+		current_panel.value = player.current_value
 
-	_prune_bots_panels(bot_ui_index)
+	_prune_bots_panels(bot_count)
 
 
 ## Oculta los paneles de los bots que no están jugando
@@ -95,7 +89,7 @@ func _prune_bots_panels(bot_count: int) -> void:
 #endregion
 
 
-#region Pausa
+#region Pausa y fin de juego
 
 
 ## Acciona o desactiva el menú de pausa
@@ -115,24 +109,18 @@ func _on_continue_button_pressed() -> void:
 	_pause(false)
 
 
-func _unhandled_input(event: InputEvent) -> void:
-	# Alterna la pausa con la tecla Esc
-	if not event.is_action_pressed("back"): return
-	_pause(not get_tree().paused)
-
-
-#endregion
-
-
-#region Interfaz de fin de juego
-
-
 ## Activa o desactiva la pantalla de final de juego
 func enable_end_ui(value: bool) -> void:
 	end_ui.ui_visible = value
 
 	# Actualiza el podium
 	if value: end_ui.set_podium(battle_data.ranking)
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	# Alterna la pausa con la tecla Esc
+	if not event.is_action_pressed("back"): return
+	_pause(not get_tree().paused)
 
 
 #endregion

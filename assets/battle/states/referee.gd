@@ -50,7 +50,7 @@ func start() -> void:
 		to_state.emit(BattleEnd)
 		return
 
-	manager.battle_ui.refresh_player_stats(battle_data.players)
+	manager.battle_ui.refresh_player_panels(battle_data.players)
 
 	# Decidimos el nuevo turno
 	round_handled.emit()

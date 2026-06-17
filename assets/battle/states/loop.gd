@@ -32,7 +32,7 @@ func start() -> void:
 
 	# Actualizamos la interfaz y pasamos el turno
 	await get_tree().create_timer(battle_data.WAIT_TIME / 2.0).timeout
-	manager.battle_ui.refresh_player_stats(battle_data.players)
+	manager.battle_ui.refresh_player_panels(battle_data.players)
 	manager.decide_next_or_end()
 
 

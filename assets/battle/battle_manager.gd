@@ -33,7 +33,7 @@ func setup_ui() -> void:
 	# Mano
 	battle_data.player.deck_updated.connect(battle_ui.set_hand_from_deck)
 	battle_ui.set_hand_from_deck(battle_data.player.deck)
-	battle_ui.refresh_player_stats(battle_data.players)
+	battle_ui.refresh_player_panels(battle_data.players)
 	battle_ui.enable_hand(false)
 
 	# Fin de juego
@@ -95,7 +95,7 @@ func _on_card_selected(selected_card: Card) -> void:
 	# Juega y refrezca la interfaz
 	battle_data.current_turn.play_card(selected_card)
 	battle_ui.enable_hand(false)
-	battle_ui.refresh_player_stats(battle_data.players)
+	battle_ui.refresh_player_panels(battle_data.players)
 
 	# Pasamos el turno
 	decide_next_or_end()
