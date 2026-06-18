@@ -3,10 +3,6 @@
 class_name BattleData extends Node
 
 
-const MAX_PLAYERS := 4
-const WAIT_TIME := 2.0
-
-
 ## Jugador humano
 var player: Player
 ## Lista de jugadores

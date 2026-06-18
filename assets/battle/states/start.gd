@@ -1,5 +1,4 @@
-## [code]BattleStart[/code] es el estado que contiene la lógica de inicio de juego, para configurar
-## antes de comenzar
+## Estado de batalla con la lógica de inicio de juego, para configurar antes de comenzar
 class_name BattleStart extends BattleState
 
 
@@ -19,7 +18,7 @@ func start() -> void:
 	manager.setup_stage()
 
 	# Delega el turno al jugador que corresponda
-	await get_tree().create_timer(battle_data.WAIT_TIME / 2.0).timeout
+	await get_tree().create_timer(Constants.BATTLE_WAIT_TIME / 2.0).timeout
 	to_state.emit(BattleLoop if battle_data.current_turn.is_bot else BattleTurn)
 
 
@@ -38,7 +37,7 @@ func _setup_player() -> void:
 
 ## Establece los bots
 func _setup_bots() -> void:
-	var bots_count := randi_range(1, battle_data.MAX_PLAYERS - 1)
+	var bots_count := randi_range(1, Constants.MAX_PLAYERS - 1)
 	for i in bots_count:
 		var new_bot: Player = player_scene.instantiate()
 		new_bot.create_deck()

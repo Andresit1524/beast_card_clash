@@ -1,4 +1,4 @@
-## [code]BattleTurn[/code] permite cederle el turno al jugador humano, principalmente gestionando el
+## Estado de batalla que permite cederle el turno al jugador humano, principalmente gestionando el
 ## dado y su resultado para resaltar las rocas
 class_name BattleTurn extends BattleState
 

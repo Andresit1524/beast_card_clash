@@ -2,11 +2,17 @@
 class_name Constants extends Node
 
 
+## Tiempo de espera en acciones de batalla
+const BATTLE_WAIT_TIME := 2.0
+
 ## Cantidad de cartas iniciales en las barajas
 const INITIAL_CARDS := 9
 
 ## Valor máximo de las cartas
 const MAX_CARD_VALUE := 10
+
+## Cantidad máxima de jugadores
+const MAX_PLAYERS := 4
 
 ## Salud de los jugadores
 const MAX_HEALTH := 5

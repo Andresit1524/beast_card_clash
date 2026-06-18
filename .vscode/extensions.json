@@ -2,7 +2,6 @@
     "recommendations": [
         // Godot
         "geequlim.godot-tools", // Soporte base
-        "alfish.godot-files", // Soporte mejorado para shaders y recursos
         "hakubox.dialogue-godot-support", // Soporte para archivos de dialogue manager
         // Mejoras del editor
         "miguelsolorio.symbols", // Paquete de iconos con soporte Godot

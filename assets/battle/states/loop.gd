@@ -1,4 +1,4 @@
-## [code]BattleLoop[/code] tiene la lógica para hacer que un bot decida la movida de su turno
+## Estado de batalla con la lógica para hacer que un bot decida la movida de su turno
 class_name BattleLoop extends BattleState
 
 
@@ -8,7 +8,7 @@ class_name BattleLoop extends BattleState
 
 func start() -> void:
 	# Espera un tiempo
-	await get_tree().create_timer(battle_data.WAIT_TIME).timeout
+	await get_tree().create_timer(Constants.BATTLE_WAIT_TIME).timeout
 
 	current_turn = battle_data.current_turn
 	print("[Loop] Turno de %s" % current_turn.player_name)
@@ -31,7 +31,7 @@ func start() -> void:
 	current_turn.play_card(played_card)
 
 	# Actualizamos la interfaz y pasamos el turno
-	await get_tree().create_timer(battle_data.WAIT_TIME / 2.0).timeout
+	await get_tree().create_timer(Constants.BATTLE_WAIT_TIME / 2.0).timeout
 	manager.battle_ui.refresh_player_panels(battle_data.players)
 	manager.decide_next_or_end()
 

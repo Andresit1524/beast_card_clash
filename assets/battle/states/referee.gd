@@ -1,5 +1,5 @@
-## [code]BattleReferee[/code] contiene funciones para decidir el ganador de cada ronda y
-## eventualmente de la partida completa.
+## Estado de batalla con las funciones para decidir el ganador de cada ronda y eventualmente de
+## la partida completa.
 class_name BattleReferee extends BattleState
 
 
@@ -20,7 +20,7 @@ const WINNERS_MATRIX: Dictionary[Constants.Elements, Array] = {
 
 func start() -> void:
 	# Espera un tiempo
-	await get_tree().create_timer(battle_data.WAIT_TIME).timeout
+	await get_tree().create_timer(Constants.BATTLE_WAIT_TIME).timeout
 
 	# Creamos los enfrentamientos
 	var pairs := []
