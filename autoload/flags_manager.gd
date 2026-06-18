@@ -1,3 +1,4 @@
+## Almacena todas las banderas del juego para información persistente sobre la partida
 extends Node
 
 
@@ -6,7 +7,7 @@ var _flags: Flags = preload("uid://calw1rmsghoh8")
 
 
 # Revisa al inicio que todas las banderas estén bien definidas
-func _ready():
+func _ready() -> void:
 	_flags.expected_type = TYPE_BOOL
 	_flags.check_item_types()
 

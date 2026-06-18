@@ -37,7 +37,7 @@ func check_item_types() -> bool:
 	return true
 
 ## Función auxiliar que checa el tipo de un dato
-func _check_item(item):
+func _check_item(item) -> bool:
 	if typeof(item) != expected_type:
 		push_error(
 			"Valor de AutoloadResource de tipo incorrecto. Esperado: %s, Obtenido: %s."

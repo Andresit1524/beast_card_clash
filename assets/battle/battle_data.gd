@@ -1,4 +1,4 @@
-## Nodo que contiene la información de batalla y la propaga por toda la escena para evitar enredos.
+## Contiene la información de batalla y la propaga por toda la escena para evitar enredos.
 ## BattleData es la verdad absoluta sobre la información del juego.
 class_name BattleData extends Node
 
@@ -109,7 +109,7 @@ func apply_game_over() -> void:
 		snapshot.append(Snapshot.new(_player.player_name, _player.team))
 
 	ranking.push_front(snapshot)
-	players = players.filter(func(p): return p not in queued_ranked_players)
+	players = players.filter(func(p: Player): return p not in queued_ranked_players)
 	# Elimina ahora si a los jugadores
 	for _player in queued_ranked_players:
 		_player.dissapear()
@@ -127,12 +127,12 @@ func apply_game_over() -> void:
 	if players.is_empty():
 		print(
 			"[BattleData] Fin de juego. Ganadores: %s"
-			% [ranking[0].map(func(p): return p.name)]
+			% [ranking[0].map(func(p: Player): return p.name)]
 		)
 
 
 ## Indica si perdimos el juego
-func we_lose():
+func we_lose() -> bool:
 	return not player in players
 
 

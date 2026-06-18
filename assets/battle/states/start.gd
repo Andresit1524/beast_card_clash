@@ -48,5 +48,5 @@ func _setup_bots() -> void:
 	battle_data.shuffle_players()
 	print(
 		"[BattleManager] %s jugadores en juego: %s"
-		% [bots_count + 1, battle_data.players.map(func(p): return p.player_name)]
+		% [bots_count + 1, battle_data.players.map(func(p: Player): return p.player_name)]
 	)

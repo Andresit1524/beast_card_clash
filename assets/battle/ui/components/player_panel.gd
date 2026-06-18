@@ -58,7 +58,7 @@ const REFRESH_HEALTH_TIME := 0.5
 @onready var base_card_scale := card_texture.scale
 
 
-func _ready():
+func _ready() -> void:
 	refresh_panel()
 	update_card()
 

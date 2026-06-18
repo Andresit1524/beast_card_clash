@@ -1,5 +1,5 @@
-## [code]Rock[code] representa cada roca del escenario de batalla. Esta clase gestiona sus valores
-## y su aspecto visual, así como sus interacciones con el usuario.
+## Representa cada roca del escenario de batalla. Esta clase gestiona sus valores y su aspecto
+## visual, así como sus interacciones con el usuario.
 class_name Rock extends StaticBody3D
 
 
@@ -44,7 +44,7 @@ var rock_index: int
 var highlight_color: Color
 
 
-func _ready():
+func _ready() -> void:
 	# Inicializa los visuales
 	_update_sprite()
 	_highlight()
@@ -54,14 +54,14 @@ func _ready():
 
 
 ## Actualiza el sprite de la roca
-func _update_sprite():
+func _update_sprite() -> void:
 	if not is_node_ready(): await ready
 
 	sprite.texture = elements_list.get_element(element)
 
 
 ## Aplica el color para resaltar la roca por medio del shader
-func _highlight():
+func _highlight() -> void:
 	if not is_node_ready(): await ready
 
 	# Color de resaltado y transparencia

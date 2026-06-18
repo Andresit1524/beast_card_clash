@@ -44,7 +44,7 @@ func set_ui_visible(value: bool) -> void:
 
 
 ## Establece los datos del podium usando la lista que se le provea
-func set_podium(ranking: Array[Array]):
+func set_podium(ranking: Array[Array]) -> void:
 	print(
 		"[BattleUI] Estableciendo podium: %s"
 		% [ranking]

@@ -53,8 +53,8 @@ func _move_to_rock(index: int) -> void:
 
 ## Elige la carta y la retorna
 func _choose_card(element: Constants.Elements) -> Card:
-	var card_options: Array = current_turn.deck.filter(func(v):
-		return v.element == element or not element
+	var card_options: Array = current_turn.deck.filter(func(c: Card):
+		return c.element == element or not element
 	)
 
 	var played_card: Card = card_options.pick_random() if card_options else null

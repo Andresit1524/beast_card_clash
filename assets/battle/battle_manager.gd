@@ -1,4 +1,4 @@
-## Clase que maneja los datos de la partida de forma centralizada y conectando las piezas del escenario
+## Maneja los datos de la partida de forma centralizada y conectando las piezas del escenario
 class_name BattleManager extends StateMachine
 
 
@@ -71,8 +71,8 @@ func _on_rock_selected(selected_rock: Rock) -> void:
 	await battle_data.current_turn.moved
 
 	# Si no hay cartas disponibles, salta turno
-	var card_choices := battle_data.current_turn.deck.filter(func(v):
-		return v.element == selected_rock.element or not selected_rock.element
+	var card_choices := battle_data.current_turn.deck.filter(func(c: Card):
+		return c.element == selected_rock.element or not selected_rock.element
 	)
 
 	if not card_choices:
@@ -124,7 +124,7 @@ func decide_next_or_end() -> void:
 
 
 ## Obtiene la lista de rocas
-func get_rocks():
+func get_rocks() -> Array[Rock]:
 	return battle_stage.rocks_list
 
 

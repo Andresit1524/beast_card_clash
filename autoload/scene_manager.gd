@@ -1,3 +1,5 @@
+## Permite cambiar entre escenas de forma sencilla y desacoplada. Añada las escenas a scenes.tres
+## antes de usar este autoload
 extends Node
 
 
@@ -6,7 +8,7 @@ var _scenes: Scenes = preload("uid://bn7v8txng2pda")
 
 
 # Revisa al inicio las escenas para que estén bien definidas
-func _ready():
+func _ready() -> void:
 	_scenes.expected_type = TYPE_OBJECT
 	_scenes.check_item_types()
 

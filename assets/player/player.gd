@@ -104,7 +104,7 @@ func apply_damage(damage: int = 1) -> void:
 
 
 ## Desvanece y elimina al jugador
-func dissapear():
+func dissapear() -> void:
 	var tween := create_tween()
 	tween.tween_property(sprite, ^"modulate", Color.TRANSPARENT, 1.0)
 	tween.tween_callback(queue_free)

@@ -1,4 +1,5 @@
-extends Control
+## Contiene toda la lógica detrás de la selección de equipos para el jugador
+class_name TeamSelector extends Control
 
 
 ## Lista de botones asociados al equipo que representan
@@ -17,7 +18,7 @@ extends Control
 var selected_team: int = -1
 
 
-func _ready():
+func _ready() -> void:
 	# Conecta todos los botones de los equipos al selector
 	teams_button_group.pressed.connect(_set_team)
 
@@ -28,7 +29,7 @@ func _on_back_button_pressed() -> void:
 
 
 ## Establece el equipo del jugador dependiendo del botón pulsado en el selector de equipo
-func _set_team(pressed_button: Button):
+func _set_team(pressed_button: Button) -> void:
 	# VA-Games no es equipo elegible, ergo, no aparece. No lo añadas
 	selected_team = teams[pressed_button]
 
@@ -38,7 +39,7 @@ func _set_team(pressed_button: Button):
 
 
 ## Actualiza los datos y pasa a jugar cuando se presiona el botón de jugar
-func _submit_and_play():
+func _submit_and_play() -> void:
 	# Nombre vacío
 	if not line_edit_node.text:
 		push_warning("[TeamSelector] Nombre vacío")

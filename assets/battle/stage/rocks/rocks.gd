@@ -1,4 +1,4 @@
-## Representa la lsita de rocas de la partida
+## Representa la lista de rocas de la partida
 class_name Rocks extends Node3D
 
 
@@ -14,7 +14,7 @@ const RADIUS := 8.0
 @export var rock_scene: PackedScene
 
 
-func _ready():
+func _ready() -> void:
 	_instance_rocks()
 
 

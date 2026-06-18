@@ -1,5 +1,4 @@
-## [code]Dice[/code] representa el dado de la batalla y gestiona su aspecto visual junto con sus
-## interacciones con el jugador
+## Representa el dado de la batalla y gestiona su aspecto visual junto con sus interacciones con el jugador
 class_name Dice extends Node3D
 
 
@@ -66,7 +65,7 @@ func throw_dice() -> void:
 
 
 ## Rota el dado aleatoriamente hasta obtener el número dado
-func _rotate_dice(to: int):
+func _rotate_dice(to: int) -> void:
 	var tween := create_tween()
 	for i in (ROTATION_TIME / TWIST_TIME):
 		tween.tween_property(self, ^"quaternion", ROTATIONS[randi() % 6 + 1], TWIST_TIME)
