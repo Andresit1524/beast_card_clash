@@ -41,7 +41,7 @@ Aspectos de calidad del código, estilo o mantenibilidad que deben abordarse.
 
 ## Más tareas
 - [ ] Clase interna `Snapshot` en `BattleData` . Usar un diccionario nativo `{"name": name, "team": team}`. [assets/battle/battle_data.gd ]
-- [ ] Función `Card.set_properties()` . Asignar propiedades directamente sobre la instancia de `Card`. [assets/cards/card.gd ]
+- [X] Función `Card.set_properties()` . Asignar propiedades directamente sobre la instancia de `Card`. [assets/cards/card.gd ]
 - [ ] Métodos `get_element()` en `ElementsList` y `get_team()` en `TeamsList`. Acceder directamente a los diccionarios/arrays expuestos en el inspector. [ assets/elements/elements_list.gd , assets/teams/teams_list.gd ]
-- [ ] Función `Utilities.get_enum_name()` . Usar `EnumName.keys()[value]` nativo de GDScript. [assets/utils/utilities.gd ]
+- [X] Función `Utilities.get_enum_name()` . Usar `EnumName.keys()[value]` nativo de GDScript. [assets/utils/utilities.gd ]
 - [ ] Clases `Constants` y `Utilities` heredando de Node . Eliminar `extends Node` para que hereden implícitamente de `RefCounted` . [ assets/utils/constants.gd , assets/utils/utilities.gd ]

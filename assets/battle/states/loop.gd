@@ -58,11 +58,6 @@ func _choose_card(element: Constants.Elements) -> Card:
 	)
 
 	var played_card: Card = card_options.pick_random() if card_options else null
-	if not played_card:
-		print(
-			"[BattleLoop] %s no tiene cartas de %s. Saltando turno."
-			% [current_turn.player_name, Utilities.get_enum_name(element, Constants.Elements)]
-		)
-		current_turn.reset_choice()
+	if not played_card: current_turn.reset_choice()
 
 	return played_card

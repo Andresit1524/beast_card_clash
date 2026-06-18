@@ -53,15 +53,9 @@ func set_from_deck(deck: Array[Card]) -> void:
 		add_child(new_card_pos)
 
 		# Ajusta la carta antes de emparentarla
-		card.set_properties({
-			"element": card.element,
-			"value": card.value,
-			"hide_card": false,
-		})
-		print(
-			"[Hand] Carta actualizada: %s_%s"
-			% [Utilities.get_enum_name(card.element, Constants.Elements), card.value]
-		)
+		card.element = card.element
+		card.value = card.value
+		card.hide_card = false
 
 		new_card_pos.add_child(card)
 

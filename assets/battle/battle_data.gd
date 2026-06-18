@@ -162,10 +162,7 @@ class Snapshot:
 		team = new_team
 
 	func _to_string() -> String:
-		return (
-			"[Nombre: %s, Equipo: %s]"
-			% [name, Utilities.get_enum_name(team, Constants.Teams)]
-		)
+		return "[Nombre: %s, Equipo: %s]" % [name, Constants.Teams.keys()[team]]
 
 
 #endregion

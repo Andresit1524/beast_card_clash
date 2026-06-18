@@ -87,11 +87,6 @@ func _on_rock_selected(selected_rock: Rock) -> void:
 
 ## Reacciona a la carta seleccionada en el turno del humano
 func _on_card_selected(selected_card: Card) -> void:
-	print(
-		"[BattleManager] Carta seleccionada: %s-%s"
-		% [Utilities.get_enum_name(selected_card.element, Constants.Elements), selected_card.value]
-	)
-
 	# Juega y refrezca la interfaz
 	battle_data.current_turn.play_card(selected_card)
 	battle_ui.enable_hand(false)

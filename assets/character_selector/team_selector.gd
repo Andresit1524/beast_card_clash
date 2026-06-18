@@ -29,11 +29,6 @@ func _on_back_button_pressed() -> void:
 
 ## Establece el equipo del jugador dependiendo del botón pulsado en el selector de equipo
 func _set_team(pressed_button: Button):
-	print(
-		"[TeamSelector] Equipo elegido: %s"
-		% Utilities.get_enum_name(selected_team, Constants.Teams)
-	)
-
 	# VA-Games no es equipo elegible, ergo, no aparece. No lo añadas
 	selected_team = teams[pressed_button]
 

@@ -57,20 +57,6 @@ func _physics_process(delta: float) -> void:
 	position = _start_position + _get_ondulation_offset()
 
 
-## Establece una lista de valores para la carta. Úsalo solo para asignaciones múltiples
-func set_properties(values: Dictionary) -> void:
-	for property in values:
-		var new_value = values[property]
-
-		if not property in self:
-			push_error("[Card] Propiedad no encontrada: %s" % property)
-			continue
-
-		set(property, new_value)
-
-	_update_sprite()
-
-
 ## Cambia la imagen de la carta
 func _update_sprite() -> void:
 	if not cards_list: return
@@ -131,11 +117,6 @@ func _get_ondulation_offset() -> Vector2:
 ## Avisa cuando la carta es presionada
 func _on_pressed() -> void:
 	if disable_card or hide_card: return
-
-	print(
-		"[Card] Carta %s-%s presionada"
-		% [Utilities.get_enum_name(element, Constants.Elements), value]
-	)
 	card_selected.emit(self)
 
 
