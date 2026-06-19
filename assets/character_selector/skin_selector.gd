@@ -32,4 +32,4 @@ func _on_team_button_pressed() -> void:
 	PlayerStats.species = Constants.Species.BEAR
 	PlayerStats.skin = current_skin
 
-	SceneManager.change_to_scene("team_selector")
+	SceneManager.change_to_scene(&"team_selector")

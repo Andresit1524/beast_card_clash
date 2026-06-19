@@ -25,7 +25,7 @@ func _ready() -> void:
 
 ## Vuelve al selector de aspectos con el botón de volver
 func _on_back_button_pressed() -> void:
-	SceneManager.change_to_scene("skin_selector")
+	SceneManager.change_to_scene(&"skin_selector")
 
 
 ## Establece el equipo del jugador dependiendo del botón pulsado en el selector de equipo
@@ -56,10 +56,10 @@ func _submit_and_play() -> void:
 	# Establece los datos del jugador y pasa a jugar
 	PlayerStats.team = selected_team as Constants.Teams
 	PlayerStats.player_name = line_edit_node.text
-	FlagsManager.set_flag("character_selected", true)
+	FlagsManager.set_flag(&"character_selected", true)
 
 	push_warning("[TeamSelector] No hay escena de mapa. Pasando a batalla")
-	SceneManager.change_to_scene("battle")
+	SceneManager.change_to_scene(&"battle")
 
 
 ## Establece el color de los botones

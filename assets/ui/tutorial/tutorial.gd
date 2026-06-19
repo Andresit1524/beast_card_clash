@@ -35,16 +35,16 @@ func _next_panel() -> bool:
 
 ## Cambia de panel cuando se presiona el botón de siguiente, o se sale si no es el caso
 func _on_next_button_pressed() -> void:
-	if not _next_panel(): SceneManager.change_to_scene("start_menu")
+	if not _next_panel(): SceneManager.change_to_scene(&"start_menu")
 
 
 ## Botón de saltar:
 ## ! Por ahora no está la acción para esto. Por ahora, salir al menú principal
 func _on_skip_button_pressed() -> void:
 	print_debug("¡Salta el tutorial!")
-	SceneManager.change_to_scene("start_menu")
+	SceneManager.change_to_scene(&"start_menu")
 
 
 ## Botón atrás: vuelve al menú principal
 func _on_back_button_pressed() -> void:
-	SceneManager.change_to_scene("start_menu")
+	SceneManager.change_to_scene(&"start_menu")

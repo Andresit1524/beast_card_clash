@@ -3,17 +3,11 @@
 extends AudioStreamPlayer
 
 
-## Lista de canciones disponibles
-var _playlist: Playlist = preload("uid://bc3risb100107")
-
-
-# Revisa al inicio que toda la playlist esté bien definida
-func _ready() -> void:
-	_playlist.expected_type = TYPE_OBJECT
-	_playlist.check_item_types()
+## Recurso con las canciones y efectos
+var _playlist: Playlist = preload("res://autoload/resources/playlist.tres")
 
 
 ## Reproduce la canción indicada por su nombre
-func play_music(music_name: String) -> void:
-	stream = _playlist.get_item(music_name)
+func play_music(track_name: StringName) -> void:
+	stream = _playlist.items[track_name]
 	play()

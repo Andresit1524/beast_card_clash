@@ -79,4 +79,4 @@ func get_rank_color(rank: int) -> Color:
 ## Se sale de la batalla
 func _quit_battle() -> void:
 	ui_visible = false
-	SceneManager.change_to_scene("start_menu")
+	SceneManager.change_to_scene(&"start_menu")

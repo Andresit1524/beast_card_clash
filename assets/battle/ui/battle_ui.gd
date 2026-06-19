@@ -101,7 +101,7 @@ func _pause(value: bool) -> void:
 ## Devuelve el juego a la pantalla de inicio
 func _on_back_button_pressed() -> void:
 	_pause(false)
-	SceneManager.change_to_scene("start_menu")
+	SceneManager.change_to_scene(&"start_menu")
 
 
 ## Continúa la partida

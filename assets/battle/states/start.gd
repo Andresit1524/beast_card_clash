@@ -9,7 +9,7 @@ class_name BattleStart extends BattleState
 
 func start() -> void:
 	await manager.ready
-	MusicManager.play_music("battle")
+	MusicManager.play_music(&"battle")
 
 	_setup_player()
 	_setup_bots()
