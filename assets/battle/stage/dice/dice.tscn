@@ -22,7 +22,7 @@ transform = Transform3D(0, 1, 0, -0.99999994, 0, 0, 0, 0, 0.99999994, 0, 0, 0)
 rotation_edit_mode = 1
 script = ExtResource("2_kqj45")
 
-[node name="Cube" parent="." index="0" unique_id=140120453]
+[node name="Cube" parent="." index="0" unique_id=157427017]
 rotation_edit_mode = 1
 material_overlay = SubResource("ShaderMaterial_j4q3a")
 
