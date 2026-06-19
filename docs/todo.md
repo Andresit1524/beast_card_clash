@@ -33,7 +33,7 @@ Actualmente existen abstracciones excesivas y código obsoleto que complican el 
 - [X] Simplificar Comprobaciones Redundantes: En `assets/utils/utilities.gd`, remover `if color is Color:` en `print_color()` dado que el parámetro ya está tipado estáticamente.
 
 ## Más tareas
-- [ ] Clase interna `Snapshot` en `BattleData` . Usar un diccionario nativo `{"name": name, "team": team}`. [assets/battle/battle_data.gd ]
+- [X] Clase interna `Snapshot` en `BattleData` . Usar un diccionario nativo `{"name": name, "team": team}`. [assets/battle/battle_data.gd ]
 - [X] Función `Card.set_properties()` . Asignar propiedades directamente sobre la instancia de `Card`. [assets/cards/card.gd ]
 - [X] Función `Utilities.get_enum_name()` . Usar `EnumName.keys()[value]` nativo de GDScript. [assets/utils/utilities.gd ]
 - [X] Clases `Constants` y `Utilities` heredando de Node . Eliminar `extends Node` para que hereden implícitamente de `RefCounted` . [ assets/utils/constants.gd , assets/utils/utilities.gd ]

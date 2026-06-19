@@ -7,7 +7,7 @@ class_name BattleData extends Node
 var player: Player
 ## Lista de jugadores
 var players: Array[Player]
-## Ranking del juego en formato puesto: jugadores
+## Ranking del juego en formato puesto: [lista_de_jugadores]
 var ranking: Array[Array]
 
 
@@ -104,9 +104,12 @@ func apply_game_over() -> void:
 	)
 
 	# Añade a los jugadores al ranking y los quita de la lista de espera
-	var snapshot: Array[Snapshot] = []
+	var snapshot: Array[Dictionary] = []
 	for _player in queued_ranked_players:
-		snapshot.append(Snapshot.new(_player.player_name, _player.team))
+		snapshot.append({
+			&"name": _player.player_name,
+			&"team": _player.team,
+		})
 
 	ranking.push_front(snapshot)
 	players = players.filter(func(p: Player): return p not in queued_ranked_players)
@@ -127,7 +130,7 @@ func apply_game_over() -> void:
 	if players.is_empty():
 		print(
 			"[BattleData] Fin de juego. Ganadores: %s"
-			% [ranking[0].map(func(p: Player): return p.name)]
+			% [ranking[0].map(func(p: Dictionary): return p.name)]
 		)
 
 
@@ -150,19 +153,6 @@ func lose_remaining() -> void:
 			_player.apply_damage()
 
 		apply_game_over()
-
-
-## Clase que almacena los datos de un jugador de manera ligera y segura
-class Snapshot:
-	var name: String
-	var team: Constants.Teams
-
-	func _init(new_name: String, new_team: Constants.Teams) -> void:
-		name = new_name
-		team = new_team
-
-	func _to_string() -> String:
-		return "[Nombre: %s, Equipo: %s]" % [name, Constants.Teams.keys()[team]]
 
 
 #endregion

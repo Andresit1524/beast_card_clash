@@ -54,9 +54,8 @@ func set_podium(ranking: Array[Array]) -> void:
 
 	# Por cada ranking
 	for i in ranking.size():
-		var rank: Array[BattleData.Snapshot] = ranking[i]
-
 		# Por cada posición en el ranking
+		var rank: Array[Dictionary] = ranking[i]
 		for player in rank:
 			# Por cada jugador en esa posición
 			var new_podium_panel: PodiumPanel = podium_panel_scene.instantiate()
