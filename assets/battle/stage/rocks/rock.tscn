@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://bmk14l2nvouje"]
 
 [ext_resource type="Script" uid="uid://cwcpdcjo7y3br" path="res://assets/battle/stage/rocks/rock.gd" id="1_6ebsn"]
-[ext_resource type="Resource" uid="uid://c40w4a5rdhins" path="res://assets/elements/elements_list.tres" id="2_t8pnm"]
 [ext_resource type="Shader" uid="uid://b18qduvb22s3i" path="res://assets/shaders/highlight.gdshader" id="3_6ejfb"]
 [ext_resource type="Texture2D" uid="uid://b6sejbuoadth2" path="res://assets/elements/sprites/all_elements.png" id="3_t8pnm"]
 [ext_resource type="Shader" uid="uid://bjns65a1m7iph" path="res://assets/shaders/outline.gdshader" id="4_6ejfb"]
@@ -39,7 +38,6 @@ radius = 1.5
 script = ExtResource("1_6ebsn")
 hovered = true
 selectable = true
-elements_list = ExtResource("2_t8pnm")
 
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=1614443290]
 unique_name_in_owner = true

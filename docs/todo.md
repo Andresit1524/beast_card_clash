@@ -32,16 +32,8 @@ Actualmente existen abstracciones excesivas y código obsoleto que complican el 
 - [X] Eliminar Código Muerto: Método sin uso `MusicManager.switch_music_playing()`.
 - [X] Simplificar Comprobaciones Redundantes: En `assets/utils/utilities.gd`, remover `if color is Color:` en `print_color()` dado que el parámetro ya está tipado estáticamente.
 
-### Mejoras ante la sobreingeniería
-Aspectos de calidad del código, estilo o mantenibilidad que deben abordarse.
-- [X] Varios archivos — Declaración de tipos dinámicos o ausentes en callbacks, lambdas de filtros (ej. `func(p)` en `battle_data.gd`) y retornos de funciones (ej. `func get_rocks()` en `battle_manager.gd`) — Solución sugerida: Implementar tipado fuerte estático completo en GDScript 2 (ej. `func(p: Player)`, `func get_rocks() -> Array[Rock]`).
-- [X] ~~player.gd — Uso de una lambda anónima redundante `func(): moved.emit()` en el callback del Tween — Solución sugerida: Pasar directamente la señal como Callable: `tween.tween_callback(moved.emit)`.~~
-- [X] ~~card.gd — Uso de una lambda anónima redundante `func(): set_physics_process(true)` en el callback del Tween — Solución sugerida: Reemplazar por `tween.tween_callback(set_physics_process.bind(true))`.~~
-- [X] music_manager.gd — Parámetro `on` sin tipo explícito en la firma del método `switch_music_playing(on = null)` — Solución sugerida: Declararlo con un tipo estático o Variant si puede ser nulo (`on: Variant = null`), o eliminar la función completa al tratarse de código muerto.
-
 ## Más tareas
 - [ ] Clase interna `Snapshot` en `BattleData` . Usar un diccionario nativo `{"name": name, "team": team}`. [assets/battle/battle_data.gd ]
 - [X] Función `Card.set_properties()` . Asignar propiedades directamente sobre la instancia de `Card`. [assets/cards/card.gd ]
-- [ ] Métodos `get_element()` en `ElementsList` y `get_team()` en `TeamsList`. Acceder directamente a los diccionarios/arrays expuestos en el inspector. [ assets/elements/elements_list.gd , assets/teams/teams_list.gd ]
 - [X] Función `Utilities.get_enum_name()` . Usar `EnumName.keys()[value]` nativo de GDScript. [assets/utils/utilities.gd ]
-- [ ] Clases `Constants` y `Utilities` heredando de Node . Eliminar `extends Node` para que hereden implícitamente de `RefCounted` . [ assets/utils/constants.gd , assets/utils/utilities.gd ]
+- [X] Clases `Constants` y `Utilities` heredando de Node . Eliminar `extends Node` para que hereden implícitamente de `RefCounted` . [ assets/utils/constants.gd , assets/utils/utilities.gd ]

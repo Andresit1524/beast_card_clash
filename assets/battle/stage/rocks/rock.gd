@@ -29,10 +29,6 @@ const OUTLINE_THICKNESS := 0.15
 		hovered = hovered and selectable
 		if is_node_ready(): _highlight()
 
-@export_group("Dependencias")
-## Lista de elementos para las rocas
-@export var elements_list: ElementsList
-
 
 @onready var mesh: MeshInstance3D = %Mesh
 @onready var sprite: Sprite3D = %Sprite
@@ -57,7 +53,7 @@ func _ready() -> void:
 func _update_sprite() -> void:
 	if not is_node_ready(): await ready
 
-	sprite.texture = elements_list.get_element(element)
+	sprite.texture = ElementIcons.get_element(element)
 
 
 ## Aplica el color para resaltar la roca por medio del shader

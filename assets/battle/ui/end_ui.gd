@@ -16,8 +16,6 @@ const COLORS := [Color.GOLD, Color.SILVER, Color.PERU]
 @export_group("Dependencias")
 ## Escena del panel de podium
 @export var podium_panel_scene: PackedScene
-## Lista de equipos
-@export var teams_list: TeamsList
 
 
 ## Rectángulo para el efecto de desvanecimiento
@@ -66,7 +64,7 @@ func set_podium(ranking: Array[Array]) -> void:
 
 			# Datos
 			new_podium_panel.position_label.text = str(i + 1)
-			new_podium_panel.team.texture = teams_list.get_team(player.team)
+			new_podium_panel.team.texture = TeamIcons.get_team(player.team)
 			new_podium_panel.name_label.text = player.name
 			new_podium_panel.points.text = str(0)
 

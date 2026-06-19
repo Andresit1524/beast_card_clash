@@ -13,7 +13,6 @@
 [ext_resource type="LabelSettings" uid="uid://ctvu5dp4p0kjm" path="res://assets/ui/themes/title_theme.tres" id="7_sdhuf"]
 [ext_resource type="PackedScene" uid="uid://dleubuyqowf33" path="res://assets/battle/ui/components/podium_panel.tscn" id="8_w7fa3"]
 [ext_resource type="Script" uid="uid://clvjxwv8w7kt0" path="res://assets/battle/states/start.gd" id="10_5m5wa"]
-[ext_resource type="Resource" uid="uid://c4gqyhuufijo" path="res://assets/teams/teams_list.tres" id="10_kt8ap"]
 [ext_resource type="Script" uid="uid://bd5jv2qpva2t0" path="res://assets/battle/states/turn.gd" id="12_45g41"]
 [ext_resource type="Script" uid="uid://myr5bayqdfo0" path="res://assets/battle/states/loop.gd" id="13_6pcvk"]
 [ext_resource type="FontFile" uid="uid://cx0dmyddc8f5" path="res://assets/fonts/tilt_wrap.ttf" id="13_tl2es"]
@@ -225,7 +224,6 @@ grow_vertical = 2
 theme = ExtResource("5_thu85")
 script = ExtResource("6_ey58u")
 podium_panel_scene = ExtResource("8_w7fa3")
-teams_list = ExtResource("10_kt8ap")
 
 [node name="BlurRect" type="ColorRect" parent="UILayer/UI/End" unique_id=102907938]
 unique_name_in_owner = true

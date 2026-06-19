@@ -1,5 +1,5 @@
 ## Almacena las constantes del juego para su consulta a lo largo del proyecto
-class_name Constants extends Node
+class_name Constants
 
 
 ## Tiempo de espera en acciones de batalla

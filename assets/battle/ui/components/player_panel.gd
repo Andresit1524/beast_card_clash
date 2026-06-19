@@ -39,8 +39,6 @@ const REFRESH_HEALTH_TIME := 0.5
 
 ## Lista de cartas para obtener los sprites
 @export var cards_list: CardsList
-## Lista de equipos para obtener los sprites
-@export var teams_list: TeamsList
 
 
 ## Nombre
@@ -70,7 +68,7 @@ func refresh_panel() -> void:
 
 	# Actualiza los datos del jugador
 	name_label.text = player_name if player_name else "Sin nombre"
-	team_texture.texture = teams_list.get_team(team)
+	team_texture.texture = TeamIcons.get_team(team)
 
 	# Actualiza la barra de vida
 	# Si la vida bajo, hace un efecto de destello en rojo
