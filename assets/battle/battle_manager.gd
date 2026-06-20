@@ -54,7 +54,7 @@ func setup_stage() -> void:
 
 
 ## Actualiza los datos sobre el dado y envía el número al BattleTurn si es el caso
-func _on_dice_thrown(number: int) -> void:
+func on_dice_thrown(number: int) -> void:
 	battle_data.current_dice_value = number
 	if battle_data.current_turn.is_bot: return
 
@@ -62,7 +62,7 @@ func _on_dice_thrown(number: int) -> void:
 
 
 ## Reacciona a la roca seleccionada en el turno del personaje
-func _on_rock_selected(selected_rock: Rock) -> void:
+func on_rock_selected(selected_rock: Rock) -> void:
 	# Si no es el turno de un humano, ignoramos el clic para evitar desincronía
 	if battle_data.current_turn.is_bot: return
 
@@ -86,7 +86,7 @@ func _on_rock_selected(selected_rock: Rock) -> void:
 
 
 ## Reacciona a la carta seleccionada en el turno del humano
-func _on_card_selected(selected_card: Card) -> void:
+func on_card_selected(selected_card: Card) -> void:
 	# Juega y refrezca la interfaz
 	battle_data.current_turn.play_card(selected_card)
 	battle_ui.enable_hand(false)
