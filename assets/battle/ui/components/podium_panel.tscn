@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://dleubuyqowf33"]
+
+[ext_resource type="Theme" uid="uid://djsw6wrf4tns" path="res://assets/ui/themes/main_theme.tres" id="1_uac0k"]
+[ext_resource type="LabelSettings" uid="uid://bbicpoq7r4bdo" path="res://assets/battle/ui/resources/label_settings.tres" id="2_4m5bp"]
+[ext_resource type="Texture2D" uid="uid://ck83qwbrce022" path="res://assets/teams/sprites/character.png" id="2_xrjuq"]
+[ext_resource type="Script" uid="uid://k5dq6mtq1rg0" path="res://assets/battle/ui/components/podium_panel.gd" id="2_yiqrk"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_aumkp"]
+
+[node name="PodiumPanel" type="PanelContainer" unique_id=1696558738]
+offset_right = 483.0
+offset_bottom = 40.0
+theme = ExtResource("1_uac0k")
+script = ExtResource("2_yiqrk")
+
+[node name="Contents" type="HBoxContainer" parent="." unique_id=293918446]
+layout_mode = 2
+
+[node name="Space" type="Control" parent="Contents" unique_id=1969542792]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="Position" type="Label" parent="Contents" unique_id=662571187]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0"
+label_settings = ExtResource("2_4m5bp")
+
+[node name="Team" type="TextureRect" parent="Contents" unique_id=533984826]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("2_xrjuq")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Name" type="Label" parent="Contents" unique_id=2142118677]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 4.0
+text = "Nombre del jugador"
+label_settings = SubResource("LabelSettings_aumkp")
+
+[node name="Space2" type="Control" parent="Contents" unique_id=411720823]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="Points" type="Label" parent="Contents" unique_id=190445324]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+label_settings = ExtResource("2_4m5bp")
+horizontal_alignment = 1

@@ -1,5 +1,4 @@
-## Una clase auxiliar para almacenar las cartas del juego. Accede a ellas por su elemento y valor
-## usando [code]get_card()[/code]
+## Almacena las sprites de las cartas del juego
 class_name CardsList extends Resource
 
 

@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://bhftk28laqsy8"]
 
-[ext_resource type="PackedScene" uid="uid://b00c0clxl6uol" path="res://assets/battle/ui/player_panel.tscn" id="1_1054f"]
+[ext_resource type="PackedScene" uid="uid://b00c0clxl6uol" path="res://assets/battle/ui/components/player_panel.tscn" id="1_1054f"]
 [ext_resource type="Script" uid="uid://bi4tiwacyr4dh" path="res://assets/battle/ui/hand.gd" id="1_oyv2c"]
+[ext_resource type="Script" uid="uid://d3f2iflhnwhl7" path="res://assets/battle/battle.gd" id="1_tl2es"]
 [ext_resource type="Script" uid="uid://0qb4hgslax58" path="res://assets/battle/ui/battle_ui.gd" id="1_tlmnd"]
 [ext_resource type="PackedScene" uid="uid://dogb8dy8s5bsc" path="res://assets/cards/card.tscn" id="2_6cxqy"]
 [ext_resource type="Curve2D" uid="uid://sagpx5alf1g6" path="res://assets/battle/ui/resources/hand_hidden_curve.tres" id="2_45g41"]
@@ -11,17 +12,16 @@
 [ext_resource type="Theme" uid="uid://djsw6wrf4tns" path="res://assets/ui/themes/main_theme.tres" id="5_thu85"]
 [ext_resource type="Script" uid="uid://dnhyvmfljit8f" path="res://assets/battle/ui/end_ui.gd" id="6_ey58u"]
 [ext_resource type="LabelSettings" uid="uid://ctvu5dp4p0kjm" path="res://assets/ui/themes/title_theme.tres" id="7_sdhuf"]
-[ext_resource type="PackedScene" uid="uid://dleubuyqowf33" path="res://assets/battle/ui/podium_panel.tscn" id="8_w7fa3"]
+[ext_resource type="PackedScene" uid="uid://dleubuyqowf33" path="res://assets/battle/ui/components/podium_panel.tscn" id="8_w7fa3"]
 [ext_resource type="Script" uid="uid://clvjxwv8w7kt0" path="res://assets/battle/states/start.gd" id="10_5m5wa"]
-[ext_resource type="Resource" uid="uid://c4gqyhuufijo" path="res://assets/teams/teams_list.tres" id="10_kt8ap"]
 [ext_resource type="Script" uid="uid://bd5jv2qpva2t0" path="res://assets/battle/states/turn.gd" id="12_45g41"]
 [ext_resource type="Script" uid="uid://myr5bayqdfo0" path="res://assets/battle/states/loop.gd" id="13_6pcvk"]
 [ext_resource type="FontFile" uid="uid://cx0dmyddc8f5" path="res://assets/fonts/tilt_wrap.ttf" id="13_tl2es"]
 [ext_resource type="Script" uid="uid://bgoqckx2cr8mi" path="res://assets/battle/states/referee.gd" id="14_kt8ap"]
 [ext_resource type="PackedScene" uid="uid://cmugargrwkit2" path="res://assets/player/player.tscn" id="15_38ou4"]
 [ext_resource type="Script" uid="uid://d2wigsqxwrtwp" path="res://assets/battle/states/end.gd" id="15_ykgus"]
-[ext_resource type="Script" path="res://assets/battle/battle_data.gd" id="20_6pcvk"]
-[ext_resource type="Script" uid="uid://c5og7snwj47ak" path="res://assets/battle/stage/world.gd" id="21_63i6v"]
+[ext_resource type="Script" uid="uid://d35sa10cw66ca" path="res://assets/battle/battle_data.gd" id="20_6pcvk"]
+[ext_resource type="Script" uid="uid://c5og7snwj47ak" path="res://assets/battle/stage/stage.gd" id="21_63i6v"]
 [ext_resource type="PackedScene" uid="uid://mpvkdtkj0ajj" path="res://assets/battle/stage/dice/dice.tscn" id="22_tl2es"]
 [ext_resource type="Script" uid="uid://cjn0h33vnse38" path="res://assets/battle/stage/rocks/rocks.gd" id="23_s2dql"]
 [ext_resource type="PackedScene" uid="uid://bmk14l2nvouje" path="res://assets/battle/stage/rocks/rock.tscn" id="24_kn2os"]
@@ -53,6 +53,7 @@ bottom_radius = 10.0
 height = 0.1
 
 [node name="Battle" type="Node" unique_id=669774022]
+script = ExtResource("1_tl2es")
 metadata/_edit_horizontal_guides_ = [512.0, 32.0, 616.0, 308.0]
 metadata/_edit_vertical_guides_ = [320.0, 832.0, 32.0, 1120.0, 104.0]
 
@@ -83,7 +84,16 @@ mouse_filter = 1
 theme = ExtResource("5_thu85")
 script = ExtResource("1_tlmnd")
 
-[node name="HandPos" type="Control" parent="UILayer/UI" unique_id=534952336]
+[node name="Battle" type="Control" parent="UILayer/UI" unique_id=99794430]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="HandPos" type="Control" parent="UILayer/UI/Battle" unique_id=534952336]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -95,7 +105,7 @@ grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
 
-[node name="Hand" type="Path2D" parent="UILayer/UI/HandPos" unique_id=563384670]
+[node name="Hand" type="Path2D" parent="UILayer/UI/Battle/HandPos" unique_id=563384670]
 unique_name_in_owner = true
 position = Vector2(-576, -648)
 curve = ExtResource("2_vomrt")
@@ -106,7 +116,7 @@ curves = Dictionary[StringName, Curve2D]({
 &"normal": ExtResource("2_vomrt")
 })
 
-[node name="PlayerPanel" parent="UILayer/UI" unique_id=1239815553 instance=ExtResource("1_1054f")]
+[node name="PlayerPanel" parent="UILayer/UI/Battle" unique_id=1239815553 instance=ExtResource("1_1054f")]
 unique_name_in_owner = true
 layout_mode = 0
 anchors_preset = 0
@@ -116,13 +126,13 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 32.0
 offset_top = 32.0
-offset_right = 176.0
+offset_right = 164.0
 offset_bottom = 214.0
 grow_horizontal = 1
 grow_vertical = 1
 mouse_filter = 2
 
-[node name="BotsPanels" type="VBoxContainer" parent="UILayer/UI" unique_id=1280223489]
+[node name="BotsPanels" type="VBoxContainer" parent="UILayer/UI/Battle" unique_id=1280223489]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 1
@@ -136,15 +146,15 @@ grow_horizontal = 0
 mouse_filter = 2
 theme_override_constants/separation = 8
 
-[node name="BotPanel" parent="UILayer/UI/BotsPanels" unique_id=1053233556 instance=ExtResource("1_1054f")]
+[node name="BotPanel" parent="UILayer/UI/Battle/BotsPanels" unique_id=1053233556 instance=ExtResource("1_1054f")]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="BotPanel2" parent="UILayer/UI/BotsPanels" unique_id=1994888533 instance=ExtResource("1_1054f")]
+[node name="BotPanel2" parent="UILayer/UI/Battle/BotsPanels" unique_id=1994888533 instance=ExtResource("1_1054f")]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="BotPanel3" parent="UILayer/UI/BotsPanels" unique_id=954710962 instance=ExtResource("1_1054f")]
+[node name="BotPanel3" parent="UILayer/UI/Battle/BotsPanels" unique_id=954710962 instance=ExtResource("1_1054f")]
 layout_mode = 2
 mouse_filter = 2
 
@@ -216,7 +226,6 @@ grow_vertical = 2
 theme = ExtResource("5_thu85")
 script = ExtResource("6_ey58u")
 podium_panel_scene = ExtResource("8_w7fa3")
-teams_list = ExtResource("10_kt8ap")
 
 [node name="BlurRect" type="ColorRect" parent="UILayer/UI/End" unique_id=102907938]
 unique_name_in_owner = true
@@ -298,18 +307,18 @@ text = "Salir"
 unique_name_in_owner = true
 script = ExtResource("20_6pcvk")
 
-[node name="BattleManager" type="Node" parent="." unique_id=637941647 node_paths=PackedStringArray("battle_ui", "battle_world", "battle_data", "controlled_node", "default_state")]
+[node name="BattleManager" type="Node" parent="." unique_id=637941647 node_paths=PackedStringArray("battle_ui", "battle_stage", "battle_data", "controlled_node", "default_state")]
 script = ExtResource("3_6cxqy")
 battle_ui = NodePath("../UILayer/UI")
-battle_world = NodePath("../Stage")
+battle_stage = NodePath("../Stage")
 battle_data = NodePath("../BattleData")
-player_scene = ExtResource("15_38ou4")
 controlled_node = NodePath(".")
 default_state = NodePath("Start")
 metadata/_custom_type_script = "uid://bxs53es51hc4u"
 
 [node name="Start" type="Node" parent="BattleManager" unique_id=804253519]
 script = ExtResource("10_5m5wa")
+player_scene = ExtResource("15_38ou4")
 
 [node name="Turn" type="Node" parent="BattleManager" unique_id=1466001643]
 script = ExtResource("12_45g41")
@@ -380,6 +389,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 8)
 [node name="ReferencePlayer4" parent="Stage/Players" unique_id=1881287727 instance=ExtResource("15_38ou4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, -8)
 
+[connection signal="card_selected" from="UILayer/UI" to="." method="_on_ui_card_selected"]
 [connection signal="pressed" from="UILayer/UI/Pause/Contents/Buttons/ContinueButton" to="UILayer/UI" method="_on_continue_button_pressed"]
 [connection signal="pressed" from="UILayer/UI/Pause/Contents/Buttons/BackButton" to="UILayer/UI" method="_on_back_button_pressed"]
-[connection signal="thrown_dice" from="Stage/Dice" to="Stage" method="_on_dice_thrown_dice"]
+[connection signal="pressed" from="UILayer/UI/End/EndPanel/MarginContainer/Contents/ExitButton" to="UILayer/UI/End" method="_quit_battle"]
+[connection signal="enable_dice" from="BattleManager/Turn" to="." method="_on_turn_enable_dice"]
+[connection signal="rock_selected" from="Stage" to="." method="_on_stage_rock_selected"]
+[connection signal="thrown" from="Stage/Dice" to="." method="_on_dice_thrown"]
+[connection signal="players_game_over" from="Stage/Players" to="BattleData" method="queue_game_over"]

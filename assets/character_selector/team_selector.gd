@@ -1,4 +1,5 @@
-extends Control
+## Contiene toda la lógica detrás de la selección de equipos para el jugador
+class_name TeamSelector extends Control
 
 
 ## Lista de botones asociados al equipo que representan
@@ -17,23 +18,18 @@ extends Control
 var selected_team: int = -1
 
 
-func _ready():
+func _ready() -> void:
 	# Conecta todos los botones de los equipos al selector
 	teams_button_group.pressed.connect(_set_team)
 
 
 ## Vuelve al selector de aspectos con el botón de volver
 func _on_back_button_pressed() -> void:
-	SceneManager.change_to_scene("skin_selector")
+	SceneManager.change_to_scene(&"skin_selector")
 
 
 ## Establece el equipo del jugador dependiendo del botón pulsado en el selector de equipo
-func _set_team(pressed_button: Button):
-	print(
-		"[TeamSelector] Equipo elegido: %s"
-		% Utilities.get_enum_name(selected_team, Constants.Teams)
-	)
-
+func _set_team(pressed_button: Button) -> void:
 	# VA-Games no es equipo elegible, ergo, no aparece. No lo añadas
 	selected_team = teams[pressed_button]
 
@@ -43,7 +39,7 @@ func _set_team(pressed_button: Button):
 
 
 ## Actualiza los datos y pasa a jugar cuando se presiona el botón de jugar
-func _submit_and_play():
+func _submit_and_play() -> void:
 	# Nombre vacío
 	if not line_edit_node.text:
 		push_warning("[TeamSelector] Nombre vacío")
@@ -60,10 +56,10 @@ func _submit_and_play():
 	# Establece los datos del jugador y pasa a jugar
 	PlayerStats.team = selected_team as Constants.Teams
 	PlayerStats.player_name = line_edit_node.text
-	FlagsManager.set_flag("character_selected", true)
+	FlagsManager.set_flag(&"character_selected", true)
 
 	push_warning("[TeamSelector] No hay escena de mapa. Pasando a batalla")
-	SceneManager.change_to_scene("battle")
+	SceneManager.change_to_scene(&"battle")
 
 
 ## Establece el color de los botones

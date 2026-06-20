@@ -1,60 +1,20 @@
-## Clase que representa un jugador en jugador en batalla, sea bot o humano.
-class_name Player extends CharacterBody3D
+## Representa un jugador en jugador en batalla, sea bot o humano.
+class_name Player extends Node3D
 
 
-signal moved()
+## Se emite cuando el jugador termina de moverse hacia una roca
+signal moved
+## Se emite para actualizar la baraja
 signal deck_updated(new_deck: Array[Card])
+## Se emite cuando el jugador muere enviando su referencia al manager
 signal game_over(player: Player)
 
-
-# Datos de jugador
-const MAX_HEALTH := 5
-const INITIAL_CARDS := 9
-const NAMES := [
-	"Ana La Rana",
-	"Andrew",
-	"Arturo",
-	"Barry",
-	"Bartolome",
-	"Beth",
-	"Bianca",
-	"Búho Sensei - Nacho",
-	"Carlos Jimenez",
-	"Carmen",
-	"Chepe García",
-	"Cristal",
-	"Don Poncho",
-	"Dorothy",
-	"Doru",
-	"Eliel Picoalto",
-	"Fabio Aguilar",
-	"Guacharaco",
-	"Juan Orca",
-	"Keneth",
-	"Manchas",
-	"Maria",
-	"Marjane",
-	"Matt Cougar",
-	"Mr Bear",
-	"Nairo “El Andino”",
-	"Osorio P",
-	"Ramón",
-	"Teddy",
-	"Thiago",
-	"Thomas",
-	"Titi",
-	"Walter Mendoza",
-	"Wolfy",
-	"Zarah",
-]
 
 # Posición y velocidad
 const Z_POSITION := 0.3
 const MOVE_TIME := 1.0
 
 
-## Mano del jugador
-@export var hand: Hand
 ## Escena de carta
 @export var card_scene: PackedScene
 
@@ -63,9 +23,9 @@ const MOVE_TIME := 1.0
 
 
 # Datos del jugador
-var player_name: String
-var team: Constants.Teams = Constants.Teams.NO_TEAM
-var health: int = MAX_HEALTH
+var player_name: String = Constants.NAMES.pick_random()
+var team: Constants.Teams = Constants.Teams.values().pick_random()
+var health: int = Constants.MAX_HEALTH
 var is_bot: bool = true
 
 # Baraja y carta actual (para humanos)
@@ -84,82 +44,47 @@ func _ready() -> void:
 	if not is_bot: sprite.modulate = Color.SKY_BLUE
 
 
-#region Datos
-
-
-## Elige características al azar para un bot
-## ! Función (posiblemente) temporal
-func randomize() -> void:
-	# Si no es bot, randomizamos todos los elementos
-	player_name = NAMES.pick_random()
-	team = Constants.Teams.values().pick_random()
+#region Baraja
 
 
 ## Crea la baraja de cartas
 func create_deck() -> void:
-	for i in range(INITIAL_CARDS):
-		# Elemento de la carta
-		var new_card_element := Constants.Elements.NONE
-		while new_card_element == Constants.Elements.NONE:
-			new_card_element = Constants.Elements.values().pick_random()
-
+	for i in Constants.INITIAL_CARDS:
+		var new_card_element := Constants.get_random_valid_element()
 		var new_card: Card = card_scene.instantiate()
+
 		new_card.element = new_card_element
 		new_card.value = randi_range(1, 10)
 		deck.append(new_card)
 
-	_update_deck_if_needed()
+	if not is_bot: deck_updated.emit(deck)
 
 
-#endregion
+## Juega una carta y la retorna
+func play_card(card: Card) -> Card:
+	if not card in deck: push_error("Carta no encontrada")
 
-
-#region Baraja
-
-
-## Añade una carta a la baraja
-func add_card(card: Card) -> void:
-	deck.append(card)
-	_update_deck_if_needed()
-
-
-## Elimina una carta de la baraja
-func remove_card(card: Card) -> void:
+	# Procesa la carta
+	current_element = card.element
+	current_value = card.value
 	deck.erase(card)
-	_update_deck_if_needed()
 
+	# Añade una nueva carta al azar para reponer
+	var new_card_element := Constants.get_random_valid_element()
+	var new_card = card_scene.instantiate()
 
-## Juega una carta y la retorna. Retorna null si no hay más cartas
-func play_card(card: Card = null) -> Card:
-	# Si no hay carta, elige al azar
-	if not card: card = deck.pick_random()
+	new_card.element = new_card_element
+	new_card.value = randi_range(1, Constants.MAX_CARD_VALUE)
+	deck.append(new_card)
 
-	# Si la carta está en el mazo, la procesamos
-	if card in deck:
-		deck.erase(card)
-
-		# Añade una nueva carta al azar para reponer
-		var new_card_element := Constants.Elements.NONE
-		while not new_card_element:
-			new_card_element = Constants.Elements.values().pick_random()
-
-		var new_card = card_scene.instantiate()
-		new_card.element = new_card_element
-		new_card.value = randi_range(1, 10)
-
-		deck.append(new_card)
-		print(
-			"[Player] Nueva carta añadida: %s-%s"
-			% [Utilities.get_enum_name(new_card.element, Constants.Elements), new_card.value]
-		)
-
-	_update_deck_if_needed()
+	if not is_bot: deck_updated.emit(deck)
 	return card
 
 
-## Actualiza la baraja si es un jugador humano
-func _update_deck_if_needed() -> void:
-	if not is_bot: deck_updated.emit(deck)
+## Resetea la elección del jugador
+func reset_choice() -> void:
+	current_element = Constants.Elements.NONE
+	current_value = 0
 
 
 #endregion
@@ -170,10 +95,7 @@ func _update_deck_if_needed() -> void:
 
 ## Aplica daño al jugador
 func apply_damage(damage: int = 1) -> void:
-	# Si ya no tiene vida, no procesamos más daño ni señales
-	if health <= 0: return
-
-	print("[Player] Daño aplicado: %s - %s" % [health, damage])
+	print("[Player] Daño aplicado: %s - %s = %s" % [health, damage, health - damage])
 	health -= damage
 
 	if health <= 0:
@@ -181,11 +103,10 @@ func apply_damage(damage: int = 1) -> void:
 		game_over.emit(self)
 
 
-## Desaparece al jugador si acabo todo
-# ! Por ahora, solo desaparece con desvanecimiento, y eliminamos al jugador
-func dissapear():
+## Desvanece y elimina al jugador
+func dissapear() -> void:
 	var tween := create_tween()
-	tween.tween_property(sprite, "modulate", Color.TRANSPARENT, 1.0)
+	tween.tween_property(sprite, ^"modulate", Color.TRANSPARENT, 1.0)
 	tween.tween_callback(queue_free)
 
 
@@ -196,16 +117,14 @@ func dissapear():
 
 
 ## Mueve el jugador a la posición indicada y actualiza su indice a la vez
+# TODO: ¿Se puede unificar para que solo pida el índice? A1
 func move_to(new_position: Vector3, new_index: int) -> void:
-	# Actualiza la posición
 	current_rock_index = new_index
 
-	# Mueve el jugador
-	var tween := create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
-
 	var final_pos := Vector3(new_position.x, Z_POSITION, new_position.z)
-	tween.tween_property(self, "position", final_pos, MOVE_TIME)
-	tween.tween_callback(func(): moved.emit())
+	var tween := create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(self, ^"position", final_pos, MOVE_TIME)
+	tween.tween_callback(moved.emit)
 
 
 #endregion

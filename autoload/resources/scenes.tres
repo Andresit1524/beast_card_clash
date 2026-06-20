@@ -10,12 +10,12 @@
 
 [resource]
 script = ExtResource("4_ydkrs")
-items = Dictionary[String, Variant]({
-"battle": ExtResource("6_thxjd"),
-"credits": ExtResource("3_m3lnl"),
-"skin_selector": ExtResource("3_thxjd"),
-"start_menu": ExtResource("1_ydkrs"),
-"team_selector": ExtResource("5_thxjd"),
-"tutorial": ExtResource("2_gf5of")
+items = Dictionary[StringName, PackedScene]({
+&"battle": ExtResource("6_thxjd"),
+&"credits": ExtResource("3_m3lnl"),
+&"skin_selector": ExtResource("3_thxjd"),
+&"start_menu": ExtResource("1_ydkrs"),
+&"team_selector": ExtResource("5_thxjd"),
+&"tutorial": ExtResource("2_gf5of")
 })
 metadata/_custom_type_script = "uid://cxg35c42opm5k"

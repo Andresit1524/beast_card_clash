@@ -16,7 +16,7 @@ const ONDULAION_SPEED := 3.5
 		element = value
 		_update_sprite()
 ## Valor de la carta
-@export_range(1, Constants.MAX_CARD_VAlUE) var value := 1:
+@export_range(1, Constants.MAX_CARD_VALUE) var value := 1:
 	set(val):
 		value = val
 		_update_sprite()
@@ -57,20 +57,6 @@ func _physics_process(delta: float) -> void:
 	position = _start_position + _get_ondulation_offset()
 
 
-## Establece una lista de valores para la carta. Úsalo solo para asignaciones múltiples
-func set_properties(values: Dictionary) -> void:
-	for property in values:
-		var new_value = values[property]
-
-		if not property in self:
-			push_error("[Card] Propiedad no encontrada: %s" % property)
-			continue
-
-		set(property, new_value)
-
-	_update_sprite()
-
-
 ## Cambia la imagen de la carta
 func _update_sprite() -> void:
 	if not cards_list: return
@@ -107,7 +93,7 @@ func _hover_card(hover: bool) -> void:
 
 		if hide_card: return
 		tween.tween_property(self, "position", _start_position, HOVER_TIME)
-		tween.tween_callback(func(): set_physics_process(true))
+		tween.tween_callback(set_physics_process.bind(true))
 
 
 ## Voltea la carta para ocultarla o mostrarla
@@ -131,11 +117,6 @@ func _get_ondulation_offset() -> Vector2:
 ## Avisa cuando la carta es presionada
 func _on_pressed() -> void:
 	if disable_card or hide_card: return
-
-	print(
-		"[Card] Carta %s-%s presionada"
-		% [Utilities.get_enum_name(element, Constants.Elements), value]
-	)
 	card_selected.emit(self)
 
 

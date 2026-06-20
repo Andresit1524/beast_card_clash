@@ -16,8 +16,6 @@ const COLORS := [Color.GOLD, Color.SILVER, Color.PERU]
 @export_group("Dependencias")
 ## Escena del panel de podium
 @export var podium_panel_scene: PackedScene
-## Lista de equipos
-@export var teams_list: TeamsList
 
 
 ## Rectángulo para el efecto de desvanecimiento
@@ -26,10 +24,6 @@ const COLORS := [Color.GOLD, Color.SILVER, Color.PERU]
 @onready var podium: VBoxContainer = %Podium
 ## Botón de salir
 @onready var exit_button: Button = %ExitButton
-
-
-func _ready() -> void:
-	exit_button.pressed.connect(_quit_battle)
 
 
 ## Establece la visibilidad de la interfaz de usuario con un efecto de fade
@@ -48,7 +42,7 @@ func set_ui_visible(value: bool) -> void:
 
 
 ## Establece los datos del podium usando la lista que se le provea
-func set_podium(ranking: Array[Array]):
+func set_podium(ranking: Array[Array]) -> void:
 	print(
 		"[BattleUI] Estableciendo podium: %s"
 		% [ranking]
@@ -60,9 +54,8 @@ func set_podium(ranking: Array[Array]):
 
 	# Por cada ranking
 	for i in ranking.size():
-		var rank: Array[BattleData.Snapshot] = ranking[i]
-
 		# Por cada posición en el ranking
+		var rank: Array[Dictionary] = ranking[i]
 		for player in rank:
 			# Por cada jugador en esa posición
 			var new_podium_panel: PodiumPanel = podium_panel_scene.instantiate()
@@ -70,7 +63,7 @@ func set_podium(ranking: Array[Array]):
 
 			# Datos
 			new_podium_panel.position_label.text = str(i + 1)
-			new_podium_panel.team.texture = teams_list.get_team(player.team)
+			new_podium_panel.team.texture = TeamIcons.get_team(player.team)
 			new_podium_panel.name_label.text = player.name
 			new_podium_panel.points.text = str(0)
 
@@ -86,4 +79,4 @@ func get_rank_color(rank: int) -> Color:
 ## Se sale de la batalla
 func _quit_battle() -> void:
 	ui_visible = false
-	SceneManager.change_to_scene("start_menu")
+	SceneManager.change_to_scene(&"start_menu")

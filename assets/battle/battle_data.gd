@@ -1,17 +1,13 @@
-## Nodo que contiene la información de batalla y la propaga por toda la escena para evitar enredos.
+## Contiene la información de batalla y la propaga por toda la escena para evitar enredos.
 ## BattleData es la verdad absoluta sobre la información del juego.
 class_name BattleData extends Node
-
-
-const MAX_PLAYERS := 4
-const WAIT_TIME := 2.0
 
 
 ## Jugador humano
 var player: Player
 ## Lista de jugadores
 var players: Array[Player]
-## Ranking del juego en formato puesto: jugadores
+## Ranking del juego en formato puesto: [lista_de_jugadores]
 var ranking: Array[Array]
 
 
@@ -108,12 +104,15 @@ func apply_game_over() -> void:
 	)
 
 	# Añade a los jugadores al ranking y los quita de la lista de espera
-	var snapshot: Array[Snapshot] = []
+	var snapshot: Array[Dictionary] = []
 	for _player in queued_ranked_players:
-		snapshot.append(Snapshot.new(_player.player_name, _player.team))
+		snapshot.append({
+			&"name": _player.player_name,
+			&"team": _player.team,
+		})
 
 	ranking.push_front(snapshot)
-	players = players.filter(func(p): return p not in queued_ranked_players)
+	players = players.filter(func(p: Player): return p not in queued_ranked_players)
 	# Elimina ahora si a los jugadores
 	for _player in queued_ranked_players:
 		_player.dissapear()
@@ -131,29 +130,29 @@ func apply_game_over() -> void:
 	if players.is_empty():
 		print(
 			"[BattleData] Fin de juego. Ganadores: %s"
-			% [ranking[0].map(func(p): return p.name)]
+			% [ranking[0].map(func(p: Dictionary): return p.name)]
 		)
 
 
 ## Indica si perdimos el juego
-func we_lose():
+func we_lose() -> bool:
 	return not player in players
 
 
-## Clase que almacena los datos de un jugador de manera ligera y segura
-class Snapshot:
-	var name: String
-	var team: Constants.Teams
-
-	func _init(new_name: String, new_team: Constants.Teams) -> void:
-		name = new_name
-		team = new_team
-
-	func _to_string() -> String:
-		return (
-			"[Nombre: %s, Equipo: %s]"
-			% [name, Utilities.get_enum_name(team, Constants.Teams)]
+## Crea un podio artificial para los jugadores restantes
+func lose_remaining() -> void:
+	while not players.is_empty():
+		print(
+			"[BattleData] Daño sobre: %s. Perdedores: %s"
+			% [
+				players.map(func(p: Player): return "%s: %s, " % [p.player_name, p.health]),
+				queued_ranked_players.map(func(p: Player): return "%s: %s, " % [p.player_name, p.health])
+			]
 		)
+		for _player in players:
+			_player.apply_damage()
+
+		apply_game_over()
 
 
 #endregion

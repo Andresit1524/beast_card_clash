@@ -4,10 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dogb8dy8s5bsc" path="res://assets/cards/card.tscn" id="2_msjm4"]
 [ext_resource type="SpriteFrames" uid="uid://c3yne7po44lpx" path="res://assets/player/sprites_old/spriteframes.tres" id="3_3uphs"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_7mtsh"]
-size = Vector3(1.3701172, 1.4610596, 0.39624023)
-
-[node name="Player" type="CharacterBody3D" unique_id=713372367]
+[node name="Player" type="Node3D" unique_id=1736575000]
 script = ExtResource("1_bdst2")
 card_scene = ExtResource("2_msjm4")
 
@@ -20,9 +17,3 @@ sprite_frames = ExtResource("3_3uphs")
 animation = &"idle"
 autoplay = "idle"
 frame_progress = 0.08394104
-
-[node name="CollisionShape" type="CollisionShape3D" parent="." unique_id=1031150480]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7770365, 0)
-visible = false
-shape = SubResource("BoxShape3D_7mtsh")
-debug_color = Color(0, 0.59607846, 0.7019608, 1)

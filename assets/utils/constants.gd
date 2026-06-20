@@ -1,9 +1,60 @@
-## [code]Constants[/code] almacena las constantes del juego para su consulta a lo largo del proyecto
-class_name Constants extends Node
+## Almacena las constantes del juego para su consulta a lo largo del proyecto
+class_name Constants
 
 
-## Constantes del juego
-const MAX_CARD_VAlUE := 10
+## Tiempo de espera en acciones de batalla
+const BATTLE_WAIT_TIME := 2.0
+
+## Cantidad de cartas iniciales en las barajas
+const INITIAL_CARDS := 9
+
+## Valor máximo de las cartas
+const MAX_CARD_VALUE := 10
+
+## Cantidad máxima de jugadores
+const MAX_PLAYERS := 4
+
+## Salud de los jugadores
+const MAX_HEALTH := 5
+
+## Nombres para los jugadores
+const NAMES := [
+	"Ana La Rana",
+	"Andrew",
+	"Arturo",
+	"Barry",
+	"Bartolome",
+	"Beth",
+	"Bianca",
+	"Búho Sensei - Nacho",
+	"Carlos Jimenez",
+	"Carmen",
+	"Chepe García",
+	"Cristal",
+	"Don Poncho",
+	"Dorothy",
+	"Doru",
+	"Eliel Picoalto",
+	"Fabio Aguilar",
+	"Guacharaco",
+	"Juan Orca",
+	"Keneth",
+	"Manchas",
+	"Maria",
+	"Marjane",
+	"Matt Cougar",
+	"Mr Bear",
+	"Nairo “El Andino”",
+	"Osorio P",
+	"Ramón",
+	"Teddy",
+	"Thiago",
+	"Thomas",
+	"Titi",
+	"Walter Mendoza",
+	"Wolfy",
+	"Zarah",
+]
 
 
 ## Lista de elementos
@@ -36,29 +87,11 @@ enum Teams {
 }
 
 
-## Miembros de los equipos
-const TEAMS_MEMBERS: Dictionary[Teams, Array] = {
-	Teams.NO_TEAM: [],
-	Teams.ACETILES: [],
-	Teams.ADN: [],
-	Teams.INGENIOSOS_ELEMENTALES: [],
-	Teams.PHOTO_AGROS: [],
-	Teams.PLUMA_DORADA: [],
-	Teams.RPC_TEAM: [],
-	Teams.REAL_PINCEL: [],
-	Teams.VA_GAMES: [],
-	Teams.ZOOTECNICOS: []
-}
-
-
 ## Especies disponibles y las skins disponibles para cada uno
+# ! Sin implementar
 enum Species {BEAR, CONDOR, CHAMALEON, FROG}
 
 
-## Skins disponibles para cada especie. Base (la skin por defecto) va de primero
-const SKINS: Dictionary[Species, PackedStringArray] = {
-	Species.BEAR: ["base", "andean", "black", "grizzly", "panda", "polar"],
-	Species.CHAMALEON: ["base"],
-	Species.CONDOR: ["base"],
-	Species.FROG: ["base", "green", "perez"]
-}
+## Elige un elemento al azar que no sea el nulo
+static func get_random_valid_element() -> Elements:
+	return randi_range(1, Elements.size() - 1) as Elements

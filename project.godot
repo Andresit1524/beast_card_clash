@@ -8,17 +8,13 @@
 
 config_version=5
 
-[animation]
-
-compatibility/default_parent_skeleton_in_mesh_instance_3d=true
-
 [application]
 
 config/name="Beast Card Clash"
 config/version="0.2"
 config/tags=PackedStringArray("gdd")
 run/main_scene="uid://dr0fenfnqsha3"
-config/features=PackedStringArray("4.6")
+config/features=PackedStringArray("4.7")
 config/icon="uid://kbjlhn33ow1p"
 
 [autoload]

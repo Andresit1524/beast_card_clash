@@ -6,4 +6,4 @@ func _ready() -> void:
 
 ## Botón de retroceso: se mueve a la escena principal
 func _on_pressed() -> void:
-	SceneManager.change_to_scene("start_menu")
+	SceneManager.change_to_scene(&"start_menu")
