@@ -18,7 +18,7 @@ Beast Card Clash contiene o plantea contener:
 1. Duelos de cartas elementales, divertidos y desafiantes
 2. Personajes inspirados en la fauna colombiana
 3. Ambientación en la Universidad Nacional con elementos fantásticos
-4. Un estilo artístico adorable en 2.5D
+4. Un estilo artístico adorable en 2D
 
 ## 🗂️ Documentación y contribución
 La documentación de este proyecto lo encuentras en la carpeta de [documentación](./.docs) para ajustes rápidos, luego en [esta página](https://andresit1524.github.io/bcc_docs) para lo definitivo.
