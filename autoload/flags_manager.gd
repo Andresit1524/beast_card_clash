@@ -16,4 +16,4 @@ func get_flag(flag: StringName) -> bool:
 ## Revisa flags.tres en el inpector para ver la lista de banderas disponibles
 func set_flag(flag: StringName, value: bool) -> void:
 	print_debug("Bandera %s: %s" % ["activada" if value else "desactivada", flag])
-	_flags.set_item(flag, value)
+	_flags.items[flag] = value
