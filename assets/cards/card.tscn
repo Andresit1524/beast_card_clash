@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://dogb8dy8s5bsc"]
 
+[ext_resource type="Texture2D" uid="uid://b6iyljpbfw7gc" path="res://assets/cards/sprites/reverse.png" id="1_gbb7e"]
 [ext_resource type="Script" uid="uid://c47mwiuns2es0" path="res://assets/cards/card.gd" id="1_is76p"]
 [ext_resource type="Resource" uid="uid://cieynustmj1yv" path="res://assets/cards/cards_list.tres" id="2_bciui"]
-[ext_resource type="Texture2D" uid="uid://buuyr83mnr7sq" path="res://assets/cards/sprites/placeholder.png" id="3_fv56m"]
 
 [node name="Card" type="TextureButton" unique_id=1039962767]
 anchors_preset = 8
@@ -16,10 +16,8 @@ offset_right = 240.0
 offset_bottom = 336.0
 grow_horizontal = 2
 grow_vertical = 2
-texture_normal = ExtResource("3_fv56m")
+texture_normal = ExtResource("1_gbb7e")
 script = ExtResource("1_is76p")
-element = 1
-hide_card = true
 cards_list = ExtResource("2_bciui")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

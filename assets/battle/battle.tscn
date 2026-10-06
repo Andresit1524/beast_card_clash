@@ -38,9 +38,9 @@ font_size = 47
 
 [sub_resource type="Environment" id="Environment_hsiu5"]
 background_mode = 3
+background_color = Color(0, 0.35947943, 1, 1)
 ambient_light_source = 2
-ambient_light_color = Color(1, 1, 1, 1)
-ambient_light_energy = 1.6
+ambient_light_color = Color(0.9998151, 0.9742534, 0.88785017, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1e0e5"]
 diffuse_mode = 3
@@ -110,6 +110,7 @@ unique_name_in_owner = true
 position = Vector2(-576, -648)
 curve = ExtResource("2_vomrt")
 script = ExtResource("1_oyv2c")
+card_scale = 0.07
 card_scene = ExtResource("2_6cxqy")
 curves = Dictionary[StringName, Curve2D]({
 &"hidden": ExtResource("2_45g41"),
@@ -348,7 +349,8 @@ current = true
 fov = 39.740986
 
 [node name="DirectionalLight" type="DirectionalLight3D" parent="Stage" unique_id=1775168764]
-transform = Transform3D(-0.23401584, -0.6283599, 0.7418897, -0.17849198, 0.7778754, 0.60253656, -0.9557076, 0.008581743, -0.29419237, -1.8196497, 21.941957, 22.545345)
+transform = Transform3D(0.56391156, -0.42094967, 0.7104963, -0.17849198, 0.77787554, 0.6025366, -0.80631524, -0.46659538, 0.36351687, -1.8196497, 21.941957, 22.545345)
+light_energy = 0.8
 
 [node name="Platform" type="MeshInstance3D" parent="Stage" unique_id=1379275169]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
