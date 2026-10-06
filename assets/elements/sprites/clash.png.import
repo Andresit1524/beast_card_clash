@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b6sejbuoadth2"
-path.s3tc="res://.godot/imported/all_elements.png-d259055bc732a8fa5566ee1f1b92b844.s3tc.ctex"
+uid="uid://bwd1w3ak16rnp"
+path.s3tc="res://.godot/imported/clash.png-adf931d00398fb43e37156f7247cebd4.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/elements/sprites/all_elements.png"
-dest_files=["res://.godot/imported/all_elements.png-d259055bc732a8fa5566ee1f1b92b844.s3tc.ctex"]
+source_file="res://assets/elements/sprites/clash.png"
+dest_files=["res://.godot/imported/clash.png-adf931d00398fb43e37156f7247cebd4.s3tc.ctex"]
 
 [params]
 

@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://cwcpdcjo7y3br" path="res://assets/battle/stage/rocks/rock.gd" id="1_6ebsn"]
 [ext_resource type="Shader" uid="uid://b18qduvb22s3i" path="res://assets/shaders/highlight.gdshader" id="3_6ejfb"]
-[ext_resource type="Texture2D" uid="uid://b6sejbuoadth2" path="res://assets/elements/sprites/all_elements.png" id="3_t8pnm"]
 [ext_resource type="Shader" uid="uid://bjns65a1m7iph" path="res://assets/shaders/outline.gdshader" id="4_6ejfb"]
+[ext_resource type="Texture2D" uid="uid://bwd1w3ak16rnp" path="res://assets/elements/sprites/clash.png" id="4_464w8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6ejfb"]
 render_priority = 0
@@ -48,11 +48,11 @@ mesh = SubResource("CylinderMesh_lfvml")
 [node name="Sprite" type="Sprite3D" parent="Mesh" unique_id=906482920]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.11, 0)
-pixel_size = 0.0012
+pixel_size = 0.003
 axis = 1
 shaded = true
 double_sided = false
-texture = ExtResource("3_t8pnm")
+texture = ExtResource("4_464w8")
 
 [node name="CollisionShape" type="CollisionShape3D" parent="." unique_id=1213305046]
 visible = false
