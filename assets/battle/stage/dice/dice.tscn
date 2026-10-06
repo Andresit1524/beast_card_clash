@@ -1,37 +1,34 @@
-[gd_scene format=3 uid="uid://mpvkdtkj0ajj"]
+[gd_scene format=3 uid="uid://bn6bwydu0mlmn"]
 
-[ext_resource type="PackedScene" uid="uid://6qvq4woher3a" path="res://assets/battle/stage/dice/dice.glb" id="1_w4w7p"]
-[ext_resource type="Script" uid="uid://crup472mvwn8o" path="res://assets/battle/stage/dice/dice.gd" id="2_kqj45"]
-[ext_resource type="Shader" uid="uid://b18qduvb22s3i" path="res://assets/shaders/highlight.gdshader" id="3_a420a"]
-[ext_resource type="Shader" uid="uid://bjns65a1m7iph" path="res://assets/shaders/outline.gdshader" id="4_a7eud"]
+[ext_resource type="PackedScene" uid="uid://6qvq4woher3a" path="res://assets/battle/stage/dice/dice.glb" id="1_ivfsi"]
+[ext_resource type="Script" uid="uid://crup472mvwn8o" path="res://assets/battle/stage/dice/dice.gd" id="2_od8af"]
+[ext_resource type="Shader" uid="uid://bjns65a1m7iph" path="res://assets/shaders/outline.gdshader" id="3_ev46y"]
+[ext_resource type="Shader" uid="uid://b18qduvb22s3i" path="res://assets/shaders/highlight.gdshader" id="4_7lrsx"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jx3rm"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hqdax"]
 render_priority = 0
-shader = ExtResource("3_a420a")
+shader = ExtResource("3_ev46y")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_j4q3a"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i2jq5"]
 render_priority = 0
-next_pass = SubResource("ShaderMaterial_jx3rm")
-shader = ExtResource("4_a7eud")
+next_pass = SubResource("ShaderMaterial_hqdax")
+shader = ExtResource("4_7lrsx")
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_kqj45"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_lb6vb"]
 size = Vector3(2.1, 2.1, 2.1)
 
-[node name="Dice" unique_id=1602974280 instance=ExtResource("1_w4w7p")]
-transform = Transform3D(0, 1, 0, -0.99999994, 0, 0, 0, 0, 0.99999994, 0, 0, 0)
-rotation_edit_mode = 1
-script = ExtResource("2_kqj45")
+[node name="Dice" unique_id=1202253257 instance=ExtResource("1_ivfsi")]
+script = ExtResource("2_od8af")
 
-[node name="Cube" parent="." index="0" unique_id=867073154]
-rotation_edit_mode = 1
-material_overlay = SubResource("ShaderMaterial_j4q3a")
+[node name="Dice" parent="." index="0" unique_id=956979385]
+material_overlay = SubResource("ShaderMaterial_i2jq5")
 
-[node name="StaticBody" type="StaticBody3D" parent="." index="1" unique_id=1360262556]
+[node name="StaticBody" type="StaticBody3D" parent="." index="1" unique_id=1956003581]
 
-[node name="CollisionShape" type="CollisionShape3D" parent="StaticBody" index="0" unique_id=749642592]
-shape = SubResource("BoxShape3D_kqj45")
+[node name="CollisionShape" type="CollisionShape3D" parent="StaticBody" index="0" unique_id=422499596]
+shape = SubResource("BoxShape3D_lb6vb")
 
-[node name="Camera3D" type="Camera3D" parent="." index="2" unique_id=1983151979]
+[node name="Camera3D" type="Camera3D" parent="." index="2" unique_id=1107806477]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2828426, 6.338654)
 top_level = true
 visible = false

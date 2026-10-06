@@ -28,18 +28,28 @@ const THROW_HEIGHT := 8
 		_enable_dice(value)
 
 
+# ## Lista de cuaterniones para rotar el dado a cada número del 1 al 6
+# @onready var ROTATIONS := {
+# 	1: Basis(Vector3.DOWN, Vector3.RIGHT, Vector3.BACK).get_rotation_quaternion(),
+# 	2: Quaternion.IDENTITY,
+# 	3: Basis(Vector3.RIGHT, Vector3.BACK, Vector3.DOWN).get_rotation_quaternion(),
+# 	4: Basis(Vector3.RIGHT, Vector3.FORWARD, Vector3.UP).get_rotation_quaternion(),
+# 	5: Basis(Vector3.RIGHT, Vector3.DOWN, Vector3.FORWARD).get_rotation_quaternion(),
+# 	6: Basis(Vector3.UP, Vector3.LEFT, Vector3.BACK).get_rotation_quaternion(),
+# }
+
 ## Lista de cuaterniones para rotar el dado a cada número del 1 al 6
 @onready var ROTATIONS := {
-	1: Basis(Vector3.DOWN, Vector3.RIGHT, Vector3.BACK).get_rotation_quaternion(),
-	2: Quaternion.IDENTITY,
-	3: Basis(Vector3.RIGHT, Vector3.BACK, Vector3.DOWN).get_rotation_quaternion(),
-	4: Basis(Vector3.RIGHT, Vector3.FORWARD, Vector3.UP).get_rotation_quaternion(),
-	5: Basis(Vector3.RIGHT, Vector3.DOWN, Vector3.FORWARD).get_rotation_quaternion(),
-	6: Basis(Vector3.UP, Vector3.LEFT, Vector3.BACK).get_rotation_quaternion(),
+	1: Quaternion.IDENTITY,
+	2: Basis(Vector3.RIGHT, Vector3.FORWARD, Vector3.UP).get_rotation_quaternion(),
+	3: Basis(Vector3.UP, Vector3.LEFT, Vector3.BACK).get_rotation_quaternion(),
+	4: Basis(Vector3.DOWN, Vector3.RIGHT, Vector3.BACK).get_rotation_quaternion(),
+	5: Basis(Vector3.RIGHT, Vector3.BACK, Vector3.DOWN).get_rotation_quaternion(),
+	6: Basis(Vector3.RIGHT, Vector3.DOWN, Vector3.FORWARD).get_rotation_quaternion(),
 }
 
 ## Elemento visual (cubo con la textura)
-@onready var cube: MeshInstance3D = $Cube
+@onready var cube: MeshInstance3D = $Dice
 ## Hitbox para habilitar o desabilitar el clic
 @onready var static_body: StaticBody3D = $StaticBody
 
