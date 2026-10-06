@@ -9,9 +9,10 @@
         "usernamehw.errorlens", // Muestra errores en línea
         "christian-kohler.path-intellisense", // Autocompletado de rutas
         "MS-CEINTL.vscode-language-pack-es", // Español para VSCode
-        "mhutchie.git-graph", // Grafo para ver el árbol de Git
+        "the0807.git-graph-plus", // Grafo para ver el árbol de Git
         // Herramientas
         "yzhang.markdown-all-in-one", // Mejor soporte para Markdown
-        "ms-dotnettools.csharp" // Soporte C# (opcional)
+        "ms-dotnettools.csharp", // Soporte C# (opcional)
+        "github.vscode-pull-request-github" // Soporte GitHub
     ]
 }
