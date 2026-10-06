@@ -10,7 +10,7 @@
 
 **Beast Card Clash** es juego de cartas por turnos inspirado en Card Jitsu Fuego de Club Penguin. Con un estilo visual animado, los jugadores pueden explorar un mundo abierto que recrea parcialmente a la Universidad Nacional de Colombia y algunas de sus facultades como equipos de deportes en un universo alternativo mientras van progresando en una historia inmersiva.
 
-🌱 Desarrollado por [BCC DevTeam](#integrantes-de-bcc-devteam)
+🌱 Desarrollado por [Veld Bears](#integrantes-de-bcc-devteam)
 
 ## 🎮 Resumen
 Beast Card Clash contiene o plantea contener:
@@ -26,9 +26,9 @@ La documentación de este proyecto lo encuentras en la carpeta de [documentació
 En la [guía de contribución](./CONTRIBUTING.md) te explicamos como aportar adecuadamente en el desarrollo de este juego.
 
 ## 🧠 Créditos y licencia
-Beast Card Clash es desarrollado por **BCC DevTeam**, un equipo de desarrollo dentro de GDD, el grupo estudiantil de desarrollo de videojuegos de la Universidad Nacional de Colombia. _El nombre del equipo es temporal_.
+Beast Card Clash es desarrollado por **Veld Bears**, un equipo de desarrollo dentro de GDD, el grupo estudiantil de desarrollo de videojuegos de la Universidad Nacional de Colombia.
 
-> ### Integrantes de BCC DevTeam
+> ### Integrantes de Veld Bears
 >
 > **Activos**
 > - Hayran Andrés López (el Ralsei) -> Programador

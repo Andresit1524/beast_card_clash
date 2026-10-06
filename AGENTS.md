@@ -1,4 +1,3 @@
-# Beast Card Clash - Guía del Agente Gemini
 Este archivo proporciona instrucciones y contexto crítico para trabajar en Beast Card Clash (BCC). BCC es un juego de cartas por turnos hecho en Godot 4.7. Inspirado en Card Jitsu Fuego, con temática de fauna colombiana y ambientación en la Universidad Nacional de Colombia. Utiliza una estética 2D.
 
 - Motor: Godot 4.7 stable mono
@@ -37,6 +36,3 @@ Este archivo proporciona instrucciones y contexto crítico para trabajar en Beas
 - Señales: Sigue el patrón de conexión en `_ready()` o vía inspector, priorizando el desacoplamiento y consistencia.
 - Rutas: Usa `uid://` preferiblemente para recursos de Godot para evitar problemas con cambios de ruta.
 
----
-
-Este archivo es una guía viva para el agente Gemini. Actualízalo si descubres nuevos patrones o herramientas.
