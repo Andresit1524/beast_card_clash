@@ -120,11 +120,13 @@ alignment = 1
 [node name="Content" type="RichTextLabel" parent="ScrollContainer/CenterContainer/Contents/RightColumn" unique_id=375199011]
 layout_mode = 2
 bbcode_enabled = true
-text = "[font_size=24]Diseños, arte y animación en 3D (para la demo en Unity)[/font_size]
-Fabián Montes [i](Movido51)
+text = "[font_size=24]Diseños, arte y animación en 3D)[/font_size]
+Hayran Andrés López
+Fabián Montes [i](Movido51)[/i] (para Unity)
 
-[/i][font_size=24]Diseño de interfaz[/font_size]
-Hayran Andrés López y Lucía Rocco (Godot)
+[font_size=24]Diseño de interfaz[/font_size]
+Hayran Andrés López
+Lucía Rocco
 David García (Unity)"
 fit_content = true
 autowrap_mode = 2
@@ -158,7 +160,7 @@ stretch_mode = 5
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 bbcode_enabled = true
-text = "Por BCC DevTeam
+text = "Por Veld Beats
 un equipo de GDD (antes UN-GAMES)
 
 [b]© 2025 - 2026[/b]"
