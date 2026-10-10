@@ -7,6 +7,12 @@ class_name BattleUI extends Control
 signal card_selected(card: Card)
 
 
+## Fondos para el juego
+@export var backgrounds: Dictionary[StringName, Texture2D]
+
+
+## Fondo de batalla
+@onready var background: TextureRect = %Background
 ## Mano de las cartas
 @onready var hand: Hand = %Hand
 ## Panel del jugador
@@ -19,6 +25,11 @@ signal card_selected(card: Card)
 @onready var end_ui: EndUI = %End
 ## Datos de la batalla
 @onready var battle_data: BattleData = %BattleData
+
+
+func _ready() -> void:
+	# ! Elige fondo al azar (temporal)
+	background.texture = backgrounds.values().pick_random()
 
 
 #region Baraja de cartas

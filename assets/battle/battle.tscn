@@ -6,12 +6,18 @@
 [ext_resource type="Script" uid="uid://0qb4hgslax58" path="res://assets/battle/ui/battle_ui.gd" id="1_tlmnd"]
 [ext_resource type="PackedScene" uid="uid://dogb8dy8s5bsc" path="res://assets/cards/card.tscn" id="2_6cxqy"]
 [ext_resource type="Curve2D" uid="uid://sagpx5alf1g6" path="res://assets/battle/ui/resources/hand_hidden_curve.tres" id="2_45g41"]
+[ext_resource type="Texture2D" uid="uid://df4y8iens7eyf" path="res://assets/battle/ui/backgrounds/battle_bg_humanas.png" id="2_kn2os"]
 [ext_resource type="Curve2D" uid="uid://ep3owys640jk" path="res://assets/battle/ui/resources/hand_normal_curve.tres" id="2_vomrt"]
 [ext_resource type="Script" uid="uid://drdwdoxs6lwwi" path="res://assets/battle/battle_manager.gd" id="3_6cxqy"]
+[ext_resource type="Texture2D" uid="uid://bs1tardn0ci5e" path="res://assets/battle/ui/backgrounds/battle_bg_perola.png" id="4_3cked"]
 [ext_resource type="Shader" uid="uid://d0xpw5q8ey1n6" path="res://assets/shaders/blur.gdshader" id="5_5m5wa"]
+[ext_resource type="Texture2D" uid="uid://c5a51gotconx3" path="res://assets/battle/ui/backgrounds/battle_bg_playita.png" id="5_61s70"]
 [ext_resource type="Theme" uid="uid://djsw6wrf4tns" path="res://assets/ui/themes/main_theme.tres" id="5_thu85"]
+[ext_resource type="Texture2D" uid="uid://b5w5dvdheo662" path="res://assets/battle/ui/backgrounds/battle_bg_ingeniería.png" id="6_2uvdl"]
 [ext_resource type="Script" uid="uid://dnhyvmfljit8f" path="res://assets/battle/ui/end_ui.gd" id="6_ey58u"]
 [ext_resource type="LabelSettings" uid="uid://ctvu5dp4p0kjm" path="res://assets/ui/themes/title_theme.tres" id="7_sdhuf"]
+[ext_resource type="Texture2D" uid="uid://tod53ocj4td" path="res://assets/battle/ui/backgrounds/battle_bg_pasto.png" id="7_xuxuv"]
+[ext_resource type="Texture2D" uid="uid://c6sey22ds5fs6" path="res://assets/battle/ui/backgrounds/battle_bg_nea.png" id="8_r620f"]
 [ext_resource type="PackedScene" uid="uid://dleubuyqowf33" path="res://assets/battle/ui/components/podium_panel.tscn" id="8_w7fa3"]
 [ext_resource type="Script" uid="uid://clvjxwv8w7kt0" path="res://assets/battle/states/start.gd" id="10_5m5wa"]
 [ext_resource type="Script" uid="uid://bd5jv2qpva2t0" path="res://assets/battle/states/turn.gd" id="12_45g41"]
@@ -60,14 +66,17 @@ metadata/_edit_vertical_guides_ = [320.0, 832.0, 32.0, 1120.0, 104.0]
 [node name="Background" type="CanvasLayer" parent="." unique_id=1962356091]
 layer = -1
 
-[node name="Background" type="ColorRect" parent="Background" unique_id=199459485]
+[node name="Background" type="TextureRect" parent="Background" unique_id=505394236]
+unique_name_in_owner = true
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0.88, 0.7892429, 0.67759997, 1)
+texture = ExtResource("5_61s70")
+expand_mode = 1
+stretch_mode = 6
 metadata/_edit_lock_ = true
 
 [node name="UILayer" type="CanvasLayer" parent="." unique_id=651321992]
@@ -83,6 +92,14 @@ grow_vertical = 2
 mouse_filter = 1
 theme = ExtResource("5_thu85")
 script = ExtResource("1_tlmnd")
+backgrounds = Dictionary[StringName, Texture2D]({
+&"humanas": ExtResource("2_kn2os"),
+&"ingenieria": ExtResource("6_2uvdl"),
+&"nea": ExtResource("8_r620f"),
+&"pasto": ExtResource("7_xuxuv"),
+&"perola": ExtResource("4_3cked"),
+&"playita": ExtResource("5_61s70")
+})
 
 [node name="Battle" type="Control" parent="UILayer/UI" unique_id=99794430]
 layout_mode = 1
