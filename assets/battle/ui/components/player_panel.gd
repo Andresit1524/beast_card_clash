@@ -50,7 +50,7 @@ const REFRESH_HEALTH_TIME := 0.5
 ## Barra de vida
 @onready var life_bar: ProgressBar = %LifeBar
 ## Valor de la vida
-@onready var life_label: RichTextLabel = %LifeValue
+@onready var life_label: Label = %LifeValue
 
 ## Escala base de la carta, para las animaciones
 @onready var base_card_scale := card_texture.scale
@@ -70,15 +70,13 @@ func refresh_panel() -> void:
 	name_label.text = player_name if player_name else "Sin nombre"
 	team_texture.texture = TeamIcons.get_team(team)
 
-	# Actualiza la barra de vida
-	# Si la vida bajo, hace un efecto de destello en rojo
-	var color2 := Color.WHITE if health > 0 else Color.RED
-	if life_bar.value > health:
-		modulate = Color.RED
+	# Efecto de destello
+	if life_bar.value != health:
+		modulate = Color.RED if life_bar.value > health else Color.GREEN
 		tween.tween_property(self, "modulate", Color.WHITE, REFRESH_HEALTH_TIME)
 
 	tween.tween_property(life_bar, "value", health, REFRESH_HEALTH_TIME)
-	life_label.text = "[color=%s]%s[/color]" % [color2.to_html(), health]
+	life_label.text = str(health)
 
 
 ## Actualiza la carta

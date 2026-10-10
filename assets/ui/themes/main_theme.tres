@@ -1,6 +1,7 @@
 [gd_resource type="Theme" format=3 uid="uid://djsw6wrf4tns"]
 
 [ext_resource type="FontFile" uid="uid://7afj2g1cbx0x" path="res://assets/fonts/delius.ttf" id="1_ey3j3"]
+[ext_resource type="Texture2D" uid="uid://dpjp4hfileygi" path="res://assets/ui/components/panel_bg.png" id="1_iml4p"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_iml4p"]
 
@@ -56,22 +57,26 @@ corner_radius_bottom_left = 20
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ryn8q"]
 bg_color = Color(0, 0, 0, 0)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gqphy"]
-bg_color = Color(0.1408, 0.44, 0.17071998, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ey3j3"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+texture = ExtResource("1_iml4p")
+texture_margin_left = 18.0
+texture_margin_top = 18.0
+texture_margin_right = 18.0
+texture_margin_bottom = 18.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6devt"]
-bg_color = Color(0.5544, 0.77, 0.57596, 1)
+bg_color = Color(0.9882353, 0.96862745, 0.92156863, 1)
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rqeb3"]
-bg_color = Color(0.17250001, 0.75, 0.2398751, 1)
+bg_color = Color(0.4392157, 0.2901961, 0.23921569, 1)
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -80,8 +85,8 @@ corner_radius_bottom_left = 16
 [resource]
 default_font = ExtResource("1_ey3j3")
 default_font_size = 20
-Button/colors/font_color = Color(0.19215687, 0.34117648, 0.17254902, 1)
-Button/colors/font_disabled_color = Color(0.19283667, 0.34, 0.1734, 0.5019608)
+Button/colors/font_color = Color(0.4392157, 0.2901961, 0.23921569, 1)
+Button/colors/font_disabled_color = Color(0.4392157, 0.28627452, 0.23921569, 0.5019608)
 Button/colors/font_focus_color = Color(0.9254902, 0.9529412, 0.61960787, 1)
 Button/colors/font_hover_color = Color(0.9254902, 0.9529412, 0.61960787, 1)
 Button/colors/font_hover_pressed_color = Color(0.9254902, 0.9529412, 0.61960787, 1)
@@ -93,7 +98,7 @@ Button/styles/hover = SubResource("StyleBoxFlat_ey3j3")
 Button/styles/hover_pressed = SubResource("StyleBoxFlat_xvgg5")
 Button/styles/normal = SubResource("StyleBoxFlat_iml4p")
 Button/styles/pressed = SubResource("StyleBoxFlat_gx1cm")
-Label/colors/font_color = Color(0.19215687, 0.34117648, 0.17254902, 1)
+Label/colors/font_color = Color(0.4392157, 0.2901961, 0.23921569, 1)
 Label/font_sizes/font_size = 20
 LineEdit/colors/caret_color = Color(0.8627451, 0.8156863, 0.65882355, 1)
 LineEdit/colors/font_color = Color(0.9254902, 0.9529412, 0.61960787, 1)
@@ -104,10 +109,10 @@ MarginContainer/constants/margin_bottom = 16
 MarginContainer/constants/margin_left = 16
 MarginContainer/constants/margin_right = 16
 MarginContainer/constants/margin_top = 16
-PanelContainer/styles/panel = SubResource("StyleBoxFlat_gqphy")
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_ey3j3")
 ProgressBar/styles/background = SubResource("StyleBoxFlat_6devt")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_rqeb3")
-RichTextLabel/colors/default_color = Color(0.19215687, 0.34117648, 0.17254902, 1)
+RichTextLabel/colors/default_color = Color(0.4392157, 0.2901961, 0.23921569, 1)
 RichTextLabel/font_sizes/bold_font_size = 20
 RichTextLabel/font_sizes/bold_italics_font_size = 20
 RichTextLabel/font_sizes/italics_font_size = 20

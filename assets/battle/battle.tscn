@@ -67,7 +67,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0.49929276, 0.70387197, 0.44451645, 1)
+color = Color(0.88, 0.7892429, 0.67759997, 1)
 metadata/_edit_lock_ = true
 
 [node name="UILayer" type="CanvasLayer" parent="." unique_id=651321992]
@@ -206,13 +206,13 @@ size_flags_vertical = 3
 [node name="ContinueButton" type="Button" parent="UILayer/UI/Pause/Contents/Buttons" unique_id=1644976826]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.49803922, 0.7019608, 0.44313726, 1)
+theme_override_colors/font_color = Color(0.9998151, 0.9742534, 0.88785017, 1)
 text = "Continuar"
 
 [node name="BackButton" type="Button" parent="UILayer/UI/Pause/Contents/Buttons" unique_id=1974290690]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.49803922, 0.7019608, 0.44313726, 1)
+theme_override_colors/font_color = Color(0.9998151, 0.9742534, 0.88785017, 1)
 text = "Salir al menú principal"
 
 [node name="End" type="Control" parent="UILayer/UI" unique_id=271450613]
@@ -272,6 +272,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Space" type="Control" parent="UILayer/UI/End/EndPanel/MarginContainer/Contents" unique_id=742735063]
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
@@ -301,7 +302,6 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_colors/font_color = Color(0.972549, 0.8862745, 0.7372549, 1)
 text = "Salir"
 
 [node name="BattleData" type="Node" parent="." unique_id=1350346319]
