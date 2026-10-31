@@ -11,7 +11,7 @@ Para contribuir al desarrollo de BCC, asegúrate de tener lo siguiente:
 - Un editor de código como Visual Studio Code (recomendado).
 
 ## Flujo de Trabajo: Colaboración Directa
-Este proyecto utiliza un modelo de colaboración directa. Para poder enviar cambios, necesitas ser añadido como colaborador en el repositorio. Avísale a [Andresit1524 en GitHub](https://github.com/Andresit1524) para solicitar acceso.
+Este proyecto utiliza un modelo de colaboración directa. Para poder enviar cambios, necesitas ser añadido como colaborador en el repositorio. Avísale a [@Andresit1524](https://github.com/Andresit1524) para solicitar acceso.
 
 Una vez que seas colaborador, podrás crear ramas directamente en el repositorio. ¡Cuida las ramas principales!
 

@@ -1,6 +1,8 @@
 MIT License
 
-Copyright (c) 2026 [Veld Bears](./README.md#integrantes-de-bcc-devteam)
+**(only for source code)**
+
+Copyright (c) 2026 [@Andresit1524](https://github.com/Andresit1524)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
